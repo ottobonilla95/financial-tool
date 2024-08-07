@@ -1,13 +1,13 @@
-import SideNav from "@/app/ui/dashboard/sidenav";
+import SideNav from "@/src/ui/dashboard/sidenav";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Acme Dashboard",
-    default: "Acme Dashboard",
+    template: "%s | Track My Spend",
+    default: "TrackMySpend: Herramienta de Seguimiento de Gastos y Ganancias",
   },
-  description: "The official Next.js Learn Dashboard built with App Router.",
-  metadataBase: new URL("https://next-learn-dashboard.vercel.sh"),
+  description:
+    "Descubre TrackMySpend, la aplicación de gestión financiera que te permite seguir tus gastos y ganancias de manera fácil y eficiente. Organiza tus finanzas con categorías y subcategorías personalizables. ¡Empieza a gestionar tu dinero hoy mismo en www.trackmyspend.co!",
 };
 
 export const experimental_ppr = true;
