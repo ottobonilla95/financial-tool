@@ -1,5 +1,5 @@
 import { Expense } from "@/src/types";
-import { ExpenseTable } from "../molecules";
+import { ExpenseTable } from "../components/molecules";
 
 export type ExpensesWrapperProps = {
   expenses: Expense[];

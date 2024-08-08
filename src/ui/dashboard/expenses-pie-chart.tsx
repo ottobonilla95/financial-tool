@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo } from "react";
 import { AgCharts, AgChartProps } from "ag-charts-react";
 import { Expense } from "@/src/types";
 
@@ -35,24 +35,26 @@ const calculateTotalPerCategory = (expenses: Expense[]): CategoryTotal[] => {
 export const ExpensesPieChart = ({ expenses }: PieChartProps) => {
   const data = calculateTotalPerCategory(expenses);
 
-  const [props, setProps] = useState<AgChartProps>({
-    options: {
-      data,
-      series: [
-        {
-          type: "pie",
-          angleKey: "amount",
-          calloutLabelKey: "category",
-          sectorLabelKey: "amount",
-          sectorLabel: {
-            color: "white",
-            fontWeight: "bold",
+  const props = useMemo<AgChartProps>(() => {
+    return {
+      options: {
+        data,
+        series: [
+          {
+            type: "pie",
+            angleKey: "amount",
+            calloutLabelKey: "category",
+            sectorLabelKey: "amount",
+            sectorLabel: {
+              color: "white",
+              fontWeight: "bold",
+            },
+            fills: data.map((d) => d.color),
           },
-          fills: data.map((d) => d.color),
-        },
-      ],
-    },
-  });
+        ],
+      },
+    };
+  }, [data]);
 
-  return <AgCharts options={props.options} />;
+  return <AgCharts options={props.options} className="h-[400px]" />;
 };

@@ -1,0 +1,80 @@
+"use client";
+
+import Select, { NoticeProps, components, OptionProps } from "react-select";
+import { PlusIcon } from "@heroicons/react/24/outline";
+
+export type DropdownProps = {
+  options: { label: string; value: string }[];
+  onChange: (option: { label: string; value: string }) => void;
+  onAddNewClick?: () => void;
+};
+
+export const Dropdown = ({
+  options,
+  onChange,
+  onAddNewClick,
+}: DropdownProps) => {
+  const NoOptionsMessage = ({ children, ...props }: NoticeProps) => {
+    return (
+      <components.NoOptionsMessage
+        {...props}
+        innerProps={{ ...props.innerProps, onClick: onAddNewClick }}
+      >
+        <div className="flex text-sm cursor-pointer hover:bg-blue-300 px-4 text-black py-1">
+          <PlusIcon className="w-4 mr-1" />
+          Agregar
+        </div>
+      </components.NoOptionsMessage>
+    );
+  };
+
+  const Option = ({ innerProps, ...props }: OptionProps) => {
+    if (props.label === "add") {
+      return (
+        <components.Option
+          innerProps={{ ...innerProps, onClick: onAddNewClick }}
+          {...props}
+        >
+          <div className="flex">
+            <PlusIcon className="w-4 mr-1" />
+            Agregar
+          </div>
+        </components.Option>
+      );
+    }
+
+    return <components.Option innerProps={innerProps} {...props} />;
+  };
+  return (
+    <Select
+      options={[
+        ...options,
+        {
+          value: "add",
+          label: "add",
+        },
+      ]}
+      isClearable
+      styles={{
+        control: (baseStyles, state) => ({
+          ...baseStyles,
+          fontSize: 14,
+          outline: "none",
+        }),
+        option: (baseStyles, state) => ({
+          ...baseStyles,
+          fontSize: 14,
+        }),
+        noOptionsMessage: (base) => ({
+          ...base,
+          cursor: "pointer",
+          padding: 0,
+        }),
+      }}
+      onChange={(option) => {
+        onChange(option as { label: string; value: string });
+      }}
+      components={{ NoOptionsMessage, Option }}
+    />
+  );
+};

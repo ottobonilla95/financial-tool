@@ -1,23 +1,27 @@
-import Form from "@/src/ui/invoices/create-form";
-import Breadcrumbs from "@/src/ui/invoices/breadcrumbs";
-import { fetchCustomers } from "@/src/lib/data";
+import Form from "@/src/ui/expenses/create-form";
+import { Breadcrumbs } from "@/src/ui/components";
+import { fetchCategories } from "@/src/data/categories";
+import { auth } from "@/auth";
 
 export default async function Page() {
-  const customers = await fetchCustomers();
+  const session = await auth();
+  const userId = session?.user?.id as string;
+
+  const categories = await fetchCategories(userId);
 
   return (
     <main>
       <Breadcrumbs
         breadcrumbs={[
-          { label: "Invoices", href: "/dashboard/invoices" },
+          { label: "Gastos", href: "/dashboard/invoices" },
           {
-            label: "Create Invoice",
+            label: "Agregar",
             href: "/dashboard/invoices/create",
             active: true,
           },
         ]}
       />
-      <Form customers={customers} />
+      <Form categories={categories} />
     </main>
   );
 }

@@ -51,7 +51,7 @@ export const ExpenseTable = ({
               <div key={expense.id} className="grid grid-cols-4">
                 <div className="font-medium">{expense.description}</div>
                 <div className="col-span-2 text-center">
-                  {expense.createdAt.toDateString()}
+                  {expense.expenseDate.toDateString()}
                 </div>
                 <div className="flex justify-end"> {expense.amount}</div>
               </div>
