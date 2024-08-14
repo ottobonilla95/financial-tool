@@ -1,13 +1,28 @@
 
+- FIx expenses tales height
+
+- add savings option.
+- agregar emocioes.
+- add earnings
+
+- users sign up
+
+- Autocomplete description expense
+- remove menu items.. ad just empty for now.
 
 
 
+- poder ver subcategorias en grafico.
+- Editar categorias y sub
+- Calendario en pagina principal.
+- Editar gasto
+- Add proper overlays to modals.
 
+ategorieas form
 
+- zona de graficos de totales.
+- al agregar un gasto que se vaya con la fecha del mes en el que estoy.
 
+update expense_category set color = '#ff9524' where id = 'cf51867f-b995-44d7-867b-c423815560a1';
 
-
-
-- en ves de sacar el ususario de ahi del form action pasarlo por bind
-- psar por bind la url para retornar 
-- 
+#ffc524

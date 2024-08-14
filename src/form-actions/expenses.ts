@@ -4,7 +4,9 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
-import { createDbExpense } from "../data/expenses/create-expense";
+
+import { updateLastUpdated } from "../data/user";
+import { deleteDbExpense, createDbExpense } from "../data/expenses";
 
 export type State = {
   errors?: {
@@ -47,15 +49,22 @@ const FormSchema = z.object({
     .uuid({ message: "Selecciona una sub categoría." }),
 });
 
-const CreateInvoice = FormSchema.omit({ id: true });
-const UpdateInvoice = FormSchema.omit({ id: true, date: true });
+const CreateExpense = FormSchema.omit({ id: true });
+const DeleteExpense = FormSchema.omit({
+  description: true,
+  amount: true,
+  date: true,
+  categoryId: true,
+  subCategoryId: true,
+});
+// const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 
 export async function createExpense(prevState: State, formData: FormData) {
   const session = await auth();
   const userId = session?.user?.id as string;
 
   // Validate form using Zod
-  const validatedFields = CreateInvoice.safeParse({
+  const validatedFields = CreateExpense.safeParse({
     description: formData.get("description"),
     date: formData.get("date"),
     amount: formData.get("amount"),
@@ -64,15 +73,6 @@ export async function createExpense(prevState: State, formData: FormData) {
     status: formData.get("status"),
   });
 
-  console.log({
-    description: formData.get("description"),
-    date: formData.get("date"),
-    amount: formData.get("amount"),
-    categoryId: formData.get("categoryId"),
-    subCategoryId: formData.get("subCategoryId"),
-    status: formData.get("status"),
-  });
-  console.log(validatedFields);
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
     return {
@@ -87,30 +87,82 @@ export async function createExpense(prevState: State, formData: FormData) {
   // Prepare data for insertion into the database
   const { description, amount, date, categoryId, subCategoryId } =
     validatedFields.data;
-  const amountInCents = amount * 100;
 
   // Insert data into the database
   try {
     await createDbExpense({
       userId,
-      amount: amountInCents,
+      amount,
       categoryId,
       subCategoryId,
       description,
       date: new Date(date),
     });
+    await updateLastUpdated({
+      userId,
+    });
   } catch (error) {
     return {
       message: {
-        text: "Database Error: Failed to Create Invoice.",
+        text: "Database Error: Failed to Create Expense.",
+        type: "error",
+      },
+    };
+  }
+  revalidatePath("/dashboard");
+
+  return {
+    message: {
+      text: "Expense Created Successfully.",
+      type: "success",
+    },
+  };
+}
+
+export async function deleteExpense(prevState: State, formData: FormData) {
+  const session = await auth();
+  const userId = session?.user?.id as string;
+
+  // Validate form using Zod
+  const validatedFields = DeleteExpense.safeParse({
+    id: formData.get("expenseId"),
+  });
+
+  // If form validation fails, return errors early. Otherwise, continue.
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: {
+        text: "Database Error: Failed to delete expense.",
         type: "error",
       },
     };
   }
 
+  const { id } = validatedFields.data;
+
+  try {
+    await deleteDbExpense({
+      userId,
+      expenseId: id,
+    });
+    await updateLastUpdated({
+      userId,
+    });
+  } catch (error) {
+    return {
+      message: {
+        text: "Database Error: Failed to delete expense.",
+        type: "error",
+      },
+    };
+  }
+
+  revalidatePath("/dashboard");
+
   return {
     message: {
-      text: "Invoice Created Successfully.",
+      text: "Expense deleted Successfully.",
       type: "success",
     },
   };

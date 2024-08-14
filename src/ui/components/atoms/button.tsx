@@ -20,7 +20,7 @@ export const Button = ({
   const className = clsx(
     "flex h-10 px-3 items-center justify-center rounded-md border",
     {
-      "pointer-events-none text-gray-300": isDisabled,
+      "pointer-events-none text-gray-300 bg-gray-100": isDisabled,
       "hover:bg-gray-100": !isDisabled,
     }
   );

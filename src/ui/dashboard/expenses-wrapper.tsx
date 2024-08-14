@@ -1,5 +1,5 @@
 import { Expense } from "@/src/types";
-import { ExpenseTable } from "../components/molecules";
+import { ExpenseTable } from "./expense-table";
 
 export type ExpensesWrapperProps = {
   expenses: Expense[];
@@ -27,7 +27,7 @@ export const ExpensesWrapper = ({ expenses }: ExpensesWrapperProps) => {
   const expensesByCategory = splitByCategoryAndSubcategory(expenses);
 
   return (
-    <div className="gap-4 flex">
+    <div className="gap-4 grid grid-cols-1 sm:grid-cols-3 grid-flow-dense">
       {Object.entries(expensesByCategory).map(
         ([categoryName, subcategories]) => (
           <ExpenseTable

@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { startOfMonth, endOfMonth } from "date-fns";
+import { Expense } from "@/src/types";
 
 const prisma = new PrismaClient();
 
@@ -67,14 +68,12 @@ export async function fetchMonthExpenses(
   }
 }
 
-import { Expense } from "@/src/types";
-
 export const mapExpense = (expense: Data): Expense => {
   return {
     id: expense.id,
     expenseDate: new Date(expense.expense_date || ""),
     description: expense.description || "",
-    amount: expense.amount.toString(),
+    amount: expense.amount,
     category: {
       id: expense.expensecategory?.id || "",
       name: expense.expensecategory?.name || "",

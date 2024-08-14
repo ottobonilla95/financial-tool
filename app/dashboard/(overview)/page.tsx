@@ -1,12 +1,16 @@
-import { lusitana } from "@/src/styles/fonts";
 import { fetchMonthExpenses } from "@/src/data/expenses";
 import { auth } from "@/auth";
 import {
-  DashboardButtons,
   DashboardDatePicker,
   ExpensesPieChart,
   ExpensesWrapper,
+  DashboardTotals,
+  LastUpdated,
+  DashboardButtons,
 } from "@/src/ui/dashboard";
+
+import { Suspense } from "react";
+import { Spinner } from "@/src/ui/components";
 
 export type DashboardPageProps = {
   searchParams: {
@@ -27,16 +31,23 @@ export default async function Page({ searchParams }: DashboardPageProps) {
 
   return (
     <main>
-      <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
-        Dashboard
-      </h1>
-      <DashboardButtons />
+      sdf
+      {/* <Suspense fallback={<div>loading...</div>}>
+        <LastUpdated />
+      </Suspense>
+      <div className="h-5" />
+
+      <Suspense fallback={<div>loading...</div>}>
+        <DashboardButtons />
+      </Suspense>
+
+      <DashboardTotals expenses={expenses} />
       <DashboardDatePicker />
       <div className="w-full">
         <ExpensesPieChart expenses={expenses} />
-      </div>
+      </div> */}
       <div>
-        <ExpensesWrapper expenses={expenses} />
+        {/* <ExpensesWrapper expenses={expenses} /> */}
       </div>
     </main>
   );
