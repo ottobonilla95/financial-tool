@@ -2,7 +2,7 @@ export type Category = {
   id: string;
   name: string;
   color: string;
-  subcategories: {
+  subcategories?: {
     id: string;
     name: string;
   }[];
