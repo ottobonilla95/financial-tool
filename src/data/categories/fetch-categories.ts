@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClien } from "@prisma/client";
 import { Category } from "@/src/types";
 
 const prisma = new PrismaClient();
@@ -10,6 +10,7 @@ export type Data = {
     id: string;
     name: string;
   }[];
+  color: string;
 };
 
 export async function fetchCategories(userId: string) {
@@ -24,13 +25,16 @@ export async function fetchCategories(userId: string) {
             name: true,
           },
         },
+        color: true,
       },
       where: {
         user_id: userId,
       },
     });
 
-    const categories = data.map((category) => mapCategory({ ...category }));
+    const categories = data.map((category: Data) =>
+      mapCategory({ ...category })
+    );
     return categories;
   } catch (error) {
     console.error("Database Error:", error);
@@ -46,5 +50,6 @@ export const mapCategory = (expense: Data): Category => {
       id: subcategory.id,
       name: subcategory.name,
     })),
+    color: expense.color,
   };
 };
