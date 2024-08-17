@@ -9,7 +9,7 @@ export const DashboardTotals = ({ expenses }: DashboardTotalsProps) => {
     return expenses.reduce((acc, expense) => acc + expense.amount, 0);
   };
   return (
-    <div className="flex">
+    <div className="flex mb-5 sm:mb-0">
       <div className="flex bg-red-200 rounded">
         <div className="font-bold mr-4 bg-red-400 rounded px-2 py-1">
           Total gastos

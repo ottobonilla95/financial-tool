@@ -10,7 +10,6 @@ import {
 } from "@/src/ui/dashboard";
 
 import { Suspense } from "react";
-import { Spinner } from "@/src/ui/components";
 
 export type DashboardPageProps = {
   searchParams: {
@@ -31,8 +30,7 @@ export default async function Page({ searchParams }: DashboardPageProps) {
 
   return (
     <main>
-      sdf
-      {/* <Suspense fallback={<div>loading...</div>}>
+      <Suspense fallback={<div>loading...</div>}>
         <LastUpdated />
       </Suspense>
       <div className="h-5" />
@@ -42,12 +40,14 @@ export default async function Page({ searchParams }: DashboardPageProps) {
       </Suspense>
 
       <DashboardTotals expenses={expenses} />
+
       <DashboardDatePicker />
+
       <div className="w-full">
         <ExpensesPieChart expenses={expenses} />
-      </div> */}
+      </div>
       <div>
-        {/* <ExpensesWrapper expenses={expenses} /> */}
+        <ExpensesWrapper expenses={expenses} />
       </div>
     </main>
   );
