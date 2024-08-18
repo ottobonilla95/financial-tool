@@ -267,7 +267,7 @@ export const CreateExpenseForm = ({
                       <div className="relative">
                         <DatePicker
                           selected={startDate}
-                          onChange={(date) => setStartDate(date)}
+                          onChange={(date) => setStartDate(date as Date)}
                           maxDate={new Date()}
                           aria-describedby="date-error"
                           className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
