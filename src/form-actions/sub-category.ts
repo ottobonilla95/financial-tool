@@ -1,13 +1,12 @@
 "use server";
 
 import { z } from "zod";
-import { revalidatePath } from "next/cache";
 import { createDBSubCategory } from "../data/category";
 
-export type State = {
+export type SubCategoryFormState = {
   errors?: {
     name?: string[];
-    color?: string[];
+    categoryId?: string[];
   };
   message?: {
     text?: string;
@@ -16,6 +15,7 @@ export type State = {
 };
 
 const FormSchema = z.object({
+  id: z.string(),
   name: z.string({
     invalid_type_error: "Agrega un nombre.",
   }),
@@ -24,12 +24,14 @@ const FormSchema = z.object({
   }),
 });
 
-const CreateInvoice = FormSchema;
-// const UpdateInvoice = FormSchema.omit({ id: true, date: true });
+const CreateSubCategory = FormSchema.omit({ id: true });
 
-export async function createSubCategory(prevState: State, formData: FormData) {
+export async function createSubCategory(
+  prevState: SubCategoryFormState,
+  formData: FormData
+) {
   // Validate form using Zod
-  const validatedFields = CreateInvoice.safeParse({
+  const validatedFields = CreateSubCategory.safeParse({
     name: formData.get("name"),
     categoryId: formData.get("categoryId"),
   });
@@ -60,8 +62,6 @@ export async function createSubCategory(prevState: State, formData: FormData) {
       },
     };
   }
-
-  revalidatePath("/dashboard/expenses/create");
 
   return {
     message: {

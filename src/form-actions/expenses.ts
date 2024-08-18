@@ -2,13 +2,12 @@
 
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { auth } from "@/auth";
-
 import { updateLastUpdated } from "../data/user";
 import { deleteDbExpense, createDbExpense } from "../data/expenses";
+import { FormMessage } from "../types";
 
-export type State = {
+export type ExpenseFormState = {
   errors?: {
     description?: string[];
     amount?: string[];
@@ -16,11 +15,11 @@ export type State = {
     subCategoryId?: string[];
     date?: string[];
   };
-  message?: {
-    text?: string;
-    type?: string;
-  };
-};
+} & FormMessage;
+
+export type DeleteFormState = {
+  errors?: {};
+} & FormMessage;
 
 const FormSchema = z.object({
   id: z.string(),
@@ -57,9 +56,11 @@ const DeleteExpense = FormSchema.omit({
   categoryId: true,
   subCategoryId: true,
 });
-// const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 
-export async function createExpense(prevState: State, formData: FormData) {
+export async function createExpense(
+  prevState: ExpenseFormState,
+  formData: FormData
+) {
   const session = await auth();
   const userId = session?.user?.id as string;
 
@@ -78,7 +79,7 @@ export async function createExpense(prevState: State, formData: FormData) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: {
-        text: "Database Error: Failed to Create Invoice.",
+        text: "Database Error: Failed to Create Expense.",
         type: "error",
       },
     };
@@ -88,7 +89,6 @@ export async function createExpense(prevState: State, formData: FormData) {
   const { description, amount, date, categoryId, subCategoryId } =
     validatedFields.data;
 
-  // Insert data into the database
   try {
     await createDbExpense({
       userId,
@@ -113,13 +113,16 @@ export async function createExpense(prevState: State, formData: FormData) {
 
   return {
     message: {
-      text: "Expense Created Successfully.",
+      text: "Gasto agregado exitosamente.",
       type: "success",
     },
   };
 }
 
-export async function deleteExpense(prevState: State, formData: FormData) {
+export async function deleteExpense(
+  prevState: DeleteFormState,
+  formData: FormData
+) {
   const session = await auth();
   const userId = session?.user?.id as string;
 
@@ -167,48 +170,3 @@ export async function deleteExpense(prevState: State, formData: FormData) {
     },
   };
 }
-
-// export async function updateExpense(
-//   id: string,
-//   prevState: State,
-//   formData: FormData
-// ) {
-//   const validatedFields = UpdateInvoice.safeParse({
-//     customerId: formData.get("customerId"),
-//     amount: formData.get("amount"),
-//     status: formData.get("status"),
-//   });
-
-//   if (!validatedFields.success) {
-//     return {
-//       errors: validatedFields.error.flatten().fieldErrors,
-//       message: "Missing Fields. Failed to Update Invoice.",
-//     };
-//   }
-
-//   const { customerId, amount, status } = validatedFields.data;
-//   const amountInCents = amount * 100;
-
-//   try {
-//     await sql`
-//       UPDATE invoices
-//       SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
-//       WHERE id = ${id}
-//     `;
-//   } catch (error) {
-//     return { message: "Database Error: Failed to Update Invoice." };
-//   }
-
-//   revalidatePath("/dashboard/invoices");
-//   redirect("/dashboard/invoices");
-// }
-
-// export async function deleteExpense(id: string) {
-//   try {
-//     await sql`DELETE FROM invoices WHERE id = ${id}`;
-//     revalidatePath("/dashboard/invoices");
-//     return { message: "Deleted Invoice." };
-//   } catch (error) {
-//     return { message: "Database Error: Failed to Delete Invoice." };
-//   }
-// }

@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteExpense, State } from "@/src/form-actions/expenses";
+import { deleteExpense, DeleteFormState } from "@/src/form-actions/expenses";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { useActionState, useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
@@ -18,7 +18,7 @@ export const DeleteExpenseForm = ({
   closeModal,
   expenseId,
 }: DeleteExpenseFormProps) => {
-  const initialState: State = { message: {}, errors: {} };
+  const initialState: DeleteFormState = { message: {}, errors: {} };
   const [state, formAction] = useActionState(deleteExpense, initialState);
 
   useEffect(() => {

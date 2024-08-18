@@ -1,7 +1,7 @@
 "use client";
 
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
-import { createExpense, State } from "@/src/form-actions/expenses";
+import { createExpense, ExpenseFormState } from "@/src/form-actions/expenses";
 import { useActionState, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { Category } from "@/src/types";
@@ -22,7 +22,7 @@ export const CreateExpenseForm = ({
   isOpen,
   closeModal,
 }: CreateExpenseFormProps) => {
-  const initialState: State = { message: {}, errors: {} };
+  const initialState: ExpenseFormState = { message: {}, errors: {} };
   const [state, formAction] = useActionState(createExpense, initialState);
   const [categories, setCategories] = useState<Category[]>([]);
   const [startDate, setStartDate] = useState(new Date());

@@ -4,7 +4,7 @@ import { darkenHexColor } from "@/src/helpers/darken-color";
 import { Category, Expense } from "@/src/types";
 import clsx from "clsx";
 import { format } from "date-fns";
-import { DeleteExpenseForm } from "./delete-expense-modal-form";
+import { DeleteExpenseForm } from "../expenses/delete-expense-modal-form";
 import { TrashIcon, PencilIcon } from "@heroicons/react/24/outline";
 import { Button } from "../components";
 import { useState } from "react";

@@ -3,7 +3,7 @@
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
 
-export type State = {
+export type AuthFormState = {
   errors?: {
     customerId?: string[];
     amount?: string[];

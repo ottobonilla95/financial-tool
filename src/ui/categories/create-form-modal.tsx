@@ -1,13 +1,15 @@
 "use client";
 
-import { createCategory } from "@/src/form-actions/categories";
-import { State } from "@/src/form-actions/expenses";
+import {
+  createCategory,
+  CategoryFormState,
+} from "@/src/form-actions/categories";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { useActionState, useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
-import { Button } from "../components";
 import React from "react";
 import { ChromePicker } from "react-color";
+import { CancelButton, SubmitButton } from "../forms";
 
 export type CreateCategoryFormProps = {
   isOpen: boolean;
@@ -18,7 +20,7 @@ export const CreateCategoryForm = ({
   isOpen,
   closeModal,
 }: CreateCategoryFormProps) => {
-  const initialState: State = { message: {}, errors: {} };
+  const initialState: CategoryFormState = { message: {}, errors: {} };
   const [state, formAction] = useActionState(createCategory, initialState);
   const [color, setColor] = React.useState<string>();
 
@@ -96,10 +98,8 @@ export const CreateCategoryForm = ({
               </div>
 
               <div className="flex gap-4">
-                <Button type="button" onClick={closeModal}>
-                  Cancelar
-                </Button>
-                <Button type="submit">Guardar</Button>
+                <CancelButton onClick={closeModal} />
+                <SubmitButton text="Guardar" />
               </div>
             </form>
           </DialogPanel>

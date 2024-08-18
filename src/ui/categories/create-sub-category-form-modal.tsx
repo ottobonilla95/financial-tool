@@ -1,12 +1,14 @@
 "use client";
 
-import { State } from "@/src/form-actions/expenses";
+import React from "react";
+import {
+  SubCategoryFormState,
+  createSubCategory,
+} from "@/src/form-actions/sub-category";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { useActionState, useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
-import { Button } from "../components";
-import React from "react";
-import { createSubCategory } from "@/src/form-actions/sub-category";
+import { CancelButton, SubmitButton } from "../forms";
 
 export type CreateSubCategoryFormProps = {
   category: { id: string; name: string };
@@ -19,7 +21,7 @@ export const CreateSubCategoryForm = ({
   isOpen,
   closeModal,
 }: CreateSubCategoryFormProps) => {
-  const initialState: State = { message: {}, errors: {} };
+  const initialState: SubCategoryFormState = { message: {}, errors: {} };
   const [state, formAction] = useActionState(createSubCategory, initialState);
 
   useEffect(() => {
@@ -73,10 +75,8 @@ export const CreateSubCategoryForm = ({
               </div>
 
               <div className="flex gap-4">
-                <Button type="button" onClick={closeModal}>
-                  Cancelar
-                </Button>
-                <Button type="submit">Guardar</Button>
+                <CancelButton onClick={closeModal} />
+                <SubmitButton text="Guardar" />
               </div>
             </form>
           </DialogPanel>

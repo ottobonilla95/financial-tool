@@ -1,11 +1,9 @@
 "use client";
 
-import { updateCategory } from "@/src/form-actions/categories";
-import { State } from "@/src/form-actions/expenses";
+import { updateCategory, UpdateFormState } from "@/src/form-actions/categories";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { useActionState, useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
-import { Button } from "../components";
 import React from "react";
 import { ChromePicker } from "react-color";
 import { Category } from "@/src/types";
@@ -22,11 +20,9 @@ export const UpdateCategoryForm = ({
   closeModal,
   category,
 }: UpdateCategoryFormProps) => {
-  const initialState: State = { message: {}, errors: {} };
+  const initialState: UpdateFormState = { message: {}, errors: {} };
   const [state, formAction] = useActionState(updateCategory, initialState);
   const [color, setColor] = React.useState<string>(category.color);
-
-  console.log(category);
 
   useEffect(() => {
     if (state.message) {

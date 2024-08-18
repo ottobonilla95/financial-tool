@@ -5,7 +5,18 @@ import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 import { createDBCategory, updateDBCategory } from "../data/category";
 
-export type State = {
+export type CategoryFormState = {
+  errors?: {
+    name?: string[];
+    color?: string[];
+  };
+  message?: {
+    text?: string;
+    type?: string;
+  };
+};
+
+export type UpdateFormState = {
   errors?: {
     name?: string[];
     color?: string[];
@@ -28,9 +39,11 @@ const FormSchema = z.object({
 
 const CreateCategory = FormSchema.omit({ id: true });
 const UpdateCategory = FormSchema;
-// const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 
-export async function createCategory(prevState: State, formData: FormData) {
+export async function createCategory(
+  prevState: CategoryFormState,
+  formData: FormData
+) {
   const session = await auth();
   const userId = session?.user?.id as string;
 
@@ -68,8 +81,6 @@ export async function createCategory(prevState: State, formData: FormData) {
     };
   }
 
-  revalidatePath("/dashboard/expenses/create");
-
   return {
     message: {
       text: "Categoría creada exitosamente.",
@@ -77,7 +88,10 @@ export async function createCategory(prevState: State, formData: FormData) {
     },
   };
 }
-export async function updateCategory(prevState: State, formData: FormData) {
+export async function updateCategory(
+  prevState: UpdateFormState,
+  formData: FormData
+) {
   const session = await auth();
   const userId = session?.user?.id as string;
 
