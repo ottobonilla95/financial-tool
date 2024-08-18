@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
+
 import { updateLastUpdated } from "../data/user";
 import { deleteDbExpense, createDbExpense } from "../data/expenses";
 import { FormMessage } from "../types";
@@ -119,35 +120,25 @@ export async function createExpense(
   };
 }
 
-export async function deleteExpense(
-  prevState: DeleteFormState,
-  formData: FormData
-) {
+export async function deleteExpense(expenseId: string) {
   const session = await auth();
   const userId = session?.user?.id as string;
 
-  // Validate form using Zod
-  const validatedFields = DeleteExpense.safeParse({
-    id: formData.get("expenseId"),
-  });
-
   // If form validation fails, return errors early. Otherwise, continue.
-  if (!validatedFields.success) {
+  if (!expenseId) {
     return {
-      errors: validatedFields.error.flatten().fieldErrors,
+      errors: {},
       message: {
-        text: "Database Error: Failed to delete expense.",
+        text: "Database Error: expenseId not provided.",
         type: "error",
       },
     };
   }
 
-  const { id } = validatedFields.data;
-
   try {
     await deleteDbExpense({
       userId,
-      expenseId: id,
+      expenseId: expenseId,
     });
     await updateLastUpdated({
       userId,

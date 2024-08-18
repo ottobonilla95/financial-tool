@@ -18,8 +18,10 @@ export const DeleteExpenseForm = ({
   closeModal,
   expenseId,
 }: DeleteExpenseFormProps) => {
+  const deleteInvoiceWithId = deleteExpense.bind(null, expenseId);
+
   const initialState: DeleteFormState = { message: {}, errors: {} };
-  const [state, formAction] = useActionState(deleteExpense, initialState);
+  const [state, formAction] = useActionState(deleteInvoiceWithId, initialState);
 
   useEffect(() => {
     if (state.message) {
@@ -42,9 +44,8 @@ export const DeleteExpenseForm = ({
               </DialogTitle>
 
               <div className="mb-5">
-                ¿Esta seguro que desea eliminar este gasto?{" "}
+                ¿Esta seguro que desea eliminar este gasto?
               </div>
-              <input type="hidden" name="expenseId" value={expenseId} />
 
               <div className="flex gap-4">
                 <CancelButton onClick={closeModal} />
