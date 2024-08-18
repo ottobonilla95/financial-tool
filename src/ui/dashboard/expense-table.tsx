@@ -17,12 +17,6 @@ export type ExpenseTableProps = {
   };
 };
 
-export type ExpensesByCategory = {
-  [categoryName: string]: {
-    [subcategoryName: string]: Expense[];
-  };
-};
-
 const calculateSubcategoryTotal = (expenses: Expense[]) => {
   return expenses.reduce((acc, expense) => acc + expense.amount, 0);
 };

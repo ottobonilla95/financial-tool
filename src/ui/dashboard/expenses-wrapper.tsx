@@ -1,14 +1,10 @@
-import { Expense } from "@/src/types";
+import { Expense, ExpensesByCategory } from "@/src/types";
 import { ExpenseTable } from "./expense-table";
 
 export type ExpensesWrapperProps = {
   expenses: Expense[];
 };
-export type ExpensesByCategory = {
-  [categoryName: string]: {
-    [subcategoryName: string]: Expense[];
-  };
-};
+
 const splitByCategoryAndSubcategory = (expenses: Expense[]) => {
   return expenses.reduce((acc: ExpensesByCategory, expense) => {
     const { category, subcategory } = expense;
