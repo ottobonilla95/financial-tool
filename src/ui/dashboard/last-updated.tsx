@@ -1,10 +1,16 @@
-import { getUserData } from "@/src/data/user";
+import { getDBUser } from "@/src/data/user";
 import { auth } from "@/auth";
 import { format } from "date-fns";
 
 export const LastUpdated = async () => {
   const session = await auth();
-  const user = await getUserData(session?.user?.id as string);
+  const user = await getDBUser({
+    filters: {
+      id: session?.user?.id as string,
+    },
+  });
+
+  if (!user) return null;
 
   return (
     <div className="flex">

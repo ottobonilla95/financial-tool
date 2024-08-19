@@ -7,6 +7,7 @@ export type ButtonProps = {
   children: React.ReactNode;
   icon?: React.ReactNode;
   iconPosition?: "left" | "right";
+  className?: string;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = ({
@@ -15,21 +16,25 @@ export const Button = ({
   children,
   icon,
   iconPosition = "left",
+  className: inputClassname,
   ...rest
 }: ButtonProps) => {
   const className = clsx(
-    "flex h-10 px-3 items-center justify-center rounded-md border",
+    "flex w-full h-10 px-3 items-center justify-center rounded-md border aria-disabled:cursor-not-allowed aria-disabled:opacity-50 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
     {
       "pointer-events-none text-gray-300 bg-gray-100": isDisabled,
       "hover:bg-gray-100": !isDisabled,
-    }
+    },
+    inputClassname
   );
 
   const content = (
     <>
       {icon && iconPosition === "left" && <div className="mr-1">{icon}</div>}
       {children}
-      {icon && iconPosition === "right" && <div className="ml-1">{icon}</div>}
+      {icon && iconPosition === "right" && (
+        <div className="ml-1">{icon}</div>
+      )}
     </>
   );
 

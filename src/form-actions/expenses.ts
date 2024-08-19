@@ -50,13 +50,6 @@ const FormSchema = z.object({
 });
 
 const CreateExpense = FormSchema.omit({ id: true });
-const DeleteExpense = FormSchema.omit({
-  description: true,
-  amount: true,
-  date: true,
-  categoryId: true,
-  subCategoryId: true,
-});
 
 export async function createExpense(
   prevState: ExpenseFormState,

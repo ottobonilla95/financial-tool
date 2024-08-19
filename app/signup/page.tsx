@@ -1,7 +1,7 @@
 import PageLogo from "@/src/ui/acme-logo";
-import { LoginForm } from "@/src/ui/auth";
+import { SignupForm } from "@/src/ui/auth";
 
-export default function LoginPage() {
+export default function SignupPage() {
   return (
     <main className="flex items-center justify-center md:h-screen">
       <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-32">
@@ -10,7 +10,7 @@ export default function LoginPage() {
             <PageLogo />
           </div>
         </div>
-        <LoginForm />
+        <SignupForm />
       </div>
     </main>
   );

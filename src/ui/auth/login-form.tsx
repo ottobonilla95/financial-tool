@@ -7,11 +7,11 @@ import {
   ExclamationCircleIcon,
 } from "@heroicons/react/24/outline";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
-import { Button } from "@/src/ui/button";
+import { Button } from "@/src/ui/components";
 import { useActionState } from "react";
 import { authenticate } from "@/src/form-actions/auth";
 
-export default function LoginForm() {
+export const LoginForm = () => {
   const [errorMessage, formAction, isPending] = useActionState(
     authenticate,
     undefined
@@ -64,8 +64,22 @@ export default function LoginForm() {
             </div>
           </div>
         </div>
-        <Button className="mt-4 w-full" aria-disabled={isPending}>
-          Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+        <Button
+          className="mt-4 rounded-lg bg-blue-500 font-medium text-white hover:bg-blue-400 focus-visible:outline-blue-500 active:bg-blue-600"
+          aria-disabled={isPending}
+          icon={<ArrowRightIcon className="h-5 w-5 text-gray-50" />}
+          iconPosition="right"
+        >
+          Log in
+        </Button>
+        <Button
+          className="mt-4"
+          aria-disabled={isPending}
+          icon={<ArrowRightIcon className="h-5 w-5" />}
+          iconPosition="right"
+          href="/signup"
+        >
+          Register
         </Button>
         <div
           className="flex h-8 items-end space-x-1"
@@ -82,4 +96,4 @@ export default function LoginForm() {
       </div>
     </form>
   );
-}
+};
