@@ -72,15 +72,18 @@ export const LoginForm = () => {
         >
           Log in
         </Button>
-        <Button
-          className="mt-4"
-          aria-disabled={isPending}
-          icon={<ArrowRightIcon className="h-5 w-5" />}
-          iconPosition="right"
-          href="/signup"
-        >
-          Register
-        </Button>
+        {!isPending && (
+          <Button
+            className="mt-4"
+            aria-disabled={isPending}
+            icon={<ArrowRightIcon className="h-5 w-5" />}
+            iconPosition="right"
+            href="/signup"
+          >
+            Register
+          </Button>
+        )}
+
         <div
           className="flex h-8 items-end space-x-1"
           aria-live="polite"

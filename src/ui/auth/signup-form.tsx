@@ -113,15 +113,18 @@ export const SignupForm = () => {
           Crear cuenta
         </Button>
 
-        <Button
-          className="mt-4"
-          aria-disabled={isPending}
-          icon={<ArrowRightIcon className="h-5 w-5" />}
-          iconPosition="right"
-          href="/login"
-        >
-          Log in
-        </Button>
+        {!isPending && (
+          <Button
+            className="mt-4"
+            aria-disabled={isPending}
+            icon={<ArrowRightIcon className="h-5 w-5" />}
+            iconPosition="right"
+            href="/login"
+          >
+            Log in
+          </Button>
+        )}
+
         <div
           className="flex h-8 items-end space-x-1"
           aria-live="polite"
