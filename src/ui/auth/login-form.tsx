@@ -80,7 +80,7 @@ export const LoginForm = () => {
             iconPosition="right"
             href="/signup"
           >
-            Register
+            Crear cuenta
           </Button>
         )}
 
