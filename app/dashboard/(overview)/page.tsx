@@ -7,6 +7,7 @@ import {
   DashboardTotals,
   LastUpdated,
   DashboardButtons,
+  NoExpensesAdded,
 } from "@/src/ui/dashboard";
 
 import { Suspense } from "react";
@@ -43,12 +44,17 @@ export default async function Page({ searchParams }: DashboardPageProps) {
 
       <DashboardDatePicker />
 
-      <div className="w-full">
-        <ExpensesPieChart expenses={expenses} />
-      </div>
-      <div>
-        <ExpensesWrapper expenses={expenses} />
-      </div>
+      {expenses.length > 0 && (
+        <>
+          <div className="w-full">
+            <ExpensesPieChart expenses={expenses} />
+          </div>
+          <div>
+            <ExpensesWrapper expenses={expenses} />
+          </div>
+        </>
+      )}
+      {expenses.length === 0 && <NoExpensesAdded />}
     </main>
   );
 }

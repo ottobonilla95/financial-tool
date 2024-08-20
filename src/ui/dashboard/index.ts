@@ -5,3 +5,4 @@ export * from "./totals";
 export * from "./last-updated";
 export * from "./expense-table";
 export * from "./buttons";
+export * from "./no-expenses-added";

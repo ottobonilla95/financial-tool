@@ -8,6 +8,10 @@ export const DashboardTotals = ({ expenses }: DashboardTotalsProps) => {
   const calculateTotal = (expenses: Expense[]) => {
     return expenses.reduce((acc, expense) => acc + expense.amount, 0);
   };
+
+  if (expenses.length === 0) {
+    return null;
+  }
   return (
     <div className="flex mb-5 sm:mb-0">
       <div className="flex bg-red-200 rounded">

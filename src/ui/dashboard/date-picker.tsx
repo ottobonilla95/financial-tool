@@ -41,16 +41,17 @@ export const DashboardDatePicker = () => {
   const isNextDisabled = isAfter(addMonths(currentDate, 1), new Date());
 
   return (
-    <div className="flex justify-center">
-      <div className="flex">
+    <div className="flex justify-center items-center">
+      <div className="w-10">
         <Button href={handlePrevMonth()}>
           <ArrowLeftIcon className="w-4" />
         </Button>
+      </div>
+      <div className="flex items-center font-medium mx-3 text-xl justify-center">
+        {format(currentDate, "MMMM yyyy")}
+      </div>
 
-        <div className="flex items-center font-medium mx-3 text-xl">
-          {format(currentDate, "MMMM yyyy")}
-        </div>
-
+      <div className="w-10">
         <Button href={handleNextMonth()} isDisabled={isNextDisabled}>
           <ArrowRightIcon className="w-4" />
         </Button>
