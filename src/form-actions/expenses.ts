@@ -46,7 +46,7 @@ const FormSchema = z.object({
     .string({
       invalid_type_error: "Selecciona una sub categoría.",
     })
-    .uuid({ message: "Selecciona una sub categoría." }),
+    .optional(),
 });
 
 const CreateExpense = FormSchema.omit({ id: true });
@@ -72,10 +72,6 @@ export async function createExpense(
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: {
-        text: "Database Error: Failed to Create Expense.",
-        type: "error",
-      },
     };
   }
 

@@ -90,11 +90,13 @@ export const ExpenseTable = ({
       >
         <div className="flex items-center justify-between py-2 px-4">
           <h2 className="font-bold text-lg mb-2 uppercase">{categoryName}</h2>
+
           <Button
             onClick={() => {
               setIsUpdateCategoryModalOpen(true);
               setCategoryToUpdate(getCategory(subcategories));
             }}
+            className="!w-10"
           >
             <PencilIcon className="w-4" />
           </Button>
@@ -129,6 +131,7 @@ export const ExpenseTable = ({
                         setIsDeleteModalOpen(true);
                         setExpenseIdToDelete(expense.id);
                       }}
+                      className="!w-10"
                     >
                       <TrashIcon className="w-4" />
                     </Button>

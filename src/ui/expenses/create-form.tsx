@@ -1,6 +1,10 @@
 "use client";
 
-import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
+import {
+  CurrencyDollarIcon,
+  FaceSmileIcon,
+  FaceFrownIcon,
+} from "@heroicons/react/24/outline";
 import { createExpense, ExpenseFormState } from "@/src/form-actions/expenses";
 import { useActionState, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
@@ -33,6 +37,10 @@ export const CreateExpenseForm = ({
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>();
   const [isCategoryFormOpen, setIsCategoryFormOpen] = useState(false);
   const [isSubCategoryFormOpen, setIsSubCategoryFormOpen] = useState(false);
+  const [selectedSatisfaction, setSelectedSatisfaction] = useState("ok");
+  const [selectedEmotion, setSelectedEmotion] = useState("netral");
+  const [selectedAlignedWithValues, setSelectedAlignedWithValues] =
+    useState("ok");
 
   const { data, mutate } = useSWR("/api/category/get-all", fetcher, {
     revalidateOnFocus: false,
@@ -54,7 +62,7 @@ export const CreateExpenseForm = ({
   }, [isCategoryFormOpen, isSubCategoryFormOpen]);
 
   useEffect(() => {
-    if (state.message) {
+    if (state.message?.text) {
       toast(state.message.text, { type: state.message.type as TypeOptions });
     }
   }, [state]);
@@ -79,18 +87,22 @@ export const CreateExpenseForm = ({
 
       <>
         {isOpen && <div className="fixed inset-0 bg-black opacity-50 z-40" />}
-        <Dialog open={isOpen} onClose={closeModal} className="relative z-50">
-          <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
-            <DialogPanel className="max-w-lg space-y-4 border bg-white p-12">
+        <Dialog
+          open={isOpen}
+          onClose={closeModal}
+          className="relative z-50 p-10"
+        >
+          <div className="fixed inset-0 flex w-screen items-center justify-center overflow-y-auto pt-[250px]">
+            <DialogPanel className="max-w-lg border bg-white p-12 ">
               <form action={formAction}>
-                <div className="rounded-md bg-gray-50 p-4 md:p-6">
+                <div className="rounded-md bg-gray-50 p-4 md:p-6 ">
                   {/* Category */}
                   <div className="mb-4">
                     <label
                       htmlFor="category"
                       className="mb-2 block text-sm font-medium"
                     >
-                      Categoría
+                      Categoría *
                     </label>
                     <div className="relative">
                       <Dropdown
@@ -159,21 +171,6 @@ export const CreateExpenseForm = ({
                           value={selectedSubCategory}
                         />
                       </div>
-                      <div
-                        id="sub-category-error"
-                        aria-live="polite"
-                        aria-atomic="true"
-                      >
-                        {state?.errors?.subCategoryId &&
-                          state.errors.subCategoryId.map((error: string) => (
-                            <p
-                              className="mt-2 text-sm text-red-500"
-                              key={error}
-                            >
-                              {error}
-                            </p>
-                          ))}
-                      </div>
                     </div>
                   )}
 
@@ -183,7 +180,7 @@ export const CreateExpenseForm = ({
                       htmlFor="description"
                       className="mb-2 block text-sm font-medium"
                     >
-                      Descripción
+                      Descripción *
                     </label>
                     <div className="relative mt-2 rounded-md">
                       <div className="relative">
@@ -222,7 +219,7 @@ export const CreateExpenseForm = ({
                       htmlFor="amount"
                       className="mb-2 block text-sm font-medium"
                     >
-                      Cantidad
+                      Cantidad *
                     </label>
                     <div className="relative mt-2 rounded-md">
                       <div className="relative">
@@ -261,7 +258,7 @@ export const CreateExpenseForm = ({
                       htmlFor="amount"
                       className="mb-2 block text-sm font-medium"
                     >
-                      Fecha
+                      Fecha *
                     </label>
                     <div className="relative mt-2 rounded-md">
                       <div className="relative">
@@ -299,6 +296,216 @@ export const CreateExpenseForm = ({
                       </div>
                     </div>
                   </div>
+
+                  {/* plenitud */}
+                  <fieldset>
+                    <legend className="mb-2 block text-sm font-medium">
+                      Nivel de satisfacción en proporción a este gasto
+                    </legend>
+                    <div className="rounded-md border border-gray-200 bg-white px-3 py-3">
+                      <div className="flex gap-4">
+                        <div className="flex items-center">
+                          <input
+                            id="minus"
+                            name="fulfillment"
+                            type="radio"
+                            value="pending"
+                            className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                            onChange={() => setSelectedSatisfaction("minus")}
+                            checked={selectedSatisfaction === "minus"}
+                          />
+                          <label
+                            htmlFor="minus"
+                            className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-red-400 px-3 py-1.5 text-xs font-medium"
+                          >
+                            - <FaceFrownIcon className="h-4 w-4" />
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="ok"
+                            name="fulfillment"
+                            type="radio"
+                            checked={selectedSatisfaction === "ok"}
+                            className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                            onChange={() => setSelectedSatisfaction("ok")}
+                          />
+                          <label
+                            htmlFor="ok"
+                            className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-blue-400 px-3 py-1.5 text-xs font-medium"
+                          >
+                            Ok <FaceSmileIcon className="h-4 w-4" />
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="plus"
+                            name="fulfillment"
+                            type="radio"
+                            value="paid"
+                            className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                            onChange={() => setSelectedSatisfaction("plus")}
+                            checked={selectedSatisfaction === "plus"}
+                          />
+                          <label
+                            htmlFor="plus"
+                            className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-green-400 px-3 py-1.5 text-xs font-medium"
+                          >
+                            + <FaceSmileIcon className="h-4 w-4" />
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                  <div className="h-5" />
+                  {/* valores */}
+                  <fieldset>
+                    <legend className="mb-2 block text-sm font-medium">
+                      ¿Esta alineado con mis valores y propósito de vida?
+                    </legend>
+                    <div className="rounded-md border border-gray-200 bg-white px-3 py-3">
+                      <div className="flex gap-4">
+                        <div className="flex items-center">
+                          <input
+                            id="no"
+                            name="alignedWithValues"
+                            type="radio"
+                            className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                            onChange={() => setSelectedAlignedWithValues("no")}
+                            checked={selectedAlignedWithValues === "no"}
+                          />
+                          <label
+                            htmlFor="no"
+                            className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-red-400 px-3 py-1.5 text-xs font-medium"
+                          >
+                            No <FaceFrownIcon className="h-4 w-4" />
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="neutral"
+                            name="alignedWithValues"
+                            type="radio"
+                            checked={selectedAlignedWithValues === "ok"}
+                            className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                            onChange={() => setSelectedAlignedWithValues("ok")}
+                          />
+                          <label
+                            htmlFor="neutral"
+                            className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-blue-400 px-3 py-1.5 text-xs font-medium"
+                          >
+                            Ok <FaceSmileIcon className="h-4 w-4" />
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="si"
+                            name="alignedWithValues"
+                            type="radio"
+                            className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                            onChange={() => setSelectedAlignedWithValues("si")}
+                            checked={selectedAlignedWithValues === "si"}
+                          />
+                          <label
+                            htmlFor="si"
+                            className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-green-400 px-3 py-1.5 text-xs font-medium"
+                          >
+                            Si <FaceSmileIcon className="h-4 w-4" />
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                  {/* Emotion */}
+                  <fieldset className="mt-5">
+                    <legend className="mb-2 block text-sm font-medium">
+                      ¿Qué emoción sentí al hacer este gasto?
+                    </legend>
+                    <div className="rounded-md border border-gray-200 bg-white px-3 py-3">
+                      <div className="flex flex-col gap-4">
+                        <div className="flex items-center">
+                          <input
+                            id="sadness"
+                            name="emotion"
+                            type="radio"
+                            className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                            onChange={() => setSelectedEmotion("sadness")}
+                            checked={selectedEmotion === "sadness"}
+                          />
+                          <label
+                            htmlFor="sadness"
+                            className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-red-400 px-3 py-1.5 text-xs font-medium"
+                          >
+                            Tristeza <FaceFrownIcon className="h-4 w-4" />
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="anxiety"
+                            name="emotion"
+                            type="radio"
+                            checked={selectedEmotion === "anxiety"}
+                            className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                            onChange={() => setSelectedEmotion("anxiety")}
+                          />
+                          <label
+                            htmlFor="anxiety"
+                            className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-red-400 px-3 py-1.5 text-xs font-medium"
+                          >
+                            Ansiedad <FaceFrownIcon className="h-4 w-4" />
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="netral"
+                            name="emotion"
+                            type="radio"
+                            checked={selectedEmotion === "netral"}
+                            className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                            onChange={() => setSelectedEmotion("netral")}
+                          />
+                          <label
+                            htmlFor="netral"
+                            className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-blue-400 px-3 py-1.5 text-xs font-medium"
+                          >
+                            Indiferente <FaceSmileIcon className="h-4 w-4" />
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="happiness"
+                            name="emotion"
+                            type="radio"
+                            className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                            onChange={() => setSelectedEmotion("happiness")}
+                            checked={selectedEmotion === "happiness"}
+                          />
+                          <label
+                            htmlFor="happiness"
+                            className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-green-400 px-3 py-1.5 text-xs font-medium"
+                          >
+                            Alegría <FaceSmileIcon className="h-4 w-4" />
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="enthusiasm"
+                            name="emotion"
+                            type="radio"
+                            className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                            onChange={() => setSelectedEmotion("enthusiasm")}
+                            checked={selectedEmotion === "enthusiasm"}
+                          />
+                          <label
+                            htmlFor="enthusiasm"
+                            className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-green-400 px-3 py-1.5 text-xs font-medium"
+                          >
+                            Entusiasmo <FaceSmileIcon className="h-4 w-4" />
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
                 </div>
                 <div className="mt-6 flex justify-end gap-4">
                   <CancelButton onClick={closeModal} />

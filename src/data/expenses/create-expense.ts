@@ -7,7 +7,7 @@ export type ExpenseToCreate = {
   amount: number;
   description: string;
   categoryId: string;
-  subCategoryId: string;
+  subCategoryId?: string;
   date: Date;
 };
 
@@ -26,7 +26,7 @@ export async function createDbExpense({
         amount,
         description,
         category_id: categoryId,
-        subcategory_id: subCategoryId,
+        subcategory_id: subCategoryId || null,
         expense_date: date,
         created_at: new Date(),
       },
