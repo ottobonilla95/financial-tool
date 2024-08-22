@@ -1,14 +1,14 @@
 "use client";
 
 import { darkenHexColor } from "@/src/helpers/darken-color";
-import { Category, Expense } from "@/src/types";
+import { ExpenseCategory, Expense } from "@/src/types";
 import clsx from "clsx";
 import { format } from "date-fns";
 import { DeleteExpenseForm } from "../expenses/delete-expense-modal-form";
 import { TrashIcon, PencilIcon } from "@heroicons/react/24/outline";
 import { Button } from "../components";
 import { useState } from "react";
-import { UpdateCategoryForm } from "../categories";
+import { UpdateCategoryForm } from "../expense-categories";
 
 export type ExpenseTableProps = {
   categoryName: string;
@@ -31,14 +31,14 @@ const calculateTotal = (subcategories: {
 
 const getCategory = (subcategories: {
   [subcategoryName: string]: Expense[];
-}): Category => {
+}): ExpenseCategory => {
   for (const expenseArray of Object.values(subcategories)) {
     const expense = expenseArray[0];
 
     return expense.category;
   }
 
-  return {} as Category;
+  return {} as ExpenseCategory;
 };
 
 export const ExpenseTable = ({
@@ -62,9 +62,9 @@ export const ExpenseTable = ({
 
   const [isUpdateCategoryModalOpen, setIsUpdateCategoryModalOpen] =
     useState(false);
-  const [categoryToUpdate, setCategoryToUpdate] = useState<Partial<Category>>(
-    {}
-  );
+  const [categoryToUpdate, setCategoryToUpdate] = useState<
+    Partial<ExpenseCategory>
+  >({});
 
   return (
     <>
@@ -76,7 +76,7 @@ export const ExpenseTable = ({
 
       {isUpdateCategoryModalOpen && (
         <UpdateCategoryForm
-          category={categoryToUpdate as Category}
+          category={categoryToUpdate as ExpenseCategory}
           closeModal={() => setIsUpdateCategoryModalOpen(false)}
           isOpen
         />

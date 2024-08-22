@@ -3,7 +3,7 @@
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
-import { createDBCategory, updateDBCategory } from "../data/category";
+import { createDBCategory, updateDBCategory } from "../data/expense-category";
 
 export type CategoryFormState = {
   errors?: {

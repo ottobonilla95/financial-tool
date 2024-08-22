@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { Category } from "@/src/types";
+import { IncomeCategory } from "@/src/types";
 
 const prisma = new PrismaClient();
 
@@ -7,19 +7,19 @@ export type Data = {
   id: string;
   name: string;
   color: string | null;
-  expense_subcategory: {
+  earning_subcategory: {
     id: string;
     name: string;
   }[];
 };
 
-export async function fetchCategories(userId: string) {
+export async function fetchIncomeCategories(userId: string) {
   try {
-    const data = await prisma.expense_category.findMany({
+    const data = await prisma.earning_category.findMany({
       select: {
         id: true,
         name: true,
-        expense_subcategory: {
+        earning_subcategory: {
           select: {
             id: true,
             name: true,
@@ -42,11 +42,11 @@ export async function fetchCategories(userId: string) {
   }
 }
 
-export const mapCategory = (expense: Data): Category => {
+export const mapCategory = (expense: Data): IncomeCategory => {
   return {
     id: expense.id,
     name: expense.name,
-    subcategories: expense.expense_subcategory.map((subcategory) => ({
+    subcategories: expense.earning_subcategory.map((subcategory) => ({
       id: subcategory.id,
       name: subcategory.name,
     })),

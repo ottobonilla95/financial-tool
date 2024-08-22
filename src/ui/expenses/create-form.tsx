@@ -8,10 +8,10 @@ import {
 import { createExpense, ExpenseFormState } from "@/src/form-actions/expenses";
 import { useActionState, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
-import { Category } from "@/src/types";
+import { ExpenseCategory } from "@/src/types";
 import { toast, TypeOptions } from "react-toastify";
 import { Dropdown } from "../components";
-import { CreateCategoryForm, CreateSubCategoryForm } from "../categories";
+import { CreateCategoryForm, CreateSubCategoryForm } from "../expense-categories";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import useSWR from "swr";
 import { fetcher } from "@/src/utils/fetcher";
@@ -28,7 +28,7 @@ export const CreateExpenseForm = ({
 }: CreateExpenseFormProps) => {
   const initialState: ExpenseFormState = { message: {}, errors: {} };
   const [state, formAction] = useActionState(createExpense, initialState);
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<ExpenseCategory[]>([]);
   const [startDate, setStartDate] = useState(new Date());
   const [subCategories, setSubCategories] = useState<
     { name: string; id: string }[]
@@ -42,12 +42,12 @@ export const CreateExpenseForm = ({
   const [selectedAlignedWithValues, setSelectedAlignedWithValues] =
     useState("ok");
 
-  const { data, mutate } = useSWR("/api/category/get-all", fetcher, {
+  const { data, mutate } = useSWR("/api/expense/category/get-all", fetcher, {
     revalidateOnFocus: false,
   });
 
   useEffect(() => {
-    const loadedCategories = (data?.categories || []) as Category[];
+    const loadedCategories = (data?.categories || []) as ExpenseCategory[];
     setCategories(loadedCategories);
     setSubCategories(
       loadedCategories.find((category) => category.id === selectedCategory)

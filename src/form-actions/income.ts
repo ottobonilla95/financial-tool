@@ -3,12 +3,11 @@
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
-
 import { updateLastUpdated } from "../data/user";
-import { deleteDbExpense, createDbExpense } from "../data/expenses";
+import { createDbIncome, deleteDbIncome } from "../data/income";
 import { FormMessage } from "../types";
 
-export type ExpenseFormState = {
+export type IncomeFormState = {
   errors?: {
     description?: string[];
     amount?: string[];
@@ -49,17 +48,17 @@ const FormSchema = z.object({
     .optional(),
 });
 
-const CreateExpense = FormSchema.omit({ id: true });
+const CreateIncome = FormSchema.omit({ id: true });
 
-export async function createExpense(
-  prevState: ExpenseFormState,
+export async function createIncome(
+  prevState: IncomeFormState,
   formData: FormData
 ) {
   const session = await auth();
   const userId = session?.user?.id as string;
 
   // Validate form using Zod
-  const validatedFields = CreateExpense.safeParse({
+  const validatedFields = CreateIncome.safeParse({
     description: formData.get("description"),
     date: formData.get("date"),
     amount: formData.get("amount"),
@@ -79,7 +78,7 @@ export async function createExpense(
     validatedFields.data;
 
   try {
-    await createDbExpense({
+    await createDbIncome({
       userId,
       amount,
       categoryId,
@@ -93,7 +92,7 @@ export async function createExpense(
   } catch (error) {
     return {
       message: {
-        text: "Database Error: Failed to Create Expense.",
+        text: "Database Error: Failed to Create Income.",
         type: "error",
       },
     };
@@ -108,25 +107,25 @@ export async function createExpense(
   };
 }
 
-export async function deleteExpense(expenseId: string) {
+export async function deleteIncome(incomeId: string) {
   const session = await auth();
   const userId = session?.user?.id as string;
 
   // If form validation fails, return errors early. Otherwise, continue.
-  if (!expenseId) {
+  if (!incomeId) {
     return {
       errors: {},
       message: {
-        text: "Database Error: expenseId not provided.",
+        text: "Database Error: incomeId not provided.",
         type: "error",
       },
     };
   }
 
   try {
-    await deleteDbExpense({
+    await deleteDbIncome({
       userId,
-      expenseId: expenseId,
+      incomeId: incomeId,
     });
     await updateLastUpdated({
       userId,
@@ -134,7 +133,7 @@ export async function deleteExpense(expenseId: string) {
   } catch (error) {
     return {
       message: {
-        text: "Database Error: Failed to delete expense.",
+        text: "Database Error: Failed to delete income.",
         type: "error",
       },
     };
@@ -144,7 +143,7 @@ export async function deleteExpense(expenseId: string) {
 
   return {
     message: {
-      text: "Expense deleted Successfully.",
+      text: "Income deleted Successfully.",
       type: "success",
     },
   };

@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { createDBSubCategory } from "../data/category";
+import { createDBSubCategory } from "../data/expense-category";
 
 export type SubCategoryFormState = {
   errors?: {

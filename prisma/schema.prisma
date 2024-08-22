@@ -4,19 +4,8 @@ generator client {
 
 datasource db {
   provider  = "postgresql"
-  url       = env("POSGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSGRES_URL_NON_POOLING") // uses a direct connection
-}
-
-model earnings {
-  id           String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  user_id      String?   @db.Uuid
-  amount       Decimal   @db.Decimal(10, 2)
-  source       String?   @db.VarChar(100)
-  description  String?
-  earning_date DateTime  @db.Date
-  created_at   DateTime? @default(now()) @db.Timestamp(6)
-  users        users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  url       = env("POSGRES_PRISMA_URL")
+  directUrl = env("POSGRES_URL_NON_POOLING")
 }
 
 model expenses {
@@ -40,7 +29,8 @@ model users {
   password         String
   last_updated     DateTime           @default(now()) @db.Date
   created_at       DateTime?          @default(now()) @db.Timestamp(6)
-  earnings         earnings[]
+  earning          earning[]
+  earning_category earning_category[]
   expense_category expense_category[]
   expenses         expenses[]
 }
@@ -63,4 +53,38 @@ model expense_subcategory {
   created_at       DateTime?         @default(now()) @db.Timestamp(6)
   expense_category expense_category? @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "usersubcategory_category_id_fkey")
   expenses         expenses[]
+}
+
+model earning {
+  id                  String               @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  user_id             String?              @db.Uuid
+  amount              Decimal              @db.Decimal(10, 2)
+  category_id         String?              @db.Uuid
+  subcategory_id      String?              @db.Uuid
+  description         String?
+  earning_date        DateTime             @db.Date
+  created_at          DateTime?            @default(now()) @db.Timestamp(6)
+  earning_category    earning_category?    @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  earning_subcategory earning_subcategory? @relation(fields: [subcategory_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users               users?               @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model earning_category {
+  id                  String                @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  user_id             String?               @db.Uuid
+  name                String                @db.VarChar(100)
+  created_at          DateTime?             @default(now()) @db.Timestamp(6)
+  color               String?               @db.VarChar(7)
+  earning             earning[]
+  users               users?                @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  earning_subcategory earning_subcategory[]
+}
+
+model earning_subcategory {
+  id               String            @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  category_id      String?           @db.Uuid
+  name             String            @db.VarChar(100)
+  created_at       DateTime?         @default(now()) @db.Timestamp(6)
+  earning          earning[]
+  earning_category earning_category? @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

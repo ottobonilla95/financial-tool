@@ -1,19 +1,15 @@
 
 - FIx expenses tales height
 
+- agregar emocioes.
 - currency
 - add savings option.
-- agregar emocioes.
 - add earnings
-
-- Autocomplete description expense
-- remove menu items.. ad just empty for now.
-
+- display Balance
 - poder ver subcategorias en grafico.
 - Editar categorias y sub
 - Calendario en pagina principal.
-- Editar gasto
-- Add proper overlays to modals.
+
 
 - add real salary calculator, another module
 - net worth calculator
@@ -23,6 +19,8 @@ ategorieas form
 
 - zona de graficos de totales.
 - al agregar un gasto que se vaya con la fecha del mes en el que estoy.
+- Editar gasto
+- Autocomplete description expense
 
 update expense_category set color = '#ff9524' where id = 'cf51867f-b995-44d7-867b-c423815560a1';
 

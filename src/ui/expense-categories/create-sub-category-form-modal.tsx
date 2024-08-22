@@ -1,28 +1,28 @@
 "use client";
 
-import { updateCategory, UpdateFormState } from "@/src/form-actions/categories";
+import React from "react";
+import {
+  SubCategoryFormState,
+  createSubCategory,
+} from "@/src/form-actions/expense-sub-category";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { useActionState, useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
-import React from "react";
-import { ChromePicker } from "react-color";
-import { Category } from "@/src/types";
 import { CancelButton, SubmitButton } from "../forms";
 
-export type UpdateCategoryFormProps = {
+export type CreateSubCategoryFormProps = {
+  category: { id: string; name: string };
   isOpen: boolean;
   closeModal: () => void;
-  category: Category;
 };
 
-export const UpdateCategoryForm = ({
+export const CreateSubCategoryForm = ({
+  category,
   isOpen,
   closeModal,
-  category,
-}: UpdateCategoryFormProps) => {
-  const initialState: UpdateFormState = { message: {}, errors: {} };
-  const [state, formAction] = useActionState(updateCategory, initialState);
-  const [color, setColor] = React.useState<string>(category.color);
+}: CreateSubCategoryFormProps) => {
+  const initialState: SubCategoryFormState = { message: {}, errors: {} };
+  const [state, formAction] = useActionState(createSubCategory, initialState);
 
   useEffect(() => {
     if (state.message) {
@@ -35,23 +35,21 @@ export const UpdateCategoryForm = ({
 
   return (
     <>
-      {isOpen && <div className="fixed inset-0 bg-black opacity-50 z-40" />}
+      {isOpen && <div className="fixed inset-0 bg-black opacity-50 z-50" />}
       <Dialog open={isOpen} onClose={closeModal} className="relative z-50">
         <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
           <DialogPanel className="max-w-lg space-y-4 border bg-white p-12">
             <form action={formAction}>
-              <DialogTitle className="font-bold">
-                Actualizar Categoría
+              <DialogTitle className="font-bold mb-2">
+                Nueva Sub Categoría
               </DialogTitle>
-              <input type="hidden" name="categoryId" value={category.id} />
 
+              <div className="flex mb-2">
+                <div className="font-bold">Categoría:</div>
+                <div>{category.name}</div>
+                <input type="hidden" name="categoryId" value={category.id} />
+              </div>
               <div className="mb-4">
-                <label
-                  htmlFor="description"
-                  className="mb-2 block text-sm font-medium"
-                >
-                  Nombre
-                </label>
                 <div className="relative mt-2 rounded-md">
                   <div className="relative">
                     <input
@@ -63,33 +61,7 @@ export const UpdateCategoryForm = ({
                       className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
                       required
                       aria-describedby="name-error"
-                      defaultValue={category.name}
                     />
-                  </div>
-                  <div id="name-error" aria-live="polite" aria-atomic="true">
-                    {state?.errors?.name &&
-                      state.errors.name.map((error: string) => (
-                        <p className="mt-2 text-sm text-red-500" key={error}>
-                          {error}
-                        </p>
-                      ))}
-                  </div>
-                </div>
-              </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="description"
-                  className="mb-2 block text-sm font-medium"
-                >
-                  Color
-                </label>
-                <div className="relative mt-2 rounded-md">
-                  <div className="relative">
-                    <ChromePicker
-                      onChange={(value) => setColor(value.hex)}
-                      color={color}
-                    />
-                    <input type="hidden" name="color" value={color} />
                   </div>
                   <div id="name-error" aria-live="polite" aria-atomic="true">
                     {state?.errors?.name &&

@@ -1,9 +1,9 @@
 "use client";
 
 import {
-  createCategory,
-  CategoryFormState,
-} from "@/src/form-actions/categories";
+  createIncomeCategory,
+  IncomeCategoryFormState,
+} from "@/src/form-actions/income-categories";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { useActionState, useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
@@ -11,17 +11,20 @@ import React from "react";
 import { ChromePicker } from "react-color";
 import { CancelButton, SubmitButton } from "../forms";
 
-export type CreateCategoryFormProps = {
+export type CreateIncomeCategoryFormProps = {
   isOpen: boolean;
   closeModal: () => void;
 };
 
-export const CreateCategoryForm = ({
+export const CreateIncomeCategoryForm = ({
   isOpen,
   closeModal,
-}: CreateCategoryFormProps) => {
-  const initialState: CategoryFormState = { message: {}, errors: {} };
-  const [state, formAction] = useActionState(createCategory, initialState);
+}: CreateIncomeCategoryFormProps) => {
+  const initialState: IncomeCategoryFormState = { message: {}, errors: {} };
+  const [state, formAction] = useActionState(
+    createIncomeCategory,
+    initialState
+  );
   const [color, setColor] = React.useState<string>();
 
   useEffect(() => {
@@ -40,7 +43,9 @@ export const CreateCategoryForm = ({
         <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
           <DialogPanel className="max-w-lg space-y-4 border bg-white p-12">
             <form action={formAction}>
-              <DialogTitle className="font-bold">Crear Categoría</DialogTitle>
+              <DialogTitle className="font-bold">
+                Crear Categoría de ingreso
+              </DialogTitle>
               <div className="mb-4">
                 <label
                   htmlFor="description"
