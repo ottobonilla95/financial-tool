@@ -10,8 +10,11 @@ import { useActionState, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { ExpenseCategory } from "@/src/types";
 import { toast, TypeOptions } from "react-toastify";
-import { Dropdown } from "../components";
-import { CreateCategoryForm, CreateSubCategoryForm } from "../expense-categories";
+import { Dropdown, Spinner } from "../components";
+import {
+  CreateCategoryForm,
+  CreateSubCategoryForm,
+} from "../expense-categories";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import useSWR from "swr";
 import { fetcher } from "@/src/utils/fetcher";
@@ -42,9 +45,13 @@ export const CreateExpenseForm = ({
   const [selectedAlignedWithValues, setSelectedAlignedWithValues] =
     useState("ok");
 
-  const { data, mutate } = useSWR("/api/expense/category/get-all", fetcher, {
-    revalidateOnFocus: false,
-  });
+  const { data, mutate, isLoading } = useSWR(
+    "/api/expense/category/get-all",
+    fetcher,
+    {
+      revalidateOnFocus: false,
+    }
+  );
 
   useEffect(() => {
     const loadedCategories = (data?.categories || []) as ExpenseCategory[];
@@ -56,10 +63,10 @@ export const CreateExpenseForm = ({
   }, [data]);
 
   useEffect(() => {
-    if (!isCategoryFormOpen && !isSubCategoryFormOpen) {
+    if (!isCategoryFormOpen && !isSubCategoryFormOpen && !isLoading) {
       mutate();
     }
-  }, [isCategoryFormOpen, isSubCategoryFormOpen]);
+  }, [isCategoryFormOpen, isSubCategoryFormOpen, isLoading]);
 
   useEffect(() => {
     if (state.message?.text) {
@@ -93,7 +100,13 @@ export const CreateExpenseForm = ({
           className="relative z-50 p-10"
         >
           <div className="fixed inset-0 flex w-screen items-center justify-center overflow-y-auto pt-[250px]">
-            <DialogPanel className="max-w-lg border bg-white p-12 ">
+            <DialogPanel className="max-w-lg border bg-white p-12 relative">
+              {isLoading && (
+                <div className="absolute inset-0 bg-black z-50 opacity-70 flex items-center justify-center">
+                  <Spinner className="h-10 w-10" />
+                </div>
+              )}
+
               <form action={formAction}>
                 <div className="rounded-md bg-gray-50 p-4 md:p-6 ">
                   {/* Category */}

@@ -101,7 +101,7 @@ export async function createIncome(
 
   return {
     message: {
-      text: "Gasto agregado exitosamente.",
+      text: "Ingreso agregado exitosamente.",
       type: "success",
     },
   };
