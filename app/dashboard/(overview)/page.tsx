@@ -11,6 +11,7 @@ import {
 } from "@/src/ui/dashboard";
 
 import { Suspense } from "react";
+import { fetchMonthIncome } from "@/src/data/income";
 
 export type DashboardPageProps = {
   searchParams: {
@@ -28,6 +29,7 @@ export default async function Page({ searchParams }: DashboardPageProps) {
   const year = Number(searchParams.year) || currentDate.getFullYear();
 
   const expenses = await fetchMonthExpenses(userId, month, year);
+  const earnings = await fetchMonthIncome(userId, month, year);
 
   return (
     <main>
@@ -40,7 +42,7 @@ export default async function Page({ searchParams }: DashboardPageProps) {
         <DashboardButtons />
       </Suspense>
 
-      <DashboardTotals expenses={expenses} />
+      <DashboardTotals expenses={expenses} earnings={earnings} />
 
       <DashboardDatePicker />
 

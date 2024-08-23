@@ -6,7 +6,5 @@ export async function GET() {
 
   const categories = await fetchExpensesCategories(session?.user?.id as string);
 
-  console.log(categories)
-
   return Response.json({ categories });
 }
