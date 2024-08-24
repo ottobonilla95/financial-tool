@@ -9,6 +9,8 @@ export type ExpenseToCreate = {
   categoryId: string;
   subCategoryId?: string;
   date: Date;
+  satisfaction: number;
+  emotionId: number;
 };
 
 export async function createDbExpense({
@@ -18,6 +20,8 @@ export async function createDbExpense({
   categoryId,
   subCategoryId,
   date,
+  satisfaction,
+  emotionId,
 }: ExpenseToCreate) {
   try {
     await prisma.expenses.create({
@@ -29,6 +33,8 @@ export async function createDbExpense({
         subcategory_id: subCategoryId || null,
         expense_date: date,
         created_at: new Date(),
+        satisfaction,
+        emotion_id: emotionId,
       },
     });
   } catch (error) {

@@ -8,7 +8,7 @@ import {
 import { createExpense, ExpenseFormState } from "@/src/form-actions/expenses";
 import { useActionState, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
-import { ExpenseCategory } from "@/src/types";
+import { Emotion, ExpenseCategory } from "@/src/types";
 import { toast, TypeOptions } from "react-toastify";
 import { Dropdown, Spinner } from "../components";
 import {
@@ -19,15 +19,18 @@ import { Dialog, DialogPanel } from "@headlessui/react";
 import useSWR from "swr";
 import { fetcher } from "@/src/utils/fetcher";
 import { CancelButton, SubmitButton } from "../forms";
+import clsx from "clsx";
 
 export type CreateExpenseFormProps = {
   isOpen: boolean;
   closeModal: () => void;
+  emotions: Emotion[];
 };
 
 export const CreateExpenseForm = ({
   isOpen,
   closeModal,
+  emotions,
 }: CreateExpenseFormProps) => {
   const initialState: ExpenseFormState = { message: {}, errors: {} };
   const [state, formAction] = useActionState(createExpense, initialState);
@@ -40,10 +43,8 @@ export const CreateExpenseForm = ({
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>();
   const [isCategoryFormOpen, setIsCategoryFormOpen] = useState(false);
   const [isSubCategoryFormOpen, setIsSubCategoryFormOpen] = useState(false);
-  const [selectedSatisfaction, setSelectedSatisfaction] = useState("ok");
-  const [selectedEmotion, setSelectedEmotion] = useState("netral");
-  const [selectedAlignedWithValues, setSelectedAlignedWithValues] =
-    useState("ok");
+  const [selectedSatisfaction, setSelectedSatisfaction] = useState(3);
+  const [selectedEmotion, setSelectedEmotion] = useState(3);
 
   const { data, mutate, isLoading } = useSWR(
     "/api/expense/category/get-all",
@@ -99,7 +100,7 @@ export const CreateExpenseForm = ({
           onClose={closeModal}
           className="relative z-50 p-10"
         >
-          <div className="fixed inset-0 flex w-screen items-center justify-center overflow-y-auto pt-[250px]">
+          <div className="fixed inset-0 flex w-screen items-center justify-center overflow-y-auto pt-[300px]">
             <DialogPanel className="max-w-lg border bg-white p-12 relative">
               {isLoading && (
                 <div className="absolute inset-0 bg-black z-50 opacity-70 flex items-center justify-center">
@@ -316,19 +317,36 @@ export const CreateExpenseForm = ({
                       Nivel de satisfacción en proporción a este gasto
                     </legend>
                     <div className="rounded-md border border-gray-200 bg-white px-3 py-3">
-                      <div className="flex gap-4">
+                      <div className="flex gap-4 flex-col">
                         <div className="flex items-center">
                           <input
-                            id="minus"
+                            id="1"
                             name="fulfillment"
                             type="radio"
-                            value="pending"
+                            value="1"
                             className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                            onChange={() => setSelectedSatisfaction("minus")}
-                            checked={selectedSatisfaction === "minus"}
+                            onChange={() => setSelectedSatisfaction(1)}
+                            checked={selectedSatisfaction === 1}
                           />
                           <label
-                            htmlFor="minus"
+                            htmlFor="1"
+                            className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-red-400 px-3 py-1.5 text-xs font-medium"
+                          >
+                            -- <FaceFrownIcon className="h-4 w-4" />
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <input
+                            id="2"
+                            name="fulfillment"
+                            type="radio"
+                            value="2"
+                            className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                            onChange={() => setSelectedSatisfaction(2)}
+                            checked={selectedSatisfaction === 2}
+                          />
+                          <label
+                            htmlFor="2"
                             className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-red-400 px-3 py-1.5 text-xs font-medium"
                           >
                             - <FaceFrownIcon className="h-4 w-4" />
@@ -336,15 +354,15 @@ export const CreateExpenseForm = ({
                         </div>
                         <div className="flex items-center">
                           <input
-                            id="ok"
+                            id="3"
                             name="fulfillment"
                             type="radio"
-                            checked={selectedSatisfaction === "ok"}
+                            checked={selectedSatisfaction === 3}
                             className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                            onChange={() => setSelectedSatisfaction("ok")}
+                            onChange={() => setSelectedSatisfaction(3)}
                           />
                           <label
-                            htmlFor="ok"
+                            htmlFor="3"
                             className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-blue-400 px-3 py-1.5 text-xs font-medium"
                           >
                             Ok <FaceSmileIcon className="h-4 w-4" />
@@ -352,83 +370,46 @@ export const CreateExpenseForm = ({
                         </div>
                         <div className="flex items-center">
                           <input
-                            id="plus"
+                            id="4"
                             name="fulfillment"
                             type="radio"
-                            value="paid"
+                            value="4"
                             className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                            onChange={() => setSelectedSatisfaction("plus")}
-                            checked={selectedSatisfaction === "plus"}
+                            onChange={() => setSelectedSatisfaction(4)}
+                            checked={selectedSatisfaction === 4}
                           />
                           <label
-                            htmlFor="plus"
+                            htmlFor="4"
                             className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-green-400 px-3 py-1.5 text-xs font-medium"
                           >
                             + <FaceSmileIcon className="h-4 w-4" />
                           </label>
                         </div>
-                      </div>
-                    </div>
-                  </fieldset>
-                  <div className="h-5" />
-                  {/* valores */}
-                  <fieldset>
-                    <legend className="mb-2 block text-sm font-medium">
-                      ¿Esta alineado con mis valores y propósito de vida?
-                    </legend>
-                    <div className="rounded-md border border-gray-200 bg-white px-3 py-3">
-                      <div className="flex gap-4">
                         <div className="flex items-center">
                           <input
-                            id="no"
-                            name="alignedWithValues"
+                            id="5"
+                            name="fulfillment"
                             type="radio"
+                            value="5"
                             className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                            onChange={() => setSelectedAlignedWithValues("no")}
-                            checked={selectedAlignedWithValues === "no"}
+                            onChange={() => setSelectedSatisfaction(5)}
+                            checked={selectedSatisfaction === 5}
                           />
                           <label
-                            htmlFor="no"
-                            className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-red-400 px-3 py-1.5 text-xs font-medium"
-                          >
-                            No <FaceFrownIcon className="h-4 w-4" />
-                          </label>
-                        </div>
-                        <div className="flex items-center">
-                          <input
-                            id="neutral"
-                            name="alignedWithValues"
-                            type="radio"
-                            checked={selectedAlignedWithValues === "ok"}
-                            className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                            onChange={() => setSelectedAlignedWithValues("ok")}
-                          />
-                          <label
-                            htmlFor="neutral"
-                            className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-blue-400 px-3 py-1.5 text-xs font-medium"
-                          >
-                            Ok <FaceSmileIcon className="h-4 w-4" />
-                          </label>
-                        </div>
-                        <div className="flex items-center">
-                          <input
-                            id="si"
-                            name="alignedWithValues"
-                            type="radio"
-                            className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                            onChange={() => setSelectedAlignedWithValues("si")}
-                            checked={selectedAlignedWithValues === "si"}
-                          />
-                          <label
-                            htmlFor="si"
+                            htmlFor="5"
                             className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-green-400 px-3 py-1.5 text-xs font-medium"
                           >
-                            Si <FaceSmileIcon className="h-4 w-4" />
+                            ++ <FaceSmileIcon className="h-4 w-4" />
                           </label>
                         </div>
                       </div>
                     </div>
                   </fieldset>
+                  <input
+                    type="hidden"
+                    name="satisfaction"
+                    value={selectedSatisfaction}
+                  />
                   {/* Emotion */}
                   <fieldset className="mt-5">
                     <legend className="mb-2 block text-sm font-medium">
@@ -436,89 +417,47 @@ export const CreateExpenseForm = ({
                     </legend>
                     <div className="rounded-md border border-gray-200 bg-white px-3 py-3">
                       <div className="flex flex-col gap-4">
-                        <div className="flex items-center">
-                          <input
-                            id="sadness"
-                            name="emotion"
-                            type="radio"
-                            className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                            onChange={() => setSelectedEmotion("sadness")}
-                            checked={selectedEmotion === "sadness"}
-                          />
-                          <label
-                            htmlFor="sadness"
-                            className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-red-400 px-3 py-1.5 text-xs font-medium"
-                          >
-                            Tristeza <FaceFrownIcon className="h-4 w-4" />
-                          </label>
-                        </div>
-                        <div className="flex items-center">
-                          <input
-                            id="anxiety"
-                            name="emotion"
-                            type="radio"
-                            checked={selectedEmotion === "anxiety"}
-                            className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                            onChange={() => setSelectedEmotion("anxiety")}
-                          />
-                          <label
-                            htmlFor="anxiety"
-                            className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-red-400 px-3 py-1.5 text-xs font-medium"
-                          >
-                            Ansiedad <FaceFrownIcon className="h-4 w-4" />
-                          </label>
-                        </div>
-                        <div className="flex items-center">
-                          <input
-                            id="netral"
-                            name="emotion"
-                            type="radio"
-                            checked={selectedEmotion === "netral"}
-                            className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                            onChange={() => setSelectedEmotion("netral")}
-                          />
-                          <label
-                            htmlFor="netral"
-                            className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-blue-400 px-3 py-1.5 text-xs font-medium"
-                          >
-                            Indiferente <FaceSmileIcon className="h-4 w-4" />
-                          </label>
-                        </div>
-                        <div className="flex items-center">
-                          <input
-                            id="happiness"
-                            name="emotion"
-                            type="radio"
-                            className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                            onChange={() => setSelectedEmotion("happiness")}
-                            checked={selectedEmotion === "happiness"}
-                          />
-                          <label
-                            htmlFor="happiness"
-                            className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-green-400 px-3 py-1.5 text-xs font-medium"
-                          >
-                            Alegría <FaceSmileIcon className="h-4 w-4" />
-                          </label>
-                        </div>
-                        <div className="flex items-center">
-                          <input
-                            id="enthusiasm"
-                            name="emotion"
-                            type="radio"
-                            className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                            onChange={() => setSelectedEmotion("enthusiasm")}
-                            checked={selectedEmotion === "enthusiasm"}
-                          />
-                          <label
-                            htmlFor="enthusiasm"
-                            className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-green-400 px-3 py-1.5 text-xs font-medium"
-                          >
-                            Entusiasmo <FaceSmileIcon className="h-4 w-4" />
-                          </label>
-                        </div>
+                        {emotions?.map((emotion) => (
+                          <div className="flex items-center">
+                            <input
+                              id={emotion.name.toLocaleLowerCase()}
+                              name="emotion"
+                              type="radio"
+                              className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                              onChange={() => setSelectedEmotion(emotion.id)}
+                              checked={selectedEmotion === emotion.id}
+                            />
+                            <label
+                              htmlFor={emotion.name.toLocaleLowerCase()}
+                              className={clsx(
+                                "ml-2 flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium",
+                                {
+                                  "bg-red-400":
+                                    emotion.emotionType === "negative",
+                                  "bg-green-400":
+                                    emotion.emotionType === "positive",
+                                  "bg-blue-400":
+                                    emotion.emotionType === "neutral",
+                                }
+                              )}
+                            >
+                              {emotion.name}{" "}
+                              {emotion.emotionType === "negative" ? (
+                                <FaceFrownIcon className="h-4 w-4" />
+                              ) : (
+                                <FaceSmileIcon className="h-4 w-4" />
+                              )}
+                            </label>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </fieldset>
+                  <input
+                    type="hidden"
+                    name="emotionId"
+                    value={selectedEmotion}
+                  />
                 </div>
                 <div className="mt-6 flex justify-end gap-4">
                   <CancelButton onClick={closeModal} />

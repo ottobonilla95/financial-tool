@@ -17,7 +17,10 @@ model expenses {
   description        String?
   expense_date       DateTime             @db.Date
   created_at         DateTime?            @default(now()) @db.Timestamp(6)
+  emotion_id         Int?
+  satisfaction       Int?
   expensecategory    expense_category?    @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  emotion            emotion?             @relation(fields: [emotion_id], references: [id], onUpdate: NoAction)
   expensesubcategory expense_subcategory? @relation(fields: [subcategory_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "expenses_sub_category_fkey")
   users              users?               @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
@@ -87,4 +90,13 @@ model earning_subcategory {
   created_at       DateTime?         @default(now()) @db.Timestamp(6)
   earning          earning[]
   earning_category earning_category? @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model emotion {
+  id           Int        @id @default(autoincrement())
+  name         String     @db.VarChar(50)
+  description  String?
+  emotion_type String     @db.VarChar(10)
+  expenses     expenses[]
 }

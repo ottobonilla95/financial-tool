@@ -12,6 +12,7 @@ import {
 
 import { Suspense } from "react";
 import { fetchMonthIncome } from "@/src/data/income";
+import { getAllEmotions } from "@/src/data/emotion";
 
 export type DashboardPageProps = {
   searchParams: {
@@ -30,6 +31,9 @@ export default async function Page({ searchParams }: DashboardPageProps) {
 
   const expenses = await fetchMonthExpenses(userId, month, year);
   const earnings = await fetchMonthIncome(userId, month, year);
+  const emotions = (await getAllEmotions()).sort((a, b) =>
+    a.emotionType.localeCompare(b.emotionType)
+  );
 
   return (
     <main>
@@ -39,7 +43,7 @@ export default async function Page({ searchParams }: DashboardPageProps) {
       <div className="h-5" />
 
       <Suspense fallback={<div>loading...</div>}>
-        <DashboardButtons />
+        <DashboardButtons emotions={emotions} />
       </Suspense>
 
       <DashboardTotals expenses={expenses} earnings={earnings} />

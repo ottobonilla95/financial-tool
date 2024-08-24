@@ -3,7 +3,6 @@
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
-
 import { updateLastUpdated } from "../data/user";
 import { deleteDbExpense, createDbExpense } from "../data/expenses";
 import { FormMessage } from "../types";
@@ -47,6 +46,8 @@ const FormSchema = z.object({
       invalid_type_error: "Selecciona una sub categoría.",
     })
     .optional(),
+  satisfaction: z.string(),
+  emotionId: z.string(),
 });
 
 const CreateExpense = FormSchema.omit({ id: true });
@@ -65,6 +66,8 @@ export async function createExpense(
     amount: formData.get("amount"),
     categoryId: formData.get("categoryId"),
     subCategoryId: formData.get("subCategoryId"),
+    satisfaction: formData.get("satisfaction"),
+    emotionId: formData.get("emotionId"),
   });
 
   // If form validation fails, return errors early. Otherwise, continue.
@@ -75,8 +78,15 @@ export async function createExpense(
   }
 
   // Prepare data for insertion into the database
-  const { description, amount, date, categoryId, subCategoryId } =
-    validatedFields.data;
+  const {
+    description,
+    amount,
+    date,
+    categoryId,
+    subCategoryId,
+    satisfaction,
+    emotionId,
+  } = validatedFields.data;
 
   try {
     await createDbExpense({
@@ -86,7 +96,10 @@ export async function createExpense(
       subCategoryId,
       description,
       date: new Date(date),
+      satisfaction: Number(satisfaction),
+      emotionId: Number(emotionId),
     });
+
     await updateLastUpdated({
       userId,
     });

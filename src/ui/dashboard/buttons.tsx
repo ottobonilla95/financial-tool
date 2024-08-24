@@ -5,10 +5,11 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import { CreateExpenseForm } from "../expenses/create-form";
 import { useState } from "react";
 import { CreateIncomeForm } from "../income/create-form";
+import { Emotion } from "@/src/types";
 
-export type DashboardButtonsProps = {};
+export type DashboardButtonsProps = { emotions: Emotion[] };
 
-export const DashboardButtons = async ({}: DashboardButtonsProps) => {
+export const DashboardButtons = async ({ emotions }: DashboardButtonsProps) => {
   const [showCreateExpenseForm, setShowCreateExpenseForm] = useState(false);
   const [showCreateIncomeForm, setShowCreateIncomeForm] = useState(false);
 
@@ -18,6 +19,7 @@ export const DashboardButtons = async ({}: DashboardButtonsProps) => {
         <CreateExpenseForm
           isOpen
           closeModal={() => setShowCreateExpenseForm(false)}
+          emotions={emotions}
         />
       )}
       {showCreateIncomeForm && (
