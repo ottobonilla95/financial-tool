@@ -44,7 +44,7 @@ export const CreateExpenseForm = ({
   const [isCategoryFormOpen, setIsCategoryFormOpen] = useState(false);
   const [isSubCategoryFormOpen, setIsSubCategoryFormOpen] = useState(false);
   const [selectedSatisfaction, setSelectedSatisfaction] = useState(3);
-  const [selectedEmotion, setSelectedEmotion] = useState(3);
+  const [selectedEmotion, setSelectedEmotion] = useState(9);
 
   const { data, mutate, isLoading } = useSWR(
     "/api/expense/category/get-all",
