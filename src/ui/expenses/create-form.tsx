@@ -33,7 +33,10 @@ export const CreateExpenseForm = ({
   emotions,
 }: CreateExpenseFormProps) => {
   const initialState: ExpenseFormState = { message: {}, errors: {} };
-  const [state, formAction] = useActionState(createExpense, initialState);
+  const [state, formAction, loading] = useActionState(
+    createExpense,
+    initialState
+  );
   const [categories, setCategories] = useState<ExpenseCategory[]>([]);
   const [startDate, setStartDate] = useState(new Date());
   const [subCategories, setSubCategories] = useState<
@@ -135,6 +138,7 @@ export const CreateExpenseForm = ({
                           );
                         }}
                         onAddNewClick={() => setIsCategoryFormOpen(true)}
+                        disabled={loading}
                       />
                       <input
                         type="hidden"
@@ -177,6 +181,7 @@ export const CreateExpenseForm = ({
                             setSelectedSubCategory(option?.value)
                           }
                           onAddNewClick={() => setIsSubCategoryFormOpen(true)}
+                          disabled={loading}
                         />
 
                         <input
@@ -207,6 +212,7 @@ export const CreateExpenseForm = ({
                           className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
                           required
                           aria-describedby="description-error"
+                          disabled={loading}
                         />
                       </div>
                       <div
@@ -246,6 +252,7 @@ export const CreateExpenseForm = ({
                           className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                           required
                           aria-describedby="amount-error"
+                          disabled={loading}
                         />
                         <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                       </div>
@@ -291,6 +298,7 @@ export const CreateExpenseForm = ({
                               ? startDate.toISOString().split("T")[0]
                               : ""
                           }
+                          disabled={loading}
                         />
                       </div>
                       <div
@@ -327,6 +335,7 @@ export const CreateExpenseForm = ({
                             className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
                             onChange={() => setSelectedSatisfaction(1)}
                             checked={selectedSatisfaction === 1}
+                            disabled={loading}
                           />
                           <label
                             htmlFor="1"
@@ -344,6 +353,7 @@ export const CreateExpenseForm = ({
                             className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
                             onChange={() => setSelectedSatisfaction(2)}
                             checked={selectedSatisfaction === 2}
+                            disabled={loading}
                           />
                           <label
                             htmlFor="2"
@@ -360,6 +370,7 @@ export const CreateExpenseForm = ({
                             checked={selectedSatisfaction === 3}
                             className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
                             onChange={() => setSelectedSatisfaction(3)}
+                            disabled={loading}
                           />
                           <label
                             htmlFor="3"
@@ -377,6 +388,7 @@ export const CreateExpenseForm = ({
                             className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
                             onChange={() => setSelectedSatisfaction(4)}
                             checked={selectedSatisfaction === 4}
+                            disabled={loading}
                           />
                           <label
                             htmlFor="4"
@@ -394,6 +406,7 @@ export const CreateExpenseForm = ({
                             className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
                             onChange={() => setSelectedSatisfaction(5)}
                             checked={selectedSatisfaction === 5}
+                            disabled={loading}
                           />
                           <label
                             htmlFor="5"
@@ -426,6 +439,7 @@ export const CreateExpenseForm = ({
                               className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
                               onChange={() => setSelectedEmotion(emotion.id)}
                               checked={selectedEmotion === emotion.id}
+                              disabled={loading}
                             />
                             <label
                               htmlFor={emotion.name.toLocaleLowerCase()}

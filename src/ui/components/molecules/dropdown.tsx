@@ -7,12 +7,14 @@ export type DropdownProps = {
   options: { label: string; value: string }[];
   onChange: (option: { label: string; value: string }) => void;
   onAddNewClick?: () => void;
+  disabled?: boolean;
 };
 
 export const Dropdown = ({
   options,
   onChange,
   onAddNewClick,
+  disabled,
 }: DropdownProps) => {
   const NoOptionsMessage = ({ children, ...props }: NoticeProps) => {
     return (
@@ -75,6 +77,7 @@ export const Dropdown = ({
         onChange(option as { label: string; value: string });
       }}
       components={{ NoOptionsMessage, Option }}
+      isDisabled={disabled}
     />
   );
 };
