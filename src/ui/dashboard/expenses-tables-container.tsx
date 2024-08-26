@@ -1,7 +1,7 @@
 import { Expense, ExpensesByCategory } from "@/src/types";
 import { ExpenseTable } from "./expense-table";
 
-export type ExpensesWrapperProps = {
+export type ExpensesTableContainerProps = {
   expenses: Expense[];
 };
 
@@ -19,20 +19,25 @@ const splitByCategoryAndSubcategory = (expenses: Expense[]) => {
   }, {});
 };
 
-export const ExpensesWrapper = ({ expenses }: ExpensesWrapperProps) => {
+export const ExpensesTableContainer = ({
+  expenses,
+}: ExpensesTableContainerProps) => {
   const expensesByCategory = splitByCategoryAndSubcategory(expenses);
 
   return (
-    <div className="gap-4 grid grid-cols-1 sm:grid-cols-3 grid-flow-dense">
-      {Object.entries(expensesByCategory).map(
-        ([categoryName, subcategories]) => (
-          <ExpenseTable
-            key={categoryName}
-            categoryName={categoryName}
-            subcategories={subcategories}
-          />
-        )
-      )}
+    <div className="mt-10">
+      <div className="font-bold text-lg mb-5">Gastos</div>
+      <div className="gap-4 grid grid-cols-1 sm:grid-cols-3 grid-flow-dense">
+        {Object.entries(expensesByCategory).map(
+          ([categoryName, subcategories]) => (
+            <ExpenseTable
+              key={categoryName}
+              categoryName={categoryName}
+              subcategories={subcategories}
+            />
+          )
+        )}
+      </div>
     </div>
   );
 };

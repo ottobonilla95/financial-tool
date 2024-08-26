@@ -1,24 +1,24 @@
 "use client";
 
-import { deleteExpense, DeleteFormState } from "@/src/form-actions/expenses";
+import { deleteIncome, DeleteFormState } from "@/src/form-actions/income";
 import { useActionState, useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
 import React from "react";
 import { CancelButton, SubmitButton } from "../forms";
 import { Modal } from "../components";
 
-export type DeleteExpenseFormProps = {
+export type DeleteIncomeFormProps = {
   isOpen: boolean;
   closeModal: () => void;
-  expenseId: string;
+  incomeId: string;
 };
 
-export const DeleteExpenseForm = ({
+export const DeleteIncomeForm = ({
   isOpen,
   closeModal,
-  expenseId,
-}: DeleteExpenseFormProps) => {
-  const deleteInvoiceWithId = deleteExpense.bind(null, expenseId);
+  incomeId,
+}: DeleteIncomeFormProps) => {
+  const deleteInvoiceWithId = deleteIncome.bind(null, incomeId);
 
   const initialState: DeleteFormState = { message: {}, errors: {} };
   const [state, formAction] = useActionState(deleteInvoiceWithId, initialState);
@@ -35,9 +35,9 @@ export const DeleteExpenseForm = ({
   return (
     <Modal isOpen={isOpen} onCloseModal={closeModal}>
       <form action={formAction}>
-        <div className="font-bold mb-1">Eliminar gasto</div>
+        <div className="font-bold mb-1">Eliminar ingreso</div>
 
-        <div className="mb-5">¿Esta seguro que desea eliminar este gasto?</div>
+        <div className="mb-5">¿Esta seguro que desea eliminar este ingreso?</div>
 
         <div className="flex gap-4">
           <CancelButton onClick={closeModal} />

@@ -17,16 +17,12 @@ export const DashboardButtons = async ({ emotions }: DashboardButtonsProps) => {
     <>
       {showCreateExpenseForm && (
         <CreateExpenseForm
-          isOpen
           closeModal={() => setShowCreateExpenseForm(false)}
           emotions={emotions}
         />
       )}
       {showCreateIncomeForm && (
-        <CreateIncomeForm
-          isOpen
-          closeModal={() => setShowCreateIncomeForm(false)}
-        />
+        <CreateIncomeForm closeModal={() => setShowCreateIncomeForm(false)} />
       )}
 
       <div className="mb-10 flex gap-2 justify-end">

@@ -1,0 +1,38 @@
+import clsx from "clsx";
+
+export type ModalProps = {
+  children?: React.ReactNode;
+  onCloseModal?: () => void;
+  className?: string;
+  isOpen: boolean;
+  zIndex?: number;
+};
+export const Modal = ({
+  children,
+  onCloseModal,
+  className: inputClassName,
+  isOpen,
+  zIndex = 50,
+}: ModalProps) => {
+  const className = clsx(
+    `fixed flex items-center justify-center inset-0`,
+    inputClassName
+  );
+
+  if (!isOpen) return null;
+
+  return (
+    <>
+      <div
+        className={`fixed bg-black opacity-50 inset-0`}
+        onClick={onCloseModal}
+        style={{ zIndex }}
+      />
+      <div className={className} style={{ zIndex }}>
+        <div className="bg-white p-4 max-h-full overflow-y-auto">
+          {children}
+        </div>
+      </div>
+    </>
+  );
+};

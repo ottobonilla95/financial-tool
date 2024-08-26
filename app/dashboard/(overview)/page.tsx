@@ -3,11 +3,12 @@ import { auth } from "@/auth";
 import {
   DashboardDatePicker,
   ExpensesPieChart,
-  ExpensesWrapper,
+  ExpensesTableContainer,
   DashboardTotals,
   LastUpdated,
   DashboardButtons,
   NoExpensesAdded,
+  IncomeTableContainer,
 } from "@/src/ui/dashboard";
 
 import { Suspense } from "react";
@@ -50,17 +51,20 @@ export default async function Page({ searchParams }: DashboardPageProps) {
 
       <DashboardDatePicker />
 
-      {expenses.length > 0 && (
+      {(expenses.length > 0 || earnings.length > 0) && (
         <>
           <div className="w-full">
             <ExpensesPieChart expenses={expenses} />
           </div>
           <div>
-            <ExpensesWrapper expenses={expenses} />
+            <IncomeTableContainer earnings={earnings} />
+          </div>
+          <div>
+            <ExpensesTableContainer expenses={expenses} />
           </div>
         </>
       )}
-      {expenses.length === 0 && <NoExpensesAdded />}
+      {expenses.length === 0 && earnings.length === 0 && <NoExpensesAdded />}
     </main>
   );
 }
