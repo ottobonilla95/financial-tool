@@ -16,10 +16,12 @@ export const DashboardButtons = async ({ emotions }: DashboardButtonsProps) => {
   return (
     <>
       {showCreateExpenseForm && (
-        <CreateExpenseForm
-          closeModal={() => setShowCreateExpenseForm(false)}
-          emotions={emotions}
-        />
+        <>
+          <CreateExpenseForm
+            closeModal={() => setShowCreateExpenseForm(false)}
+            emotions={emotions}
+          />
+        </>
       )}
       {showCreateIncomeForm && (
         <CreateIncomeForm closeModal={() => setShowCreateIncomeForm(false)} />

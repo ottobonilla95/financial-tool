@@ -1,4 +1,5 @@
 import { ExpenseCategory } from "./category";
+import { Emotion } from "./emotion";
 
 export type Expense = {
   amount: number;
@@ -10,4 +11,6 @@ export type Expense = {
     id: string;
     name: string;
   };
+  satisfaction: number;
+  emotion: Partial<Emotion>;
 };

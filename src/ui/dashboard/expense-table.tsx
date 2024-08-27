@@ -1,11 +1,16 @@
 "use client";
 
 import { darkenHexColor } from "@/src/helpers/darken-color";
-import { ExpenseCategory, Expense } from "@/src/types";
+import { ExpenseCategory, Expense, Emotion } from "@/src/types";
 import clsx from "clsx";
 import { format } from "date-fns";
 import { DeleteExpenseForm } from "../expenses/delete-expense-modal-form";
-import { TrashIcon, PencilIcon } from "@heroicons/react/24/outline";
+import {
+  TrashIcon,
+  PencilIcon,
+  FaceFrownIcon,
+  FaceSmileIcon,
+} from "@heroicons/react/24/outline";
 import { Button } from "../components";
 import { useState } from "react";
 import { UpdateCategoryForm } from "../expense-categories";
@@ -39,6 +44,39 @@ const getCategory = (subcategories: {
   }
 
   return {} as ExpenseCategory;
+};
+export const ExpenseSatisfactionIcon = ({
+  satisfaction,
+}: {
+  satisfaction: number;
+}) => {
+  if (satisfaction === 1) {
+    return <div className="cursor-pointer">&#128534;</div>;
+  }
+  if (satisfaction === 2) {
+    return <div className="cursor-pointer">&#128530;</div>;
+  }
+  if (satisfaction === 3) {
+    return <div className="cursor-pointer">&#128578;</div>;
+  }
+  if (satisfaction === 4) {
+    return <div className="cursor-pointer">&#128512;</div>;
+  }
+  if (satisfaction === 5) {
+    return <div className="cursor-pointer">&#128513;</div>;
+  }
+};
+
+export const ExpenseEmotionIcon = ({ emotionType, name }: Partial<Emotion>) => {
+  if (emotionType === "positive") {
+    return <div className="cursor-pointer">&#128513;</div>;
+  }
+
+  if (emotionType === "negative") {
+    return <div className="cursor-pointer">&#128533;</div>;
+  }
+
+  return <div className="cursor-pointer">&#128578;</div>;
 };
 
 export const ExpenseTable = ({
@@ -112,8 +150,16 @@ export const ExpenseTable = ({
               <h3 className="font-bold text-base  py-2 px-4">
                 {subcategoryName}
               </h3>
+              <div className="grid grid-cols-6 py-2 px-4">
+                <div className="font-bold flex items-center">Nombre</div>
+                <div className="font-bold flex items-center justify-center">Fecha</div>
+                <div className="font-bold flex items-center justify-center">Precio</div>
+                <div className="font-bold flex items-center justify-center">Satisfacción</div>
+                <div className="font-bold flex items-center justify-center">Emoción</div>
+                <div></div>
+              </div>
               {expenseArray.map((expense) => (
-                <div key={expense.id} className="grid grid-cols-4 py-2 px-4">
+                <div key={expense.id} className="grid grid-cols-6 py-2 px-4">
                   <div className="font-medium flex items-center">
                     {expense.description}
                   </div>
@@ -121,8 +167,16 @@ export const ExpenseTable = ({
                   <div className="flex items-center justify-center">
                     {format(expense.expenseDate, "EEE dd")}
                   </div>
-                  <div className="flex items-center justify-end">
+                  <div className="flex items-center justify-center">
                     {expense.amount}
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <ExpenseSatisfactionIcon
+                      satisfaction={expense.satisfaction}
+                    />
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <ExpenseEmotionIcon {...expense.emotion} />
                   </div>
 
                   <div className="flex items-center justify-end">

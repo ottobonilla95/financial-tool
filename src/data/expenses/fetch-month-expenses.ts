@@ -18,6 +18,11 @@ export type Data = {
     id: string;
     name: string;
   } | null;
+  satisfaction: number | null;
+  emotion: {
+    emotion_type: string;
+    name: string;
+  } | null;
 };
 
 export async function fetchMonthExpenses(
@@ -45,6 +50,13 @@ export async function fetchMonthExpenses(
         expensesubcategory: {
           select: {
             id: true,
+            name: true,
+          },
+        },
+        satisfaction: true,
+        emotion: {
+          select: {
+            emotion_type: true,
             name: true,
           },
         },
@@ -82,6 +94,11 @@ export const mapExpense = (expense: Data): Expense => {
     subcategory: {
       id: expense.expensesubcategory?.id || "",
       name: expense.expensesubcategory?.name || "",
+    },
+    satisfaction: expense.satisfaction || 0,
+    emotion: {
+      emotionType: expense.emotion?.emotion_type || "",
+      name: expense.emotion?.name || "",
     },
   };
 };

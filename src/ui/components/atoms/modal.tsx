@@ -22,17 +22,17 @@ export const Modal = ({
   if (!isOpen) return null;
 
   return (
-    <>
+    <div className={className} style={{ zIndex }}>
       <div
-        className={`fixed bg-black opacity-50 inset-0`}
+        className={`absolute bg-black opacity-50 inset-0`}
         onClick={onCloseModal}
-        style={{ zIndex }}
       />
-      <div className={className} style={{ zIndex }}>
-        <div className="bg-white p-4 max-h-full overflow-y-auto">
-          {children}
-        </div>
+      <div
+        className="bg-white p-4 max-h-full overflow-y-auto"
+        style={{ zIndex: zIndex + 1 }}
+      >
+        {children}
       </div>
-    </>
+    </div>
   );
 };
