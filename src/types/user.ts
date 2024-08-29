@@ -6,5 +6,5 @@ export type User = {
   email?: string;
   lastUpdated: string;
   password?: string;
-  currency: Currency;
+  currency?: Currency;
 };

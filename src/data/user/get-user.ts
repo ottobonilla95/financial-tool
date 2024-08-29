@@ -9,7 +9,7 @@ export type Data = {
   email: string;
   last_updated: Date;
   password: string;
-  currency: Currency;
+  currency?: Currency;
 };
 
 type GetUserDataProps = {
