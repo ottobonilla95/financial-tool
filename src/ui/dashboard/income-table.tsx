@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { format } from "date-fns";
 import { DeleteIncomeForm } from "../income/delete-form";
 import { TrashIcon, PencilIcon } from "@heroicons/react/24/outline";
-import { Button } from "../components";
+import { Button, Price } from "../components";
 import { useState } from "react";
 import { UpdateCategoryForm } from "../income-categories";
 
@@ -122,7 +122,7 @@ export const IncomeTable = ({
                     {format(income.incomeDate, "EEE dd")}
                   </div>
                   <div className="flex items-center justify-end">
-                    {income.amount}
+                    <Price amount={income.amount} />
                   </div>
 
                   <div className="flex items-center justify-end">
@@ -146,7 +146,7 @@ export const IncomeTable = ({
               >
                 <div className="font-bold">Total</div>
                 <div className="font-bold">
-                  {calculateSubcategoryTotal(incomeArray).toFixed(2)}
+                  <Price amount={calculateSubcategoryTotal(incomeArray)} />
                 </div>
               </div>
             </div>
@@ -160,7 +160,7 @@ export const IncomeTable = ({
         >
           <div className="font-bold">Total</div>
           <div className="font-bold">
-            {calculateTotal(subcategories).toFixed(2)}
+            <Price amount={calculateTotal(subcategories)} />
           </div>
         </div>
       </div>

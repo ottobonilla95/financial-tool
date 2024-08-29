@@ -23,6 +23,7 @@ model expenses {
   emotion            emotion?             @relation(fields: [emotion_id], references: [id], onUpdate: NoAction)
   expensesubcategory expense_subcategory? @relation(fields: [subcategory_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "expenses_sub_category_fkey")
   users              users?               @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  currencyId         Int?
 }
 
 model users {
@@ -32,10 +33,13 @@ model users {
   password         String
   last_updated     DateTime           @default(now()) @db.Date
   created_at       DateTime?          @default(now()) @db.Timestamp(6)
+  currency_id      Int?
+  currency         currency?          @relation(fields: [currency_id], references: [id], onUpdate: NoAction)
   earning          earning[]
   earning_category earning_category[]
   expense_category expense_category[]
   expenses         expenses[]
+  savings          saving[]
 }
 
 model expense_category {
@@ -99,4 +103,22 @@ model emotion {
   description  String?
   emotion_type String     @db.VarChar(10)
   expenses     expenses[]
+}
+
+model currency {
+  id          Int     @id @default(autoincrement())
+  name        String  @db.VarChar(50)
+  symbol      String
+  description String?
+  users       users[]
+}
+
+model saving {
+  id          String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  user_id     String?   @db.Uuid
+  amount      Decimal   @db.Decimal(10, 2)
+  description String?
+  saving_date DateTime  @db.Date
+  created_at  DateTime? @default(now()) @db.Timestamp(6)
+  users       users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

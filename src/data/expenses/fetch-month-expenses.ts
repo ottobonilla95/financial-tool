@@ -68,6 +68,9 @@ export async function fetchMonthExpenses(
           lte: endDate.toISOString(),
         },
       },
+      orderBy: {
+        expense_date: "asc",
+      },
     });
 
     const expenses = data.map((expense) =>

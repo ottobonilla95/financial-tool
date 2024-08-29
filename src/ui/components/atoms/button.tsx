@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import Link from "next/link";
+import { Spinner } from "./icons";
 
 export type ButtonProps = {
   href?: string;
@@ -8,6 +9,7 @@ export type ButtonProps = {
   icon?: React.ReactNode;
   iconPosition?: "left" | "right";
   className?: string;
+  loading?: boolean;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = ({
@@ -17,6 +19,7 @@ export const Button = ({
   icon,
   iconPosition = "left",
   className: inputClassname,
+  loading,
   ...rest
 }: ButtonProps) => {
   const className = clsx(
@@ -28,13 +31,13 @@ export const Button = ({
     inputClassname
   );
 
-  const content = (
+  const content = loading ? (
+    <Spinner className="w-5" />
+  ) : (
     <>
       {icon && iconPosition === "left" && <div className="mr-1">{icon}</div>}
       {children}
-      {icon && iconPosition === "right" && (
-        <div className="ml-1">{icon}</div>
-      )}
+      {icon && iconPosition === "right" && <div className="ml-1">{icon}</div>}
     </>
   );
 

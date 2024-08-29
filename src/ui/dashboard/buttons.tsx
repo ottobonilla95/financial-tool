@@ -6,12 +6,14 @@ import { CreateExpenseForm } from "../expenses/create-form";
 import { useState } from "react";
 import { CreateIncomeForm } from "../income/create-form";
 import { Emotion } from "@/src/types";
+import { CreateSavingForm } from "../saving/create-form";
 
 export type DashboardButtonsProps = { emotions: Emotion[] };
 
 export const DashboardButtons = async ({ emotions }: DashboardButtonsProps) => {
   const [showCreateExpenseForm, setShowCreateExpenseForm] = useState(false);
   const [showCreateIncomeForm, setShowCreateIncomeForm] = useState(false);
+  const [showCreateSavingForm, setShowCreateSavingForm] = useState(false);
 
   return (
     <>
@@ -26,8 +28,17 @@ export const DashboardButtons = async ({ emotions }: DashboardButtonsProps) => {
       {showCreateIncomeForm && (
         <CreateIncomeForm closeModal={() => setShowCreateIncomeForm(false)} />
       )}
+      {showCreateSavingForm && (
+        <CreateSavingForm closeModal={() => setShowCreateSavingForm(false)} />
+      )}
 
       <div className="mb-10 flex gap-2 justify-end">
+        <Button
+          icon={<PlusIcon className="w-4" />}
+          onClick={() => setShowCreateSavingForm(true)}
+        >
+          Agregar ahorro
+        </Button>
         <Button
           icon={<PlusIcon className="w-4" />}
           onClick={() => setShowCreateIncomeForm(true)}

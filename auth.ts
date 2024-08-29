@@ -16,6 +16,12 @@ async function getUser(email: string): Promise<User | undefined> {
         email: true,
         password: true,
         id: true,
+        currency: {
+          select: {
+            name: true,
+            symbol: true,
+          },
+        },
       },
     });
 

@@ -56,6 +56,9 @@ export async function fetchMonthIncome(
           lte: endDate.toISOString(),
         },
       },
+      orderBy: {
+        earning_date: "asc",
+      },
     });
 
     const incomes = data.map((income) =>

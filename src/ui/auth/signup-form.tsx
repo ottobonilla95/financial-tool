@@ -109,6 +109,7 @@ export const SignupForm = () => {
           aria-disabled={isPending}
           icon={<ArrowRightIcon className="h-5 w-5 text-gray-50" />}
           iconPosition="right"
+          loading={isPending}
         >
           Crear cuenta
         </Button>

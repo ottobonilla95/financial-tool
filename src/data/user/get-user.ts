@@ -1,4 +1,4 @@
-import { User } from "@/src/types";
+import { Currency, User } from "@/src/types";
 import { PrismaClient, Prisma } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -9,6 +9,7 @@ export type Data = {
   email: string;
   last_updated: Date;
   password: string;
+  currency: Currency;
 };
 
 type GetUserDataProps = {
@@ -40,5 +41,6 @@ export const mapUser = (user: Data): User => {
     email: user.email,
     lastUpdated: user.last_updated?.toISOString(),
     password: user.password,
+    currency: user.currency,
   };
 };
