@@ -16,6 +16,7 @@ export async function createDbUser({ name, email, password }: UserToCreate) {
         email,
         password,
         created_at: new Date(),
+        currency_id: 3,
       },
     });
   } catch (error) {
