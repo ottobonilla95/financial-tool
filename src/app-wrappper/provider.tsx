@@ -8,10 +8,7 @@ export type AppContextProps = {
 };
 
 export const AppContext = createContext<AppContextProps>({
-  currency: {
-    name: "USD",
-    symbol: "$",
-  },
+  currency: { id: 1, name: "USD", symbol: "$" },
 });
 
 export type AppProviderProps = {
