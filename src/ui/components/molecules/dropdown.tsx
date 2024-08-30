@@ -8,6 +8,7 @@ export type DropdownProps = {
   onChange: (option: { label: string; value: string }) => void;
   onAddNewClick?: () => void;
   disabled?: boolean;
+  showAddButon?: boolean;
 };
 
 export const Dropdown = ({
@@ -15,6 +16,7 @@ export const Dropdown = ({
   onChange,
   onAddNewClick,
   disabled,
+  showAddButon = true,
 }: DropdownProps) => {
   const NoOptionsMessage = ({ children, ...props }: NoticeProps) => {
     return (
@@ -47,15 +49,19 @@ export const Dropdown = ({
 
     return <components.Option innerProps={innerProps} {...props} />;
   };
-  return (
-    <Select
-      options={[
+
+  const finalOptions = showAddButon
+    ? [
         ...options,
         {
           value: "add",
           label: "add",
         },
-      ]}
+      ]
+    : options;
+  return (
+    <Select
+      options={finalOptions}
       isClearable
       styles={{
         control: (baseStyles, state) => ({

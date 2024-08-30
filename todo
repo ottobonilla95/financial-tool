@@ -1,7 +1,5 @@
 
-- currency, register form, edit.
 
-- poder ver subcategorias en grafico.
 - Add gneral graphics of moth expenses.
 - Add contact details.
 - Company details copyright.
@@ -27,6 +25,8 @@
 - al agregar un gasto que se vaya con la fecha del mes en el que estoy.
 - Editar gasto
 - Autocomplete description expense
+- currency, edit.
+- poder ver subcategorias en grafico.
 
 update expense_category set color = '#ff9524' where id = 'cf51867f-b995-44d7-867b-c423815560a1';
 

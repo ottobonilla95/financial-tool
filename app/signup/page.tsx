@@ -1,7 +1,10 @@
+import { getAllCurrencies } from "@/src/data/currency";
 import PageLogo from "@/src/ui/acme-logo";
 import { SignupForm } from "@/src/ui/auth";
 
-export default function SignupPage() {
+export default async function SignupPage() {
+  const currencies = await getAllCurrencies();
+
   return (
     <main className="flex items-center justify-center md:h-screen">
       <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4">
@@ -10,7 +13,7 @@ export default function SignupPage() {
             <PageLogo />
           </div>
         </div>
-        <SignupForm />
+        <SignupForm currencies={currencies} />
       </div>
     </main>
   );

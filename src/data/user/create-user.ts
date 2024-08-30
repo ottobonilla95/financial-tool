@@ -6,9 +6,15 @@ export type UserToCreate = {
   name: string;
   email: string;
   password: string;
+  currencyId: string;
 };
 
-export async function createDbUser({ name, email, password }: UserToCreate) {
+export async function createDbUser({
+  name,
+  email,
+  password,
+  currencyId,
+}: UserToCreate) {
   try {
     await prisma.users.create({
       data: {
@@ -16,7 +22,7 @@ export async function createDbUser({ name, email, password }: UserToCreate) {
         email,
         password,
         created_at: new Date(),
-        currency_id: 3,
+        currency_id: Number(currencyId),
       },
     });
   } catch (error) {

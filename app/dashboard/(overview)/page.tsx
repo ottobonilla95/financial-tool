@@ -1,4 +1,4 @@
-import { fetchMonthExpenses } from "@/src/data/expenses";
+import { fetchExpenses } from "@/src/data/expenses";
 import { auth } from "@/auth";
 import {
   DashboardDatePicker,
@@ -19,6 +19,7 @@ import { fetchMonthSaving } from "@/src/data/saving";
 import { getDBUser } from "@/src/data/user";
 import { AppProvider } from "@/src/app-wrappper/provider";
 import { Currency } from "@/src/types";
+import { endOfMonth, startOfMonth } from "date-fns";
 
 export type DashboardPageProps = {
   searchParams: {
@@ -51,7 +52,18 @@ export default async function Page({ searchParams }: DashboardPageProps) {
   const month = Number(searchParams.month) || currentDate.getMonth() + 1;
   const year = Number(searchParams.year) || currentDate.getFullYear();
 
-  const expenses = await fetchMonthExpenses(userId, month, year);
+  const startDate = startOfMonth(new Date(year, month - 1));
+  const endDate = endOfMonth(new Date(year, month - 1));
+
+  const expenses = await fetchExpenses({
+    filters: {
+      user_id: userId,
+      expense_date: {
+        gte: startDate.toISOString(),
+        lte: endDate.toISOString(),
+      },
+    },
+  });
   const earnings = await fetchMonthIncome(userId, month, year);
   const savings = await fetchMonthSaving(userId, month, year);
 
@@ -78,25 +90,27 @@ export default async function Page({ searchParams }: DashboardPageProps) {
         />
 
         <DashboardDatePicker />
-
-        {(expenses.length > 0 || earnings.length > 0) && (
-          <>
-            <div className="w-full ">
-              <ExpensesPieChart expenses={expenses} />
-            </div>
-            {savings.length > 0 && (
-              <div>
-                <SavingTableContainer savings={savings} />
-              </div>
-            )}
-            <div>
-              <IncomeTableContainer earnings={earnings} />
-            </div>
-            <div>
-              <ExpensesTableContainer expenses={expenses} />
-            </div>
-          </>
+        {expenses.length > 0 && (
+          <div className="w-full ">
+            <ExpensesPieChart expenses={expenses} />
+          </div>
         )}
+        {savings.length > 0 && (
+          <div>
+            <SavingTableContainer savings={savings} />
+          </div>
+        )}
+        {earnings.length > 0 && (
+          <div>
+            <IncomeTableContainer earnings={earnings} />
+          </div>
+        )}
+        {expenses.length > 0 && (
+          <div>
+            <ExpensesTableContainer expenses={expenses} />
+          </div>
+        )}
+
         {expenses.length === 0 && earnings.length === 0 && <NoExpensesAdded />}
       </main>
     </AppProvider>

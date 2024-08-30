@@ -21,6 +21,7 @@ export type CreateUserFormState = {
   errors?: {
     name?: string[];
     email?: string[];
+    currencyId?: string[];
     password?: string[];
     passwordConfirmation?: string[];
   };
@@ -45,6 +46,9 @@ const FormSchema = z
       .refine((value) => value.trim().length > 0, {
         message: "El email no debe estar vacío.",
       }),
+    currencyId: z.string({
+      invalid_type_error: "Selecciona una moneda.",
+    }),
     password: z
       .string({
         invalid_type_error: "Agrega una contraseña.",
@@ -92,6 +96,7 @@ export async function createUser(
   const validatedFields = CreateUser.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
+    currencyId: formData.get("currencyId"),
     password: formData.get("password"),
     passwordConfirmation: formData.get("passwordConfirmation"),
   });
@@ -107,7 +112,7 @@ export async function createUser(
   }
 
   // Prepare data for insertion into the database
-  const { name, password, email } = validatedFields.data;
+  const { name, password, email, currencyId } = validatedFields.data;
 
   try {
     const user = await getDBUser({
@@ -130,6 +135,7 @@ export async function createUser(
       email,
       name,
       password: hashedPassword,
+      currencyId,
     });
 
     await signIn("credentials", { email, password });

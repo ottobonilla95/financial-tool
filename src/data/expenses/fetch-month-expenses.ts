@@ -1,5 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-import { startOfMonth, endOfMonth } from "date-fns";
+import { PrismaClient, Prisma } from "@prisma/client";
 import { Expense } from "@/src/types";
 
 const prisma = new PrismaClient();
@@ -25,14 +24,11 @@ export type Data = {
   } | null;
 };
 
-export async function fetchMonthExpenses(
-  userId: string,
-  month: number,
-  year: number
-) {
-  const startDate = startOfMonth(new Date(year, month - 1));
-  const endDate = endOfMonth(new Date(year, month - 1));
+type FetchExpensesProps = {
+  filters?: Prisma.expensesWhereInput;
+};
 
+export async function fetchExpenses({ filters }: FetchExpensesProps) {
   try {
     const data = await prisma.expenses.findMany({
       select: {
@@ -61,13 +57,7 @@ export async function fetchMonthExpenses(
           },
         },
       },
-      where: {
-        user_id: userId,
-        expense_date: {
-          gte: startDate.toISOString(),
-          lte: endDate.toISOString(),
-        },
-      },
+      where: filters,
       orderBy: {
         expense_date: "asc",
       },

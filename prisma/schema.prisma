@@ -106,11 +106,13 @@ model emotion {
 }
 
 model currency {
-  id          Int     @id @default(autoincrement())
-  name        String  @db.VarChar(50)
-  symbol      String
-  description String?
-  users       users[]
+  id           Int     @id @default(autoincrement())
+  name         String  @db.VarChar(50)
+  symbol       String
+  description  String?
+  currencyCode String?  @db.VarChar(3)
+  countryCode  String?  @db.VarChar(2)
+  users        users[]
 }
 
 model saving {

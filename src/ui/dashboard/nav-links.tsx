@@ -1,9 +1,8 @@
 "use client";
 
 import {
-  UserGroupIcon,
   HomeIcon,
-  DocumentDuplicateIcon,
+  PresentationChartLineIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -13,11 +12,11 @@ import clsx from "clsx";
 // Depending on the size of the application, this would be stored in a database.
 const links = [
   { name: "Home", href: "/dashboard", icon: HomeIcon },
-  // {
-  //   name: "Gastos",
-  //   href: "/dashboard/expenses",
-  //   icon: DocumentDuplicateIcon,
-  // },
+  {
+    name: "Mi Resumen",
+    href: "/dashboard/insights",
+    icon: PresentationChartLineIcon,
+  },
   // { name: "Customers", href: "/dashboard/test", icon: UserGroupIcon },
 ];
 
