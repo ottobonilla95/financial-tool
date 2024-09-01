@@ -23,7 +23,7 @@ type FetchEarningProps = {
   filters?: Prisma.earningWhereInput;
 };
 
-export async function fetchEarning({ filters }: FetchEarningProps) {
+export async function fetchEarnings({ filters }: FetchEarningProps) {
   try {
     const data = await prisma.earning.findMany({
       select: {

@@ -13,7 +13,7 @@ import {
 } from "@/src/ui/dashboard";
 
 import { Suspense } from "react";
-import { fetchIncome } from "@/src/data/earning";
+import { fetchEarnings } from "@/src/data/earning";
 import { getAllEmotions } from "@/src/data/emotion";
 import { fetchSavings } from "@/src/data/saving";
 import { getDBUser } from "@/src/data/user";
@@ -58,16 +58,16 @@ export default async function Page({ searchParams }: DashboardPageProps) {
   const expenses = await fetchExpenses({
     filters: {
       user_id: userId,
-      expense_date: {
+      date: {
         gte: startDate.toISOString(),
         lte: endDate.toISOString(),
       },
     },
   });
-  const earnings = await fetchIncome({
+  const earnings = await fetchEarnings({
     filters: {
       user_id: userId,
-      earning_date: {
+      date: {
         gte: startDate.toISOString(),
         lte: endDate.toISOString(),
       },
@@ -76,7 +76,7 @@ export default async function Page({ searchParams }: DashboardPageProps) {
   const savings = await fetchSavings({
     filters: {
       user_id: userId,
-      saving_date: {
+      date: {
         gte: startDate.toISOString(),
         lte: endDate.toISOString(),
       },

@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { AppProvider } from "@/src/app-wrappper/provider";
 import { fetchExpenses } from "@/src/data/expenses";
-import { fetchEarning } from "@/src/data/earning";
+import { fetchEarnings } from "@/src/data/earning";
 import { fetchSavings } from "@/src/data/saving";
 import { getDBUser } from "@/src/data/user";
 import { Currency } from "@/src/types";
@@ -18,7 +18,7 @@ export default async function Page() {
     },
   });
 
-  const earnings = await fetchEarning({
+  const earnings = await fetchEarnings({
     filters: {
       user_id: userId,
     },
