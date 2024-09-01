@@ -4,7 +4,7 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 import { updateLastUpdated } from "../data/user";
-import { createDbIncome, deleteDbIncome } from "../data/earning";
+import { createDbEarning, deleteDbEarning } from "../data/earning";
 import { FormMessage } from "../types";
 
 export type IncomeFormState = {
@@ -78,7 +78,7 @@ export async function createIncome(
     validatedFields.data;
 
   try {
-    await createDbIncome({
+    await createDbEarning({
       userId,
       amount,
       categoryId,
@@ -123,7 +123,7 @@ export async function deleteIncome(incomeId: string) {
   }
 
   try {
-    await deleteDbIncome({
+    await deleteDbEarning({
       userId,
       incomeId: incomeId,
     });
