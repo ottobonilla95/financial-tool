@@ -20,7 +20,7 @@ export async function createDbSaving({
       data: {
         user_id: userId,
         amount,
-        saving_date: date,
+        date,
         description,
         created_at: new Date(),
       },

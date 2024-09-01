@@ -1,12 +1,12 @@
-import { IncomeByCategory, Income } from "@/src/types";
+import { EarningByCategory, Earning } from "@/src/types";
 import { IncomeTable } from "./income-table";
 
 export type IncomeTableContainerProps = {
-  earnings: Income[];
+  earnings: Earning[];
 };
 
-const splitByCategoryAndSubcategory = (expenses: Income[]) => {
-  return expenses.reduce((acc: IncomeByCategory, expense) => {
+const splitByCategoryAndSubcategory = (expenses: Earning[]) => {
+  return expenses.reduce((acc: EarningByCategory, expense) => {
     const { category, subcategory } = expense;
     if (!acc[category.name]) {
       acc[category.name] = {};

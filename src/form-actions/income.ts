@@ -4,7 +4,7 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 import { updateLastUpdated } from "../data/user";
-import { createDbIncome, deleteDbIncome } from "../data/income";
+import { createDbIncome, deleteDbIncome } from "../data/earning";
 import { FormMessage } from "../types";
 
 export type IncomeFormState = {
@@ -92,7 +92,7 @@ export async function createIncome(
   } catch (error) {
     return {
       message: {
-        text: "Database Error: Failed to Create Income.",
+        text: "Database Error: Failed to Create Earning.",
         type: "error",
       },
     };
@@ -143,7 +143,7 @@ export async function deleteIncome(incomeId: string) {
 
   return {
     message: {
-      text: "Income deleted Successfully.",
+      text: "Earning deleted Successfully.",
       type: "success",
     },
   };

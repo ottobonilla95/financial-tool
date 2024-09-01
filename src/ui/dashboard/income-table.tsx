@@ -1,7 +1,7 @@
 "use client";
 
 import { darkenHexColor } from "@/src/helpers/darken-color";
-import { IncomeCategory, Income } from "@/src/types";
+import { EarningCategory, Earning } from "@/src/types";
 import clsx from "clsx";
 import { format } from "date-fns";
 import { DeleteIncomeForm } from "../income/delete-form";
@@ -13,15 +13,15 @@ import { UpdateCategoryForm } from "../income-categories";
 export type IncomeTableProps = {
   categoryName: string;
   subcategories: {
-    [subcategoryName: string]: Income[];
+    [subcategoryName: string]: Earning[];
   };
 };
 
-const calculateSubcategoryTotal = (incomes: Income[]) => {
+const calculateSubcategoryTotal = (incomes: Earning[]) => {
   return incomes.reduce((acc, income) => acc + income.amount, 0);
 };
 const calculateTotal = (subcategories: {
-  [subcategoryName: string]: Income[];
+  [subcategoryName: string]: Earning[];
 }) => {
   return Object.values(subcategories).reduce(
     (acc, incomes) => acc + calculateSubcategoryTotal(incomes),
@@ -30,15 +30,15 @@ const calculateTotal = (subcategories: {
 };
 
 const getCategory = (subcategories: {
-  [subcategoryName: string]: Income[];
-}): IncomeCategory => {
+  [subcategoryName: string]: Earning[];
+}): EarningCategory => {
   for (const incomeArray of Object.values(subcategories)) {
     const income = incomeArray[0];
 
     return income.category;
   }
 
-  return {} as IncomeCategory;
+  return {} as EarningCategory;
 };
 
 export const IncomeTable = ({
@@ -46,7 +46,7 @@ export const IncomeTable = ({
   subcategories,
 }: IncomeTableProps) => {
   const getCategoryColor = (subcategories: {
-    [subcategoryName: string]: Income[];
+    [subcategoryName: string]: Earning[];
   }): string => {
     for (const incomeArray of Object.values(subcategories)) {
       const income = incomeArray[0];
@@ -63,7 +63,7 @@ export const IncomeTable = ({
   const [isUpdateCategoryModalOpen, setIsUpdateCategoryModalOpen] =
     useState(false);
   const [categoryToUpdate, setCategoryToUpdate] = useState<
-    Partial<IncomeCategory>
+    Partial<EarningCategory>
   >({});
 
   return (
@@ -76,7 +76,7 @@ export const IncomeTable = ({
 
       {isUpdateCategoryModalOpen && (
         <UpdateCategoryForm
-          category={categoryToUpdate as IncomeCategory}
+          category={categoryToUpdate as EarningCategory}
           closeModal={() => setIsUpdateCategoryModalOpen(false)}
           isOpen
         />
@@ -119,7 +119,7 @@ export const IncomeTable = ({
                   </div>
 
                   <div className="flex items-center justify-center">
-                    {format(income.incomeDate, "EEE dd")}
+                    {format(income.date, "EEE dd")}
                   </div>
                   <div className="flex items-center justify-end">
                     <Price amount={income.amount} />

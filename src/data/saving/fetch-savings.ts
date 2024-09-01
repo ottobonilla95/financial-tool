@@ -1,5 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-import { startOfMonth, endOfMonth } from "date-fns";
+import { PrismaClient, Prisma } from "@prisma/client";
 import { Saving } from "@/src/types";
 
 const prisma = new PrismaClient();
@@ -8,34 +7,25 @@ export type Data = {
   id: string;
   amount: number;
   description: string | null;
-  saving_date: Date;
+  date: Date;
 };
 
-export async function fetchMonthSaving(
-  userId: string,
-  month: number,
-  year: number
-) {
-  const startDate = startOfMonth(new Date(year, month - 1));
-  const endDate = endOfMonth(new Date(year, month - 1));
+type FetchSavingsProps = {
+  filters?: Prisma.savingWhereInput;
+};
 
+export async function fetchSavings({ filters }: FetchSavingsProps) {
   try {
     const data = await prisma.saving.findMany({
       select: {
         id: true,
         amount: true,
-        saving_date: true,
+        date: true,
         description: true,
       },
-      where: {
-        user_id: userId,
-        saving_date: {
-          gte: startDate.toISOString(),
-          lte: endDate.toISOString(),
-        },
-      },
+      where: filters,
       orderBy: {
-        saving_date: "asc",
+        date: "asc",
       },
     });
 
@@ -52,7 +42,7 @@ export async function fetchMonthSaving(
 export const mapSaving = (saving: Data): Saving => {
   return {
     id: saving.id,
-    savingDate: new Date(saving.saving_date || ""),
+    date: new Date(saving.date || ""),
     description: saving.description || "",
     amount: saving.amount,
   };

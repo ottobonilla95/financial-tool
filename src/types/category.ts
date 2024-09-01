@@ -8,7 +8,7 @@ export type ExpenseCategory = {
   }[];
 };
 
-export type IncomeCategory = {
+export type EarningCategory = {
   id: string;
   name: string;
   color: string;

@@ -13,9 +13,9 @@ import {
 } from "@/src/ui/dashboard";
 
 import { Suspense } from "react";
-import { fetchMonthIncome } from "@/src/data/income";
+import { fetchIncome } from "@/src/data/earning";
 import { getAllEmotions } from "@/src/data/emotion";
-import { fetchMonthSaving } from "@/src/data/saving";
+import { fetchSavings } from "@/src/data/saving";
 import { getDBUser } from "@/src/data/user";
 import { AppProvider } from "@/src/app-wrappper/provider";
 import { Currency } from "@/src/types";
@@ -64,8 +64,24 @@ export default async function Page({ searchParams }: DashboardPageProps) {
       },
     },
   });
-  const earnings = await fetchMonthIncome(userId, month, year);
-  const savings = await fetchMonthSaving(userId, month, year);
+  const earnings = await fetchIncome({
+    filters: {
+      user_id: userId,
+      earning_date: {
+        gte: startDate.toISOString(),
+        lte: endDate.toISOString(),
+      },
+    },
+  });
+  const savings = await fetchSavings({
+    filters: {
+      user_id: userId,
+      saving_date: {
+        gte: startDate.toISOString(),
+        lte: endDate.toISOString(),
+      },
+    },
+  });
 
   const emotions = (await getAllEmotions()).sort((a, b) =>
     a.emotionType.localeCompare(b.emotionType)

@@ -1,6 +1,8 @@
 import { auth } from "@/auth";
 import { AppProvider } from "@/src/app-wrappper/provider";
 import { fetchExpenses } from "@/src/data/expenses";
+import { fetchEarning } from "@/src/data/earning";
+import { fetchSavings } from "@/src/data/saving";
 import { getDBUser } from "@/src/data/user";
 import { Currency } from "@/src/types";
 import { NoExpensesAdded } from "@/src/ui/dashboard";
@@ -11,6 +13,17 @@ export default async function Page() {
   const userId = session?.user?.id as string;
 
   const expenses = await fetchExpenses({
+    filters: {
+      user_id: userId,
+    },
+  });
+
+  const earnings = await fetchEarning({
+    filters: {
+      user_id: userId,
+    },
+  });
+  const savings = await fetchSavings({
     filters: {
       user_id: userId,
     },
@@ -36,7 +49,13 @@ export default async function Page() {
     <AppProvider currency={currency as Currency}>
       <main>
         {expenses.length === 0 && expenses.length === 0 && <NoExpensesAdded />}
-        {expenses.length > 0 && <TotalLineChart expenses={expenses} />}
+        {expenses.length > 0 && (
+          <TotalLineChart
+            expenses={expenses}
+            earnings={earnings}
+            savings={savings}
+          />
+        )}
       </main>
     </AppProvider>
   );

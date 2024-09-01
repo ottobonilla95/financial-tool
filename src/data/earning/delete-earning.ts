@@ -2,15 +2,15 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export type DeleteDbIncomeProps = {
+export type DeleteDbEarningProps = {
   userId: string;
   incomeId: string;
 };
 
-export async function deleteDbIncome({
+export async function deleteDbEarning({
   userId,
   incomeId,
-}: DeleteDbIncomeProps) {
+}: DeleteDbEarningProps) {
   try {
     await prisma.earning.delete({
       where: {
@@ -20,6 +20,6 @@ export async function deleteDbIncome({
     });
   } catch (error) {
     console.error("Database Error:", error);
-    throw new Error("Failed to delete income.");
+    throw new Error("Failed to delete earning.");
   }
 }

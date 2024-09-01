@@ -7,7 +7,7 @@ export type Data = {
   id: string;
   amount: number;
   description: string | null;
-  expense_date: Date | null;
+  date: Date | null;
   expensecategory: {
     id: string;
     name: string;
@@ -34,7 +34,7 @@ export async function fetchExpenses({ filters }: FetchExpensesProps) {
       select: {
         id: true,
         amount: true,
-        expense_date: true,
+        date: true,
         description: true,
         expensecategory: {
           select: {
@@ -59,7 +59,7 @@ export async function fetchExpenses({ filters }: FetchExpensesProps) {
       },
       where: filters,
       orderBy: {
-        expense_date: "asc",
+        date: "asc",
       },
     });
 
@@ -76,7 +76,7 @@ export async function fetchExpenses({ filters }: FetchExpensesProps) {
 export const mapExpense = (expense: Data): Expense => {
   return {
     id: expense.id,
-    expenseDate: new Date(expense.expense_date || ""),
+    date: new Date(expense.date || ""),
     description: expense.description || "",
     amount: expense.amount,
     category: {

@@ -45,7 +45,7 @@ export const SavingTable = ({ savings }: SavingTableProps) => {
             </div>
 
             <div className="flex items-center justify-center">
-              {format(saving.savingDate, "EEE dd")}
+              {format(saving.date, "EEE dd")}
             </div>
             <div className="flex items-center justify-center">
               <Price amount={saving.amount} />

@@ -1,10 +1,10 @@
-import { Expense, Income, Saving } from "@/src/types";
+import { Expense, Earning, Saving } from "@/src/types";
 import clsx from "clsx";
 import { Price } from "../components";
 
 export type DashboardTotalsProps = {
   expenses: Expense[];
-  earnings: Income[];
+  earnings: Earning[];
   savings: Saving[];
 };
 
@@ -13,7 +13,7 @@ export const DashboardTotals = ({
   earnings,
   savings,
 }: DashboardTotalsProps) => {
-  const calculateTotal = (expenses: (Expense | Income | Saving)[]) => {
+  const calculateTotal = (expenses: (Expense | Earning | Saving)[]) => {
     return expenses.reduce((acc, expense) => acc + expense.amount, 0);
   };
 

@@ -15,15 +15,15 @@ model expenses {
   category_id        String?              @db.Uuid
   subcategory_id     String?              @db.Uuid
   description        String?
-  expense_date       DateTime             @db.Date
+  date               DateTime             @db.Date
   created_at         DateTime?            @default(now()) @db.Timestamp(6)
   emotion_id         Int?
   satisfaction       Int?
+  currencyId         Int?
   expensecategory    expense_category?    @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   emotion            emotion?             @relation(fields: [emotion_id], references: [id], onUpdate: NoAction)
   expensesubcategory expense_subcategory? @relation(fields: [subcategory_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "expenses_sub_category_fkey")
   users              users?               @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  currencyId         Int?
 }
 
 model users {
@@ -34,12 +34,12 @@ model users {
   last_updated     DateTime           @default(now()) @db.Date
   created_at       DateTime?          @default(now()) @db.Timestamp(6)
   currency_id      Int?
-  currency         currency?          @relation(fields: [currency_id], references: [id], onUpdate: NoAction)
   earning          earning[]
   earning_category earning_category[]
   expense_category expense_category[]
   expenses         expenses[]
   savings          saving[]
+  currency         currency?          @relation(fields: [currency_id], references: [id], onUpdate: NoAction)
 }
 
 model expense_category {
@@ -69,7 +69,7 @@ model earning {
   category_id         String?              @db.Uuid
   subcategory_id      String?              @db.Uuid
   description         String?
-  earning_date        DateTime             @db.Date
+  date                DateTime             @db.Date
   created_at          DateTime?            @default(now()) @db.Timestamp(6)
   earning_category    earning_category?    @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   earning_subcategory earning_subcategory? @relation(fields: [subcategory_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -110,8 +110,8 @@ model currency {
   name         String  @db.VarChar(50)
   symbol       String
   description  String?
-  currencyCode String?  @db.VarChar(3)
-  countryCode  String?  @db.VarChar(2)
+  countryCode  String? @db.VarChar(2)
+  currencyCode String? @db.VarChar(3)
   users        users[]
 }
 
@@ -120,7 +120,7 @@ model saving {
   user_id     String?   @db.Uuid
   amount      Decimal   @db.Decimal(10, 2)
   description String?
-  saving_date DateTime  @db.Date
+  date        DateTime  @db.Date
   created_at  DateTime? @default(now()) @db.Timestamp(6)
   users       users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

@@ -31,7 +31,7 @@ export async function createDbExpense({
         description,
         category_id: categoryId,
         subcategory_id: subCategoryId || null,
-        expense_date: date,
+        date,
         created_at: new Date(),
         satisfaction,
         emotion_id: emotionId,

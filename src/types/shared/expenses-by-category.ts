@@ -1,5 +1,5 @@
 import { Expense } from "../expense";
-import { Income } from "../income";
+import { Earning } from "../earning";
 
 export type ExpensesByCategory = {
   [categoryName: string]: {
@@ -7,8 +7,8 @@ export type ExpensesByCategory = {
   };
 };
 
-export type IncomeByCategory = {
+export type EarningByCategory = {
   [categoryName: string]: {
-    [subcategoryName: string]: Income[];
+    [subcategoryName: string]: Earning[];
   };
 };

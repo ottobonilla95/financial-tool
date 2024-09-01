@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export type IncomeToCreate = {
+export type EarningToCreate = {
   userId: string;
   amount: number;
   description: string;
@@ -11,14 +11,14 @@ export type IncomeToCreate = {
   date: Date;
 };
 
-export async function createDbIncome({
+export async function createDbEarning({
   userId,
   amount,
   description,
   categoryId,
   subCategoryId,
   date,
-}: IncomeToCreate) {
+}: EarningToCreate) {
   try {
     await prisma.earning.create({
       data: {
@@ -27,12 +27,12 @@ export async function createDbIncome({
         description,
         category_id: categoryId,
         subcategory_id: subCategoryId || null,
-        earning_date: date,
+        date,
         created_at: new Date(),
       },
     });
   } catch (error) {
     console.error("Database Error:", error);
-    throw new Error("Failed to create income.");
+    throw new Error("Failed to create earning.");
   }
 }
