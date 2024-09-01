@@ -4,7 +4,7 @@ import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { createIncome, IncomeFormState } from "@/src/form-actions/income";
 import { useActionState, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
-import { IncomeCategory } from "@/src/types";
+import { EarningCategory } from "@/src/types";
 import { toast, TypeOptions } from "react-toastify";
 import { Dropdown, Modal } from "../components";
 import {
@@ -22,7 +22,7 @@ export type CreateIncomeFormProps = {
 export const CreateIncomeForm = ({ closeModal }: CreateIncomeFormProps) => {
   const initialState: IncomeFormState = { message: {}, errors: {} };
   const [state, formAction] = useActionState(createIncome, initialState);
-  const [categories, setCategories] = useState<IncomeCategory[]>([]);
+  const [categories, setCategories] = useState<EarningCategory[]>([]);
   const [startDate, setStartDate] = useState(new Date());
   const [subCategories, setSubCategories] = useState<
     { name: string; id: string }[]
@@ -37,7 +37,7 @@ export const CreateIncomeForm = ({ closeModal }: CreateIncomeFormProps) => {
   });
 
   useEffect(() => {
-    const loadedCategories = (data?.categories || []) as IncomeCategory[];
+    const loadedCategories = (data?.categories || []) as EarningCategory[];
     setCategories(loadedCategories);
     setSubCategories(
       loadedCategories.find((category) => category.id === selectedCategory)

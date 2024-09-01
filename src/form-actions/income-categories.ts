@@ -58,7 +58,7 @@ export async function createIncomeCategory(
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: {
-        text: "Database Error: Failed to Create IncomeCategory.",
+        text: "Database Error: Failed to Create EarningCategory.",
         type: "error",
       },
     };
@@ -107,7 +107,7 @@ export async function updateIncomeCategory(
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: {
-        text: "Database Error: Failed to Update IncomeCategory.",
+        text: "Database Error: Failed to Update EarningCategory.",
         type: "error",
       },
     };

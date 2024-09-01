@@ -9,13 +9,13 @@ import { useActionState, useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
 import React from "react";
 import { ChromePicker } from "react-color";
-import { IncomeCategory } from "@/src/types";
+import { EarningCategory } from "@/src/types";
 import { CancelButton, SubmitButton } from "../forms";
 
 export type UpdateCategoryFormProps = {
   isOpen: boolean;
   closeModal: () => void;
-  category: IncomeCategory;
+  category: EarningCategory;
 };
 
 export const UpdateCategoryForm = ({

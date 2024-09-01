@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { IncomeCategory } from "@/src/types";
+import { EarningCategory } from "@/src/types";
 
 const prisma = new PrismaClient();
 
@@ -42,7 +42,7 @@ export async function fetchIncomeCategories(userId: string) {
   }
 }
 
-export const mapCategory = (expense: Data): IncomeCategory => {
+export const mapCategory = (expense: Data): EarningCategory => {
   return {
     id: expense.id,
     name: expense.name,
