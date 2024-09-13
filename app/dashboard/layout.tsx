@@ -21,9 +21,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
       <div className="flex-grow md:overflow-y-auto">
         <div className="p-6 md:p-12">{children}</div>
-        <div className="fixed bottom-2 right-2 text-sm text-gray-400">
-          &copy; {new Date().getFullYear()} TrackMySpend
-        </div>
       </div>
     </div>
   );
