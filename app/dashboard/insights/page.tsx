@@ -54,6 +54,7 @@ export default async function Page() {
             expenses={expenses}
             earnings={earnings}
             savings={savings}
+            currency={currency as Currency}
           />
         )}
       </main>

@@ -55,9 +55,6 @@ export default async function Page({ searchParams }: DashboardPageProps) {
   const startDate = startOfMonth(new Date(year, month - 1));
   const endDate = endOfMonth(new Date(year, month - 1));
 
-  console.log("startDate", startDate.toISOString());
-  console.log("endDate", endDate);
-
   const expenses = await fetchExpenses({
     filters: {
       user_id: userId,

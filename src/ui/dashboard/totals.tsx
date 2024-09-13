@@ -25,7 +25,7 @@ export const DashboardTotals = ({
   const totalExpenses = calculateTotal(expenses);
   const totalSavings = calculateTotal(savings);
 
-  const totalBalance = totalEarnings - totalExpenses;
+  const totalBalance = totalEarnings - totalExpenses - totalSavings;
 
   return (
     <div className="flex flex-col sm:flex-row mb-5 gap-2">

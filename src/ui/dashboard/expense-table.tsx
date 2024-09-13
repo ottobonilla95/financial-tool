@@ -9,7 +9,7 @@ import { TrashIcon, PencilIcon } from "@heroicons/react/24/outline";
 import { Button, Price } from "../components";
 import { useState } from "react";
 import { UpdateCategoryForm } from "../expense-categories";
-import { Tooltip } from "react-tooltip";
+import { Tooltip } from "react-tooltip"
 
 export type ExpenseTableProps = {
   categoryName: string;
