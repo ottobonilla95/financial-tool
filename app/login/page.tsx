@@ -1,4 +1,4 @@
-import PageLogo from "@/src/ui/acme-logo";
+import PageLogo from "@/src/ui/app-logo";
 import { LoginForm } from "@/src/ui/auth";
 
 export default function LoginPage() {

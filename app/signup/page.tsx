@@ -1,5 +1,5 @@
 import { getAllCurrencies } from "@/src/data/currency";
-import PageLogo from "@/src/ui/acme-logo";
+import PageLogo from "@/src/ui/app-logo";
 import { SignupForm } from "@/src/ui/auth";
 
 export default async function SignupPage() {

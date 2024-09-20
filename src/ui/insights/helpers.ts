@@ -192,7 +192,6 @@ export function getChartDataForCategory(
 }
 
 export const colors = [
-  "#ff6384", // Red
   "#36a2eb", // Blue
   "#cc65fe", // Purple
   "#ffce56", // Yellow
@@ -201,4 +200,5 @@ export const colors = [
   "#e74c3c", // Dark Red
   "#8e44ad", // Dark Purple
   "#3498db", // Light Blue
+  "#000000", // Black
 ];

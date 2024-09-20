@@ -34,7 +34,9 @@ export const TotalLineChart = ({
   const [props] = useState<AgChartProps>({
     options: {
       title: {
-        text: "Total",
+        text: "Total (Ingresos, Gastos, Ahorro)",
+        fontSize: 20,
+        fontWeight: "bold",
       },
       data,
       series: [
@@ -56,7 +58,7 @@ export const TotalLineChart = ({
           xKey: "monthYear",
           xName: "Mes",
           yKey: "earnings",
-          yName: "Ganancias",
+          yName: "Ingresos",
           interpolation: { type: "linear" },
           stroke: "green",
           marker: {
@@ -85,19 +87,24 @@ export const TotalLineChart = ({
           label: {
             formatter: ({ value }) => `${currency.symbol}${value.toFixed(2)}`,
           },
+          min: 0,
         },
         {
           type: "category",
           position: "bottom",
         },
       ],
+      height: 450,
     },
   });
 
   return (
     <>
       {/* main chart */}
-      <AgCharts options={props.options} className="h-[400px]" />
+      {/* <div className="font-bold text-2xl">Total (Ingresos, Gastos, Ahorro)</div> */}
+      <AgCharts options={props.options} />
+
+      <div className="font-bold text-2xl my-6">Gastos por Categorias</div>
 
       {/* categories charts */}
       {Object.keys(groupedExpenses).map((categoryName) => {
@@ -112,10 +119,10 @@ export const TotalLineChart = ({
             yKey: "category",
             yName: categoryName,
             interpolation: { type: "linear" },
-            stroke: "black", // Main category line in black
+            stroke: "red", // Main category line in black
             marker: {
-              fill: "black",
-              stroke: "black",
+              fill: "red",
+              stroke: "red",
             },
           },
           ...Object.keys(groupedExpenses[categoryName].subcategories).map(
@@ -136,12 +143,14 @@ export const TotalLineChart = ({
         ];
 
         return (
-          <div key={categoryName}>
-            <h3>{categoryName}</h3>
+          <div key={categoryName} className="py-6">
             <AgCharts
               options={
                 {
-                  title: { text: `${categoryName}` },
+                  title: {
+                    text: `${categoryName}`,
+                    fontSize: 20,
+                  },
                   data,
                   series,
                   axes: [
@@ -152,15 +161,16 @@ export const TotalLineChart = ({
                         formatter: ({ value }) =>
                           `${currency.symbol}${value.toFixed(2)}`,
                       },
+                      min: 0,
                     },
                     {
                       type: "category",
                       position: "bottom",
                     },
                   ],
+                  height: 450,
                 } as AgChartProps["options"]
               }
-              className="h-[400px]"
             />
           </div>
         );

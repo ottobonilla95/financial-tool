@@ -37,19 +37,22 @@ export const DashboardButtons = async ({ emotions }: DashboardButtonsProps) => {
           icon={<PlusIcon className="w-4" />}
           onClick={() => setShowCreateSavingForm(true)}
         >
-          Agregar ahorro
+          <span className="hidden sm:flex">Agregar ahorro</span>
+          <span className="sm:hidden">Ahorro</span>
         </Button>
         <Button
           icon={<PlusIcon className="w-4" />}
           onClick={() => setShowCreateIncomeForm(true)}
         >
-          Agregar ingreso
+          <span className="hidden sm:flex">Agregar ingreso</span>
+          <span className="sm:hidden">Ingreso</span>
         </Button>
         <Button
           icon={<PlusIcon className="w-4" />}
           onClick={() => setShowCreateExpenseForm(true)}
         >
-          Agregar gasto
+          <span className="hidden sm:flex">Agregar gasto</span>
+          <span className="sm:hidden">Gasto</span>
         </Button>
       </div>
     </>
