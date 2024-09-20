@@ -39,10 +39,10 @@ export default async function Page() {
                 Puedes contactar a nuestro equipo de soporte enviándonos un
                 correo a
                 <a
-                  href="mailto:support@trackmyspend.com"
+                  href="mailto:support@trackmyspend.co"
                   className="text-blue-500 hover:text-blue-600"
                 >
-                  support@trackmyspend.com
+                  support@trackmyspend.co
                 </a>
                 .
               </p>
@@ -65,10 +65,10 @@ export default async function Page() {
               <li>
                 <strong>Email:</strong>{" "}
                 <a
-                  href="mailto:support@trackmyspend.com"
+                  href="mailto:support@trackmyspend.co"
                   className="text-blue-500 hover:text-blue-600"
                 >
-                  support@trackmyspend.com
+                  support@trackmyspend.co
                 </a>
               </li>
             </ul>

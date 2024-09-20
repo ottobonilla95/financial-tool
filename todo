@@ -1,23 +1,31 @@
+----hoy----
+- Fix graphs, better design.
 
--error cuando agregas y esas en otro mes queda es scren vacio
+- Addd an image to main page.
+
+
+- check duplicated request in add expense.
+- Privacy and policy
+- Terms of use
+- cookie banner.
+- add account page.
+- Change password page.
+- Add see last 3 months.
+- Add see last 6 months.
+- Start graphs from 0
+
+
+- error cuando agregas y esas en otro mes queda es scren vacio
 - cuando quieres agregar en juno que te aparexca llenado en junio la fech 
-- add currency to graoh
-- Add gneral graphics of moth expenses.
-- Add contact details.
-- Company details copyright.
 - currency picker with flag
-
 - agregar emocioes (mas de eso)
 - See how mcuh they spend being anxios, etc.
 - mix of both graphics.
 - Mix with savings graphics.
 - Graphis with emotions as well.,
-- Add change password.
 - Add change email.
-
 - Editar categorias y sub
 - Calendario en pagina principal.
-
 - add real salary calculator, another module
 - net worth calculator
 - add information on how to use it
