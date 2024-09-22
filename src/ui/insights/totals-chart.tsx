@@ -95,6 +95,10 @@ export const TotalLineChart = ({
         },
       ],
       height: 450,
+      padding: {
+        right: 0,
+        left: 0,
+      },
     },
   });
 
@@ -169,6 +173,10 @@ export const TotalLineChart = ({
                     },
                   ],
                   height: 450,
+                  padding: {
+                    right: 0,
+                    left: 0,
+                  },
                 } as AgChartProps["options"]
               }
             />

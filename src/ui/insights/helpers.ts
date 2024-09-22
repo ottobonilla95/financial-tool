@@ -46,12 +46,18 @@ export function getMonthlyTotals(
     monthlyTotals[monthYear].savings += saving.amount;
   });
 
-  return Object.entries(monthlyTotals).map(([monthYear, totals]) => ({
-    monthYear,
-    expenses: parseFloat(totals.expenses.toFixed(2)),
-    earnings: parseFloat(totals.earnings.toFixed(2)),
-    savings: parseFloat(totals.savings.toFixed(2)),
-  }));
+  return Object.entries(monthlyTotals)
+    .sort(([a], [b]) => {
+      const dateA = new Date(`${a} 1`); // Append '1' to make it a valid date
+      const dateB = new Date(`${b} 1`);
+      return dateA.getTime() - dateB.getTime();
+    })
+    .map(([monthYear, totals]) => ({
+      monthYear,
+      expenses: parseFloat(totals.expenses.toFixed(2)),
+      earnings: parseFloat(totals.earnings.toFixed(2)),
+      savings: parseFloat(totals.savings.toFixed(2)),
+    }));
 }
 
 export function getAllUniqueMonths(expenses: Expense[]) {
@@ -141,6 +147,21 @@ export function groupExpensesByCategoryWithAllMonths(
         if (!subcategoryData.find((entry) => entry.date === monthYear)) {
           subcategoryData.push({ date: monthYear, amount: 0 });
         }
+      });
+    });
+    // Sort the category totals by date
+    categoryData.totals.sort((a, b) => {
+      const dateA = new Date(`${a.date} 1`);
+      const dateB = new Date(`${b.date} 1`);
+      return dateA.getTime() - dateB.getTime();
+    });
+
+    // Sort each subcategory's totals by date
+    Object.keys(categoryData.subcategories).forEach((subcategoryName) => {
+      categoryData.subcategories[subcategoryName].sort((a, b) => {
+        const dateA = new Date(`${a.date} 1`);
+        const dateB = new Date(`${b.date} 1`);
+        return dateA.getTime() - dateB.getTime();
       });
     });
   });
