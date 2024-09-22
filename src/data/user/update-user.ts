@@ -1,16 +1,6 @@
-import { Currency } from "@/src/types";
 import { PrismaClient, Prisma } from "@prisma/client";
 
 const prisma = new PrismaClient();
-
-export type Data = {
-  id: string;
-  name: string;
-  email: string;
-  last_updated: Date;
-  password: string;
-  currency?: Currency;
-};
 
 type UpdateUserDataProps = {
   filters: Prisma.usersWhereUniqueInput;
