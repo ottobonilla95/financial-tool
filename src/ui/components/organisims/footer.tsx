@@ -2,16 +2,15 @@ import React from "react";
 
 export const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white py-8">
+    <footer className="bg-black text-white py-8">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Company Info */}
           <div>
             <h3 className="text-xl font-semibold mb-4">Sobre Nosotros</h3>
             <p className="text-gray-400">
-              Ofrecemos los mejores servicios para ayudarte a gestionar tus
-              finanzas y hacer crecer tu patrimonio. Conoce más sobre nuestra
-              misión y visión.
+              Te ayudamos a gestionar, organizar y entender tus gastos para que
+              puedas administrar mejor tus finanzas.
             </p>
           </div>
 
@@ -20,22 +19,28 @@ export const Footer = () => {
             <h3 className="text-xl font-semibold mb-4">Enlaces Rápidos</h3>
             <ul>
               <li className="mb-2">
-                <a href="/services" className="text-gray-400 hover:text-white">
-                  Servicios
+                <a href="/" className="text-gray-400 hover:text-white">
+                  Inicio
                 </a>
               </li>
               <li className="mb-2">
-                <a href="/about" className="text-gray-400 hover:text-white">
+                <a href="/about-us" className="text-gray-400 hover:text-white">
                   Sobre Nosotros
                 </a>
               </li>
               <li className="mb-2">
-                <a href="/contact" className="text-gray-400 hover:text-white">
+                <a
+                  href="/contact-us"
+                  className="text-gray-400 hover:text-white"
+                >
                   Contacto
                 </a>
               </li>
               <li className="mb-2">
-                <a href="/privacy" className="text-gray-400 hover:text-white">
+                <a
+                  href="/privacy-policy"
+                  className="text-gray-400 hover:text-white"
+                >
                   Política de Privacidad
                 </a>
               </li>

@@ -14,12 +14,14 @@ export type CreateSubCategoryFormProps = {
   category: { id: string; name: string };
   isOpen: boolean;
   closeModal: () => void;
+  onSuccess?: () => void;
 };
 
 export const CreateSubCategoryForm = ({
   category,
   isOpen,
   closeModal,
+  onSuccess,
 }: CreateSubCategoryFormProps) => {
   const initialState: SubCategoryFormState = { message: {}, errors: {} };
   const [state, formAction] = useActionState(createSubCategory, initialState);
@@ -29,6 +31,9 @@ export const CreateSubCategoryForm = ({
       toast(state.message.text, { type: state.message.type as TypeOptions });
       if (state.message.type === "success") {
         closeModal();
+        if (onSuccess) {
+          onSuccess();
+        }
       }
     }
   }, [state]);

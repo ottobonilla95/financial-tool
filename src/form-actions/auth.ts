@@ -1,10 +1,10 @@
 "use server";
 
-import { signIn } from "@/auth";
+import { auth, signIn } from "@/auth";
 import { AuthError } from "next-auth";
 import { FormMessage } from "../types";
 import { z } from "zod";
-import { createDbUser, getDBUser } from "../data/user";
+import { createDbUser, getDBUser, updateDBUser } from "../data/user";
 import bcrypt from "bcrypt";
 import { redirect } from "next/navigation";
 
@@ -26,6 +26,18 @@ export type CreateUserFormState = {
     passwordConfirmation?: string[];
   };
 } & FormMessage;
+
+export type UpdatePasswordFormState = {
+  errors?: {
+    currentPassword?: string[];
+    password?: string[];
+    passwordConfirmation?: string[];
+  };
+  message?: {
+    text?: string;
+    type?: string;
+  };
+};
 
 const FormSchema = z
   .object({
@@ -64,7 +76,31 @@ const FormSchema = z
       }),
   })
   .refine((data) => data.password === data.passwordConfirmation, {
-    message: "Passwords don't match",
+    message: "Las contraseñas no coinciden.",
+    path: ["passwordConfirmation"],
+  });
+
+const UpdatePasswordFormSchema = z
+  .object({
+    currentPassword: z.string({
+      invalid_type_error: "Agrega tu contraseña actual.",
+    }),
+    password: z
+      .string({
+        invalid_type_error: "Agrega una contraseña.",
+      })
+      .min(6, { message: "La contraseña debe tener al menos 6 caracteres." }),
+    passwordConfirmation: z
+      .string({
+        invalid_type_error: "Confirma tu contraseña.",
+      })
+      .min(6, {
+        message:
+          "La confirmación de la contraseña debe tener al menos 6 caracteres.",
+      }),
+  })
+  .refine((data) => data.password === data.passwordConfirmation, {
+    message: "Las contraseñas no coinciden.",
     path: ["passwordConfirmation"],
   });
 
@@ -80,9 +116,9 @@ export async function authenticate(
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CredentialsSignin":
-          return "Invalid credentials.";
+          return "Credenciales inválidas.";
         default:
-          return "Something went wrong.";
+          return "Algo salió mal.";
       }
     }
     throw error;
@@ -143,4 +179,93 @@ export async function createUser(
     throw error;
   }
   redirect("/dashboard");
+}
+
+export async function updatePassword(
+  prevState: UpdatePasswordFormState,
+  formData: FormData
+) {
+  const session = await auth();
+  const userId = session?.user?.id as string;
+
+  // Validate form using Zod
+  const validatedFields = UpdatePasswordFormSchema.safeParse({
+    currentPassword: formData.get("currentPassword"),
+    password: formData.get("password"),
+    passwordConfirmation: formData.get("passwordConfirmation"),
+  });
+
+  // If form validation fails, return errors early. Otherwise, continue.
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: {
+        text: "Database Error: Error al actualizar Contraseña.",
+        type: "error",
+      },
+    };
+  }
+
+  const { currentPassword, password } = validatedFields.data;
+
+  try {
+    const user = await getDBUser({
+      filters: {
+        id: userId,
+      },
+      select: {
+        password: true,
+      },
+    });
+
+    if (!user) {
+      return {
+        errors: {},
+        message: {
+          text: "Database Error: Usuario no encontrado.",
+          type: "error",
+        },
+      };
+    }
+
+    const passwordsMatch = await bcrypt.compare(
+      currentPassword,
+      user.password as string
+    );
+
+    if (!passwordsMatch) {
+      return {
+        errors: {},
+        message: {
+          text: "Contraseña incorrecta.",
+          type: "error",
+        },
+      };
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    await updateDBUser({
+      filters: {
+        id: userId,
+      },
+      data: {
+        password: hashedPassword,
+      },
+    });
+  } catch (error) {
+    return {
+      message: {
+        text: "Database Error: Error al actualizar Contraseña.",
+        type: "error",
+      },
+    };
+  }
+
+  return {
+    message: {
+      text: "Contraseña actualizada exitosamente.",
+      type: "success",
+    },
+  };
 }

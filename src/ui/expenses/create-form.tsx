@@ -46,13 +46,13 @@ export const CreateExpenseForm = ({
   const [selectedSatisfaction, setSelectedSatisfaction] = useState(3);
   const [selectedEmotion, setSelectedEmotion] = useState(9);
 
-  const { data, mutate, isLoading } = useSWR(
-    "/api/expense/category/get-all",
-    fetcher,
-    {
-      revalidateOnFocus: false,
-    }
-  );
+  const {
+    data,
+    mutate: getAllCategories,
+    isLoading,
+  } = useSWR("/api/expense/category/get-all", fetcher, {
+    revalidateOnFocus: false,
+  });
 
   useEffect(() => {
     const loadedCategories = (data?.categories || []) as ExpenseCategory[];
@@ -62,12 +62,6 @@ export const CreateExpenseForm = ({
         ?.subcategories || []
     );
   }, [data]);
-
-  useEffect(() => {
-    if (!isCategoryFormOpen && !isSubCategoryFormOpen && !isLoading) {
-      mutate();
-    }
-  }, [isCategoryFormOpen, isSubCategoryFormOpen, isLoading]);
 
   useEffect(() => {
     if (state.message?.text) {
@@ -80,6 +74,7 @@ export const CreateExpenseForm = ({
       <CreateCategoryForm
         isOpen={isCategoryFormOpen}
         closeModal={() => setIsCategoryFormOpen(false)}
+        onSuccess={getAllCategories}
       />
 
       <CreateSubCategoryForm
@@ -91,6 +86,7 @@ export const CreateExpenseForm = ({
         }}
         isOpen={isSubCategoryFormOpen}
         closeModal={() => setIsSubCategoryFormOpen(false)}
+        onSuccess={getAllCategories}
       />
 
       <>

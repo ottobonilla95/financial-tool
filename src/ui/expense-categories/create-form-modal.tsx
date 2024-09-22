@@ -14,11 +14,13 @@ import { Modal } from "../components";
 export type CreateCategoryFormProps = {
   isOpen: boolean;
   closeModal: () => void;
+  onSuccess?: () => void;
 };
 
 export const CreateCategoryForm = ({
   isOpen,
   closeModal,
+  onSuccess,
 }: CreateCategoryFormProps) => {
   const initialState: CategoryFormState = { message: {}, errors: {} };
   const [state, formAction] = useActionState(createCategory, initialState);
@@ -29,6 +31,9 @@ export const CreateCategoryForm = ({
       toast(state.message.text, { type: state.message.type as TypeOptions });
       if (state.message.type === "success") {
         closeModal();
+        if (onSuccess) {
+          onSuccess();
+        }
       }
     }
   }, [state]);

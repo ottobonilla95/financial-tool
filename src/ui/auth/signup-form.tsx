@@ -62,17 +62,17 @@ export const SignupForm = ({ currencies }: SignupFormPropd) => {
                 id="email"
                 type="email"
                 name="email"
-                placeholder="Enter your email address"
+                placeholder="Ingrese su email"
                 required
               />
               <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
           {/* Currency */}
-          <div className="mb-4">
+          <div className="my-4">
             <label
               htmlFor="category"
-              className="mb-2 block text-sm font-medium"
+              className="mb-3 mt-5 block text-xs font-medium text-gray-900"
             >
               Moneda *
             </label>
@@ -113,7 +113,7 @@ export const SignupForm = ({ currencies }: SignupFormPropd) => {
                 id="password"
                 type="password"
                 name="password"
-                placeholder="Enter password"
+                placeholder="Ingrese la contraseña"
                 required
                 minLength={6}
               />
@@ -133,7 +133,7 @@ export const SignupForm = ({ currencies }: SignupFormPropd) => {
                 id="passwordConfirmation"
                 type="password"
                 name="passwordConfirmation"
-                placeholder="Enter password Confirmation"
+                placeholder="Ingrese confirmación de contraseña"
                 required
                 minLength={6}
               />
@@ -143,7 +143,7 @@ export const SignupForm = ({ currencies }: SignupFormPropd) => {
         </div>
 
         <Button
-          className="mt-4 rounded-lg bg-blue-500 font-medium text-white hover:bg-blue-400 focus-visible:outline-blue-500 active:bg-blue-600"
+          className="mt-4 rounded-lg bg-black font-medium text-white hover:opacity-70 focus-visible:outline-black active:opacity-80"
           aria-disabled={isPending}
           icon={<ArrowRightIcon className="h-5 w-5 text-gray-50" />}
           iconPosition="right"
@@ -160,7 +160,7 @@ export const SignupForm = ({ currencies }: SignupFormPropd) => {
             iconPosition="right"
             href="/login"
           >
-            Log in
+            Iniciar sesión
           </Button>
         )}
 
