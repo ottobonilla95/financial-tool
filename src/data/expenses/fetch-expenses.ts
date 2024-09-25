@@ -60,7 +60,6 @@ export async function fetchExpenses({ filters }: FetchExpensesProps) {
       where: filters,
       orderBy: {
         date: "asc",
-        created_at: "asc",
       },
     });
 
