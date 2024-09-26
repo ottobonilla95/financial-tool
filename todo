@@ -1,12 +1,11 @@
 ----hoy----
-- Privacy and policy and Terms of use
-- cookie banner.
+- error cuando agregas y esas en otro mes queda es scren vacio
+- cuando quieres agregar en juno que te aparexca llenado en junio la fech 
+
 
 - Add see last 3 months.
 - Add see last 6 months.
 
-- error cuando agregas y esas en otro mes queda es scren vacio
-- cuando quieres agregar en juno que te aparexca llenado en junio la fech 
 - agregar emocioes (mas de eso)
 - See how mcuh they spend being anxios, etc.
 - mix of both graphics.
@@ -20,13 +19,4 @@
 - add hours of life energy spent for each expense using your real hourly wage as computed in step 2.
   ategorieas form
 
-- zona de graficos de totales.
-- al agregar un gasto que se vaya con la fecha del mes en el que estoy.
 - Editar gasto
-- Autocomplete description expense
-- currency, edit.
-- poder ver subcategorias en grafico.
-
-update expense_category set color = '#ff9524' where id = 'cf51867f-b995-44d7-867b-c423815560a1';
-
-#ffc524
