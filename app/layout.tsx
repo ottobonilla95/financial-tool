@@ -1,6 +1,7 @@
 import "@/src/styles/global.css";
 import { inter } from "@/src/styles/fonts";
 import { ToastContainer } from "react-toastify";
+import Script from "next/script";
 
 export default function RootLayout({
   children,
@@ -16,6 +17,13 @@ export default function RootLayout({
           &copy; {new Date().getFullYear()} TrackMySpend
         </div>
       </body>
+      <Script
+        id="Cookiebot"
+        src="https://consent.cookiebot.com/uc.js"
+        data-cbid="b7860b70-8613-4e44-ab1b-0f6305eead69"
+        data-blockingmode="auto"
+        type="text/javascript"
+      />
     </html>
   );
 }
