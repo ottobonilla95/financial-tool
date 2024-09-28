@@ -35,11 +35,19 @@ export type AppDictionary = {
     weWouldLoveToHearFromYou: string;
     youCanSendUsAnEmailTo: string;
     weStriveToRespondWithin: string;
+    meta: {
+      title: string;
+      description: string;
+    };
   };
   aboutUsPage: {
     aboutUs: string;
     aboutUsDescription: string;
     aboutUsDescription2: string;
+    meta: {
+      title: string;
+      description: string;
+    };
   };
   authPages: {
     login: string;
@@ -80,6 +88,12 @@ export type AppDictionary = {
     enterCurrentPassword: string;
     enterNewPassword: string;
     enterYourPasswordConfirmation: string;
+  };
+  privacyPolicyPage: {
+    meta: {
+      title: string;
+      description: string;
+    };
   };
   footer: {
     aboutUsTitle: string;

@@ -1,7 +1,21 @@
 import { AvailableLanguages, getDictionary } from "@/src/translations";
 import AppLogo from "@/src/ui/app-logo";
 import { Footer } from "@/src/ui/components";
+import { Metadata } from "next";
 import Link from "next/link";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { lang: AvailableLanguages };
+}): Promise<Metadata> {
+  const dict = await getDictionary(params.lang);
+
+  return {
+    title: dict.contactPage.meta.title,
+    description: dict.contactPage.meta.description,
+  };
+}
 
 export type ContactUsPageProps = {
   params: { lang: AvailableLanguages };

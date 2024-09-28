@@ -34,12 +34,20 @@
   "contactPage": {
     "weWouldLoveToHearFromYou": "We would love to hear from you! Whether you have a question, comment, or need support, don't hesitate to contact us.",
     "youCanSendUsAnEmailTo": "You can send us an email at:",
-    "weStriveToRespondWithin": "We strive to respond within 24-48 hours."
+    "weStriveToRespondWithin": "We strive to respond within 24-48 hours.",
+    "meta": {
+      "title": "Contact Us | TrackMySpend: We're Here to Help",
+      "description": "Need help with TrackMySpend? Contact us for support, questions, or feedback. Our team is here to assist you in managing your expenses and income efficiently. Reach out to us today!"
+    }
   },
   "aboutUsPage": {
     "aboutUs": "About Track My Expense",
     "aboutUsDescription": "Our website was created to allow users to easily track their expenses and gain a better understanding of how their personal finances are being managed. This helps them take control of their financial health and make informed decisions.",
-    "aboutUsDescription2": "We believe that managing personal finances should be simple, accessible, and efficient. Whether you're trying to save more, understand your spending habits, or just keep better track, Track My Expense is designed for people who want to improve their financial well-being."
+    "aboutUsDescription2": "We believe that managing personal finances should be simple, accessible, and efficient. Whether you're trying to save more, understand your spending habits, or just keep better track, Track My Expense is designed for people who want to improve their financial well-being.",
+    "meta": {
+      "title": "About Us | TrackMySpend: Your Financial Management Partner",
+      "description": "Learn more about TrackMySpend, the team behind the app, and our mission to help people organize and manage their expenses and income efficiently. Discover our journey and how we are empowering users to take control of their finances."
+    }
   },
   "authPages": {
     "login": "Login",
@@ -81,6 +89,12 @@
     "enterNewPassword": "Enter your new password",
     "enterYourPasswordConfirmation": "Enter your password confirmation"
   },
+  "privacyPolicyPage": {
+    "meta": {
+      "title": "Privacy Policy | TrackMySpend: Your Data Protection",
+      "description": "Read TrackMySpend's Privacy Policy to understand how we handle, protect, and use your data. We are committed to safeguarding your information and ensuring transparency in our practices."
+    }
+  },
   "footer": {
     "aboutUsTitle": "About Us",
     "aboutUsDescription": "We help you manage, organize, and understand your expenses so that you can better manage your finances.",
@@ -92,7 +106,7 @@
     "allRightsReserved": "All rights reserved."
   },
   "meta": {
-    "title": "TrackMySpend: Expense and Income Tracking Tool",
-    "description": "Discover TrackMySpend, the financial management app that allows you to track your expenses and income easily and efficiently. Organize your finances with customizable categories and subcategories. Start managing your money today at www.trackmyspend.co!"
+    "title": "TrackMySpend: Easily Track Expenses and Income",
+    "description": "Manage your expenses and income with TrackMySpend. Get a clear view of your financial health with customizable categories and subcategories. Start managing your money today with ease at www.trackmyspend.co."
   }
 }

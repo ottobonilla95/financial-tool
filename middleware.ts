@@ -5,6 +5,13 @@ import { authRoutes, DEFAULT_LOGIN_REDIRECT, publicRoutes } from "./routes";
 
 let locales = ["en", "es"];
 
+function removeFirstPartOfUrl(url: string) {
+  const parts = url.split("/");
+  parts.splice(1, 1);
+
+  return parts.join("/");
+}
+
 function getLocale(request: NextRequest) {
   const acceptLanguage = request.headers.get("accept-language");
 
@@ -41,6 +48,7 @@ export default auth(async function middleware(request: NextRequest) {
   const { nextUrl } = request;
 
   const locale = getLocale(request);
+
   const pathnameHasLocale = locales.some(
     (locale) =>
       nextUrl.pathname.startsWith(`/${locale}/`) ||
@@ -55,11 +63,11 @@ export default auth(async function middleware(request: NextRequest) {
   //@ts-ignore
   const isLoggedIn = !!request.auth;
   const isPublicRoute = publicRoutes.includes(
-    nextUrl.pathname.replace(`/${locale}`, "")
+    removeFirstPartOfUrl(nextUrl.pathname)
   );
 
   const isAuthRoute = authRoutes.includes(
-    nextUrl.pathname.replace(`/${locale}`, "")
+    removeFirstPartOfUrl(nextUrl.pathname)
   );
 
   if (isAuthRoute) {
@@ -86,5 +94,5 @@ export default auth(async function middleware(request: NextRequest) {
 
 export const config = {
   // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
-  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
+  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$|sitemap\\.xml).*)"],
 };

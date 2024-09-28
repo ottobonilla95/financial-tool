@@ -34,12 +34,20 @@
   "contactPage": {
     "weWouldLoveToHearFromYou": "¡Nos encantaría saber de ti! Ya sea que tengas una pregunta, comentario o necesites ayuda, no dudes en contactarnos.",
     "youCanSendUsAnEmailTo": "Puedes enviarnos un correo electrónico a:",
-    "weStriveToRespondWithin": "Nos esforzamos por responder en 24-48 horas."
+    "weStriveToRespondWithin": "Nos esforzamos por responder en 24-48 horas.",
+    "meta": {
+      "title": "Contáctanos | TrackMySpend: Estamos aquí para ayudarte",
+      "description": "¿Necesitas ayuda con TrackMySpend? Contáctanos para soporte, preguntas o comentarios. Nuestro equipo está aquí para asistirte en la gestión eficiente de tus gastos e ingresos. ¡Escríbenos hoy mismo!"
+    }
   },
   "aboutUsPage": {
     "aboutUs": "Acerca de Track My Expense",
     "aboutUsDescription": "Nuestro sitio web fue creado para permitir a los usuarios llevar un registro de sus gastos de manera sencilla y obtener una mejor comprensión de cómo se están gestionando sus finanzas personales. Esto les ayuda a tomar el control de su salud financiera y a tomar decisiones informadas.",
-    "aboutUsDescription2": "Creemos que la gestión de las finanzas personales debe ser simple, accesible y eficiente. Ya sea que estés intentando ahorrar más, entender tus hábitos de gasto o simplemente llevar un mejor control, Track My Expense está diseñado para personas que desean mejorar su bienestar financiero."
+    "aboutUsDescription2": "Creemos que la gestión de las finanzas personales debe ser simple, accesible y eficiente. Ya sea que estés intentando ahorrar más, entender tus hábitos de gasto o simplemente llevar un mejor control, Track My Expense está diseñado para personas que desean mejorar su bienestar financiero.",
+    "meta": {
+      "title": "Sobre Nosotros | TrackMySpend: Tu socio en la gestión financiera",
+      "description": "Conoce más sobre TrackMySpend, el equipo detrás de la app y nuestra misión de ayudar a las personas a organizar y gestionar sus gastos e ingresos de manera eficiente. Descubre nuestro recorrido y cómo estamos empoderando a los usuarios para que tomen el control de sus finanzas."
+    }
   },
   "authPages": {
     "login": "Iniciar sesión",
@@ -81,6 +89,12 @@
     "enterNewPassword": "Ingresa tu nueva contraseña",
     "enterYourPasswordConfirmation": "Ingresa tu confirmación de contraseña"
   },
+  "privacyPolicyPage": {
+    "meta": {
+      "title": "Política de Privacidad | TrackMySpend: Protección de tus datos",
+      "description": "Lee la Política de Privacidad de TrackMySpend para comprender cómo gestionamos, protegemos y utilizamos tus datos. Estamos comprometidos a salvaguardar tu información y garantizar la transparencia en nuestras prácticas."
+    }
+  },
   "footer": {
     "aboutUsTitle": "Acerca de nosotros",
     "aboutUsDescription": "Te ayudamos a gestionar, organizar y entender tus gastos para que puedas administrar mejor tus finanzas.",
@@ -92,7 +106,7 @@
     "allRightsReserved": "Todos los derechos reservados"
   },
   "meta": {
-    "title": "TrackMySpend: Herramienta de seguimiento de gastos e ingresos",
-    "description": "Descubre TrackMySpend, la aplicación de gestión financiera que te permite seguir tus gastos y ganancias de manera fácil y eficiente. Organiza tus finanzas con categorías y subcategorías personalizables. ¡Empieza a gestionar tu dinero hoy mismo en www.trackmyspend.co!"
+    "title": "TrackMySpend: Rastrea fácilmente gastos e ingresos",
+    "description": "Administra tus gastos e ingresos con TrackMySpend. Obtén una visión clara de tu salud financiera con categorías y subcategorías personalizables. Comienza a gestionar tu dinero de manera sencilla en www.trackmyspend.co."
   }
 }
