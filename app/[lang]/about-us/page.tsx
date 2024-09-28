@@ -33,7 +33,7 @@ export default async function AboutUsPage({
           </div>
         </div>
       </main>
-      <Footer />
+      <Footer dict={dict} />
     </>
   );
 }

@@ -45,7 +45,7 @@ export default async function ContactUsPage({
           </div>
         </div>
       </main>
-      <Footer />
+      <Footer dict={dict} />
     </>
   );
 }

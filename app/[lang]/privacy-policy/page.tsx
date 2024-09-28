@@ -655,7 +655,6 @@ export default function PrivacyPolicyPage() {
               nuestros servicios o desactivado su cuenta.
             </p>
 
-   
             <h2 className="text-lg text-gray-800 md:text-2xl font-bold">
               Divulgaciones adicionales para el cumplimiento en California (EE.
               UU.)
@@ -828,7 +827,7 @@ export default function PrivacyPolicyPage() {
           </div>
         </div>
       </main>
-      <Footer />
+      <Footer dict={dict} />
     </>
   );
 }
