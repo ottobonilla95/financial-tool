@@ -10,12 +10,17 @@ import { CancelButton, SubmitButton } from "../forms";
 
 export type CreateSavingFormProps = {
   closeModal: () => void;
+  month: number;
 };
 
-export const CreateSavingForm = ({ closeModal }: CreateSavingFormProps) => {
+export const CreateSavingForm = ({
+  closeModal,
+  month,
+}: CreateSavingFormProps) => {
   const initialState: SavingFormState = { message: {}, errors: {} };
   const [state, formAction] = useActionState(createSaving, initialState);
-  const [startDate, setStartDate] = useState(new Date());
+  const currentYear = new Date().getFullYear();
+  const [startDate, setStartDate] = useState(new Date(currentYear, month - 1));
 
   useEffect(() => {
     if (state.message?.text) {
@@ -103,6 +108,7 @@ export const CreateSavingForm = ({ closeModal }: CreateSavingFormProps) => {
                   onChange={(date) => setStartDate(date as Date)}
                   maxDate={new Date()}
                   aria-describedby="date-error"
+                  dateFormat={"dd MMM yyyy"}
                   className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
                 />
                 <input

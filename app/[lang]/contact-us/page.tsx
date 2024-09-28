@@ -1,8 +1,17 @@
+import { AvailableLanguages, getDictionary } from "@/src/translations";
 import AppLogo from "@/src/ui/app-logo";
 import { Footer } from "@/src/ui/components";
 import Link from "next/link";
 
-export default function ContactUsPage() {
+export type ContactUsPageProps = {
+  params: { lang: AvailableLanguages };
+};
+
+export default async function ContactUsPage({
+  params: { lang },
+}: ContactUsPageProps) {
+  const dict = await getDictionary(lang);
+
   return (
     <>
       <main className="flex min-h-screen flex-col p-6">
@@ -14,14 +23,13 @@ export default function ContactUsPage() {
         <div className="mt-4 flex grow flex-col gap-4">
           <div className="flex flex-col justify-center gap-6 rounded-lg bg-gray-50 px-6 py-10">
             <h1 className="text-xl text-gray-800 md:text-3xl font-bold">
-              Contáctanos
+              {dict.shared.contactUs}
             </h1>
             <p className="text-lg text-gray-700 md:text-xl">
-              ¡Nos encantaría saber de ti! Ya sea que tengas una pregunta,
-              comentario o necesites soporte, no dudes en contactarnos.
+              {dict.contactPage.weWouldLoveToHearFromYou}
             </p>
             <p className="text-lg text-gray-700 md:text-xl">
-              Puedes enviarnos un correo electrónico a:
+              {dict.contactPage.youCanSendUsAnEmailTo}
             </p>
             <p className="text-lg text-gray-700 md:text-xl font-bold">
               <Link
@@ -32,7 +40,7 @@ export default function ContactUsPage() {
               </Link>
             </p>
             <p className="text-lg text-gray-700 md:text-xl">
-              Nos esforzamos por responder dentro de las 24-48 horas.
+              {dict.contactPage.weStriveToRespondWithin}
             </p>
           </div>
         </div>

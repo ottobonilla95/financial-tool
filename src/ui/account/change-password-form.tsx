@@ -1,16 +1,22 @@
 "use client";
 
-import {
-  updatePassword,
-  UpdatePasswordFormState,
-} from "@/src/form-actions/auth";
-import { Button } from "@/src/ui/components";
+import React from "react";
 import { ArrowRightIcon, KeyIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
+import { AppDictionary } from "@/src/translations";
+import {
+  updatePassword,
+  UpdatePasswordFormState,
+} from "@/src/form-actions/auth";
+import { Button } from "../components";
 
-export default async function AccountPage() {
+export type ChangePasswordFormProps = {
+  dict: AppDictionary;
+};
+
+export const ChangePasswordForm = ({ dict }: ChangePasswordFormProps) => {
   const initialState: UpdatePasswordFormState = { message: {}, errors: {} };
 
   const [state, formAction, loading] = useActionState(
@@ -32,7 +38,9 @@ export default async function AccountPage() {
 
   return (
     <div className="mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Cambiar Contraseña</h1>
+      <h1 className="text-2xl font-bold mb-4">
+        {dict.accountPage.changePassword}
+      </h1>
 
       <form action={formAction}>
         <div className="rounded-md bg-gray-50 p-4 md:p-6 ">
@@ -41,7 +49,7 @@ export default async function AccountPage() {
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
               htmlFor="currentPassword"
             >
-              Contraseña actual *
+              {`${dict.accountPage.currentPassword} *`}
             </label>
             <div className="relative">
               <input
@@ -49,7 +57,7 @@ export default async function AccountPage() {
                 id="currentPassword"
                 type="password"
                 name="currentPassword"
-                placeholder="Ingrese la contraseña actual"
+                placeholder={dict.accountPage.enterCurrentPassword}
                 required
                 minLength={6}
               />
@@ -69,7 +77,7 @@ export default async function AccountPage() {
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
               htmlFor="password"
             >
-              Nueva Contraseña *
+              {`${dict.accountPage.newPassword} *`}
             </label>
             <div className="relative">
               <input
@@ -77,7 +85,7 @@ export default async function AccountPage() {
                 id="password"
                 type="password"
                 name="password"
-                placeholder="Ingrese nueva contraseña"
+                placeholder={dict.accountPage.enterNewPassword}
                 required
                 minLength={6}
               />
@@ -97,7 +105,7 @@ export default async function AccountPage() {
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
               htmlFor="password"
             >
-              Confirmación de contraseña *
+              {`${dict.shared.confirmPassword} *`}
             </label>
             <div className="relative">
               <input
@@ -105,7 +113,7 @@ export default async function AccountPage() {
                 id="passwordConfirmation"
                 type="password"
                 name="passwordConfirmation"
-                placeholder="Ingrese confirmación de contraseña"
+                placeholder={dict.accountPage.enterYourPasswordConfirmation}
                 required
                 minLength={6}
               />
@@ -125,15 +133,13 @@ export default async function AccountPage() {
           <Button
             className="mt-4 rounded-lg bg-black font-medium text-white hover:opacity-70 focus-visible:outline-black active:opacity-80"
             aria-disabled={loading}
-            icon={<ArrowRightIcon className="h-5 w-5 text-gray-50" />}
-            iconPosition="right"
             loading={loading}
             type="submit"
           >
-            Cambiar Contraseña
+            {dict.accountPage.changePassword}
           </Button>
         </div>
       </form>
     </div>
   );
-}
+};

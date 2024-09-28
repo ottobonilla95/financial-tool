@@ -13,6 +13,7 @@ export const AppContext = createContext<AppContextProps>({
 
 export type AppProviderProps = {
   currency: Currency;
+
   children: React.ReactNode;
 };
 

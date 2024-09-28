@@ -9,13 +9,15 @@ import { TrashIcon, PencilIcon } from "@heroicons/react/24/outline";
 import { Button, Price } from "../components";
 import { useState } from "react";
 import { UpdateCategoryForm } from "../expense-categories";
-import { Tooltip } from "react-tooltip"
+import { Tooltip } from "react-tooltip";
+import { AppDictionary } from "@/src/translations";
 
 export type ExpenseTableProps = {
   categoryName: string;
   subcategories: {
     [subcategoryName: string]: Expense[];
   };
+  dict: AppDictionary;
 };
 
 const calculateSubcategoryTotal = (expenses: Expense[]) => {
@@ -142,6 +144,7 @@ export const ExpenseEmotionIcon = ({ emotionType, name }: Partial<Emotion>) => {
 export const ExpenseTable = ({
   categoryName,
   subcategories,
+  dict,
 }: ExpenseTableProps) => {
   const getCategoryColor = (subcategories: {
     [subcategoryName: string]: Expense[];
@@ -212,18 +215,20 @@ export const ExpenseTable = ({
                 {subcategoryName}
               </h3>
               <div className="grid grid-cols-5 sm:grid-cols-6 py-2 px-4">
-                <div className="font-bold flex items-center">Nombre</div>
-                <div className="font-bold flex items-center justify-center">
-                  Fecha
+                <div className="font-bold flex items-center">
+                  {dict.shared.name}
                 </div>
                 <div className="font-bold flex items-center justify-center">
-                  Precio
+                  {dict.shared.date}
                 </div>
                 <div className="font-bold flex items-center justify-center">
-                  Satisfacción
+                  {dict.shared.price}
+                </div>
+                <div className="font-bold flex items-center justify-center">
+                  {dict.shared.satisfaction}
                 </div>
                 <div className="font-bold  items-center justify-center hidden sm:flex">
-                  Emoción
+                  {dict.shared.emotion}
                 </div>
                 <div></div>
               </div>
@@ -270,7 +275,7 @@ export const ExpenseTable = ({
                   backgroundColor: darkenHexColor(color, 0.07),
                 }}
               >
-                <div className="font-bold">Total</div>
+                <div className="font-bold">{dict.shared.total}</div>
                 <div className="font-bold">
                   <Price amount={calculateSubcategoryTotal(expenseArray)} />
                 </div>
@@ -284,7 +289,7 @@ export const ExpenseTable = ({
             backgroundColor: darkenHexColor(color, 0.15),
           }}
         >
-          <div className="font-bold">Total</div>
+          <div className="font-bold">{dict.shared.total}</div>
           <div className="font-bold">
             <Price amount={calculateTotal(subcategories)} />
           </div>

@@ -1,0 +1,98 @@
+{
+  "dashboard": {
+    "lastUpdated": "Last updated",
+    "addSaving": "Add saving",
+    "saving": "Saving",
+    "addIncome": "Add income",
+    "addExpense": "Add expense",
+    "expense": "Expense",
+    "totalIncome": "Total income",
+    "totalExpenses": "Total expenses",
+    "balance": "Balance"
+  },
+  "shared": {
+    "total": "Total",
+    "name": "Name",
+    "date": "Date",
+    "price": "Price",
+    "satisfaction": "Satisfaction",
+    "emotion": "Emotion",
+    "noExpensesAdded": "You have not added any expenses this month.",
+    "expenses": "Expenses",
+    "savings": "Savings",
+    "income": "Income",
+    "contactUs": "Contact us",
+    "password": "Password",
+    "email": "Email",
+    "confirmPassword": "Confirm password",
+    "currency": "Currency"
+  },
+  "insights": {
+    "totalIncomeExpensesSavings": "Total income, expenses, and savings",
+    "expensesByCategory": "Expenses by category"
+  },
+  "contactPage": {
+    "weWouldLoveToHearFromYou": "We would love to hear from you! Whether you have a question, comment, or need support, don't hesitate to contact us.",
+    "youCanSendUsAnEmailTo": "You can send us an email at:",
+    "weStriveToRespondWithin": "We strive to respond within 24-48 hours."
+  },
+  "aboutUsPage": {
+    "aboutUs": "About Track My Expense",
+    "aboutUsDescription": "Our website was created to allow users to easily track their expenses and gain a better understanding of how their personal finances are being managed. This helps them take control of their financial health and make informed decisions.",
+    "aboutUsDescription2": "We believe that managing personal finances should be simple, accessible, and efficient. Whether you're trying to save more, understand your spending habits, or just keep better track, Track My Expense is designed for people who want to improve their financial well-being."
+  },
+  "authPages": {
+    "login": "Login",
+    "pleaseLogIn": "Please log in to continue.",
+    "createAccount": "Create account",
+    "enterYourEmail": "Enter your email",
+    "enterYourPassword": "Enter your password",
+    "enterYourPasswordConfirmation": "Enter your password confirmation",
+    "enterYourName": "Enter your name"
+  },
+  "mainPage": {
+    "welcome": "Welcome to Track My Expense.",
+    "welcomeDescription": "Keep track of your expenses easily and efficiently."
+  },
+  "sideMenu": {
+    "home": "Home",
+    "summary": "Summary",
+    "support": "Support",
+    "account": "Account",
+    "logOut": "Log out"
+  },
+  "supportPage": {
+    "title": "Support",
+    "description": "Find answers to your questions or get in touch with our support team.",
+    "getInContact": "Get in contact",
+    "getInContactDescription": "If you didn't find the answer to your question in our FAQs, you can contact us through any of the following channels."
+  },
+  "faqs": {
+    "title": "Frequently Asked Questions (FAQs)",
+    "question1": "How can I contact technical support?",
+    "answer1": "You can contact our support team by sending us an email at"
+  },
+  "accountPage": {
+    "title": "Account",
+    "changePassword": "Change Password",
+    "newPassword": "New Password",
+    "currentPassword": "Current Password",
+    "enterCurrentPassword": "Enter your current password",
+    "enterNewPassword": "Enter your new password",
+    "enterYourPasswordConfirmation": "Enter your password confirmation"
+  },
+  "footer": {
+    "aboutUsTitle": "About Us",
+    "aboutUsDescription": "We help you manage, organize, and understand your expenses so that you can better manage your finances.",
+    "quickLinksTitle": "Quick Links",
+    "home": "Home",
+    "aboutUs": "About Us",
+    "contactUs": "Contact Us",
+    "privacyPolicy": "Privacy Policy",
+    "allRightsReserved": "All rights reserved."
+  },
+  "meta": {
+    "title": "TrackMySpend: Expense and Income Tracking Tool",
+    "description": "Discover TrackMySpend, the financial management app that allows you to track your expenses and income easily and efficiently. Organize your finances with customizable categories and subcategories. Start managing your money today at www.trackmyspend.co!"
+  }
+}

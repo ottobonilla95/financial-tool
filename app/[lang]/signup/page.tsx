@@ -1,9 +1,18 @@
 import { getAllCurrencies } from "@/src/data/currency";
+import { AvailableLanguages, getDictionary } from "@/src/translations";
 import AppLogo from "@/src/ui/app-logo";
 import { SignupForm } from "@/src/ui/auth";
 import Link from "next/link";
 
-export default async function SignupPage() {
+export type SignupPageProps = {
+  params: { lang: AvailableLanguages };
+};
+
+export default async function SignupPage({
+  params: { lang },
+}: SignupPageProps) {
+  const dict = await getDictionary(lang);
+
   const currencies = await getAllCurrencies();
 
   return (
@@ -16,7 +25,7 @@ export default async function SignupPage() {
             </Link>
           </div>
         </div>
-        <SignupForm currencies={currencies} />
+        <SignupForm currencies={currencies} dict={dict} />
       </div>
     </main>
   );

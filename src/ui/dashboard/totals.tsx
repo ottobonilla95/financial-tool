@@ -1,17 +1,20 @@
 import { Expense, Earning, Saving } from "@/src/types";
 import clsx from "clsx";
 import { Price } from "../components";
+import { AppDictionary } from "@/src/translations";
 
 export type DashboardTotalsProps = {
   expenses: Expense[];
   earnings: Earning[];
   savings: Saving[];
+  dict: AppDictionary;
 };
 
 export const DashboardTotals = ({
   expenses,
   earnings,
   savings,
+  dict,
 }: DashboardTotalsProps) => {
   const calculateTotal = (expenses: (Expense | Earning | Saving)[]) => {
     return expenses.reduce((acc, expense) => acc + expense.amount, 0);
@@ -32,7 +35,7 @@ export const DashboardTotals = ({
       <div>
         <div className="bg-green-200 rounded flex">
           <div className="font-bold mr-4 bg-green-400 rounded px-2 py-1">
-            Total Ingresos
+            {dict.dashboard.totalIncome}
           </div>
           <div className="pr-2 py-1 flex-1 flex justify-end">
             <Price amount={totalEarnings} />
@@ -42,7 +45,7 @@ export const DashboardTotals = ({
       <div>
         <div className="bg-red-200 rounded flex">
           <div className="font-bold mr-4 bg-red-400 rounded px-2 py-1">
-            Total gastos
+            {dict.dashboard.totalExpenses}
           </div>
           <div className="pr-2 py-1 flex-1 flex justify-end">
             <Price amount={totalExpenses} />
@@ -62,7 +65,7 @@ export const DashboardTotals = ({
               "bg-green-400": totalBalance >= 0,
             })}
           >
-            Balance
+            {dict.dashboard.balance}
           </div>
           <div className="pr-2 py-1 flex-1 flex justify-end">
             <Price amount={totalBalance} />
@@ -83,7 +86,7 @@ export const DashboardTotals = ({
               "bg-green-400": totalSavings > 0,
             })}
           >
-            Ahorros
+            {dict.shared.savings}
           </div>
           <div className="pr-2 py-1 flex-1 flex justify-end">
             <Price amount={totalSavings} />

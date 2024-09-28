@@ -1,8 +1,10 @@
 import { EarningByCategory, Earning } from "@/src/types";
 import { IncomeTable } from "./income-table";
+import { AppDictionary } from "@/src/translations";
 
 export type IncomeTableContainerProps = {
   earnings: Earning[];
+  dict: AppDictionary;
 };
 
 const splitByCategoryAndSubcategory = (expenses: Earning[]) => {
@@ -21,12 +23,13 @@ const splitByCategoryAndSubcategory = (expenses: Earning[]) => {
 
 export const IncomeTableContainer = ({
   earnings,
+  dict,
 }: IncomeTableContainerProps) => {
   const expensesByCategory = splitByCategoryAndSubcategory(earnings);
 
   return (
     <div className="mt-10">
-      <div className="font-bold text-lg mb-5">Ingresos</div>
+      <div className="font-bold text-lg mb-5">{dict.dashboard.income}</div>
       <div className="gap-4 grid grid-cols-1 sm:grid-cols-3 grid-flow-dense">
         {Object.entries(expensesByCategory).map(
           ([categoryName, subcategories]) => (
@@ -34,6 +37,7 @@ export const IncomeTableContainer = ({
               key={categoryName}
               categoryName={categoryName}
               subcategories={subcategories}
+              dict={dict}
             />
           )
         )}

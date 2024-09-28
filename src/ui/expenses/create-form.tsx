@@ -23,11 +23,13 @@ import clsx from "clsx";
 export type CreateExpenseFormProps = {
   closeModal: () => void;
   emotions: Emotion[];
+  month: number;
 };
 
 export const CreateExpenseForm = ({
   closeModal,
   emotions,
+  month,
 }: CreateExpenseFormProps) => {
   const initialState: ExpenseFormState = { message: {}, errors: {} };
   const [state, formAction, loading] = useActionState(
@@ -35,7 +37,8 @@ export const CreateExpenseForm = ({
     initialState
   );
   const [categories, setCategories] = useState<ExpenseCategory[]>([]);
-  const [startDate, setStartDate] = useState(new Date());
+  const currentYear = new Date().getFullYear();
+  const [startDate, setStartDate] = useState(new Date(currentYear, month - 1));
   const [subCategories, setSubCategories] = useState<
     { name: string; id: string }[]
   >([]);
@@ -269,6 +272,7 @@ export const CreateExpenseForm = ({
                         onChange={(date) => setStartDate(date as Date)}
                         maxDate={new Date()}
                         aria-describedby="date-error"
+                        dateFormat={"dd MMM yyyy"}
                         className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
                       />
                       <input

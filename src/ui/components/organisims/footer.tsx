@@ -1,31 +1,37 @@
+import { AppDictionary } from "@/src/translations";
 import React from "react";
 
-export const Footer = () => {
+export type FooterProps = {
+  dict: AppDictionary;
+};
+
+export const Footer = ({ dict }: FooterProps) => {
   return (
     <footer className="bg-black text-white py-8">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Company Info */}
           <div>
-            <h3 className="text-xl font-semibold mb-4">Sobre Nosotros</h3>
-            <p className="text-gray-400">
-              Te ayudamos a gestionar, organizar y entender tus gastos para que
-              puedas administrar mejor tus finanzas.
-            </p>
+            <h3 className="text-xl font-semibold mb-4">
+              {dict.footer.aboutUsTitle}
+            </h3>
+            <p className="text-gray-400">{dict.footer.aboutUsDescription}</p>
           </div>
 
           {/* Enlaces Rápidos */}
           <div>
-            <h3 className="text-xl font-semibold mb-4">Enlaces Rápidos</h3>
+            <h3 className="text-xl font-semibold mb-4">
+              {dict.footer.quickLinksTitle}
+            </h3>
             <ul>
               <li className="mb-2">
                 <a href="/" className="text-gray-400 hover:text-white">
-                  Inicio
+                  {dict.footer.home}
                 </a>
               </li>
               <li className="mb-2">
                 <a href="/about-us" className="text-gray-400 hover:text-white">
-                  Sobre Nosotros
+                  {dict.footer.aboutUs}
                 </a>
               </li>
               <li className="mb-2">
@@ -33,7 +39,7 @@ export const Footer = () => {
                   href="/contact-us"
                   className="text-gray-400 hover:text-white"
                 >
-                  Contacto
+                  {dict.footer.contactUs}
                 </a>
               </li>
               <li className="mb-2">
@@ -41,7 +47,7 @@ export const Footer = () => {
                   href="/privacy-policy"
                   className="text-gray-400 hover:text-white"
                 >
-                  Política de Privacidad
+                  {dict.footer.privacyPolicy}
                 </a>
               </li>
             </ul>
@@ -54,8 +60,8 @@ export const Footer = () => {
         {/* Copyright Section */}
         <div className="text-center">
           <p className="text-gray-400">
-            &copy; {new Date().getFullYear()} TrackMySpend. Todos los derechos
-            reservados.
+            &copy; {new Date().getFullYear()}
+            {`TrackMySpend. ${dict.footer.allRightsReserved}`}
           </p>
         </div>
       </div>

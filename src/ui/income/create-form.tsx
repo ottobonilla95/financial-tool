@@ -17,13 +17,19 @@ import { CancelButton, SubmitButton } from "../forms";
 
 export type CreateIncomeFormProps = {
   closeModal: () => void;
+  month: number;
 };
 
-export const CreateIncomeForm = ({ closeModal }: CreateIncomeFormProps) => {
+export const CreateIncomeForm = ({
+  closeModal,
+  month,
+}: CreateIncomeFormProps) => {
   const initialState: IncomeFormState = { message: {}, errors: {} };
   const [state, formAction] = useActionState(createIncome, initialState);
   const [categories, setCategories] = useState<EarningCategory[]>([]);
-  const [startDate, setStartDate] = useState(new Date());
+
+  const currentYear = new Date().getFullYear();
+  const [startDate, setStartDate] = useState(new Date(currentYear, month - 1));
   const [subCategories, setSubCategories] = useState<
     { name: string; id: string }[]
   >([]);
@@ -235,6 +241,7 @@ export const CreateIncomeForm = ({ closeModal }: CreateIncomeFormProps) => {
                       selected={startDate}
                       onChange={(date) => setStartDate(date as Date)}
                       maxDate={new Date()}
+                      dateFormat={"dd MMM yyyy"}
                       aria-describedby="date-error"
                       className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
                     />

@@ -11,7 +11,6 @@ import {
   IncomeTableContainer,
   SavingTableContainer,
 } from "@/src/ui/dashboard";
-
 import { Suspense } from "react";
 import { fetchEarnings } from "@/src/data/earning";
 import { getAllEmotions } from "@/src/data/emotion";
@@ -20,14 +19,22 @@ import { getDBUser } from "@/src/data/user";
 import { AppProvider } from "@/src/app-wrappper/provider";
 import { Currency } from "@/src/types";
 import { endOfMonth, startOfMonth } from "date-fns";
+import { getDictionary, AvailableLanguages } from "@/src/translations";
 
 export type DashboardPageProps = {
   searchParams: {
     month: string;
     year: string;
   };
+  params: { lang: AvailableLanguages };
 };
-export default async function Page({ searchParams }: DashboardPageProps) {
+
+export default async function Page({
+  searchParams,
+  params: { lang },
+}: DashboardPageProps) {
+  const dict = await getDictionary(lang);
+
   const session = await auth();
   const userId = session?.user?.id as string;
 
@@ -91,18 +98,19 @@ export default async function Page({ searchParams }: DashboardPageProps) {
     <AppProvider currency={currency as Currency}>
       <main>
         <Suspense fallback={<div>loading...</div>}>
-          <LastUpdated />
+          <LastUpdated dict={dict} />
         </Suspense>
         <div className="h-5" />
 
         <Suspense fallback={<div>loading...</div>}>
-          <DashboardButtons emotions={emotions} />
+          <DashboardButtons emotions={emotions} month={month} dict={dict} />
         </Suspense>
 
         <DashboardTotals
           expenses={expenses}
           earnings={earnings}
           savings={savings}
+          dict={dict}
         />
 
         <DashboardDatePicker />
@@ -118,16 +126,18 @@ export default async function Page({ searchParams }: DashboardPageProps) {
         )}
         {earnings.length > 0 && (
           <div>
-            <IncomeTableContainer earnings={earnings} />
+            <IncomeTableContainer earnings={earnings} dict={dict} />
           </div>
         )}
         {expenses.length > 0 && (
           <div>
-            <ExpensesTableContainer expenses={expenses} />
+            <ExpensesTableContainer expenses={expenses} dict={dict} />
           </div>
         )}
 
-        {expenses.length === 0 && earnings.length === 0 && <NoExpensesAdded />}
+        {expenses.length === 0 && earnings.length === 0 && (
+          <NoExpensesAdded dict={dict} />
+        )}
       </main>
     </AppProvider>
   );

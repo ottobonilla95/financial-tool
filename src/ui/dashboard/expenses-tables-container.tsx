@@ -1,8 +1,10 @@
 import { Expense, ExpensesByCategory } from "@/src/types";
 import { ExpenseTable } from "./expense-table";
+import { AppDictionary } from "@/src/translations";
 
 export type ExpensesTableContainerProps = {
   expenses: Expense[];
+  dict: AppDictionary;
 };
 
 const splitByCategoryAndSubcategory = (expenses: Expense[]) => {
@@ -21,12 +23,13 @@ const splitByCategoryAndSubcategory = (expenses: Expense[]) => {
 
 export const ExpensesTableContainer = ({
   expenses,
+  dict,
 }: ExpensesTableContainerProps) => {
   const expensesByCategory = splitByCategoryAndSubcategory(expenses);
 
   return (
     <div className="mt-10">
-      <div className="font-bold text-lg mb-5">Gastos</div>
+      <div className="font-bold text-lg mb-5">{dict.dashboard.expense}</div>
       <div className="gap-4 grid grid-cols-1 lg:grid-cols-2 grid-flow-dense">
         {Object.entries(expensesByCategory).map(
           ([categoryName, subcategories]) => (
@@ -34,6 +37,7 @@ export const ExpensesTableContainer = ({
               key={categoryName}
               categoryName={categoryName}
               subcategories={subcategories}
+              dict={dict}
             />
           )
         )}

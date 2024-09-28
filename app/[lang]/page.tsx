@@ -3,8 +3,15 @@ import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import Image from "next/image";
 import { Footer } from "@/src/ui/components";
+import { AvailableLanguages, getDictionary } from "@/src/translations";
 
-export default function Page() {
+export type MainPageProps = {
+  params: { lang: AvailableLanguages };
+};
+
+export default async function MainPage({ params: { lang } }: MainPageProps) {
+  const dict = await getDictionary(lang);
+
   return (
     <>
       <main className="flex min-h-screen flex-col p-6">
@@ -18,21 +25,21 @@ export default function Page() {
             <p
               className={`text-xl text-gray-800 md:text-3xl md:leading-normal`}
             >
-              <strong> Bienvenido a track my expense.</strong> LLeva registro de
-              tus gastos de forma sencilla y eficiente.
+              <strong>{dict.mainPage.welcome}</strong>
+              {dict.mainPage.welcomeDescription}
             </p>
             <Link
               href="/login"
               className="flex items-center gap-5 self-start rounded-lg bg-black px-6 py-3 text-sm font-medium text-white transition-colors hover:opacity-70 md:text-base"
             >
-              <span>Iniciar sesión</span>
+              <span>{dict.authPages.login}</span>
               <ArrowRightIcon className="w-5 md:w-6" />
             </Link>
             <Link
               href="/signup"
               className="flex items-center gap-5 self-start rounded-lg px-6 py-3 text-sm font-medium transition-colors hover:opacity-70 md:text-base"
             >
-              <span> Crear cuenta </span>
+              <span>{dict.authPages.createAccount}</span>
               <ArrowRightIcon className="w-5 md:w-6" />
             </Link>
           </div>
@@ -54,7 +61,7 @@ export default function Page() {
           </div>
         </div>
       </main>
-      <Footer />
+      <Footer dict={dict} />
     </>
   );
 }

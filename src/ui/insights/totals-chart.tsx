@@ -10,12 +10,14 @@ import {
   getMonthlyTotals,
   groupExpensesByCategoryWithAllMonths,
 } from "./helpers";
+import { AppDictionary } from "@/src/translations";
 
 export type PieChartProps = {
   expenses: Expense[];
   earnings: Earning[];
   savings: Saving[];
   currency: Currency;
+  dict: AppDictionary;
 };
 
 export const TotalLineChart = ({
@@ -23,6 +25,7 @@ export const TotalLineChart = ({
   earnings,
   savings,
   currency,
+  dict,
 }: PieChartProps) => {
   const data = getMonthlyTotals(expenses, earnings, savings);
   const allMonths = getAllUniqueMonths(expenses);
@@ -34,7 +37,7 @@ export const TotalLineChart = ({
   const [props] = useState<AgChartProps>({
     options: {
       title: {
-        text: "Total (Ingresos, Gastos, Ahorro)",
+        text: dict.insights.totalIncomeExpensesSavings,
         fontSize: 20,
         fontWeight: "bold",
       },
@@ -45,7 +48,7 @@ export const TotalLineChart = ({
           xKey: "monthYear",
           xName: "Mes",
           yKey: "expenses",
-          yName: "Gastos",
+          yName: dict.shared.expenses,
           interpolation: { type: "linear" },
           stroke: "red",
           marker: {
@@ -58,7 +61,7 @@ export const TotalLineChart = ({
           xKey: "monthYear",
           xName: "Mes",
           yKey: "earnings",
-          yName: "Ingresos",
+          yName: dict.shared.income,
           interpolation: { type: "linear" },
           stroke: "green",
           marker: {
@@ -71,7 +74,7 @@ export const TotalLineChart = ({
           xKey: "monthYear",
           xName: "Mes",
           yKey: "savings",
-          yName: "Ahorros",
+          yName: dict.shared.savings,
           interpolation: { type: "linear" },
           stroke: "#f7d84a",
           marker: {
@@ -108,7 +111,9 @@ export const TotalLineChart = ({
       {/* <div className="font-bold text-2xl">Total (Ingresos, Gastos, Ahorro)</div> */}
       <AgCharts options={props.options} />
 
-      <div className="font-bold text-2xl my-6">Gastos por Categorias</div>
+      <div className="font-bold text-2xl my-6">
+        {dict.insights.expensesByCategory}
+      </div>
 
       {/* categories charts */}
       {Object.keys(groupedExpenses).map((categoryName) => {

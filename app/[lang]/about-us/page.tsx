@@ -1,8 +1,16 @@
+import { AvailableLanguages, getDictionary } from "@/src/translations";
 import AppLogo from "@/src/ui/app-logo";
 import { Footer } from "@/src/ui/components";
 import Link from "next/link";
 
-export default function AboutUsPage() {
+export type AboutUsPageProps = {
+  params: { lang: AvailableLanguages };
+};
+export default async function AboutUsPage({
+  params: { lang },
+}: AboutUsPageProps) {
+  const dict = await getDictionary(lang);
+
   return (
     <>
       <main className="flex min-h-screen flex-col p-6">
@@ -14,21 +22,13 @@ export default function AboutUsPage() {
         <div className="mt-4 flex grow flex-col gap-4">
           <div className="flex flex-col justify-center gap-6 rounded-lg bg-gray-50 px-6 py-10">
             <h1 className="text-xl text-gray-800 md:text-3xl font-bold">
-              Sobre Track My Expense
+              {dict.aboutUsPage.aboutUs}
             </h1>
             <p className="text-lg text-gray-700 md:text-xl">
-              Nuestro sitio web fue creado para permitir a los usuarios llevar
-              un registro de sus gastos de manera sencilla y obtener una mejor
-              comprensión de cómo se están gestionando sus finanzas personales.
-              Esto les ayuda a tomar el control de su salud financiera y a tomar
-              decisiones informadas.
+              {dict.aboutUsPage.aboutUsDescription}
             </p>
             <p className="text-lg text-gray-700 md:text-xl">
-              Creemos que la gestión de las finanzas personales debe ser simple,
-              accesible y eficiente. Ya sea que estés intentando ahorrar más,
-              entender tus hábitos de gasto o simplemente llevar un mejor
-              control, Track My Expense está diseñado para personas que desean
-              mejorar su bienestar financiero.
+              {dict.aboutUsPage.aboutUsDescription2}
             </p>
           </div>
         </div>

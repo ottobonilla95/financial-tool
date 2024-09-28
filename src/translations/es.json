@@ -1,0 +1,98 @@
+{
+  "dashboard": {
+    "lastUpdated": "Última vez actualizado",
+    "addSaving": "Añadir ahorro",
+    "saving": "Ahorro",
+    "addIncome": "Añadir ingreso",
+    "addExpense": "Añadir gasto",
+    "expense": "Gasto",
+    "totalIncome": "Ingresos totales",
+    "totalExpenses": "Gastos totales",
+    "balance": "Balance"
+  },
+  "shared": {
+    "total": "Total",
+    "name": "Nombre",
+    "date": "Fecha",
+    "price": "Precio",
+    "satisfaction": "Satisfacción",
+    "emotion": "Emoción",
+    "noExpensesAdded": "No has añadido ningún gasto este mes.",
+    "expenses": "Gastos",
+    "savings": "Ahorros",
+    "income": "Ingreso",
+    "contactUs": "Contáctanos",
+    "password": "Contraseña",
+    "email": "Correo electrónico",
+    "confirmPassword": "Confirmar contraseña",
+    "currency": "Moneda"
+  },
+  "insights": {
+    "totalIncomeExpensesSavings": "Ingresos, gastos y ahorros totales",
+    "expensesByCategory": "Gastos por categoría"
+  },
+  "contactPage": {
+    "weWouldLoveToHearFromYou": "¡Nos encantaría saber de ti! Ya sea que tengas una pregunta, comentario o necesites ayuda, no dudes en contactarnos.",
+    "youCanSendUsAnEmailTo": "Puedes enviarnos un correo electrónico a:",
+    "weStriveToRespondWithin": "Nos esforzamos por responder en 24-48 horas."
+  },
+  "aboutUsPage": {
+    "aboutUs": "Acerca de Track My Expense",
+    "aboutUsDescription": "Nuestro sitio web fue creado para permitir a los usuarios llevar un registro de sus gastos de manera sencilla y obtener una mejor comprensión de cómo se están gestionando sus finanzas personales. Esto les ayuda a tomar el control de su salud financiera y a tomar decisiones informadas.",
+    "aboutUsDescription2": "Creemos que la gestión de las finanzas personales debe ser simple, accesible y eficiente. Ya sea que estés intentando ahorrar más, entender tus hábitos de gasto o simplemente llevar un mejor control, Track My Expense está diseñado para personas que desean mejorar su bienestar financiero."
+  },
+  "authPages": {
+    "login": "Iniciar sesión",
+    "pleaseLogIn": "Por favor, inicie sesión para continuar.",
+    "createAccount": "Crear cuenta",
+    "enterYourEmail": "Ingresa tu correo electrónico",
+    "enterYourPassword": "Ingresa tu contraseña",
+    "enterYourPasswordConfirmation": "Ingresa tu confirmación de contraseña",
+    "enterYourName": "Ingresa tu nombre"
+  },
+  "mainPage": {
+    "welcome": "Bienvenido a Track My Expense.",
+    "welcomeDescription": "Lleva un registro de tus gastos de manera fácil y eficiente."
+  },
+  "sideMenu": {
+    "home": "Inicio",
+    "summary": "Resumen",
+    "support": "Soporte",
+    "account": "Cuenta",
+    "logOut": "Cerrar sesión"
+  },
+  "supportPage": {
+    "title": "Soporte",
+    "description": "Encuentra respuestas a tus preguntas o ponte en contacto con nuestro equipo de soporte.",
+    "getInContact": "Ponte en contacto",
+    "getInContactDescription": "Si no encontraste la respuesta a tu pregunta en nuestras preguntas frecuentes (FAQs), puedes ponerte en contacto con nosotros a través de cualquiera de los siguientes canales."
+  },
+  "faqs": {
+    "title": "Preguntas frecuentes (FAQs)",
+    "question1": "¿Cómo puedo contactar al soporte técnico?",
+    "answer1": "Puedes contactar a nuestro equipo de soporte enviándonos un correo electrónico a"
+  },
+  "accountPage": {
+    "title": "Tu cuenta",
+    "changePassword": "Cambiar contraseña",
+    "newPassword": "Nueva contraseña",
+    "currentPassword": "Contraseña actual",
+    "enterCurrentPassword": "Ingresa tu contraseña actual",
+    "enterNewPassword": "Ingresa tu nueva contraseña",
+    "enterYourPasswordConfirmation": "Ingresa tu confirmación de contraseña"
+  },
+  "footer": {
+    "aboutUsTitle": "Acerca de nosotros",
+    "aboutUsDescription": "Te ayudamos a gestionar, organizar y entender tus gastos para que puedas administrar mejor tus finanzas.",
+    "quickLinksTitle": "Enlaces rápidos",
+    "home": "Inicio",
+    "aboutUs": "Acerca de nosotros",
+    "contactUs": "Contáctanos",
+    "privacyPolicy": "Política de privacidad",
+    "allRightsReserved": "Todos los derechos reservados"
+  },
+  "meta": {
+    "title": "TrackMySpend: Herramienta de seguimiento de gastos e ingresos",
+    "description": "Descubre TrackMySpend, la aplicación de gestión financiera que te permite seguir tus gastos y ganancias de manera fácil y eficiente. Organiza tus finanzas con categorías y subcategorías personalizables. ¡Empieza a gestionar tu dinero hoy mismo en www.trackmyspend.co!"
+  }
+}

@@ -1,8 +1,15 @@
+import { AvailableLanguages, getDictionary } from "@/src/translations";
 import AppLogo from "@/src/ui/app-logo";
 import { LoginForm } from "@/src/ui/auth";
 import Link from "next/link";
 
-export default function LoginPage() {
+export type LoginPageProps = {
+  params: { lang: AvailableLanguages };
+};
+
+export default async function LoginPage({ params: { lang } }: LoginPageProps) {
+  const dict = await getDictionary(lang);
+
   return (
     <main className="flex items-center justify-center md:h-screen">
       <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-32">
@@ -13,7 +20,7 @@ export default function LoginPage() {
             </Link>
           </div>
         </div>
-        <LoginForm />
+        <LoginForm dict={dict} />
       </div>
     </main>
   );

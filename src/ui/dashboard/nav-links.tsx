@@ -7,27 +7,42 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useParams } from "next/navigation";
 import clsx from "clsx";
+import { AppDictionary } from "@/src/translations";
 
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.
-const links = [
-  { name: "Home", href: "/dashboard", icon: HomeIcon },
-  {
-    name: "Mi Resumen",
-    href: "/dashboard/insights",
-    icon: PresentationChartLineIcon,
-  },
-  { name: "Soporte", href: "/dashboard/support", icon: UserGroupIcon },
-  { name: "Cuenta", href: "/dashboard/account", icon: UserIcon },
-];
 
-export default function NavLinks() {
+export type NavLinksProps = {
+  dict: AppDictionary;
+};
+
+export default function NavLinks({ dict }: NavLinksProps) {
   let pathname = usePathname();
+
+  const params = useParams();
+  const lang = params.lang;
+
   if (pathname.includes("/dashboard/account")) {
-    pathname = "/dashboard/account";
+    pathname = `/${lang}/dashboard/account`;
   }
+
+  const links = [
+    { name: dict.sideMenu.home, href: "/dashboard", icon: HomeIcon },
+    {
+      name: dict.sideMenu.summary,
+      href: "/dashboard/insights",
+      icon: PresentationChartLineIcon,
+    },
+    {
+      name: dict.sideMenu.support,
+      href: "/dashboard/support",
+      icon: UserGroupIcon,
+    },
+    { name: dict.sideMenu.account, href: "/dashboard/account", icon: UserIcon },
+  ];
+
   return (
     <>
       {links.map((link) => {
@@ -39,7 +54,8 @@ export default function NavLinks() {
             className={clsx(
               "flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-gray-500 hover:text-white md:flex-none md:justify-start md:p-2 md:px-3",
               {
-                "!bg-black text-white": pathname === link.href,
+                "!bg-black text-white":
+                  pathname.replace(`/${lang}`, "") === link.href,
               }
             )}
           >

@@ -12,11 +12,13 @@ import { Button, Dropdown } from "@/src/ui/components";
 import { useActionState, useState } from "react";
 import { createUser, CreateUserFormState } from "@/src/form-actions/auth";
 import { Currency } from "@/src/types";
+import { AppDictionary } from "@/src/translations";
 
 export type SignupFormPropd = {
   currencies: Currency[];
+  dict: AppDictionary;
 };
-export const SignupForm = ({ currencies }: SignupFormPropd) => {
+export const SignupForm = ({ currencies, dict }: SignupFormPropd) => {
   const initialState: CreateUserFormState = { message: {}, errors: {} };
   const [state, formAction, isPending] = useActionState(
     createUser,
@@ -28,14 +30,14 @@ export const SignupForm = ({ currencies }: SignupFormPropd) => {
   return (
     <form action={formAction} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
-        <h1 className={`${lusitana.className} mb-3 text-2xl`}>Crear cuenta</h1>
+        <h1 className={`${lusitana.className} mb-3 text-2xl`}>{dict.authPages.createAccount}</h1>
         <div className="w-full">
           <div>
             <label
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
               htmlFor="name"
             >
-              Nombre *
+              {`${dict.shared.name} *`}
             </label>
             <div className="relative">
               <input
@@ -43,7 +45,7 @@ export const SignupForm = ({ currencies }: SignupFormPropd) => {
                 id="name"
                 type="text"
                 name="name"
-                placeholder="Introduce nombre"
+                placeholder={dict.authPages.enterYourName}
                 required
               />
               <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
@@ -54,7 +56,7 @@ export const SignupForm = ({ currencies }: SignupFormPropd) => {
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
               htmlFor="email"
             >
-              Email *
+              {`${dict.shared.email} *`}
             </label>
             <div className="relative">
               <input
@@ -62,7 +64,7 @@ export const SignupForm = ({ currencies }: SignupFormPropd) => {
                 id="email"
                 type="email"
                 name="email"
-                placeholder="Ingrese su email"
+                placeholder={dict.authPages.enterYourEmail}
                 required
               />
               <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
@@ -74,7 +76,7 @@ export const SignupForm = ({ currencies }: SignupFormPropd) => {
               htmlFor="category"
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
             >
-              Moneda *
+              {`${dict.shared.currency} *`}
             </label>
             <div className="relative">
               <Dropdown
@@ -105,7 +107,7 @@ export const SignupForm = ({ currencies }: SignupFormPropd) => {
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
               htmlFor="password"
             >
-              Contraseña *
+              {`${dict.shared.password} *`}
             </label>
             <div className="relative">
               <input
@@ -113,7 +115,7 @@ export const SignupForm = ({ currencies }: SignupFormPropd) => {
                 id="password"
                 type="password"
                 name="password"
-                placeholder="Ingrese la contraseña"
+                placeholder={dict.authPages.enterYourPassword}
                 required
                 minLength={6}
               />
@@ -125,7 +127,7 @@ export const SignupForm = ({ currencies }: SignupFormPropd) => {
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
               htmlFor="password"
             >
-              Confirmación de contraseña *
+              {`${dict.shared.confirmPassword} *`}
             </label>
             <div className="relative">
               <input
@@ -133,7 +135,7 @@ export const SignupForm = ({ currencies }: SignupFormPropd) => {
                 id="passwordConfirmation"
                 type="password"
                 name="passwordConfirmation"
-                placeholder="Ingrese confirmación de contraseña"
+                placeholder={dict.authPages.enterYourPasswordConfirmation}
                 required
                 minLength={6}
               />
@@ -149,7 +151,7 @@ export const SignupForm = ({ currencies }: SignupFormPropd) => {
           iconPosition="right"
           loading={isPending}
         >
-          Crear cuenta
+          {dict.authPages.createAccount}
         </Button>
 
         {!isPending && (
@@ -160,7 +162,7 @@ export const SignupForm = ({ currencies }: SignupFormPropd) => {
             iconPosition="right"
             href="/login"
           >
-            Iniciar sesión
+            {dict.authPages.login}
           </Button>
         )}
 

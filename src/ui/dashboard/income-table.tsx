@@ -9,12 +9,14 @@ import { TrashIcon, PencilIcon } from "@heroicons/react/24/outline";
 import { Button, Price } from "../components";
 import { useState } from "react";
 import { UpdateCategoryForm } from "../income-categories";
+import { AppDictionary } from "@/src/translations";
 
 export type IncomeTableProps = {
   categoryName: string;
   subcategories: {
     [subcategoryName: string]: Earning[];
   };
+  dict: AppDictionary;
 };
 
 const calculateSubcategoryTotal = (incomes: Earning[]) => {
@@ -44,6 +46,7 @@ const getCategory = (subcategories: {
 export const IncomeTable = ({
   categoryName,
   subcategories,
+  dict,
 }: IncomeTableProps) => {
   const getCategoryColor = (subcategories: {
     [subcategoryName: string]: Earning[];
@@ -144,7 +147,7 @@ export const IncomeTable = ({
                   backgroundColor: darkenHexColor(color, 0.07),
                 }}
               >
-                <div className="font-bold">Total</div>
+                <div className="font-bold">{dict.shared.total}</div>
                 <div className="font-bold">
                   <Price amount={calculateSubcategoryTotal(incomeArray)} />
                 </div>
@@ -158,7 +161,7 @@ export const IncomeTable = ({
             backgroundColor: darkenHexColor(color, 0.15),
           }}
         >
-          <div className="font-bold">Total</div>
+          <div className="font-bold">{dict.shared.total}</div>
           <div className="font-bold">
             <Price amount={calculateTotal(subcategories)} />
           </div>

@@ -7,8 +7,15 @@ import { getDBUser } from "@/src/data/user";
 import { Currency } from "@/src/types";
 import { NoExpensesAdded } from "@/src/ui/dashboard";
 import { TotalLineChart } from "@/src/ui/insights";
+import { AvailableLanguages, getDictionary } from "@/src/translations";
 
-export default async function Page() {
+export type InsightsPageProps = {
+  params: { lang: AvailableLanguages };
+};
+
+export default async function Page({ params: { lang } }: InsightsPageProps) {
+  const dict = await getDictionary(lang);
+
   const session = await auth();
   const userId = session?.user?.id as string;
 
@@ -48,13 +55,16 @@ export default async function Page() {
   return (
     <AppProvider currency={currency as Currency}>
       <main>
-        {expenses.length === 0 && expenses.length === 0 && <NoExpensesAdded />}
+        {expenses.length === 0 && expenses.length === 0 && (
+          <NoExpensesAdded dict={dict} />
+        )}
         {expenses.length > 0 && (
           <TotalLineChart
             expenses={expenses}
             earnings={earnings}
             savings={savings}
             currency={currency as Currency}
+            dict={dict}
           />
         )}
       </main>

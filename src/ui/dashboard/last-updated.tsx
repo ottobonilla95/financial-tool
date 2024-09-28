@@ -1,8 +1,12 @@
 import { getDBUser } from "@/src/data/user";
 import { auth } from "@/auth";
 import { format } from "date-fns";
+import { AppDictionary } from "@/src/translations";
 
-export const LastUpdated = async () => {
+export type LastUpdatedProps = {
+  dict: AppDictionary;
+};
+export const LastUpdated = async ({ dict }: LastUpdatedProps) => {
   const session = await auth();
   const user = await getDBUser({
     filters: {
@@ -14,7 +18,7 @@ export const LastUpdated = async () => {
 
   return (
     <div className="flex">
-      <div className="font-bold mr-2">Ultima vez actualizado:</div>
+      <div className="font-bold mr-2">{`${dict.dashboard.lastUpdated}:`}</div>
       {format(user.lastUpdated, "EEE dd MMMM yyyy")}
     </div>
   );
