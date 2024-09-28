@@ -3,6 +3,27 @@
 - mejorar home page!
 - tour!
 - revisar!
+
+5. Submit Your Site to Google Search Console
+Google Search Console is a free tool that helps you monitor your website’s presence in Google search results.
+Go to Google Search Console, sign in, and add your domain to the console.
+Verify your domain: You can verify ownership by adding a DNS record to your domain or by uploading a verification file to your Vercel project.
+Submit your sitemap: After verifying, submit your sitemap.xml through Google Search Console so Google can crawl and index your site more efficiently.
+6. Ensure Pages are Accessible
+Make sure no pages return a 404 error (except for pages that should, like an actual 404 page).
+Ensure there’s no noindex directive in your <meta> tags for the pages you want to be visible in Google search.
+7. Improve Site Performance
+Google uses page speed as a ranking factor. Ensure your site is optimized for speed:
+Use Vercel's built-in optimizations.
+Optimize your images, scripts, and styles.
+You can test your site’s performance with Google PageSpeed Insights.
+8. Create Backlinks
+Backlinks from other websites help Google find and rank your site better. Consider collaborating with other sites to get your site linked from other reputable sources.
+9. Monitor Your Site’s Indexing Status
+After submitting your site, use Google Search Console to monitor which pages are indexed, if there are any crawling issues, and track your site's performance in search results.
+By following these steps, your site should be indexed and visible on Google, and you'll also improve its ranking potential.
+
+
   ------- Promociaonar sitio ----------
 
 - Add see last 3 months.
