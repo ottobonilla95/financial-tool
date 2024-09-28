@@ -52,6 +52,7 @@ export default auth(async function middleware(request: NextRequest) {
     return NextResponse.redirect(request.nextUrl);
   }
 
+  //@ts-ignore
   const isLoggedIn = !!request.auth;
   const isPublicRoute = publicRoutes.includes(
     nextUrl.pathname.replace(`/${locale}`, "")
