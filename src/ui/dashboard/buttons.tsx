@@ -61,7 +61,7 @@ export const DashboardButtons = async ({
           onClick={() => setShowCreateIncomeForm(true)}
         >
           <span className="hidden sm:flex">{dict.dashboard.addIncome}</span>
-          <span className="sm:hidden">{dict.dashboard.income}</span>
+          <span className="sm:hidden">{dict.shared.income}</span>
         </Button>
         <Button
           icon={<PlusIcon className="w-4" />}
