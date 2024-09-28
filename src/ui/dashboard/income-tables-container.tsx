@@ -29,7 +29,7 @@ export const IncomeTableContainer = ({
 
   return (
     <div className="mt-10">
-      <div className="font-bold text-lg mb-5">{dict.dashboard.income}</div>
+      <div className="font-bold text-lg mb-5">{dict.shared.income}</div>
       <div className="gap-4 grid grid-cols-1 sm:grid-cols-3 grid-flow-dense">
         {Object.entries(expensesByCategory).map(
           ([categoryName, subcategories]) => (
