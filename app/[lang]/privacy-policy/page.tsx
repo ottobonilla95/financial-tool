@@ -1,5 +1,5 @@
 import AppLogo from "@/src/ui/app-logo";
-import { Footer } from "@/src/ui/components";
+// import { Footer } from "@/src/ui/components";
 import Link from "next/link";
 
 export default function PrivacyPolicyPage() {
@@ -827,7 +827,7 @@ export default function PrivacyPolicyPage() {
           </div>
         </div>
       </main>
-      <Footer dict={dict} />
+      {/* <Footer dict={dict} /> */}
     </>
   );
 }
