@@ -19,6 +19,7 @@ import useSWR from "swr";
 import { fetcher } from "@/src/utils/fetcher";
 import { CancelButton, SubmitButton } from "../forms";
 import clsx from "clsx";
+import { formatDateToLocal } from "@/src/helpers/format-date-to-local";
 
 export type CreateExpenseFormProps = {
   closeModal: () => void;
@@ -278,9 +279,7 @@ export const CreateExpenseForm = ({
                       <input
                         type="hidden"
                         name="date"
-                        value={
-                          startDate ? startDate.toISOString().split("T")[0] : ""
-                        }
+                        value={startDate ? formatDateToLocal(startDate) : ""}
                         disabled={loading}
                       />
                     </div>
