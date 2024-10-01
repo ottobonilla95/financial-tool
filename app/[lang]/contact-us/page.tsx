@@ -29,7 +29,7 @@ export default async function ContactUsPage({
   return (
     <>
       <main className="flex min-h-screen flex-col">
-        <div className="flex h-20 shrink-0 items-center bg-black p-4 md:h-[150px] sm:pl-10">
+        <div className="flex h-[120px] shrink-0 items-center bg-black p-4 md:h-[200px] sm:pl-10">
           <Link href="/">
             <AppLogo />
           </Link>
