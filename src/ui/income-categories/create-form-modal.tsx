@@ -14,11 +14,13 @@ import { Modal } from "../components";
 export type CreateIncomeCategoryFormProps = {
   isOpen: boolean;
   closeModal: () => void;
+  onSuccess?: () => void;
 };
 
 export const CreateIncomeCategoryForm = ({
   isOpen,
   closeModal,
+  onSuccess,
 }: CreateIncomeCategoryFormProps) => {
   const initialState: IncomeCategoryFormState = { message: {}, errors: {} };
   const [state, formAction] = useActionState(
@@ -32,6 +34,9 @@ export const CreateIncomeCategoryForm = ({
       toast(state.message.text, { type: state.message.type as TypeOptions });
       if (state.message.type === "success") {
         closeModal();
+        if (onSuccess) {
+          onSuccess();
+        }
       }
     }
   }, [state]);

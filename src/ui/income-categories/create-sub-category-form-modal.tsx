@@ -14,12 +14,14 @@ export type CreateIncomeSubCategoryFormProps = {
   category: { id: string; name: string };
   closeModal: () => void;
   isOpen: boolean;
+  onSuccess?: () => void;
 };
 
 export const CreateIncomeSubCategoryForm = ({
   category,
   closeModal,
   isOpen,
+  onSuccess,
 }: CreateIncomeSubCategoryFormProps) => {
   const initialState: IncomeSubCategoryFormState = { message: {}, errors: {} };
   const [state, formAction] = useActionState(
@@ -32,6 +34,9 @@ export const CreateIncomeSubCategoryForm = ({
       toast(state.message.text, { type: state.message.type as TypeOptions });
       if (state.message.type === "success") {
         closeModal();
+        if (onSuccess) {
+          onSuccess();
+        }
       }
     }
   }, [state]);
