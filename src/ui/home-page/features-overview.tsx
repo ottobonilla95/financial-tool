@@ -38,7 +38,7 @@ export const KeyFeatures = ({ dict }: KeyFeaturesProps) => {
   return (
     <section
       id="key-features"
-      className="py-24 bg-black text-white px-4 md:px-0"
+      className="py-16 sm:py-24 bg-black text-white px-4 md:px-0"
     >
       <div className="container mx-auto text-center">
         <h2 className="text-4xl font-bold mb-10">

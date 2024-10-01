@@ -20,7 +20,7 @@ export const Testimonials = ({ dict }: TestimonialsProps) => {
   ];
 
   return (
-    <section className="py-16 bg-gray-100">
+    <section className="py-16 bg-gray-100 px-4 sm:px-0">
       <div className="container mx-auto text-center">
         <h2 className="text-4xl font-bold mb-10">
           {dict.mainPage.testimonials.title}

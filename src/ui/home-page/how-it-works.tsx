@@ -30,7 +30,7 @@ export const HowItWorks = ({ dict }: HowItWorksProps) => {
   ];
 
   return (
-    <section className="py-24 bg-white px-4 sm:px-0">
+    <section className="py-16 sm:py-24 bg-white px-4 sm:px-0">
       <div className="container mx-auto text-center">
         <h2 className="text-4xl font-bold mb-10">How TrackMySpend Works</h2>
         <div className="grid md:grid-cols-4 gap-8">
