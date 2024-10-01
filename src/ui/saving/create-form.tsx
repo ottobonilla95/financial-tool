@@ -7,6 +7,7 @@ import DatePicker from "react-datepicker";
 import { toast, TypeOptions } from "react-toastify";
 import { Modal } from "../components";
 import { CancelButton, SubmitButton } from "../forms";
+import { formatDateToLocal } from "@/src/helpers/format-date-to-local";
 
 export type CreateSavingFormProps = {
   closeModal: () => void;
@@ -114,7 +115,7 @@ export const CreateSavingForm = ({
                 <input
                   type="hidden"
                   name="date"
-                  value={startDate ? startDate.toISOString().split("T")[0] : ""}
+                  value={startDate ? formatDateToLocal(startDate) : ""}
                 />
               </div>
               <div id="date-error" aria-live="polite" aria-atomic="true">

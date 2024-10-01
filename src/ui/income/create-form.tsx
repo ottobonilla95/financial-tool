@@ -14,6 +14,7 @@ import {
 import useSWR from "swr";
 import { fetcher } from "@/src/utils/fetcher";
 import { CancelButton, SubmitButton } from "../forms";
+import { formatDateToLocal } from "@/src/helpers/format-date-to-local";
 
 export type CreateIncomeFormProps = {
   closeModal: () => void;
@@ -248,9 +249,7 @@ export const CreateIncomeForm = ({
                     <input
                       type="hidden"
                       name="date"
-                      value={
-                        startDate ? startDate.toISOString().split("T")[0] : ""
-                      }
+                      value={startDate ? formatDateToLocal(startDate) : ""}
                     />
                   </div>
                   <div id="date-error" aria-live="polite" aria-atomic="true">
