@@ -20,6 +20,7 @@ import { AppProvider } from "@/src/app-wrappper/provider";
 import { Currency } from "@/src/types";
 import { endOfMonth, startOfMonth } from "date-fns";
 import { getDictionary, AvailableLanguages } from "@/src/translations";
+import { Spinner } from "@/src/ui/components";
 
 export type DashboardPageProps = {
   searchParams: {
@@ -102,7 +103,7 @@ export default async function Page({
         </Suspense>
         <div className="h-5" />
 
-        <Suspense fallback={<div>loading...</div>}>
+        <Suspense fallback={<Spinner className="w-5" />}>
           <DashboardButtons emotions={emotions} month={month} dict={dict} />
         </Suspense>
 
