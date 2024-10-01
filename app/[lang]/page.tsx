@@ -4,6 +4,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { Footer } from "@/src/ui/components";
 import { AvailableLanguages, getDictionary } from "@/src/translations";
+import {
+  KeyFeatures,
+  HowItWorks,
+  Testimonials,
+  Pricing,
+  AppScreenshots,
+} from "@/src/ui/home-page";
+import FAQs from "@/src/ui/faqs/faqs";
 
 export type MainPageProps = {
   params: { lang: AvailableLanguages };
@@ -14,8 +22,8 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
 
   return (
     <>
-      <main className="flex min-h-screen flex-col p-6">
-        <div className="flex h-20 shrink-0 items-center rounded-lg bg-black p-4 md:h-[150px] sm:pl-10">
+      <main className="flex min-h-screen flex-col">
+        <div className="flex h-20 shrink-0 items-center  bg-black p-4 md:h-[150px] sm:pl-10">
           <Link href="/">
             <AppLogo />
           </Link>
@@ -25,7 +33,7 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
             <p
               className={`text-xl text-gray-800 md:text-3xl md:leading-normal`}
             >
-              <strong>{dict.mainPage.welcome}</strong>
+              <strong>{`${dict.mainPage.welcome} `}</strong>
               {dict.mainPage.welcomeDescription}
             </p>
             <Link
@@ -60,6 +68,12 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
             />
           </div>
         </div>
+        <KeyFeatures dict={dict} />
+        <HowItWorks dict={dict} />
+        <AppScreenshots dict={dict} />
+        {/* <Pricing /> */}
+        <Testimonials dict={dict} />
+        <FAQs dict={dict} />
       </main>
       <Footer dict={dict} />
     </>

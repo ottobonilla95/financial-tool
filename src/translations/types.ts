@@ -61,7 +61,43 @@ export type AppDictionary = {
   mainPage: {
     welcome: string;
     welcomeDescription: string;
+    keyFeatures: {
+      title: string;
+      description: string;
+      feature1: { title: string; description: string };
+      feature2: { title: string; description: string };
+      feature3: { title: string; description: string };
+    };
+    howItWorks: {
+      title: string;
+      step1: { title: string; description: string };
+      step2: { title: string; description: string };
+      step3: { title: string; description: string };
+      step4: { title: string; description: string };
+    };
+    screenShots: {
+      title: string;
+      description: string;
+      screenshot1: {
+        description: string;
+      };
+      screenshot2: {
+        description: string;
+      };
+    };
+    testimonials: {
+      title: string;
+      testimonial1: {
+        feedback: string;
+        name: string;
+      };
+      testimonial2: {
+        feedback: string;
+        name: string;
+      };
+    };
   };
+
   sideMenu: {
     home: string;
     summary: string;

@@ -32,8 +32,8 @@ export default async function PrivacyPolicyPage({
 
   return (
     <>
-      <main className="flex min-h-screen flex-col p-6">
-        <div className="flex h-20 shrink-0 items-center rounded-lg bg-black p-4 md:h-[150px] sm:pl-10">
+      <main className="flex min-h-screen flex-col">
+        <div className="flex h-20 shrink-0 items-center bg-black p-4 md:h-[150px] sm:pl-10">
           <Link href="/">
             <AppLogo />
           </Link>

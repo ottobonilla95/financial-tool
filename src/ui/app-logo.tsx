@@ -7,7 +7,7 @@ export default function PageLogo() {
       className={`${lusitana.className} flex flex-row items-center leading-none text-white gap-3`}
     >
       <WalletIcon className="h-10 w-10 rotate-[15deg]" />
-      <p className="text-[34px]">Track My Spend</p>
+      <h1 className="text-[34px]">Track My Spend</h1>
     </div>
   );
 }

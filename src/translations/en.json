@@ -36,8 +36,8 @@
     "youCanSendUsAnEmailTo": "You can send us an email at:",
     "weStriveToRespondWithin": "We strive to respond within 24-48 hours.",
     "meta": {
-      "title": "Contact Us | TrackMySpend: We're Here to Help",
-      "description": "Need help with TrackMySpend? Contact us for support, questions, or feedback. Our team is here to assist you in managing your expenses and income efficiently. Reach out to us today!"
+      "title": "Contact Us | TrackMySpend - We're Here to Help",
+      "description": "Have questions or need assistance? Contact TrackMySpend for support and inquiries. Our team is here to help you manage your finances more effectively and make the most of our tool."
     }
   },
   "aboutUsPage": {
@@ -45,8 +45,8 @@
     "aboutUsDescription": "Our website was created to allow users to easily track their expenses and gain a better understanding of how their personal finances are being managed. This helps them take control of their financial health and make informed decisions.",
     "aboutUsDescription2": "We believe that managing personal finances should be simple, accessible, and efficient. Whether you're trying to save more, understand your spending habits, or just keep better track, Track My Expense is designed for people who want to improve their financial well-being.",
     "meta": {
-      "title": "About Us | TrackMySpend: Your Financial Management Partner",
-      "description": "Learn more about TrackMySpend, the team behind the app, and our mission to help people organize and manage their expenses and income efficiently. Discover our journey and how we are empowering users to take control of their finances."
+      "title": "About Us | TrackMySpend - Empowering You to Take Control of Your Finances",
+      "description": "Learn more about TrackMySpend, the team behind the tool, and our mission to help you track your expenses, optimize your budget, and achieve financial stability. We're committed to empowering individuals to manage their money with confidence."
     }
   },
   "authPages": {
@@ -60,7 +60,63 @@
   },
   "mainPage": {
     "welcome": "Welcome to Track My Expense.",
-    "welcomeDescription": "Keep track of your expenses easily and efficiently."
+    "welcomeDescription": "Keep track of your expenses easily and efficiently.",
+    "keyFeatures": {
+      "title": "Key Features of TrackMySpend",
+      "description": "TrackMySpend provides you with the tools to manage your money effortlessly and gain deep insights into your spending habits.",
+      "feature1": {
+        "title": "Track Your Expenses, Income, and Savings",
+        "description": "Easily log and categorize your expenses, track income sources, and see how much you’re saving each month."
+      },
+      "feature2": {
+        "title": "Visual Financial Insights",
+        "description": "Understand your spending habits through detailed pie charts for each month and line graphs that track all your categories over time."
+      },
+      "feature3": {
+        "title": "Emotion-Based Spending",
+        "description": "Attach emotions to your expenses and gain insights into how your feelings influence your financial decisions."
+      }
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "step1": {
+        "title": "Create an Account",
+        "description": "Sign up and create your account in seconds. No complicated forms, just your basic information."
+      },
+      "step2": {
+        "title": "Add Your Finances",
+        "description": "Easily input your income, expenses, and savings with a user-friendly interface."
+      },
+      "step3": {
+        "title": "Track and Analyze",
+        "description": "Get detailed reports on where your money is going, how much you’re saving, and more."
+      },
+      "step4": {
+        "title": "Reach Your Goals",
+        "description": "Set financial goals and track your progress. Let TrackMySpend guide you to financial success!"
+      }
+    },
+    "screenShots": {
+      "title": "Explore the TrackMySpend App",
+      "description": "Take a look at the interface and features that help you manage your finances effortlessly.",
+      "screenshot1": {
+        "description": "Overview of your monthly expenses"
+      },
+      "screenshot2": {
+        "description": "Visualize your spending habits with detailed charts"
+      }
+    },
+    "testimonials": {
+      "title": "What Our Users Say",
+      "testimonial1": {
+        "feedback": "TrackMySpend changed the way I handle my finances! I now have full control over my expenses and savings.",
+        "name": "Marion Bonilla"
+      },
+      "testimonial2": {
+        "feedback": "TrackMySpend changed the way I handle my finances! I now have full control over my expenses and savings.",
+        "name": "Marion Bonilla"
+      }
+    }
   },
   "sideMenu": {
     "home": "Home",
@@ -91,8 +147,8 @@
   },
   "privacyPolicyPage": {
     "meta": {
-      "title": "Privacy Policy | TrackMySpend: Your Data Protection",
-      "description": "Read TrackMySpend's Privacy Policy to understand how we handle, protect, and use your data. We are committed to safeguarding your information and ensuring transparency in our practices."
+      "title": "Privacy Policy | TrackMySpend - Your Data, Your Privacy",
+      "description": "Read TrackMySpend's privacy policy to understand how we handle, protect, and use your personal data. Your privacy is our priority, and we are committed to maintaining transparency in our data practices."
     }
   },
   "footer": {
@@ -106,7 +162,7 @@
     "allRightsReserved": "All rights reserved."
   },
   "meta": {
-    "title": "TrackMySpend: Easily Track Expenses and Income",
-    "description": "Manage your expenses and income with TrackMySpend. Get a clear view of your financial health with customizable categories and subcategories. Start managing your money today with ease at www.trackmyspend.co."
+    "title": "TrackMySpend | Simplify Your Personal Finances and Reach Your Financial Goals",
+    "description": "TrackMySpend is an intuitive tool designed to help you monitor expenses, manage income, and grow savings with ease. Get a clear overview of your financial health, identify spending patterns, and make informed decisions to meet your financial goals. Start tracking your money today and take control of your financial future."
   }
 }
