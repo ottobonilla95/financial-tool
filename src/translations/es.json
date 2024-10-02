@@ -16,13 +16,13 @@
         "levelOfSatisfaction": "Nivel de Satisfacción",
         "whatEmotionDidIFeel": "¿Qué emoción sentí al hacer este gasto?",
         "neutral": "Neutral",
-        "tristeza": "Tristeza",
-        "felicidad": "Felicidad",
-        "estres": "Estrés",
-        "aburrimiento": "Aburrimiento",
-        "entusiasmo": "Entusiasmo",
-        "culpa": "Culpa",
-        "ansiedad": "Ansiedad"
+        "sadness": "Tristeza",
+        "happiness": "Felicidad",
+        "stress": "Estrés",
+        "boredom": "Aburrimiento",
+        "excitement": "Entusiasmo",
+        "guilt": "Culpa",
+        "anxiety": "Ansiedad"
       },
       "delete": {
         "title": "Eliminar Gasto",
