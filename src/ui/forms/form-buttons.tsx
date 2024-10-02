@@ -1,5 +1,6 @@
 import { useFormStatus } from "react-dom";
 import { Button, Spinner } from "../components";
+import { useTranslations } from "@/src/translations/use-translations";
 
 export type SubmitButtonProps = {
   text?: string;
@@ -25,6 +26,7 @@ export const SubmitButton = ({ text }: SubmitButtonProps) => {
 
 export const CancelButton = ({ onClick }: { onClick: () => void }) => {
   const { pending } = useFormStatus();
+  const { dict } = useTranslations();
 
   if (pending) {
     return null;
@@ -32,7 +34,7 @@ export const CancelButton = ({ onClick }: { onClick: () => void }) => {
 
   return (
     <Button type="button" onClick={onClick}>
-      Cancelar
+      {dict.forms?.shared.cancel}
     </Button>
   );
 };

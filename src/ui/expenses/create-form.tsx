@@ -33,7 +33,7 @@ export const CreateExpenseForm = ({
   emotions,
   month,
 }: CreateExpenseFormProps) => {
-  const { lang } = useTranslations();
+  const { dict, lang } = useTranslations();
 
   const createExpenseAction = createExpense.bind(null, lang);
 
@@ -115,7 +115,7 @@ export const CreateExpenseForm = ({
                     htmlFor="category"
                     className="mb-2 block text-sm font-medium"
                   >
-                    Categoría *
+                    {dict.forms?.shared.category} *
                   </label>
                   <div className="relative">
                     <Dropdown
@@ -163,7 +163,7 @@ export const CreateExpenseForm = ({
                       htmlFor="subCategory"
                       className="mb-2 block text-sm font-medium"
                     >
-                      Sub Categoría
+                      {dict.forms?.shared.subcategory}
                     </label>
                     <div className="relative">
                       <Dropdown
@@ -195,7 +195,7 @@ export const CreateExpenseForm = ({
                     htmlFor="description"
                     className="mb-2 block text-sm font-medium"
                   >
-                    Descripción *
+                    {dict.forms?.shared.description} *
                   </label>
                   <div className="relative mt-2 rounded-md">
                     <div className="relative">
@@ -204,7 +204,7 @@ export const CreateExpenseForm = ({
                         name="description"
                         type="text"
                         step="0.01"
-                        placeholder="Ingresa la descripción"
+                        placeholder={dict.forms?.shared.enterDescription}
                         className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
                         required
                         aria-describedby="description-error"
@@ -232,7 +232,7 @@ export const CreateExpenseForm = ({
                     htmlFor="amount"
                     className="mb-2 block text-sm font-medium"
                   >
-                    Cantidad *
+                    {dict.forms?.shared.amount} *
                   </label>
                   <div className="relative mt-2 rounded-md">
                     <div className="relative">
@@ -241,7 +241,7 @@ export const CreateExpenseForm = ({
                         name="amount"
                         type="number"
                         step="0.01"
-                        placeholder="Ingresa cantidad"
+                        placeholder={dict.forms?.shared.enterAmount}
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                         required
                         aria-describedby="amount-error"
@@ -269,7 +269,7 @@ export const CreateExpenseForm = ({
                     htmlFor="amount"
                     className="mb-2 block text-sm font-medium"
                   >
-                    Fecha *
+                    {dict.forms?.shared.date} *
                   </label>
                   <div className="relative mt-2 rounded-md">
                     <div className="relative">
@@ -302,7 +302,7 @@ export const CreateExpenseForm = ({
                 {/* plenitud */}
                 <fieldset>
                   <legend className="mb-2 block text-sm font-medium">
-                    Nivel de satisfacción en proporción a este gasto
+                    {dict.forms?.expense.create.levelOfSatisfaction}
                   </legend>
                   <div className="rounded-md border border-gray-200 bg-white px-3 py-3">
                     <div className="flex gap-4 flex-col">
@@ -406,7 +406,7 @@ export const CreateExpenseForm = ({
                 {/* Emotion */}
                 <fieldset className="mt-5">
                   <legend className="mb-2 block text-sm font-medium">
-                    ¿Qué emoción sentí al hacer este gasto?
+                    {dict.forms?.expense.create.whatEmotionDidIFeel}
                   </legend>
                   <div className="rounded-md border border-gray-200 bg-white px-3 py-3">
                     <div className="flex flex-col gap-4">
@@ -435,7 +435,11 @@ export const CreateExpenseForm = ({
                               }
                             )}
                           >
-                            {emotion.name}{" "}
+                            {
+                              dict.forms?.expense.create[
+                                emotion.name as keyof typeof dict.forms.expense.create
+                              ]
+                            }{" "}
                             {emotion.emotionType === "negative" ? (
                               <FaceFrownIcon className="h-4 w-4" />
                             ) : (
@@ -451,7 +455,7 @@ export const CreateExpenseForm = ({
               </div>
               <div className="mt-6 flex justify-end gap-4">
                 <CancelButton onClick={closeModal} />
-                <SubmitButton text="Guardar" />
+                <SubmitButton text={dict.forms?.shared.save} />
               </div>
             </form>
           </div>

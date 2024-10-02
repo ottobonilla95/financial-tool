@@ -19,7 +19,7 @@ export const DeleteExpenseForm = ({
   closeModal,
   expenseId,
 }: DeleteExpenseFormProps) => {
-  const { lang } = useTranslations();
+  const { dict, lang } = useTranslations();
   const deleteInvoiceWithId = deleteExpense.bind(null, expenseId, lang);
 
   const initialState: DeleteFormState = { message: {}, errors: {} };
@@ -37,13 +37,13 @@ export const DeleteExpenseForm = ({
   return (
     <Modal isOpen={isOpen} onCloseModal={closeModal}>
       <form action={formAction}>
-        <div className="font-bold mb-1">Eliminar gasto</div>
+        <div className="font-bold mb-1">{dict.forms?.expense.delete.title}</div>
 
-        <div className="mb-5">¿Esta seguro que desea eliminar este gasto?</div>
+        <div className="mb-5">{dict.forms?.expense.delete.message}</div>
 
         <div className="flex gap-4">
           <CancelButton onClick={closeModal} />
-          <SubmitButton text="Eliminar" />
+          <SubmitButton text={dict.forms?.shared.delete} />
         </div>
       </form>
     </Modal>

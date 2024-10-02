@@ -10,6 +10,65 @@ export type AppDictionary = {
     totalExpenses: string;
     balance: string;
   };
+  forms: {
+    expense: {
+      create: {
+        levelOfSatisfaction: string;
+        whatEmotionDidIFeel: string;
+        neutral: string;
+        sadness: string;
+        happiness: string;
+        stress: string;
+        boredom: string;
+        excitement: string;
+        guilt: string;
+        anxiety: string;
+      };
+      delete: {
+        title: string;
+        message: string;
+      };
+    };
+    income: {
+      delete: {
+        title: string;
+        message: string;
+      };
+    };
+    category: {
+      create: {
+        title: string;
+      };
+      update: {
+        title: string;
+      };
+    };
+    subCategory: {
+      create: {
+        title: string;
+      };
+      update: {
+        title: string;
+      };
+    };
+    shared: {
+      category: string;
+      subcategory: string;
+      description: string;
+      amount: string;
+      date: string;
+      save: string;
+      cancel: string;
+      name: string;
+      color: string;
+      enterAmount: string;
+      enterDescription: string;
+      delete: string;
+      enterName: string;
+      add: string;
+    };
+  };
+
   shared: {
     total: string;
     name: string;

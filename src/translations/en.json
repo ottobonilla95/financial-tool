@@ -10,6 +10,64 @@
     "totalExpenses": "Total expenses",
     "balance": "Balance"
   },
+  "forms": {
+    "expense": {
+      "create": {
+        "levelOfSatisfaction": "Level of Satisfaction",
+        "whatEmotionDidIFeel": "What emotion did I feel when making this expense?",
+        "neutral": "Neutral",
+        "sadness": "Sadness",
+        "happiness": "Happiness",
+        "stress": "Stress",
+        "boredom": "Boredom",
+        "excitement": "Excitement",
+        "guilt": "Guilt",
+        "anxiety": "Anxiety"
+      },
+      "delete": {
+        "title": "Delete Expense",
+        "message": "Are you sure you want to delete this expense? This action cannot be undone."
+      }
+    },
+    "income": {
+      "delete": {
+        "title": "Delete Income",
+        "message": "Are you sure you want to delete this income? This action cannot be undone."
+      }
+    },
+    "category": {
+      "create": {
+        "title": "Create Category"
+      },
+      "update": {
+        "title": "Update Category"
+      }
+    },
+    "subCategory": {
+      "create": {
+        "title": "Create Sub Category"
+      },
+      "update": {
+        "title": "Update Sub Category"
+      }
+    },
+    "shared": {
+      "category": "Category",
+      "subcategory": "Subcategory",
+      "description": "Description",
+      "amount": "Amount",
+      "date": "Date",
+      "save": "Save",
+      "cancel": "Cancel",
+      "name": "Name",
+      "color": "Color",
+      "enterAmount": "Enter Amount",
+      "enterDescription": "Enter Description",
+      "delete": "Delete",
+      "enterName": "Enter Name",
+      "add": "Add"
+    }
+  },
   "shared": {
     "total": "Total",
     "name": "Name",

@@ -2,6 +2,7 @@
 
 import Select, { NoticeProps, components, OptionProps } from "react-select";
 import { PlusIcon } from "@heroicons/react/24/outline";
+import { useTranslations } from "@/src/translations/use-translations";
 
 export type DropdownProps = {
   options: { label: string; value: string }[];
@@ -18,6 +19,7 @@ export const Dropdown = ({
   disabled,
   showAddButon = true,
 }: DropdownProps) => {
+  const { dict } = useTranslations();
   const NoOptionsMessage = ({ children, ...props }: NoticeProps) => {
     return (
       <components.NoOptionsMessage
@@ -26,7 +28,7 @@ export const Dropdown = ({
       >
         <div className="flex text-sm cursor-pointer hover:bg-blue-300 px-4 text-black py-1">
           <PlusIcon className="w-4 mr-1" />
-          Agregar
+          {dict.forms?.shared.add}
         </div>
       </components.NoOptionsMessage>
     );
@@ -41,7 +43,7 @@ export const Dropdown = ({
         >
           <div className="flex">
             <PlusIcon className="w-4 mr-1" />
-            Agregar
+            {dict.forms?.shared.add}
           </div>
         </components.Option>
       );

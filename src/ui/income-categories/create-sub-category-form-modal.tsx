@@ -26,7 +26,7 @@ export const CreateIncomeSubCategoryForm = ({
 }: CreateIncomeSubCategoryFormProps) => {
   const initialState: IncomeSubCategoryFormState = { message: {}, errors: {} };
 
-  const { lang } = useTranslations();
+  const { lang, dict } = useTranslations();
   const createIncomeSubCategoryAction = createIncomeSubCategory.bind(
     null,
     lang
@@ -52,10 +52,12 @@ export const CreateIncomeSubCategoryForm = ({
   return (
     <Modal isOpen={isOpen} onCloseModal={closeModal} zIndex={60}>
       <form action={formAction}>
-        <div className="font-bold mb-2">Nueva Sub Categoría</div>
+        <div className="font-bold mb-2">
+          {dict.forms?.subCategory.create.title}
+        </div>
 
         <div className="flex mb-2">
-          <div className="font-bold">Categoría:</div>
+          <div className="font-bold">{dict.forms?.shared.category}: </div>
           <div>{` ${category.name}`}</div>
           <input type="hidden" name="categoryId" value={category.id} />
         </div>
@@ -67,7 +69,7 @@ export const CreateIncomeSubCategoryForm = ({
                 name="name"
                 type="text"
                 step="0.01"
-                placeholder="Ingresa el nombre"
+                placeholder={dict.forms?.shared.enterName}
                 className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
                 required
                 aria-describedby="name-error"
@@ -86,7 +88,7 @@ export const CreateIncomeSubCategoryForm = ({
 
         <div className="flex gap-4">
           <CancelButton onClick={closeModal} />
-          <SubmitButton text="Guardar" />
+          <SubmitButton text={dict.forms?.shared.save} />
         </div>
       </form>
     </Modal>

@@ -26,7 +26,7 @@ export const UpdateCategoryForm = ({
 }: UpdateCategoryFormProps) => {
   const initialState: UpdateFormState = { message: {}, errors: {} };
 
-  const { lang } = useTranslations();
+  const { lang, dict } = useTranslations();
   const updateCategoryAction = updateCategory.bind(null, lang);
 
   const [state, formAction] = useActionState(
@@ -52,7 +52,7 @@ export const UpdateCategoryForm = ({
           <DialogPanel className="max-w-lg space-y-4 border bg-white p-12">
             <form action={formAction}>
               <DialogTitle className="font-bold">
-                Actualizar Categoría
+                {dict.forms?.category.update.title}
               </DialogTitle>
               <input type="hidden" name="categoryId" value={category.id} />
 
@@ -61,7 +61,7 @@ export const UpdateCategoryForm = ({
                   htmlFor="description"
                   className="mb-2 block text-sm font-medium"
                 >
-                  Nombre
+                  {dict.forms?.shared.name}
                 </label>
                 <div className="relative mt-2 rounded-md">
                   <div className="relative">
@@ -70,7 +70,7 @@ export const UpdateCategoryForm = ({
                       name="name"
                       type="text"
                       step="0.01"
-                      placeholder="Ingresa el nombre"
+                      placeholder={dict.forms?.shared.name}
                       className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
                       required
                       aria-describedby="name-error"
@@ -92,7 +92,7 @@ export const UpdateCategoryForm = ({
                   htmlFor="description"
                   className="mb-2 block text-sm font-medium"
                 >
-                  Color
+                  {dict.forms?.shared.color}
                 </label>
                 <div className="relative mt-2 rounded-md">
                   <div className="relative">
@@ -115,7 +115,7 @@ export const UpdateCategoryForm = ({
 
               <div className="flex gap-4">
                 <CancelButton onClick={closeModal} />
-                <SubmitButton text="Guardar" />
+                <SubmitButton text={dict.forms?.shared.save} />
               </div>
             </form>
           </DialogPanel>

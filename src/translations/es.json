@@ -10,6 +10,64 @@
     "totalExpenses": "Gastos totales",
     "balance": "Balance"
   },
+  "forms": {
+    "expense": {
+      "create": {
+        "levelOfSatisfaction": "Nivel de Satisfacción",
+        "whatEmotionDidIFeel": "¿Qué emoción sentí al hacer este gasto?",
+        "neutral": "Neutral",
+        "tristeza": "Tristeza",
+        "felicidad": "Felicidad",
+        "estres": "Estrés",
+        "aburrimiento": "Aburrimiento",
+        "entusiasmo": "Entusiasmo",
+        "culpa": "Culpa",
+        "ansiedad": "Ansiedad"
+      },
+      "delete": {
+        "title": "Eliminar Gasto",
+        "message": "¿Estás seguro de que deseas eliminar este gasto? Esta acción no se puede deshacer."
+      }
+    },
+    "income": {
+      "delete": {
+        "title": "Eliminar Ingreso",
+        "message": "¿Estás seguro de que deseas eliminar este ingreso? Esta acción no se puede deshacer."
+      }
+    },
+    "category": {
+      "create": {
+        "title": "Crear Categoría"
+      },
+      "update": {
+        "title": "Actualizar Categoría"
+      }
+    },
+    "subCategory": {
+      "create": {
+        "title": "Crear Sub Categoría"
+      },
+      "update": {
+        "title": "Actualizar Sub Categoría"
+      }
+    },
+    "shared": {
+      "category": "Categoría",
+      "subcategory": "Subcategoría",
+      "description": "Descripción",
+      "amount": "Monto",
+      "date": "Fecha",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "name": "Nombre",
+      "color": "Color",
+      "enterAmount": "Ingresa Cantidad",
+      "enterDescription": "Ingresa Descripción",
+      "delete": "Eliminar",
+      "enterName": "Ingresa Nombre",
+      "add": "Añadir"
+    }
+  },
   "shared": {
     "total": "Total",
     "name": "Nombre",

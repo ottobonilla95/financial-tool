@@ -25,7 +25,7 @@ export const CreateIncomeCategoryForm = ({
 }: CreateIncomeCategoryFormProps) => {
   const initialState: IncomeCategoryFormState = { message: {}, errors: {} };
 
-  const { lang } = useTranslations();
+  const { lang, dict } = useTranslations();
   const createIncomeCategoryAction = createIncomeCategory.bind(null, lang);
 
   const [state, formAction] = useActionState(
@@ -49,13 +49,13 @@ export const CreateIncomeCategoryForm = ({
   return (
     <Modal isOpen={isOpen} onCloseModal={closeModal} zIndex={60}>
       <form action={formAction}>
-        <div className="font-bold">Crear Categoría de ingreso</div>
+        <div className="font-bold"> {dict.forms?.subCategory.create.title}</div>
         <div className="mb-4">
           <label
             htmlFor="description"
             className="mb-2 block text-sm font-medium"
           >
-            Nombre
+            {dict.forms?.shared.name}
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
@@ -64,7 +64,7 @@ export const CreateIncomeCategoryForm = ({
                 name="name"
                 type="text"
                 step="0.01"
-                placeholder="Ingresa la descripción"
+                placeholder={dict.forms?.shared.enterName}
                 className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
                 required
                 aria-describedby="name-error"
@@ -85,7 +85,7 @@ export const CreateIncomeCategoryForm = ({
             htmlFor="description"
             className="mb-2 block text-sm font-medium"
           >
-            Color
+            {dict.forms?.shared.color}
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
@@ -108,7 +108,7 @@ export const CreateIncomeCategoryForm = ({
 
         <div className="flex gap-4">
           <CancelButton onClick={closeModal} />
-          <SubmitButton text="Guardar" />
+          <SubmitButton text={dict.forms?.shared.save} />
         </div>
       </form>
     </Modal>
