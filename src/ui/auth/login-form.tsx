@@ -10,14 +10,17 @@ import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { Button } from "@/src/ui/components";
 import { useActionState } from "react";
 import { authenticate } from "@/src/form-actions/auth";
-import { AppDictionary } from "@/src/translations";
+import { AppDictionary, useTranslations } from "@/src/translations";
 
 export type LoginFormProps = {
   dict: AppDictionary;
 };
 export const LoginForm = ({ dict }: LoginFormProps) => {
+  const { lang } = useTranslations();
+  const authenticateAction = authenticate.bind(null, lang);
+
   const [errorMessage, formAction, isPending] = useActionState(
-    authenticate,
+    authenticateAction,
     undefined
   );
 

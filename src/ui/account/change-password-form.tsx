@@ -5,7 +5,7 @@ import { ArrowRightIcon, KeyIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
-import { AppDictionary } from "@/src/translations";
+import { AppDictionary, useTranslations } from "@/src/translations";
 import {
   updatePassword,
   UpdatePasswordFormState,
@@ -19,8 +19,11 @@ export type ChangePasswordFormProps = {
 export const ChangePasswordForm = ({ dict }: ChangePasswordFormProps) => {
   const initialState: UpdatePasswordFormState = { message: {}, errors: {} };
 
+  const { lang } = useTranslations();
+  const updatePasswordAction = updatePassword.bind(null, lang);
+
   const [state, formAction, loading] = useActionState(
-    updatePassword,
+    updatePasswordAction,
     initialState
   );
 

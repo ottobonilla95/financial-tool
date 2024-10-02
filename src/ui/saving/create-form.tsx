@@ -8,6 +8,7 @@ import { toast, TypeOptions } from "react-toastify";
 import { Modal } from "../components";
 import { CancelButton, SubmitButton } from "../forms";
 import { formatDateToLocal } from "@/src/helpers/format-date-to-local";
+import { useTranslations } from "@/src/translations";
 
 export type CreateSavingFormProps = {
   closeModal: () => void;
@@ -19,7 +20,10 @@ export const CreateSavingForm = ({
   month,
 }: CreateSavingFormProps) => {
   const initialState: SavingFormState = { message: {}, errors: {} };
-  const [state, formAction] = useActionState(createSaving, initialState);
+  const { lang } = useTranslations();
+  const createSavingAction = createSaving.bind(null, lang);
+
+  const [state, formAction] = useActionState(createSavingAction, initialState);
   const currentYear = new Date().getFullYear();
   const [startDate, setStartDate] = useState(new Date(currentYear, month - 1));
 

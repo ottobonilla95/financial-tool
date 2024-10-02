@@ -11,6 +11,7 @@ import React from "react";
 import { ChromePicker } from "react-color";
 import { EarningCategory } from "@/src/types";
 import { CancelButton, SubmitButton } from "../forms";
+import { useTranslations } from "@/src/translations";
 
 export type UpdateCategoryFormProps = {
   isOpen: boolean;
@@ -24,8 +25,12 @@ export const UpdateCategoryForm = ({
   category,
 }: UpdateCategoryFormProps) => {
   const initialState: UpdateFormState = { message: {}, errors: {} };
+
+  const { lang } = useTranslations();
+  const updateIncomeCategoryAction = updateIncomeCategory.bind(null, lang);
+
   const [state, formAction] = useActionState(
-    updateIncomeCategory,
+    updateIncomeCategoryAction,
     initialState
   );
   const [color, setColor] = React.useState<string>(category.color);

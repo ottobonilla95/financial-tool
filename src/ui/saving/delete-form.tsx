@@ -6,6 +6,7 @@ import { toast, TypeOptions } from "react-toastify";
 import React from "react";
 import { CancelButton, SubmitButton } from "../forms";
 import { Modal } from "../components";
+import { useTranslations } from "@/src/translations";
 
 export type DeleteSavingFormProps = {
   isOpen: boolean;
@@ -18,7 +19,9 @@ export const DeleteSavingForm = ({
   closeModal,
   savingId,
 }: DeleteSavingFormProps) => {
-  const deleteInvoiceWithId = deleteSaving.bind(null, savingId);
+  const { lang } = useTranslations();
+
+  const deleteInvoiceWithId = deleteSaving.bind(null, savingId, lang);
 
   const initialState: DeleteFormState = { message: {}, errors: {} };
   const [state, formAction] = useActionState(deleteInvoiceWithId, initialState);

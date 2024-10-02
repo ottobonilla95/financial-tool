@@ -9,6 +9,7 @@ import { useActionState, useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
 import { CancelButton, SubmitButton } from "../forms";
 import { Modal } from "../components";
+import { useTranslations } from "@/src/translations";
 
 export type CreateSubCategoryFormProps = {
   category: { id: string; name: string };
@@ -24,7 +25,13 @@ export const CreateSubCategoryForm = ({
   onSuccess,
 }: CreateSubCategoryFormProps) => {
   const initialState: SubCategoryFormState = { message: {}, errors: {} };
-  const [state, formAction] = useActionState(createSubCategory, initialState);
+  const { lang } = useTranslations();
+  const createSubCategoryAction = createSubCategory.bind(null, lang);
+
+  const [state, formAction] = useActionState(
+    createSubCategoryAction,
+    initialState
+  );
 
   useEffect(() => {
     if (state.message) {

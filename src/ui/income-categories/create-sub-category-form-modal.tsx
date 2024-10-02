@@ -9,6 +9,7 @@ import { useActionState, useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
 import { CancelButton, SubmitButton } from "../forms";
 import { Modal } from "../components";
+import { useTranslations } from "@/src/translations";
 
 export type CreateIncomeSubCategoryFormProps = {
   category: { id: string; name: string };
@@ -24,8 +25,15 @@ export const CreateIncomeSubCategoryForm = ({
   onSuccess,
 }: CreateIncomeSubCategoryFormProps) => {
   const initialState: IncomeSubCategoryFormState = { message: {}, errors: {} };
+
+  const { lang } = useTranslations();
+  const createIncomeSubCategoryAction = createIncomeSubCategory.bind(
+    null,
+    lang
+  );
+
   const [state, formAction] = useActionState(
-    createIncomeSubCategory,
+    createIncomeSubCategoryAction,
     initialState
   );
 

@@ -1,6 +1,9 @@
 "use client";
 
-import { updateCategory, UpdateFormState } from "@/src/form-actions/expense-categories";
+import {
+  updateCategory,
+  UpdateFormState,
+} from "@/src/form-actions/expense-categories";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { useActionState, useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
@@ -8,6 +11,7 @@ import React from "react";
 import { ChromePicker } from "react-color";
 import { ExpenseCategory } from "@/src/types";
 import { CancelButton, SubmitButton } from "../forms";
+import { useTranslations } from "@/src/translations";
 
 export type UpdateCategoryFormProps = {
   isOpen: boolean;
@@ -21,7 +25,14 @@ export const UpdateCategoryForm = ({
   category,
 }: UpdateCategoryFormProps) => {
   const initialState: UpdateFormState = { message: {}, errors: {} };
-  const [state, formAction] = useActionState(updateCategory, initialState);
+
+  const { lang } = useTranslations();
+  const updateCategoryAction = updateCategory.bind(null, lang);
+
+  const [state, formAction] = useActionState(
+    updateCategoryAction,
+    initialState
+  );
   const [color, setColor] = React.useState<string>(category.color);
 
   useEffect(() => {

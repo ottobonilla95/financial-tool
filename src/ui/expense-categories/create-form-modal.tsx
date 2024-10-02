@@ -10,6 +10,7 @@ import React from "react";
 import { ChromePicker } from "react-color";
 import { CancelButton, SubmitButton } from "../forms";
 import { Modal } from "../components";
+import { useTranslations } from "@/src/translations";
 
 export type CreateCategoryFormProps = {
   isOpen: boolean;
@@ -23,7 +24,14 @@ export const CreateCategoryForm = ({
   onSuccess,
 }: CreateCategoryFormProps) => {
   const initialState: CategoryFormState = { message: {}, errors: {} };
-  const [state, formAction] = useActionState(createCategory, initialState);
+
+  const { lang } = useTranslations();
+  const createCategoryAction = createCategory.bind(null, lang);
+
+  const [state, formAction] = useActionState(
+    createCategoryAction,
+    initialState
+  );
   const [color, setColor] = React.useState<string>();
 
   useEffect(() => {

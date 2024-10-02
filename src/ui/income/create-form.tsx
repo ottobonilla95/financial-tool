@@ -15,6 +15,7 @@ import useSWR from "swr";
 import { fetcher } from "@/src/utils/fetcher";
 import { CancelButton, SubmitButton } from "../forms";
 import { formatDateToLocal } from "@/src/helpers/format-date-to-local";
+import { useTranslations } from "@/src/translations";
 
 export type CreateIncomeFormProps = {
   closeModal: () => void;
@@ -26,7 +27,10 @@ export const CreateIncomeForm = ({
   month,
 }: CreateIncomeFormProps) => {
   const initialState: IncomeFormState = { message: {}, errors: {} };
-  const [state, formAction] = useActionState(createIncome, initialState);
+  const { lang } = useTranslations();
+  const createIncomeAction = createIncome.bind(null, lang);
+
+  const [state, formAction] = useActionState(createIncomeAction, initialState);
   const [categories, setCategories] = useState<EarningCategory[]>([]);
 
   const currentYear = new Date().getFullYear();

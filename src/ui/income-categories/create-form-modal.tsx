@@ -10,6 +10,7 @@ import React from "react";
 import { ChromePicker } from "react-color";
 import { CancelButton, SubmitButton } from "../forms";
 import { Modal } from "../components";
+import { useTranslations } from "@/src/translations";
 
 export type CreateIncomeCategoryFormProps = {
   isOpen: boolean;
@@ -23,8 +24,12 @@ export const CreateIncomeCategoryForm = ({
   onSuccess,
 }: CreateIncomeCategoryFormProps) => {
   const initialState: IncomeCategoryFormState = { message: {}, errors: {} };
+
+  const { lang } = useTranslations();
+  const createIncomeCategoryAction = createIncomeCategory.bind(null, lang);
+
   const [state, formAction] = useActionState(
-    createIncomeCategory,
+    createIncomeCategoryAction,
     initialState
   );
   const [color, setColor] = React.useState<string>();

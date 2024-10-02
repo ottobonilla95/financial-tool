@@ -12,7 +12,7 @@ import { Button, Dropdown } from "@/src/ui/components";
 import { useActionState, useState } from "react";
 import { createUser, CreateUserFormState } from "@/src/form-actions/auth";
 import { Currency } from "@/src/types";
-import { AppDictionary } from "@/src/translations";
+import { AppDictionary, useTranslations } from "@/src/translations";
 
 export type SignupFormPropd = {
   currencies: Currency[];
@@ -20,8 +20,12 @@ export type SignupFormPropd = {
 };
 export const SignupForm = ({ currencies, dict }: SignupFormPropd) => {
   const initialState: CreateUserFormState = { message: {}, errors: {} };
+
+  const { lang } = useTranslations();
+  const createUserAction = createUser.bind(null, lang);
+
   const [state, formAction, isPending] = useActionState(
-    createUser,
+    createUserAction,
     initialState
   );
 
@@ -30,7 +34,9 @@ export const SignupForm = ({ currencies, dict }: SignupFormPropd) => {
   return (
     <form action={formAction} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
-        <h1 className={`${lusitana.className} mb-3 text-2xl`}>{dict.authPages.createAccount}</h1>
+        <h1 className={`${lusitana.className} mb-3 text-2xl`}>
+          {dict.authPages.createAccount}
+        </h1>
         <div className="w-full">
           <div>
             <label
