@@ -8,7 +8,7 @@ import { toast, TypeOptions } from "react-toastify";
 import { Modal } from "../components";
 import { CancelButton, SubmitButton } from "../forms";
 import { formatDateToLocal } from "@/src/helpers/format-date-to-local";
-import { useTranslations } from "@/src/translations";
+import { useTranslations } from "@/src/translations/use-translations";
 
 export type CreateSavingFormProps = {
   closeModal: () => void;

@@ -10,7 +10,8 @@ import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { Button } from "@/src/ui/components";
 import { useActionState } from "react";
 import { authenticate } from "@/src/form-actions/auth";
-import { AppDictionary, useTranslations } from "@/src/translations";
+import { AppDictionary } from "@/src/translations";
+import { useTranslations } from "@/src/translations/use-translations";
 
 export type LoginFormProps = {
   dict: AppDictionary;

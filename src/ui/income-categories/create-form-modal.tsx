@@ -10,7 +10,7 @@ import React from "react";
 import { ChromePicker } from "react-color";
 import { CancelButton, SubmitButton } from "../forms";
 import { Modal } from "../components";
-import { useTranslations } from "@/src/translations";
+import { useTranslations } from "@/src/translations/use-translations";
 
 export type CreateIncomeCategoryFormProps = {
   isOpen: boolean;

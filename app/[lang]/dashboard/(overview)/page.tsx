@@ -19,11 +19,8 @@ import { getDBUser } from "@/src/data/user";
 import { AppProvider } from "@/src/app-wrappper/provider";
 import { Currency } from "@/src/types";
 import { endOfMonth, startOfMonth } from "date-fns";
-import {
-  getDictionary,
-  AvailableLanguages,
-  IntlProvider,
-} from "@/src/translations";
+import { getDictionary, AvailableLanguages } from "@/src/translations";
+import { IntlProvider } from "@/src/translations/provider";
 import { Spinner } from "@/src/ui/components";
 
 export type DashboardPageProps = {

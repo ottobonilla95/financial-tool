@@ -9,7 +9,7 @@ import { useActionState, useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
 import { CancelButton, SubmitButton } from "../forms";
 import { Modal } from "../components";
-import { useTranslations } from "@/src/translations";
+import { useTranslations } from "@/src/translations/use-translations";
 
 export type CreateSubCategoryFormProps = {
   category: { id: string; name: string };

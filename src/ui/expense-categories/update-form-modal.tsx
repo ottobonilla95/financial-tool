@@ -11,7 +11,7 @@ import React from "react";
 import { ChromePicker } from "react-color";
 import { ExpenseCategory } from "@/src/types";
 import { CancelButton, SubmitButton } from "../forms";
-import { useTranslations } from "@/src/translations";
+import { useTranslations } from "@/src/translations/use-translations";
 
 export type UpdateCategoryFormProps = {
   isOpen: boolean;

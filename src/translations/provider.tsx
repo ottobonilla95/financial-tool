@@ -1,27 +1,28 @@
 "use client";
 
-import React, { createContext } from "react";
+import { createContext } from "react";
 import { AppDictionary, AvailableLanguages } from "./types";
 
-export type IntlContextProps = {
+export type AppContextProps = {
   lang: AvailableLanguages;
   dict: Partial<AppDictionary>;
 };
 
-export const IntlContext = createContext<IntlContextProps>({
+export const IntlContext = createContext<AppContextProps>({
   lang: "en",
   dict: {},
 });
 
-export type IntlProviderProps = {
+export type AppProviderProps = {
   children: React.ReactNode;
   lang: AvailableLanguages;
   dict: Partial<AppDictionary>;
 };
-export const IntlProvider = ({ children, dict, lang }: IntlProviderProps) => {
+
+export function IntlProvider({ children, dict, lang }: AppProviderProps) {
   return (
     <IntlContext.Provider value={{ lang, dict }}>
       {children}
     </IntlContext.Provider>
   );
-};
+}

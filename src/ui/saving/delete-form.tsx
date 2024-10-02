@@ -6,7 +6,7 @@ import { toast, TypeOptions } from "react-toastify";
 import React from "react";
 import { CancelButton, SubmitButton } from "../forms";
 import { Modal } from "../components";
-import { useTranslations } from "@/src/translations";
+import { useTranslations } from "@/src/translations/use-translations";
 
 export type DeleteSavingFormProps = {
   isOpen: boolean;

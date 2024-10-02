@@ -20,7 +20,7 @@ import { fetcher } from "@/src/utils/fetcher";
 import { CancelButton, SubmitButton } from "../forms";
 import clsx from "clsx";
 import { formatDateToLocal } from "@/src/helpers/format-date-to-local";
-import { useTranslations } from "@/src/translations";
+import { useTranslations } from "@/src/translations/use-translations";
 
 export type CreateExpenseFormProps = {
   closeModal: () => void;

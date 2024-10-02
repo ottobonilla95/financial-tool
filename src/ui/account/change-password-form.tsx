@@ -1,16 +1,17 @@
 "use client";
 
 import React from "react";
-import { ArrowRightIcon, KeyIcon } from "@heroicons/react/24/outline";
+import { KeyIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
-import { AppDictionary, useTranslations } from "@/src/translations";
+import { AppDictionary } from "@/src/translations";
 import {
   updatePassword,
   UpdatePasswordFormState,
 } from "@/src/form-actions/auth";
 import { Button } from "../components";
+import { useTranslations } from "@/src/translations/use-translations";
 
 export type ChangePasswordFormProps = {
   dict: AppDictionary;
