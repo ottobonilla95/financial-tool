@@ -164,5 +164,78 @@
   "meta": {
     "title": "TrackMySpend | Simplify Your Personal Finances and Reach Your Financial Goals",
     "description": "TrackMySpend is an intuitive tool designed to help you monitor expenses, manage income, and grow savings with ease. Get a clear overview of your financial health, identify spending patterns, and make informed decisions to meet your financial goals. Start tracking your money today and take control of your financial future."
+  },
+  "api": {
+    "shared": {
+      "requiredField": "This field is required.",
+      "passwordShouldHaveAtLeast6Chars": "Password should have at least 6 characters.",
+      "passwordsDontMatch": "Passwords do not match.",
+      "invalidEmail": "Invalid email address.",
+      "somethingWentWrong": "Something went wrong. Please try again."
+    },
+    "auth": {
+      "invalidCredentials": "Invalid credentials. Please check your email and password."
+    },
+    "expenses": {
+      "create": {
+        "error": "Failed to create expense.",
+        "success": "Expense successfully added."
+      },
+      "delete": {
+        "error": "Failed to delete expense.",
+        "success": "Expense successfully deleted."
+      }
+    },
+    "income": {
+      "create": {
+        "error": "Failed to create income entry.",
+        "success": "Income successfully added."
+      },
+      "delete": {
+        "error": "Failed to delete income entry.",
+        "success": "Income successfully deleted."
+      }
+    },
+    "savings": {
+      "create": {
+        "error": "Failed to create savings entry.",
+        "success": "Savings successfully added."
+      },
+      "delete": {
+        "error": "Failed to delete savings entry.",
+        "success": "Savings successfully deleted."
+      }
+    },
+    "category": {
+      "create": {
+        "error": "Failed to create category.",
+        "success": "Category successfully created."
+      },
+      "update": {
+        "error": "Failed to update category.",
+        "success": "Category successfully updated."
+      }
+    },
+    "subCategory": {
+      "create": {
+        "error": "Failed to create sub-category.",
+        "success": "Sub-category successfully created."
+      }
+    },
+    "password": {
+      "update": {
+        "error": "Failed to update password.",
+        "success": "Password successfully updated.",
+        "userNotFound": "User not found.",
+        "invalidPassword": "Invalid password."
+      }
+    },
+    "user": {
+      "create": {
+        "error": "Failed to create user.",
+        "success": "User successfully created.",
+        "alreadyExists": "A user with this email already exists."
+      }
+    }
   }
 }

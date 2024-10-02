@@ -2,6 +2,11 @@
 
 import { z } from "zod";
 import { createDBSubCategory } from "../data/expense-category";
+import {
+  AppDictionary,
+  AvailableLanguages,
+  getDictionary,
+} from "../translations";
 
 export type SubCategoryFormState = {
   errors?: {
@@ -14,22 +19,26 @@ export type SubCategoryFormState = {
   };
 };
 
-const FormSchema = z.object({
-  id: z.string(),
-  name: z.string({
-    invalid_type_error: "Agrega un nombre.",
-  }),
-  categoryId: z.string({
-    invalid_type_error: "Agrega una categoria.",
-  }),
-});
-
-const CreateSubCategory = FormSchema.omit({ id: true });
+const creteFormSchema = (dict: AppDictionary) =>
+  z.object({
+    id: z.string(),
+    name: z.string({
+      invalid_type_error: dict.api.shared.requiredField,
+    }),
+    categoryId: z.string({
+      invalid_type_error: dict.api.shared.requiredField,
+    }),
+  });
 
 export async function createSubCategory(
+  lang: AvailableLanguages,
   prevState: SubCategoryFormState,
   formData: FormData
 ) {
+  const dict = await getDictionary(lang);
+
+  const CreateSubCategory = creteFormSchema(dict).omit({ id: true });
+
   // Validate form using Zod
   const validatedFields = CreateSubCategory.safeParse({
     name: formData.get("name"),
@@ -41,7 +50,7 @@ export async function createSubCategory(
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: {
-        text: "Database Error: Failed to Create sub Category.",
+        text: dict.api.subCategory.create.error,
         type: "error",
       },
     };
@@ -57,7 +66,7 @@ export async function createSubCategory(
   } catch (error) {
     return {
       message: {
-        text: "Database Error: Failed to Create  sub category.",
+        text: dict.api.subCategory.create.error,
         type: "error",
       },
     };
@@ -65,7 +74,7 @@ export async function createSubCategory(
 
   return {
     message: {
-      text: "Sub Categoría creada exitosamente.",
+      text: dict.api.subCategory.create.success,
       type: "success",
     },
   };

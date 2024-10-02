@@ -2,6 +2,11 @@
 
 import { z } from "zod";
 import { createDBIncomeSubCategory } from "../data/income-category";
+import {
+  AppDictionary,
+  AvailableLanguages,
+  getDictionary,
+} from "../translations";
 
 export type IncomeSubCategoryFormState = {
   errors?: {
@@ -14,22 +19,26 @@ export type IncomeSubCategoryFormState = {
   };
 };
 
-const FormSchema = z.object({
-  id: z.string(),
-  name: z.string({
-    invalid_type_error: "Agrega un nombre.",
-  }),
-  categoryId: z.string({
-    invalid_type_error: "Agrega una categoria.",
-  }),
-});
-
-const CreateIncomeSubCategory = FormSchema.omit({ id: true });
+const createSchema = (dict: AppDictionary) =>
+  z.object({
+    id: z.string(),
+    name: z.string({
+      invalid_type_error: dict.api.shared.requiredField,
+    }),
+    categoryId: z.string({
+      invalid_type_error: dict.api.shared.requiredField,
+    }),
+  });
 
 export async function createIncomeSubCategory(
+  lang: AvailableLanguages,
   prevState: IncomeSubCategoryFormState,
   formData: FormData
 ) {
+  const dict = await getDictionary(lang);
+
+  const CreateIncomeSubCategory = createSchema(dict).omit({ id: true });
+
   // Validate form using Zod
   const validatedFields = CreateIncomeSubCategory.safeParse({
     name: formData.get("name"),
@@ -41,7 +50,7 @@ export async function createIncomeSubCategory(
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: {
-        text: "Database Error: Failed to Create sub Category.",
+        text: dict.api.subCategory.create.error,
         type: "error",
       },
     };
@@ -57,7 +66,7 @@ export async function createIncomeSubCategory(
   } catch (error) {
     return {
       message: {
-        text: "Database Error: Failed to Create sub category.",
+        text: dict.api.subCategory.create.error,
         type: "error",
       },
     };
@@ -65,7 +74,7 @@ export async function createIncomeSubCategory(
 
   return {
     message: {
-      text: "Sub Categoría creada exitosamente.",
+      text: dict.api.subCategory.create.success,
       type: "success",
     },
   };

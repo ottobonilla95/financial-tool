@@ -20,6 +20,7 @@ import { fetcher } from "@/src/utils/fetcher";
 import { CancelButton, SubmitButton } from "../forms";
 import clsx from "clsx";
 import { formatDateToLocal } from "@/src/helpers/format-date-to-local";
+import { useTranslations } from "@/src/translations";
 
 export type CreateExpenseFormProps = {
   closeModal: () => void;
@@ -32,9 +33,13 @@ export const CreateExpenseForm = ({
   emotions,
   month,
 }: CreateExpenseFormProps) => {
+  const { lang } = useTranslations();
+
+  const createExpenseAction = createExpense.bind(null, lang);
+
   const initialState: ExpenseFormState = { message: {}, errors: {} };
   const [state, formAction, loading] = useActionState(
-    createExpense,
+    createExpenseAction,
     initialState
   );
   const [categories, setCategories] = useState<ExpenseCategory[]>([]);

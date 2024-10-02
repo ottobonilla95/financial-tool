@@ -19,7 +19,11 @@ import { getDBUser } from "@/src/data/user";
 import { AppProvider } from "@/src/app-wrappper/provider";
 import { Currency } from "@/src/types";
 import { endOfMonth, startOfMonth } from "date-fns";
-import { getDictionary, AvailableLanguages } from "@/src/translations";
+import {
+  getDictionary,
+  AvailableLanguages,
+  IntlProvider,
+} from "@/src/translations";
 import { Spinner } from "@/src/ui/components";
 
 export type DashboardPageProps = {
@@ -97,49 +101,51 @@ export default async function Page({
 
   return (
     <AppProvider currency={currency as Currency}>
-      <main>
-        <Suspense fallback={<div>loading...</div>}>
-          <LastUpdated dict={dict} />
-        </Suspense>
-        <div className="h-5" />
+      <IntlProvider dict={dict} lang={lang}>
+        <main>
+          <Suspense fallback={<div>loading...</div>}>
+            <LastUpdated dict={dict} />
+          </Suspense>
+          <div className="h-5" />
 
-        <Suspense fallback={<Spinner className="w-5" />}>
-          <DashboardButtons emotions={emotions} month={month} dict={dict} />
-        </Suspense>
+          <Suspense fallback={<Spinner className="w-5" />}>
+            <DashboardButtons emotions={emotions} month={month} dict={dict} />
+          </Suspense>
 
-        <DashboardTotals
-          expenses={expenses}
-          earnings={earnings}
-          savings={savings}
-          dict={dict}
-        />
+          <DashboardTotals
+            expenses={expenses}
+            earnings={earnings}
+            savings={savings}
+            dict={dict}
+          />
 
-        <DashboardDatePicker />
-        {expenses.length > 0 && (
-          <div className="w-full ">
-            <ExpensesPieChart expenses={expenses} />
-          </div>
-        )}
-        {savings.length > 0 && (
-          <div>
-            <SavingTableContainer savings={savings} />
-          </div>
-        )}
-        {earnings.length > 0 && (
-          <div>
-            <IncomeTableContainer earnings={earnings} dict={dict} />
-          </div>
-        )}
-        {expenses.length > 0 && (
-          <div>
-            <ExpensesTableContainer expenses={expenses} dict={dict} />
-          </div>
-        )}
+          <DashboardDatePicker />
+          {expenses.length > 0 && (
+            <div className="w-full ">
+              <ExpensesPieChart expenses={expenses} />
+            </div>
+          )}
+          {savings.length > 0 && (
+            <div>
+              <SavingTableContainer savings={savings} />
+            </div>
+          )}
+          {earnings.length > 0 && (
+            <div>
+              <IncomeTableContainer earnings={earnings} dict={dict} />
+            </div>
+          )}
+          {expenses.length > 0 && (
+            <div>
+              <ExpensesTableContainer expenses={expenses} dict={dict} />
+            </div>
+          )}
 
-        {expenses.length === 0 && earnings.length === 0 && (
-          <NoExpensesAdded dict={dict} />
-        )}
-      </main>
+          {expenses.length === 0 && earnings.length === 0 && (
+            <NoExpensesAdded dict={dict} />
+          )}
+        </main>
+      </IntlProvider>
     </AppProvider>
   );
 }

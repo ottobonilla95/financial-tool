@@ -6,6 +6,11 @@ import { auth } from "@/auth";
 import { updateLastUpdated } from "../data/user";
 import { createDbEarning, deleteDbEarning } from "../data/earning";
 import { FormMessage } from "../types";
+import {
+  AppDictionary,
+  AvailableLanguages,
+  getDictionary,
+} from "../translations";
 
 export type IncomeFormState = {
   errors?: {
@@ -21,41 +26,42 @@ export type DeleteFormState = {
   errors?: {};
 } & FormMessage;
 
-const FormSchema = z.object({
-  id: z.string(),
-  description: z
-    .string({
-      invalid_type_error: "Agrega una descripción.",
-    })
-    .min(1, { message: "La descripción no debe estar vacía." })
-    .refine((value) => value.trim().length > 0, {
-      message:
-        "La descripción no debe estar vacía o contener solo espacios en blanco.",
-    }),
-  amount: z.coerce
-    .number()
-    .gt(0, { message: "Ingresa una cantidad mayor a 0." }),
-  date: z.string(),
-  categoryId: z
-    .string({
-      invalid_type_error: "Selecciona una categoría.",
-    })
-    .uuid({ message: "Selecciona una categoría." }),
-  subCategoryId: z
-    .string({
-      invalid_type_error: "Selecciona una sub categoría.",
-    })
-    .optional(),
-});
-
-const CreateIncome = FormSchema.omit({ id: true });
+const createSchema = (dict: AppDictionary) =>
+  z.object({
+    id: z.string(),
+    description: z
+      .string({
+        invalid_type_error: dict.api.shared.requiredField,
+      })
+      .min(1, { message: dict.api.shared.requiredField })
+      .refine((value) => value.trim().length > 0, {
+        message: dict.api.shared.requiredField,
+      }),
+    amount: z.coerce.number().gt(0, { message: dict.api.shared.requiredField }),
+    date: z.string(),
+    categoryId: z
+      .string({
+        invalid_type_error: dict.api.shared.requiredField,
+      })
+      .uuid({ message: dict.api.shared.requiredField }),
+    subCategoryId: z
+      .string({
+        invalid_type_error: dict.api.shared.requiredField,
+      })
+      .optional(),
+  });
 
 export async function createIncome(
+  lang: AvailableLanguages,
   prevState: IncomeFormState,
   formData: FormData
 ) {
+  const dict = await getDictionary(lang);
+
   const session = await auth();
   const userId = session?.user?.id as string;
+
+  const CreateIncome = createSchema(dict).omit({ id: true });
 
   // Validate form using Zod
   const validatedFields = CreateIncome.safeParse({
@@ -92,7 +98,7 @@ export async function createIncome(
   } catch (error) {
     return {
       message: {
-        text: "Database Error: Failed to Create Earning.",
+        text: dict.api.income.create.error,
         type: "error",
       },
     };
@@ -101,13 +107,15 @@ export async function createIncome(
 
   return {
     message: {
-      text: "Ingreso agregado exitosamente.",
+      text: dict.api.income.create.success,
       type: "success",
     },
   };
 }
 
-export async function deleteIncome(incomeId: string) {
+export async function deleteIncome(incomeId: string, lang: AvailableLanguages) {
+  const dict = await getDictionary(lang);
+
   const session = await auth();
   const userId = session?.user?.id as string;
 
@@ -116,7 +124,7 @@ export async function deleteIncome(incomeId: string) {
     return {
       errors: {},
       message: {
-        text: "Database Error: incomeId not provided.",
+        text: dict.api.income.delete.error,
         type: "error",
       },
     };
@@ -133,7 +141,7 @@ export async function deleteIncome(incomeId: string) {
   } catch (error) {
     return {
       message: {
-        text: "Database Error: Failed to delete income.",
+        text: dict.api.income.delete.error,
         type: "error",
       },
     };
@@ -143,7 +151,7 @@ export async function deleteIncome(incomeId: string) {
 
   return {
     message: {
-      text: "Earning deleted Successfully.",
+      text: dict.api.income.delete.success,
       type: "success",
     },
   };

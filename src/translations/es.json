@@ -164,5 +164,78 @@
   "meta": {
     "title": "TrackMySpend | Simplifica tus Finanzas Personales y Alcanza tus Metas Financieras",
     "description": "TrackMySpend es una herramienta intuitiva que te ayuda a controlar tus gastos, administrar tus ingresos y aumentar tus ahorros de manera sencilla. Obtén una visión clara de tu salud financiera, identifica patrones de gasto y toma decisiones informadas para alcanzar tus metas financieras. Comienza a gestionar tu dinero hoy y toma el control de tu futuro financiero."
+  },
+  "api": {
+    "shared": {
+      "requiredField": "Este campo es obligatorio.",
+      "passwordShouldHaveAtLeast6Chars": "La contraseña debe tener al menos 6 caracteres.",
+      "passwordsDontMatch": "Las contraseñas no coinciden.",
+      "invalidEmail": "Dirección de correo electrónico inválida.",
+      "somethingWentWrong": "Algo salió mal. Por favor, inténtalo de nuevo."
+    },
+    "auth": {
+      "invalidCredentials": "Credenciales inválidas. Verifica tu correo electrónico y contraseña."
+    },
+    "expenses": {
+      "create": {
+        "error": "Error al crear el gasto.",
+        "success": "Gasto agregado con éxito."
+      },
+      "delete": {
+        "error": "Error al eliminar el gasto.",
+        "success": "Gasto eliminado con éxito."
+      }
+    },
+    "income": {
+      "create": {
+        "error": "Error al crear la entrada de ingresos.",
+        "success": "Ingreso agregado con éxito."
+      },
+      "delete": {
+        "error": "Error al eliminar la entrada de ingresos.",
+        "success": "Ingreso eliminado con éxito."
+      }
+    },
+    "savings": {
+      "create": {
+        "error": "Error al crear la entrada de ahorros.",
+        "success": "Ahorros agregados con éxito."
+      },
+      "delete": {
+        "error": "Error al eliminar la entrada de ahorros.",
+        "success": "Ahorros eliminados con éxito."
+      }
+    },
+    "category": {
+      "create": {
+        "error": "Error al crear la categoría.",
+        "success": "Categoría creada con éxito."
+      },
+      "update": {
+        "error": "Error al actualizar la categoría.",
+        "success": "Categoría actualizada con éxito."
+      }
+    },
+    "subCategory": {
+      "create": {
+        "error": "Error al crear la subcategoría.",
+        "success": "Subcategoría creada con éxito."
+      }
+    },
+    "password": {
+      "update": {
+        "error": "Error al actualizar la contraseña.",
+        "success": "Contraseña actualizada con éxito.",
+        "userNotFound": "Usuario no encontrado.",
+        "invalidPassword": "Contraseña inválida."
+      }
+    },
+    "user": {
+      "create": {
+        "error": "Error al crear el usuario.",
+        "success": "Usuario creado con éxito.",
+        "alreadyExists": "Ya existe un usuario con este correo electrónico."
+      }
+    }
   }
 }

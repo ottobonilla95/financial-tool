@@ -1,11 +1,13 @@
 ----hoy-----f
-- finish testimonials
-- translate api actions 
 - Favico
 - font
 
 - guardar unibacion, pais?
 - guardar idioma?
+
+
+- finish testimonials
+
 - tour!
 - camisa de track my spend para mis videos.
 - add to bossclub.
@@ -17,7 +19,7 @@ Verify your domain: You can verify ownership by adding a DNS record to your doma
 Submit your sitemap: After verifying, submit your sitemap.xml through Google Search Console so Google can crawl and index your site more efficiently.
 6. Ensure Pages are Accessible
 Make sure no pages return a 404 error (except for pages that should, like an actual 404 page).
-Ensure there’s no noindex directive in your <meta> tags for the pages you want to be visible in Google search.
+Ensure there’s n o noindex directive in your <meta> tags for the pages you want to be visible in Google search.
 7. Improve Site Performance
 Google uses page speed as a ranking factor. Ensure your site is optimized for speed:
 Use Vercel's built-in optimizations.

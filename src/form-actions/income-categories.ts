@@ -3,7 +3,15 @@
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
-import { createDBIncomeCategory, updateDBIncomeCategory } from "../data/income-category";
+import {
+  createDBIncomeCategory,
+  updateDBIncomeCategory,
+} from "../data/income-category";
+import {
+  AppDictionary,
+  AvailableLanguages,
+  getDictionary,
+} from "../translations";
 
 export type IncomeCategoryFormState = {
   errors?: {
@@ -27,25 +35,28 @@ export type UpdateFormState = {
   };
 };
 
-const FormSchema = z.object({
-  id: z.string(),
-  name: z.string({
-    invalid_type_error: "Agrega un nombre.",
-  }),
-  color: z.string({
-    invalid_type_error: "Selecciona un color.",
-  }),
-});
-
-const CreateIncomeCategory = FormSchema.omit({ id: true });
-const UpdateIncomeCategory = FormSchema;
+const createSchema = (dict: AppDictionary) =>
+  z.object({
+    id: z.string(),
+    name: z.string({
+      invalid_type_error: dict.api.shared.requiredField,
+    }),
+    color: z.string({
+      invalid_type_error: dict.api.shared.requiredField,
+    }),
+  });
 
 export async function createIncomeCategory(
+  lang: AvailableLanguages,
   prevState: IncomeCategoryFormState,
   formData: FormData
 ) {
+  const dict = await getDictionary(lang);
+
   const session = await auth();
   const userId = session?.user?.id as string;
+
+  const CreateIncomeCategory = createSchema(dict).omit({ id: true });
 
   // Validate form using Zod
   const validatedFields = CreateIncomeCategory.safeParse({
@@ -58,7 +69,7 @@ export async function createIncomeCategory(
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: {
-        text: "Database Error: Failed to Create EarningCategory.",
+        text: dict.api.category.create.error,
         type: "error",
       },
     };
@@ -75,7 +86,7 @@ export async function createIncomeCategory(
   } catch (error) {
     return {
       message: {
-        text: "Database Error: Failed to Create category.",
+        text: dict.api.category.create.error,
         type: "error",
       },
     };
@@ -83,17 +94,21 @@ export async function createIncomeCategory(
 
   return {
     message: {
-      text: "Categoría creada exitosamente.",
+      text: dict.api.category.create.success,
       type: "success",
     },
   };
 }
 export async function updateIncomeCategory(
+  lang: AvailableLanguages,
   prevState: UpdateFormState,
   formData: FormData
 ) {
+  const dict = await getDictionary(lang);
+
   const session = await auth();
   const userId = session?.user?.id as string;
+  const UpdateIncomeCategory = createSchema(dict);
 
   // Validate form using Zod
   const validatedFields = UpdateIncomeCategory.safeParse({
@@ -107,7 +122,7 @@ export async function updateIncomeCategory(
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: {
-        text: "Database Error: Failed to Update EarningCategory.",
+        text: dict.api.category.update.error,
         type: "error",
       },
     };
@@ -125,7 +140,7 @@ export async function updateIncomeCategory(
   } catch (error) {
     return {
       message: {
-        text: "Database Error: Failed to update category.",
+        text: dict.api.category.update.error,
         type: "error",
       },
     };
@@ -135,7 +150,7 @@ export async function updateIncomeCategory(
 
   return {
     message: {
-      text: "Categoría actualizada exitosamente.",
+      text: dict.api.category.update.success,
       type: "success",
     },
   };

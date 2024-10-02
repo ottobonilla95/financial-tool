@@ -145,6 +145,79 @@ export type AppDictionary = {
     title: string;
     description: string;
   };
+  api: {
+    shared: {
+      requiredField: string;
+      passwordShouldHaveAtLeast6Chars: string;
+      passwordsDontMatch: string;
+      invalidEmail: string;
+      somethingWentWrong: string;
+    };
+    auth: {
+      invalidCredentials: string;
+    };
+    expenses: {
+      create: {
+        error: string;
+        success: string;
+      };
+      delete: {
+        error: string;
+        success: string;
+      };
+    };
+    income: {
+      create: {
+        error: string;
+        success: string;
+      };
+      delete: {
+        error: string;
+        success: string;
+      };
+    };
+    savings: {
+      create: {
+        error: string;
+        success: string;
+      };
+      delete: {
+        error: string;
+        success: string;
+      };
+    };
+    category: {
+      create: {
+        error: string;
+        success: string;
+      };
+      update: {
+        error: string;
+        success: string;
+      };
+    };
+    subCategory: {
+      create: {
+        error: string;
+        success: string;
+      };
+    };
+    password: {
+      update: {
+        error: string;
+        success: string;
+        userNotFound: string;
+        invalidPassword: string;
+      };
+    };
+    user: {
+      create: {
+        error: string;
+        success: string;
+        alreadyExists: string;
+      };
+    };
+  };
 };
 
 export type AvailableLanguages = "en" | "es";

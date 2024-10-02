@@ -7,6 +7,11 @@ import { z } from "zod";
 import { createDbUser, getDBUser, updateDBUser } from "../data/user";
 import bcrypt from "bcrypt";
 import { redirect } from "next/navigation";
+import {
+  AppDictionary,
+  AvailableLanguages,
+  getDictionary,
+} from "../translations";
 
 export type AuthFormState = {
   errors?: {
@@ -39,86 +44,79 @@ export type UpdatePasswordFormState = {
   };
 };
 
-const FormSchema = z
-  .object({
-    name: z
-      .string({
-        invalid_type_error: "Agrega nombre.",
-      })
-      .min(1, { message: "El nombre no puede estar vacío." })
-      .refine((value) => value.trim().length > 0, {
-        message: "El nombre no debe estar vacío.",
+const createSchema = (dict: AppDictionary) =>
+  z
+    .object({
+      name: z
+        .string({
+          invalid_type_error: dict.api.shared.requiredField,
+        })
+        .min(1, { message: dict.api.shared.requiredField })
+        .refine((value) => value.trim().length > 0, {
+          message: dict.api.shared.requiredField,
+        }),
+      email: z
+        .string({
+          invalid_type_error: dict.api.shared.requiredField,
+        })
+        .email({ message: dict.api.shared.invalidEmail })
+        .min(1, { message: dict.api.shared.requiredField })
+        .refine((value) => value.trim().length > 0, {
+          message: dict.api.shared.requiredField,
+        }),
+      currencyId: z.string({
+        invalid_type_error: dict.api.shared.requiredField,
       }),
-    email: z
-      .string({
-        invalid_type_error: "Agrega email.",
-      })
-      .email({ message: "Formato de email inválido." })
-      .min(1, { message: "El email no puede estar vacío." })
-      .refine((value) => value.trim().length > 0, {
-        message: "El email no debe estar vacío.",
+      password: z
+        .string({
+          invalid_type_error: dict.api.shared.requiredField,
+        })
+        .min(6, { message: dict.api.shared.passwordShouldHaveAtLeast6Chars }),
+      passwordConfirmation: z.string({
+        invalid_type_error: dict.api.shared.requiredField,
       }),
-    currencyId: z.string({
-      invalid_type_error: "Selecciona una moneda.",
-    }),
-    password: z
-      .string({
-        invalid_type_error: "Agrega una contraseña.",
-      })
-      .min(6, { message: "La contraseña debe tener al menos 6 caracteres." }),
-    passwordConfirmation: z
-      .string({
-        invalid_type_error: "Confirma tu contraseña.",
-      })
-      .min(6, {
-        message:
-          "La confirmación de la contraseña debe tener al menos 6 caracteres.",
-      }),
-  })
-  .refine((data) => data.password === data.passwordConfirmation, {
-    message: "Las contraseñas no coinciden.",
-    path: ["passwordConfirmation"],
-  });
+    })
+    .refine((data) => data.password === data.passwordConfirmation, {
+      message: dict.api.shared.passwordsDontMatch,
+      path: ["passwordConfirmation"],
+    });
 
-const UpdatePasswordFormSchema = z
-  .object({
-    currentPassword: z.string({
-      invalid_type_error: "Agrega tu contraseña actual.",
-    }),
-    password: z
-      .string({
-        invalid_type_error: "Agrega una contraseña.",
-      })
-      .min(6, { message: "La contraseña debe tener al menos 6 caracteres." }),
-    passwordConfirmation: z
-      .string({
-        invalid_type_error: "Confirma tu contraseña.",
-      })
-      .min(6, {
-        message:
-          "La confirmación de la contraseña debe tener al menos 6 caracteres.",
+const createUpdatePasswordFormSchema = (dict: AppDictionary) =>
+  z
+    .object({
+      currentPassword: z.string({
+        invalid_type_error: dict.api.shared.requiredField,
       }),
-  })
-  .refine((data) => data.password === data.passwordConfirmation, {
-    message: "Las contraseñas no coinciden.",
-    path: ["passwordConfirmation"],
-  });
-
-const CreateUser = FormSchema;
+      password: z
+        .string({
+          invalid_type_error: dict.api.shared.requiredField,
+        })
+        .min(6, { message: dict.api.shared.passwordShouldHaveAtLeast6Chars }),
+      passwordConfirmation: z.string({
+        invalid_type_error: dict.api.shared.requiredField,
+      }),
+    })
+    .refine((data) => data.password === data.passwordConfirmation, {
+      message: dict.api.shared.passwordsDontMatch,
+      path: ["passwordConfirmation"],
+    });
 
 export async function authenticate(
+  lang: AvailableLanguages,
   prevState: string | undefined,
   formData: FormData
 ) {
+  const dict = await getDictionary(lang);
+
   try {
     await signIn("credentials", formData);
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CredentialsSignin":
-          return "Credenciales inválidas.";
+          return dict.api.auth.invalidCredentials;
         default:
-          return "Algo salió mal.";
+          return dict.api.shared.somethingWentWrong;
       }
     }
     throw error;
@@ -126,9 +124,14 @@ export async function authenticate(
 }
 
 export async function createUser(
+  lang: AvailableLanguages,
   prevState: CreateUserFormState,
   formData: FormData
 ) {
+  const dict = await getDictionary(lang);
+
+  const CreateUser = createSchema(dict);
+
   const validatedFields = CreateUser.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
@@ -141,7 +144,7 @@ export async function createUser(
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: {
-        text: "Database Error: Failed to Create User.",
+        text: dict.api.user.create.error,
         type: "error",
       },
     };
@@ -160,7 +163,7 @@ export async function createUser(
     if (user) {
       return {
         message: {
-          text: "User with this email already exists.",
+          text: dict.api.user.create.alreadyExists,
           type: "error",
         },
       };
@@ -182,11 +185,16 @@ export async function createUser(
 }
 
 export async function updatePassword(
+  lang: AvailableLanguages,
   prevState: UpdatePasswordFormState,
   formData: FormData
 ) {
+  const dict = await getDictionary(lang);
+
   const session = await auth();
   const userId = session?.user?.id as string;
+
+  const UpdatePasswordFormSchema = createUpdatePasswordFormSchema(dict);
 
   // Validate form using Zod
   const validatedFields = UpdatePasswordFormSchema.safeParse({
@@ -200,7 +208,7 @@ export async function updatePassword(
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: {
-        text: "Database Error: Error al actualizar Contraseña.",
+        text: dict.api.password.update.error,
         type: "error",
       },
     };
@@ -222,7 +230,7 @@ export async function updatePassword(
       return {
         errors: {},
         message: {
-          text: "Database Error: Usuario no encontrado.",
+          text: dict.api.password.update.userNotFound,
           type: "error",
         },
       };
@@ -237,7 +245,7 @@ export async function updatePassword(
       return {
         errors: {},
         message: {
-          text: "Contraseña incorrecta.",
+          text: dict.api.password.update.invalidPassword,
           type: "error",
         },
       };
@@ -256,7 +264,7 @@ export async function updatePassword(
   } catch (error) {
     return {
       message: {
-        text: "Database Error: Error al actualizar Contraseña.",
+        text: dict.api.password.update.error,
         type: "error",
       },
     };
@@ -264,7 +272,7 @@ export async function updatePassword(
 
   return {
     message: {
-      text: "Contraseña actualizada exitosamente.",
+      text: dict.api.password.update.success,
       type: "success",
     },
   };

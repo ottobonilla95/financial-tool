@@ -6,6 +6,11 @@ import { auth } from "@/auth";
 import { updateLastUpdated } from "../data/user";
 import { deleteDbExpense, createDbExpense } from "../data/expenses";
 import { FormMessage } from "../types";
+import {
+  AppDictionary,
+  AvailableLanguages,
+  getDictionary,
+} from "../translations";
 
 export type ExpenseFormState = {
   errors?: {
@@ -21,43 +26,44 @@ export type DeleteFormState = {
   errors?: {};
 } & FormMessage;
 
-const FormSchema = z.object({
-  id: z.string(),
-  description: z
-    .string({
-      invalid_type_error: "Agrega una descripción.",
-    })
-    .min(1, { message: "La descripción no debe estar vacía." })
-    .refine((value) => value.trim().length > 0, {
-      message:
-        "La descripción no debe estar vacía o contener solo espacios en blanco.",
-    }),
-  amount: z.coerce
-    .number()
-    .gt(0, { message: "Ingresa una cantidad mayor a 0." }),
-  date: z.string(),
-  categoryId: z
-    .string({
-      invalid_type_error: "Selecciona una categoría.",
-    })
-    .uuid({ message: "Selecciona una categoría." }),
-  subCategoryId: z
-    .string({
-      invalid_type_error: "Selecciona una sub categoría.",
-    })
-    .optional(),
-  satisfaction: z.string(),
-  emotionId: z.string(),
-});
-
-const CreateExpense = FormSchema.omit({ id: true });
+const createFormSchema = (dict: AppDictionary) =>
+  z.object({
+    id: z.string(),
+    description: z
+      .string({
+        invalid_type_error: dict.api.shared.requiredField,
+      })
+      .min(1, { message: dict.api.shared.requiredField })
+      .refine((value) => value.trim().length > 0, {
+        message: dict.api.shared.requiredField,
+      }),
+    amount: z.coerce.number().gt(0, { message: dict.api.shared.requiredField }),
+    date: z.string(),
+    categoryId: z
+      .string({
+        invalid_type_error: dict.api.shared.requiredField,
+      })
+      .uuid({ message: dict.api.shared.requiredField }),
+    subCategoryId: z
+      .string({
+        invalid_type_error: dict.api.shared.requiredField,
+      })
+      .optional(),
+    satisfaction: z.string(),
+    emotionId: z.string(),
+  });
 
 export async function createExpense(
+  lang: AvailableLanguages,
   prevState: ExpenseFormState,
   formData: FormData
 ) {
+  const dict = await getDictionary(lang);
+
   const session = await auth();
   const userId = session?.user?.id as string;
+
+  const CreateExpense = createFormSchema(dict).omit({ id: true });
 
   // Validate form using Zod
   const validatedFields = CreateExpense.safeParse({
@@ -106,7 +112,7 @@ export async function createExpense(
   } catch (error) {
     return {
       message: {
-        text: "Database Error: Failed to Create Expense.",
+        text: dict.api.expenses.create.error,
         type: "error",
       },
     };
@@ -115,13 +121,18 @@ export async function createExpense(
 
   return {
     message: {
-      text: "Gasto agregado exitosamente.",
+      text: dict.api.expenses.create.success,
       type: "success",
     },
   };
 }
 
-export async function deleteExpense(expenseId: string) {
+export async function deleteExpense(
+  expenseId: string,
+  lang: AvailableLanguages
+) {
+  const dict = await getDictionary(lang);
+
   const session = await auth();
   const userId = session?.user?.id as string;
 
@@ -147,7 +158,7 @@ export async function deleteExpense(expenseId: string) {
   } catch (error) {
     return {
       message: {
-        text: "Database Error: Failed to delete expense.",
+        text: dict.api.expenses.delete.error,
         type: "error",
       },
     };
@@ -157,7 +168,7 @@ export async function deleteExpense(expenseId: string) {
 
   return {
     message: {
-      text: "Expense deleted Successfully.",
+      text: dict.api.expenses.delete.success,
       type: "success",
     },
   };
