@@ -85,6 +85,7 @@ export type AppDictionary = {
     email: string;
     confirmPassword: string;
     currency: string;
+    close: string;
   };
   insights: {
     totalIncomeExpensesSavings: string;
@@ -276,6 +277,17 @@ export type AppDictionary = {
         alreadyExists: string;
       };
     };
+  };
+  tour: {
+    start: string;
+    welcomeTitle: string;
+    endTitle: string;
+    endMessage: string;
+    step0: string;
+    step1: string;
+    step2: string;
+    step3: string;
+    step4: string;
   };
 };
 

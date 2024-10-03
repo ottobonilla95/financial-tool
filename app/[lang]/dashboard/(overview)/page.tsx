@@ -22,6 +22,8 @@ import { endOfMonth, startOfMonth } from "date-fns";
 import { getDictionary, AvailableLanguages } from "@/src/translations";
 import { IntlProvider } from "@/src/translations/provider";
 import { Spinner } from "@/src/ui/components";
+import TourProvider from "@/src/ui/tour/provider";
+import TourInitiator from "@/src/ui/tour/tour-initiator";
 
 export type DashboardPageProps = {
   searchParams: {
@@ -40,21 +42,23 @@ export default async function Page({
   const session = await auth();
   const userId = session?.user?.id as string;
 
-  const currency = (
-    await getDBUser({
-      filters: {
-        id: userId,
-      },
-      select: {
-        currency: {
-          select: {
-            name: true,
-            symbol: true,
-          },
+  const user = await getDBUser({
+    filters: {
+      id: userId,
+    },
+    select: {
+      currency: {
+        select: {
+          name: true,
+          symbol: true,
         },
       },
-    })
-  )?.currency;
+      tour_finished: true,
+    },
+  });
+
+  const currency = user?.currency;
+  const tourFinished = user?.tourFinished;
 
   const currentDate = new Date();
 
@@ -99,49 +103,57 @@ export default async function Page({
   return (
     <AppProvider currency={currency as Currency}>
       <IntlProvider dict={dict} lang={lang}>
-        <main>
-          <Suspense fallback={<div>loading...</div>}>
-            <LastUpdated dict={dict} />
-          </Suspense>
-          <div className="h-5" />
-
-          <Suspense fallback={<Spinner className="w-5" />}>
-            <DashboardButtons emotions={emotions} month={month} dict={dict} />
-          </Suspense>
-
-          <DashboardTotals
-            expenses={expenses}
-            earnings={earnings}
-            savings={savings}
-            dict={dict}
-          />
-
-          <DashboardDatePicker />
-          {expenses.length > 0 && (
-            <div className="w-full ">
-              <ExpensesPieChart expenses={expenses} />
+        <TourProvider>
+          <main>
+            {!tourFinished && <TourInitiator />}
+            <Suspense fallback={<div>loading...</div>}>
+              <LastUpdated dict={dict} />
+            </Suspense>
+            <div className="h-5" />
+            <div className="tour-step-0">
+              <Suspense fallback={<Spinner className="w-5" />}>
+                <DashboardButtons
+                  emotions={emotions}
+                  month={month}
+                  dict={dict}
+                />
+              </Suspense>
             </div>
-          )}
-          {savings.length > 0 && (
-            <div>
-              <SavingTableContainer savings={savings} />
-            </div>
-          )}
-          {earnings.length > 0 && (
-            <div>
-              <IncomeTableContainer earnings={earnings} dict={dict} />
-            </div>
-          )}
-          {expenses.length > 0 && (
-            <div>
-              <ExpensesTableContainer expenses={expenses} dict={dict} />
-            </div>
-          )}
 
-          {expenses.length === 0 && earnings.length === 0 && (
-            <NoExpensesAdded dict={dict} />
-          )}
-        </main>
+            <DashboardTotals
+              expenses={expenses}
+              earnings={earnings}
+              savings={savings}
+              dict={dict}
+            />
+
+            <DashboardDatePicker />
+            {expenses.length > 0 && (
+              <div className="w-full ">
+                <ExpensesPieChart expenses={expenses} />
+              </div>
+            )}
+            {savings.length > 0 && (
+              <div>
+                <SavingTableContainer savings={savings} />
+              </div>
+            )}
+            {earnings.length > 0 && (
+              <div>
+                <IncomeTableContainer earnings={earnings} dict={dict} />
+              </div>
+            )}
+            {expenses.length > 0 && (
+              <div>
+                <ExpensesTableContainer expenses={expenses} dict={dict} />
+              </div>
+            )}
+
+            {expenses.length === 0 && earnings.length === 0 && (
+              <NoExpensesAdded dict={dict} />
+            )}
+          </main>
+        </TourProvider>
       </IntlProvider>
     </AppProvider>
   );

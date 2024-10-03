@@ -15,7 +15,7 @@ export const Testimonials = ({ dict }: TestimonialsProps) => {
       name: dict.mainPage.testimonials.testimonial2.name,
       feedback: dict.mainPage.testimonials.testimonial2.feedback,
       image:
-        "https://res.cloudinary.com/dav4ntxrq/image/upload/v1727798049/1688637869155_ls44og.jpg",
+        "https://res.cloudinary.com/dav4ntxrq/image/upload/v1727954734/reviews/go2xix2zet4kd6xzr3xx.jpg",
     },
   ];
 

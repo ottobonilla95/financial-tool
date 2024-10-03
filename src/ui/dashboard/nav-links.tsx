@@ -34,6 +34,7 @@ export default function NavLinks({ dict }: NavLinksProps) {
       name: dict.sideMenu.summary,
       href: "/dashboard/insights",
       icon: PresentationChartLineIcon,
+      className: "tour-step-4",
     },
     {
       name: dict.sideMenu.support,
@@ -53,6 +54,7 @@ export default function NavLinks({ dict }: NavLinksProps) {
             href={link.href}
             className={clsx(
               "flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-gray-500 hover:text-white md:flex-none md:justify-start md:p-2 md:px-3",
+              link.className,
               {
                 "!bg-black text-white":
                   pathname.replace(`/${lang}`, "") === link.href,

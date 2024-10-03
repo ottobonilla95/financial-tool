@@ -65,7 +65,8 @@
       "enterDescription": "Ingresa Descripción",
       "delete": "Eliminar",
       "enterName": "Ingresa Nombre",
-      "add": "Añadir"
+      "add": "Añadir",
+      "close": "Cerrar"
     }
   },
   "shared": {
@@ -171,8 +172,8 @@
         "name": "Marion Bonilla"
       },
       "testimonial2": {
-        "feedback": "¡TrackMySpend cambió la forma en que manejo mis finanzas! Ahora tengo control total sobre mis gastos y ahorros.",
-        "name": "Marion Bonilla"
+        "feedback": "¡TrackMySpend ha sido un cambio radical! Es intuitivo, fácil de usar y me da una visión clara de mi salud financiera.",
+        "name": "Diego Goicoechea"
       }
     }
   },
@@ -295,5 +296,17 @@
         "alreadyExists": "Ya existe un usuario con este correo electrónico."
       }
     }
+  },
+  "tour": {
+    "start": "Iniciar Recorrido",
+    "welcomeTitle": "¡Bienvenido a TrackMySpend!",
+    "endTitle": "¡Listo para Gestionar tus Finanzas!",
+    "endMessage": "¡Eso es todo! Ya estás listo para comenzar a gestionar tu dinero con TrackMySpend. Si necesitas ayuda, no dudes en contactarnos.",
+    "step0": "Vamos a hacer un recorrido rápido para que te familiarices con las funciones.",
+    "step1": "Primero, comencemos agregando un ahorro. Haz clic en el botón 'Agregar Ahorro' para registrar tus metas de ahorro.",
+    "step2": "A continuación, agrega tus ingresos. Haz clic en el botón 'Agregar Ingreso' para registrar tus ingresos.",
+    "step3": "Ahora, agrega tus gastos. Haz clic en el botón 'Agregar Gasto' para registrar tus transacciones.",
+    "step4": "Para ver análisis más avanzados, dirígete a la sección 'Resumen' en el menú del tablero.",
+    "step5": "¡Eso es todo! Ya estás listo para comenzar a gestionar tu dinero con TrackMySpend. Si necesitas ayuda, siempre puedes volver a realizar este recorrido."
   }
 }

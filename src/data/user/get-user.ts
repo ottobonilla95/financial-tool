@@ -10,6 +10,7 @@ export type Data = {
   last_updated: Date;
   password: string;
   currency?: Currency;
+  tour_finished?: boolean;
 };
 
 type GetUserDataProps = {
@@ -42,5 +43,6 @@ export const mapUser = (user: Data): User => {
     lastUpdated: user.last_updated?.toISOString(),
     password: user.password,
     currency: user.currency,
+    tourFinished: user.tour_finished,
   };
 };

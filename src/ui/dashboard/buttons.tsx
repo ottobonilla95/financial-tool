@@ -52,6 +52,7 @@ export const DashboardButtons = async ({
         <Button
           icon={<PlusIcon className="w-4" />}
           onClick={() => setShowCreateSavingForm(true)}
+          className="tour-step-1"
         >
           <span className="hidden sm:flex">{dict.dashboard.addSaving}</span>
           <span className="sm:hidden">{dict.dashboard.saving}</span>
@@ -59,6 +60,7 @@ export const DashboardButtons = async ({
         <Button
           icon={<PlusIcon className="w-4" />}
           onClick={() => setShowCreateIncomeForm(true)}
+          className="tour-step-2"
         >
           <span className="hidden sm:flex">{dict.dashboard.addIncome}</span>
           <span className="sm:hidden">{dict.shared.income}</span>
@@ -66,6 +68,7 @@ export const DashboardButtons = async ({
         <Button
           icon={<PlusIcon className="w-4" />}
           onClick={() => setShowCreateExpenseForm(true)}
+          className="tour-step-3"
         >
           <span className="hidden sm:flex">{dict.dashboard.addExpense}</span>
           <span className="sm:hidden">{dict.dashboard.expense}</span>

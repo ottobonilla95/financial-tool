@@ -22,6 +22,7 @@ async function getUser(email: string): Promise<User | undefined> {
             symbol: true,
           },
         },
+        tour_finished: true,
       },
     });
 

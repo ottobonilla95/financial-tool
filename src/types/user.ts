@@ -7,4 +7,5 @@ export type User = {
   lastUpdated: string;
   password?: string;
   currency?: Currency;
+  tourFinished?: boolean;
 };

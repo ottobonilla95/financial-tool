@@ -6,6 +6,7 @@ export type ModalProps = {
   className?: string;
   isOpen: boolean;
   zIndex?: number;
+  modalClassName?: string;
 };
 export const Modal = ({
   children,
@@ -13,6 +14,7 @@ export const Modal = ({
   className: inputClassName,
   isOpen,
   zIndex = 50,
+  modalClassName,
 }: ModalProps) => {
   const className = clsx(
     `fixed flex items-center justify-center inset-0`,
@@ -28,7 +30,10 @@ export const Modal = ({
         onClick={onCloseModal}
       />
       <div
-        className="bg-white p-4 max-h-full overflow-y-auto"
+        className={clsx(
+          "bg-white p-4 max-h-full overflow-y-auto",
+          modalClassName
+        )}
         style={{ zIndex: zIndex + 1 }}
       >
         {children}

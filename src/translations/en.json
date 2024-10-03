@@ -83,7 +83,8 @@
     "password": "Password",
     "email": "Email",
     "confirmPassword": "Confirm password",
-    "currency": "Currency"
+    "currency": "Currency",
+    "close": "Close"
   },
   "insights": {
     "totalIncomeExpensesSavings": "Total income, expenses, and savings",
@@ -171,8 +172,8 @@
         "name": "Marion Bonilla"
       },
       "testimonial2": {
-        "feedback": "TrackMySpend changed the way I handle my finances! I now have full control over my expenses and savings.",
-        "name": "Marion Bonilla"
+        "feedback": "TrackMySpend has been a game-changer! It's intuitive, easy to use, and gives me a clear picture of my financial health.",
+        "name": "Diego Goicoechea"
       }
     }
   },
@@ -295,5 +296,17 @@
         "alreadyExists": "A user with this email already exists."
       }
     }
+  },
+
+  "tour": {
+    "start": "Start Tour",
+    "welcomeTitle": "Welcome to TrackMySpend!",
+    "endTitle": "You're all set!",
+    "endMessage": "You’re ready to start managing your money with TrackMySpend. If you need help, don’t hesitate to reach out to us.",
+    "step0": "Let’s take a quick tour to get you familiar with the features.",
+    "step1": "First, let's start by adding a saving. Click the 'Add Saving' button to track your savings goals.",
+    "step2": "Next, add your income. Click the 'Add Income' button to log your earnings.",
+    "step3": "Now, add your expenses. Click the 'Add Expense' button to record your transactions.",
+    "step4": "For more advanced insights, head over to the 'Summary' section from the dashboard menu."
   }
 }
