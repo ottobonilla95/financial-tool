@@ -65,8 +65,7 @@
       "enterDescription": "Ingresa Descripción",
       "delete": "Eliminar",
       "enterName": "Ingresa Nombre",
-      "add": "Añadir",
-      "close": "Cerrar"
+      "add": "Añadir"
     }
   },
   "shared": {
@@ -84,7 +83,8 @@
     "password": "Contraseña",
     "email": "Correo electrónico",
     "confirmPassword": "Confirmar contraseña",
-    "currency": "Moneda"
+    "currency": "Moneda",
+    "close": "Cerrar"
   },
   "insights": {
     "totalIncomeExpensesSavings": "Ingresos, gastos y ahorros totales",
