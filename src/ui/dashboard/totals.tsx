@@ -31,10 +31,10 @@ export const DashboardTotals = ({
   const totalBalance = totalEarnings - totalExpenses - totalSavings;
 
   return (
-    <div className="flex flex-col sm:flex-row mb-5 gap-2">
+    <div className="flex flex-col md:flex-row mb-5 gap-2 md:flex-wrap">
       <div>
         <div className="bg-green-200 rounded flex">
-          <div className="font-bold mr-4 bg-green-400 rounded px-2 py-1 flex-1">
+          <div className="font-bold mr-4 bg-green-400 rounded px-2 py-1 flex-1 md:flex-none">
             {dict.dashboard.totalIncome}
           </div>
           <div className="pr-2 py-1 flex-1 flex justify-end">
@@ -44,7 +44,7 @@ export const DashboardTotals = ({
       </div>
       <div>
         <div className="bg-red-200 rounded flex">
-          <div className="font-bold mr-4 bg-red-400 rounded px-2 py-1 flex-1">
+          <div className="font-bold mr-4 bg-red-400 rounded px-2 py-1 flex-1 md:flex-none">
             {dict.dashboard.totalExpenses}
           </div>
           <div className="pr-2 py-1 flex-1 flex justify-end">
@@ -60,7 +60,7 @@ export const DashboardTotals = ({
           })}
         >
           <div
-            className={clsx("font-bold mr-4 rounded px-2 py-1 flex-1", {
+            className={clsx("font-bold mr-4 rounded px-2 py-1 flex-1 md:flex-none", {
               "bg-red-400": totalBalance < 0,
               "bg-green-400": totalBalance >= 0,
             })}
@@ -81,7 +81,7 @@ export const DashboardTotals = ({
           })}
         >
           <div
-            className={clsx("font-bold mr-4 rounded px-2 py-1 flex-1", {
+            className={clsx("font-bold mr-4 rounded px-2 py-1 flex-1 md:flex-none", {
               "bg-red-400": totalSavings <= 0,
               "bg-green-400": totalSavings > 0,
             })}
