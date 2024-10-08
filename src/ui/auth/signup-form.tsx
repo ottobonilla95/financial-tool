@@ -174,7 +174,7 @@ export const SignupForm = ({ currencies, dict }: SignupFormPropd) => {
         )}
 
         <div
-          className="flex h-8 items-end space-x-1"
+          className="flex mt-3 items-end space-x-1"
           aria-live="polite"
           aria-atomic="true"
         >

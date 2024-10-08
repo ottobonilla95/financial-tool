@@ -94,7 +94,7 @@ export const LoginForm = ({ dict }: LoginFormProps) => {
         )}
 
         <div
-          className="flex h-8 items-end space-x-1"
+          className="flex items-end space-x-1 mt-3"
           aria-live="polite"
           aria-atomic="true"
         >
