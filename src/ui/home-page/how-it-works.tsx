@@ -32,7 +32,9 @@ export const HowItWorks = ({ dict }: HowItWorksProps) => {
   return (
     <section className="py-16 sm:py-24 bg-white px-4 sm:px-0">
       <div className="container mx-auto text-center">
-        <h2 className="text-4xl font-bold mb-10">How TrackMySpend Works</h2>
+        <h2 className="text-4xl font-bold mb-10">
+          {dict.mainPage.howItWorks.title}
+        </h2>
         <div className="grid md:grid-cols-4 gap-8">
           {steps.map((step, index) => (
             <div key={index} className="bg-gray-50 p-8 rounded-lg shadow-lg">
