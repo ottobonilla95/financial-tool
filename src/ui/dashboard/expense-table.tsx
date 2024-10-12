@@ -1,6 +1,5 @@
 "use client";
 
-import { darkenHexColor } from "@/src/helpers/darken-color";
 import { ExpenseCategory, Expense, Emotion } from "@/src/types";
 import clsx from "clsx";
 import { format } from "date-fns";
@@ -184,14 +183,17 @@ export const ExpenseTable = ({
         />
       )}
 
-      <div
-        style={{
-          backgroundColor: color,
-        }}
-        className="rounded"
-      >
+      <div className="shadow-sm rounded-sm bg-white">
+        <div
+          style={{
+            backgroundColor: color,
+          }}
+          className="h-[4px] rounded-t-sm"
+        />
         <div className="flex items-center justify-between py-2 px-4">
-          <h2 className="font-bold text-lg mb-2 uppercase">{categoryName}</h2>
+          <h2 className="font-bold text-lg mb-2 uppercase text-gray-600">
+            {categoryName}
+          </h2>
 
           <Button
             onClick={() => {
@@ -211,10 +213,10 @@ export const ExpenseTable = ({
                 "mb-0": index === Object.entries(subcategories).length - 1,
               })}
             >
-              <h3 className="font-bold text-base  py-2 px-4">
+              <h3 className="font-bold text-base  py-2 px-4 text-gray-600">
                 {subcategoryName}
               </h3>
-              <div className="grid grid-cols-5 sm:grid-cols-6 py-2 px-4">
+              <div className="grid grid-cols-5 sm:grid-cols-6 py-2 px-4 text-gray-600">
                 <div className="font-bold flex items-center">
                   {dict.shared.name}
                 </div>
@@ -235,7 +237,7 @@ export const ExpenseTable = ({
               {expenseArray.map((expense) => (
                 <div
                   key={expense.id}
-                  className="grid grid-cols-5 sm:grid-cols-6 py-2 px-4"
+                  className="grid grid-cols-5 sm:grid-cols-6 py-2 px-4 text-gray-500"
                 >
                   <div className="font-medium flex items-center">
                     {expense.description}
@@ -269,28 +271,20 @@ export const ExpenseTable = ({
                   </div>
                 </div>
               ))}
-              <div
-                className="flex justify-between py-2 px-4"
-                style={{
-                  backgroundColor: darkenHexColor(color, 0.07),
-                }}
-              >
-                <div className="font-bold">{dict.shared.total}</div>
-                <div className="font-bold">
+              <div className="flex justify-between py-2 px-4">
+                <div className="font-bold text-gray-600">
+                  {dict.shared.total}
+                </div>
+                <div className="font-bold text-gray-600">
                   <Price amount={calculateSubcategoryTotal(expenseArray)} />
                 </div>
               </div>
             </div>
           )
         )}
-        <div
-          className="flex justify-between py-2 px-4 rounded"
-          style={{
-            backgroundColor: darkenHexColor(color, 0.15),
-          }}
-        >
-          <div className="font-bold">{dict.shared.total}</div>
-          <div className="font-bold">
+        <div className="flex justify-between py-2 px-4 rounded">
+          <div className="font-bold text-gray-600">{dict.shared.total}</div>
+          <div className="font-bold text-gray-600">
             <Price amount={calculateTotal(subcategories)} />
           </div>
         </div>

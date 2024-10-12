@@ -8,7 +8,9 @@
     "expense": "Expense",
     "totalIncome": "Total income",
     "totalExpenses": "Total expenses",
-    "balance": "Balance"
+    "balance": "Balance",
+    "byEmotion": "By Emotion",
+    "bySatisfaction": "By Satisfaction"
   },
   "forms": {
     "expense": {

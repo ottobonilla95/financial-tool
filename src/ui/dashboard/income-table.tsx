@@ -1,6 +1,4 @@
 "use client";
-
-import { darkenHexColor } from "@/src/helpers/darken-color";
 import { EarningCategory, Earning } from "@/src/types";
 import clsx from "clsx";
 import { format } from "date-fns";
@@ -85,14 +83,17 @@ export const IncomeTable = ({
         />
       )}
 
-      <div
-        style={{
-          backgroundColor: color,
-        }}
-        className="rounded"
-      >
-        <div className="flex items-center justify-between py-2 px-4">
-          <h2 className="font-bold text-lg mb-2 uppercase">{categoryName}</h2>
+      <div className="shadow-sm rounded-sm bg-white">
+        <div
+          style={{
+            backgroundColor: color,
+          }}
+          className="h-[4px] rounded-t-sm"
+        />
+        <div className="flex items-center justify-between pt-4 px-4">
+          <h2 className="font-bold text-lg uppercase text-gray-600">
+            {categoryName}
+          </h2>
 
           <Button
             onClick={() => {
@@ -112,20 +113,20 @@ export const IncomeTable = ({
                 "mb-0": index === Object.entries(subcategories).length - 1,
               })}
             >
-              <h3 className="font-bold text-base  py-2 px-4">
+              <h3 className="text-base text-gray-600 py-2 px-4">
                 {subcategoryName}
               </h3>
               {incomeArray.map((income) => (
                 <div key={income.id} className="grid grid-cols-4 py-2 px-4">
-                  <div className="font-medium flex items-center">
+                  <div className="font-medium flex items-center text-gray-500">
                     {income.description}
                   </div>
 
-                  <div className="flex items-center justify-center">
+                  <div className="flex items-center justify-center text-gray-500">
                     {format(income.date, "EEE dd")}
                   </div>
                   <div className="flex items-center justify-end">
-                    <Price amount={income.amount} />
+                    <Price amount={income.amount} className="text-gray-500" />
                   </div>
 
                   <div className="flex items-center justify-end">
@@ -141,28 +142,20 @@ export const IncomeTable = ({
                   </div>
                 </div>
               ))}
-              <div
-                className="flex justify-between py-2 px-4"
-                style={{
-                  backgroundColor: darkenHexColor(color, 0.07),
-                }}
-              >
-                <div className="font-bold">{dict.shared.total}</div>
-                <div className="font-bold">
+              <div className="flex justify-between py-2 px-4">
+                <div className="font-bold text-gray-600">
+                  {dict.shared.total}
+                </div>
+                <div className="font-bold text-gray-600">
                   <Price amount={calculateSubcategoryTotal(incomeArray)} />
                 </div>
               </div>
             </div>
           )
         )}
-        <div
-          className="flex justify-between py-2 px-4 rounded"
-          style={{
-            backgroundColor: darkenHexColor(color, 0.15),
-          }}
-        >
-          <div className="font-bold">{dict.shared.total}</div>
-          <div className="font-bold">
+        <div className="flex justify-between pb-4 px-4 rounded">
+          <div className="font-bold text-gray-600">{dict.shared.total}</div>
+          <div className="font-bold text-gray-600">
             <Price amount={calculateTotal(subcategories)} />
           </div>
         </div>

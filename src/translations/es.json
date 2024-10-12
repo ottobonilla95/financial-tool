@@ -8,7 +8,9 @@
     "expense": "Gasto",
     "totalIncome": "Ingresos totales",
     "totalExpenses": "Gastos totales",
-    "balance": "Balance"
+    "balance": "Balance",
+    "byEmotion": "Por Emoción",
+    "bySatisfaction": "Por Satisfacción"
   },
   "forms": {
     "expense": {

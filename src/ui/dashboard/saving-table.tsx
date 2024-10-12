@@ -27,8 +27,9 @@ export const SavingTable = ({ savings }: SavingTableProps) => {
         savingId={SavingIdToDelete as string}
       />
 
-      <div className="rounded bg-green-200">
-        <div className="grid grid-cols-4 py-2 px-4">
+      <div className="shadow-sm rounded-sm bg-white">
+        <div className="h-[4px] rounded-t-sm bg-green-200" />
+        <div className="grid grid-cols-4 py-2 px-4 text-gray-600">
           <div className="font-bold flex items-center">Description</div>
           <div className="font-bold flex items-center justify-center">
             Fecha
@@ -39,7 +40,10 @@ export const SavingTable = ({ savings }: SavingTableProps) => {
           <div></div>
         </div>
         {savings.map((saving) => (
-          <div key={saving.id} className="grid grid-cols-4 py-2 px-4">
+          <div
+            key={saving.id}
+            className="grid grid-cols-4 py-2 px-4 text-gray-500"
+          >
             <div className="font-medium flex items-center">
               {saving.description}
             </div>
@@ -64,7 +68,7 @@ export const SavingTable = ({ savings }: SavingTableProps) => {
             </div>
           </div>
         ))}
-        <div className="flex justify-between py-2 px-4 rounded">
+        <div className="flex justify-between py-2 px-4 rounded text-gray-600">
           <div className="font-bold">Total</div>
           <div className="font-bold">{calculateTotal(savings).toFixed(2)}</div>
         </div>

@@ -10,6 +10,8 @@ import {
   NoExpensesAdded,
   IncomeTableContainer,
   SavingTableContainer,
+  DashboardExpeneseByEmotion,
+  DashboardExpeneseBySatisfaction,
 } from "@/src/ui/dashboard";
 import { Suspense } from "react";
 import { fetchEarnings } from "@/src/data/earning";
@@ -110,48 +112,61 @@ export default async function Page({
               <LastUpdated dict={dict} />
             </Suspense>
             <div className="h-5" />
-            <div className="tour-step-0">
-              <Suspense fallback={<Spinner className="w-5" />}>
-                <DashboardButtons
-                  emotions={emotions}
-                  month={month}
-                  dict={dict}
-                />
-              </Suspense>
+            <div className="px-6 md:px-12">
+              <div className="tour-step-0">
+                <Suspense fallback={<Spinner className="w-5" />}>
+                  <DashboardButtons
+                    emotions={emotions}
+                    month={month}
+                    dict={dict}
+                  />
+                </Suspense>
+              </div>
+
+              <DashboardTotals
+                expenses={expenses}
+                earnings={earnings}
+                savings={savings}
+                dict={dict}
+              />
+
+              <div className="flex gap-4 flex-col lg:flex-row">
+                <div className="flex-1">
+                  <DashboardExpeneseByEmotion expenses={expenses} dict={dict} />
+                  <DashboardExpeneseBySatisfaction
+                    expenses={expenses}
+                    dict={dict}
+                  />
+                </div>
+                <div className="flex-1">
+                  {expenses.length > 0 && (
+                    <div className="w-full ">
+                      <ExpensesPieChart expenses={expenses} />
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {savings.length > 0 && (
+                <div>
+                  <SavingTableContainer savings={savings} dict={dict} />
+                </div>
+              )}
+              {earnings.length > 0 && (
+                <div>
+                  <IncomeTableContainer earnings={earnings} dict={dict} />
+                </div>
+              )}
+              {expenses.length > 0 && (
+                <div>
+                  <ExpensesTableContainer expenses={expenses} dict={dict} />
+                </div>
+              )}
+
+              {expenses.length === 0 && earnings.length === 0 && (
+                <NoExpensesAdded dict={dict} />
+              )}
             </div>
-
-            <DashboardTotals
-              expenses={expenses}
-              earnings={earnings}
-              savings={savings}
-              dict={dict}
-            />
-
-            <DashboardDatePicker />
-            {expenses.length > 0 && (
-              <div className="w-full ">
-                <ExpensesPieChart expenses={expenses} />
-              </div>
-            )}
-            {savings.length > 0 && (
-              <div>
-                <SavingTableContainer savings={savings} />
-              </div>
-            )}
-            {earnings.length > 0 && (
-              <div>
-                <IncomeTableContainer earnings={earnings} dict={dict} />
-              </div>
-            )}
-            {expenses.length > 0 && (
-              <div>
-                <ExpensesTableContainer expenses={expenses} dict={dict} />
-              </div>
-            )}
-
-            {expenses.length === 0 && earnings.length === 0 && (
-              <NoExpensesAdded dict={dict} />
-            )}
           </main>
         </TourProvider>
       </IntlProvider>

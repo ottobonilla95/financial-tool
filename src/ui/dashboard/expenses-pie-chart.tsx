@@ -56,5 +56,9 @@ export const ExpensesPieChart = ({ expenses }: PieChartProps) => {
     };
   }, [data]);
 
-  return <AgCharts options={props.options} className="h-[400px]" />;
+  return (
+    <div className="shadow-sm rounded-sm bg-white">
+      <AgCharts options={props.options} className="h-[400px]" />
+    </div>
+  );
 };

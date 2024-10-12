@@ -11,6 +11,9 @@ import {
   groupExpensesByCategoryWithAllMonths,
 } from "./helpers";
 import { AppDictionary } from "@/src/translations";
+import { abbreviateCurrency } from "@/src/helpers/abbreviate-currency";
+import { roboto } from "@/src/styles/fonts";
+import { capitalizeFirstLetter } from "@/src/helpers/capitalize-first-letter";
 
 export type PieChartProps = {
   expenses: Expense[];
@@ -38,8 +41,9 @@ export const TotalLineChart = ({
     options: {
       title: {
         text: dict.insights.totalIncomeExpensesSavings,
-        fontSize: 20,
-        fontWeight: "bold",
+        color: "#6b7280",
+        fontSize: 18,
+        fontFamily: "Roboto",
       },
       data,
       series: [
@@ -88,7 +92,8 @@ export const TotalLineChart = ({
           type: "number",
           position: "left",
           label: {
-            formatter: ({ value }) => `${currency.symbol}${value.toFixed(2)}`,
+            formatter: ({ value }) =>
+              abbreviateCurrency(value, currency.symbol),
           },
           min: 0,
         },
@@ -109,85 +114,92 @@ export const TotalLineChart = ({
     <>
       {/* main chart */}
       {/* <div className="font-bold text-2xl">Total (Ingresos, Gastos, Ahorro)</div> */}
-      <AgCharts options={props.options} />
-
-      <div className="font-bold text-2xl my-6">
+      <div className="p-5 rounded-sm shadow-sm bg-white">
+        <AgCharts options={props.options} />
+      </div>
+      <div className="font-bold text-gray-600 text-lg my-6 uppercase">
         {dict.insights.expensesByCategory}
       </div>
 
-      {/* categories charts */}
-      {Object.keys(groupedExpenses).map((categoryName) => {
-        const data = getChartDataForCategory(groupedExpenses, categoryName);
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {/* categories charts */}
+        {Object.keys(groupedExpenses).map((categoryName) => {
+          const data = getChartDataForCategory(groupedExpenses, categoryName);
 
-        // Prepare the series for the category and each subcategory, assigning a unique color for each
-        const series = [
-          {
-            type: "line",
-            xKey: "monthYear",
-            xName: "Mes",
-            yKey: "category",
-            yName: categoryName,
-            interpolation: { type: "linear" },
-            stroke: "red", // Main category line in black
-            marker: {
-              fill: "red",
-              stroke: "red",
-            },
-          },
-          ...Object.keys(groupedExpenses[categoryName].subcategories).map(
-            (subcategory, index) => ({
+          // Prepare the series for the category and each subcategory, assigning a unique color for each
+          const series = [
+            {
               type: "line",
               xKey: "monthYear",
               xName: "Mes",
-              yKey: subcategory,
-              yName: subcategory,
+              yKey: "category",
+              yName: categoryName,
               interpolation: { type: "linear" },
-              stroke: colors[index % colors.length],
+              stroke: "red", // Main category line in black
               marker: {
-                fill: colors[index % colors.length],
-                stroke: colors[index % colors.length],
+                fill: "red",
+                stroke: "red",
               },
-            })
-          ),
-        ];
+            },
+            ...Object.keys(groupedExpenses[categoryName].subcategories).map(
+              (subcategory, index) => ({
+                type: "line",
+                xKey: "monthYear",
+                xName: "Mes",
+                yKey: subcategory,
+                yName: subcategory,
+                interpolation: { type: "linear" },
+                stroke: colors[index % colors.length],
+                marker: {
+                  fill: colors[index % colors.length],
+                  stroke: colors[index % colors.length],
+                },
+              })
+            ),
+          ];
 
-        return (
-          <div key={categoryName} className="py-6">
-            <AgCharts
-              options={
-                {
-                  title: {
-                    text: `${categoryName}`,
-                    fontSize: 20,
-                  },
-                  data,
-                  series,
-                  axes: [
-                    {
-                      type: "number",
-                      position: "left",
-                      label: {
-                        formatter: ({ value }) =>
-                          `${currency.symbol}${value.toFixed(2)}`,
+          return (
+            <div
+              key={categoryName}
+              className="p-5 rounded-sm shadow-sm bg-white w-full "
+            >
+              <AgCharts
+                options={
+                  {
+                    title: {
+                      text: capitalizeFirstLetter(`${categoryName}`),
+                      color: "#6b7280",
+                      fontFamily: "Roboto",
+                    },
+                    data,
+                    series,
+                    axes: [
+                      {
+                        type: "number",
+                        position: "left",
+                        label: {
+                          formatter: ({ value }) =>
+                            abbreviateCurrency(value, currency.symbol),
+                        },
+                        min: 0,
                       },
-                      min: 0,
+                      {
+                        type: "category",
+                        position: "bottom",
+                      },
+                    ],
+                    height: 450,
+                    padding: {
+                      right: 0,
+                      left: 0,
                     },
-                    {
-                      type: "category",
-                      position: "bottom",
-                    },
-                  ],
-                  height: 450,
-                  padding: {
-                    right: 0,
-                    left: 0,
-                  },
-                } as AgChartProps["options"]
-              }
-            />
-          </div>
-        );
-      })}
+                  } as AgChartProps["options"]
+                }
+              />
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 };

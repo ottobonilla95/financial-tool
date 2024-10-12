@@ -9,6 +9,8 @@ export type AppDictionary = {
     totalIncome: string;
     totalExpenses: string;
     balance: string;
+    byEmotion: string;
+    bySatisfaction: string;
   };
   forms: {
     expense: {

@@ -19,8 +19,8 @@ export default async function Layout({
       <div className="w-full flex-none md:w-64">
         <SideNav dict={dict} />
       </div>
-      <div className="flex-grow md:overflow-y-auto">
-        <div className="p-6 md:p-12">{children}</div>
+      <div className="flex-grow md:overflow-y-auto bg-gray-50">
+        <div>{children}</div>
       </div>
     </div>
   );

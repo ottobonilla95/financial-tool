@@ -33,36 +33,38 @@ export default async function AccountPage({
   })) as User;
 
   return (
-    <div className="mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">{dict.accountPage.title}</h1>
+    <div className="p-2 md:p-5">
+      <div className="rounded-sm shadow-sm bg-white p-5">
+        <h1 className="text-2xl font-bold mb-4">{dict.accountPage.title}</h1>
 
-      <div className="mb-8">
-        <div>
-          <p>
-            <strong>{`${dict.shared.name}:`}</strong> {user.name}
-          </p>
-        </div>
-
-        <div>
-          <p>
-            <strong>{`${dict.shared.email}:`}</strong> {user.email}
-          </p>
-        </div>
-        <div>
-          <p>
-            <strong>{`${dict.shared.currency}:`}</strong> (
-            {user.currency?.symbol}){user.currency?.name}
-          </p>
-        </div>
-
-        <div className="flex justify-between items-center py-1">
-          <p>
-            <strong>{`${dict.shared.password}:`}</strong> ********
-          </p>
+        <div className="mb-8">
           <div>
-            <Button href="/dashboard/account/change-password">
-              {`${dict.accountPage.changePassword}`}
-            </Button>
+            <p>
+              <strong>{`${dict.shared.name}:`}</strong> {user.name}
+            </p>
+          </div>
+
+          <div>
+            <p>
+              <strong>{`${dict.shared.email}:`}</strong> {user.email}
+            </p>
+          </div>
+          <div>
+            <p>
+              <strong>{`${dict.shared.currency}:`}</strong> (
+              {user.currency?.symbol}){user.currency?.name}
+            </p>
+          </div>
+
+          <div className="flex justify-between items-center py-1">
+            <p>
+              <strong>{`${dict.shared.password}:`}</strong> ********
+            </p>
+            <div>
+              <Button href="/dashboard/account/change-password">
+                {`${dict.accountPage.changePassword}`}
+              </Button>
+            </div>
           </div>
         </div>
       </div>

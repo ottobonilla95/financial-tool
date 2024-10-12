@@ -43,16 +43,16 @@ export const DashboardDatePicker = () => {
   return (
     <div className="flex justify-center items-center">
       <div className="w-10">
-        <Button href={handlePrevMonth()}>
+        <Button href={handlePrevMonth()} className="bg-white">
           <ArrowLeftIcon className="w-4" />
         </Button>
       </div>
-      <div className="flex items-center font-medium mx-3 text-xl justify-center">
+      <div className="flex items-center font-bold mx-3 text-l,g justify-center text-gray-600">
         {format(currentDate, "MMMM yyyy")}
       </div>
 
       <div className="w-10">
-        <Button href={handleNextMonth()} isDisabled={isNextDisabled}>
+        <Button href={handleNextMonth()} isDisabled={isNextDisabled} className="bg-white">
           <ArrowRightIcon className="w-4" />
         </Button>
       </div>
