@@ -54,7 +54,7 @@ export default async function Page({ params: { lang } }: InsightsPageProps) {
 
   return (
     <AppProvider currency={currency as Currency}>
-      <main className="p-6 md:p-10">
+      <main className="p-4 md:p-10">
         {expenses.length === 0 && expenses.length === 0 && (
           <NoExpensesAdded dict={dict} />
         )}
