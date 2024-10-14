@@ -130,22 +130,25 @@ export default async function Page({
                 dict={dict}
               />
 
-              <div className="flex gap-4 flex-col lg:flex-row">
-                <div className="flex-1">
-                  <DashboardExpeneseByEmotion expenses={expenses} dict={dict} />
-                  <DashboardExpeneseBySatisfaction
-                    expenses={expenses}
-                    dict={dict}
-                  />
-                </div>
-                <div className="flex-1">
-                  {expenses.length > 0 && (
+              {expenses.length > 0 && (
+                <div className="flex gap-4 flex-col lg:flex-row">
+                  <div className="flex-1">
+                    <DashboardExpeneseByEmotion
+                      expenses={expenses}
+                      dict={dict}
+                    />
+                    <DashboardExpeneseBySatisfaction
+                      expenses={expenses}
+                      dict={dict}
+                    />
+                  </div>
+                  <div className="flex-1">
                     <div className="w-full ">
                       <ExpensesPieChart expenses={expenses} />
                     </div>
-                  )}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {savings.length > 0 && (
                 <div>
