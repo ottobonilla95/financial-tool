@@ -18,7 +18,7 @@ export const SubmitButton = ({ text }: SubmitButtonProps) => {
   }
 
   return (
-    <Button type="submit" disabled={pending}>
+    <Button type="submit" disabled={pending} className="bg-black text-white">
       {text}
     </Button>
   );

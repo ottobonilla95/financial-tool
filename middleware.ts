@@ -5,6 +5,17 @@ import { authRoutes, DEFAULT_LOGIN_REDIRECT, publicRoutes } from "./routes";
 
 let locales = ["en", "es"];
 
+function getUserPreferredLocale(request: NextRequest) {
+  // Check for the user's saved language in the request (e.g., via cookies or tokens)
+  const userPreferredLocale = request.cookies.get("preferredLocale")?.value;
+
+  if (userPreferredLocale && locales.includes(userPreferredLocale)) {
+    return userPreferredLocale;
+  }
+
+  return null;
+}
+
 function removeFirstPartOfUrl(url: string) {
   const parts = url.split("/");
   parts.splice(1, 1);
@@ -47,7 +58,11 @@ const { auth } = NextAuth(authConfig);
 export default auth(async function middleware(request: NextRequest) {
   const { nextUrl } = request;
 
-  const locale = getLocale(request);
+  // 1. Check if user has a preferred locale
+  const userPreferredLocale = getUserPreferredLocale(request);
+
+  // 2. Fallback to browser locale if no preference is set
+  const locale = userPreferredLocale || getLocale(request);
 
   const pathnameHasLocale = locales.some(
     (locale) =>

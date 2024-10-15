@@ -5,9 +5,10 @@ import { fetchEarnings } from "@/src/data/earning";
 import { fetchSavings } from "@/src/data/saving";
 import { getDBUser } from "@/src/data/user";
 import { Currency } from "@/src/types";
-import { NoExpensesAdded } from "@/src/ui/dashboard";
-import { TotalLineChart } from "@/src/ui/insights";
+import { NoExpensesAdded, LastUpdated } from "@/src/ui/financial-app/dashboard";
+import { TotalLineChart } from "@/src/ui/financial-app/insights";
 import { AvailableLanguages, getDictionary } from "@/src/translations";
+import { Suspense } from "react";
 
 export type InsightsPageProps = {
   params: { lang: AvailableLanguages };
@@ -54,19 +55,24 @@ export default async function Page({ params: { lang } }: InsightsPageProps) {
 
   return (
     <AppProvider currency={currency as Currency}>
-      <main className="p-4 md:p-10">
-        {expenses.length === 0 && expenses.length === 0 && (
-          <NoExpensesAdded dict={dict} />
-        )}
-        {expenses.length > 0 && (
-          <TotalLineChart
-            expenses={expenses}
-            earnings={earnings}
-            savings={savings}
-            currency={currency as Currency}
-            dict={dict}
-          />
-        )}
+      <main>
+        <Suspense fallback={<div>loading...</div>}>
+          <LastUpdated dict={dict} />
+        </Suspense>
+        <div className="p-4 md:p-10">
+          {expenses.length === 0 && expenses.length === 0 && (
+            <NoExpensesAdded dict={dict} />
+          )}
+          {expenses.length > 0 && (
+            <TotalLineChart
+              expenses={expenses}
+              earnings={earnings}
+              savings={savings}
+              currency={currency as Currency}
+              dict={dict}
+            />
+          )}
+        </div>
       </main>
     </AppProvider>
   );

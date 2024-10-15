@@ -12,7 +12,7 @@ import {
   SavingTableContainer,
   DashboardExpeneseByEmotion,
   DashboardExpeneseBySatisfaction,
-} from "@/src/ui/dashboard";
+} from "@/src/ui/financial-app/dashboard";
 import { Suspense } from "react";
 import { fetchEarnings } from "@/src/data/earning";
 import { getAllEmotions } from "@/src/data/emotion";
@@ -24,8 +24,8 @@ import { endOfMonth, startOfMonth } from "date-fns";
 import { getDictionary, AvailableLanguages } from "@/src/translations";
 import { IntlProvider } from "@/src/translations/provider";
 import { Spinner } from "@/src/ui/components";
-import TourProvider from "@/src/ui/tour/provider";
-import TourInitiator from "@/src/ui/tour/tour-initiator";
+import TourProvider from "@/src/ui/financial-app/tour/provider";
+import TourInitiator from "@/src/ui/financial-app/tour/tour-initiator";
 
 export type DashboardPageProps = {
   searchParams: {

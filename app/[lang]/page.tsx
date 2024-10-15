@@ -8,10 +8,10 @@ import {
   KeyFeatures,
   HowItWorks,
   Testimonials,
-  Pricing,
   AppScreenshots,
-} from "@/src/ui/home-page";
+} from "@/src/ui/financial-app/home-page";
 import FAQs from "@/src/ui/faqs/faqs";
+import { LanguagePicker } from "@/src/ui/language-picker";
 
 export type MainPageProps = {
   params: { lang: AvailableLanguages };
@@ -23,10 +23,15 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
   return (
     <>
       <main className="flex min-h-screen flex-col">
-        <div className="flex h-[120px] shrink-0 items-center bg-black p-4 md:h-[200px] sm:pl-10">
-          <Link href="/">
-            <AppLogo />
-          </Link>
+        <div className="flex h-[120px] shrink-0 items-center bg-black p-4 md:h-[200px] sm:px-10">
+          <div className="flex-1">
+            <Link href="/">
+              <AppLogo />
+            </Link>
+          </div>
+          <div>
+            <LanguagePicker currentLocale={lang} />
+          </div>
         </div>
         <div className="mt-4 flex grow flex-col gap-4 md:flex-row">
           <div className="flex flex-col justify-center gap-6 rounded-lg bg-gray-50 px-6 py-10 md:w-2/5 md:px-20">
@@ -53,14 +58,14 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
           </div>
           <div className="flex items-center justify-center p-6 md:w-3/5 md:px-28 md:py-12">
             <Image
-              src="/hero-desktop.png"
+              src={`/images/home-page/${lang}/hero-desktop.png`}
               width={1000}
               height={760}
               className="hidden md:block"
               alt="Screenshots of the dashboard project showing desktop version"
             />
             <Image
-              src="/hero-mobile.png"
+              src={`/images/home-page/${lang}/hero-mobile.png`}
               width={560}
               height={620}
               className="block md:hidden"

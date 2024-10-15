@@ -26,7 +26,7 @@ export const Button = ({
     "flex w-full text-sm h-10 px-3 items-center justify-center rounded-md border aria-disabled:cursor-not-allowed aria-disabled:opacity-50 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
     {
       "pointer-events-none text-gray-300 bg-gray-100": isDisabled,
-      "hover:bg-gray-100": !isDisabled,
+      "hover:opacity-50": !isDisabled,
     },
     inputClassname
   );

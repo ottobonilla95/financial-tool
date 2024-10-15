@@ -1,5 +1,5 @@
 import { AvailableLanguages, getDictionary } from "@/src/translations";
-import SideNav from "@/src/ui/dashboard/sidenav";
+import SideNav from "@/src/ui/financial-app/dashboard/sidenav";
 
 export const experimental_ppr = true;
 

@@ -1,0 +1,165 @@
+"use client";
+import { EarningCategory, Earning } from "@/src/types";
+import clsx from "clsx";
+import { format } from "date-fns";
+import { DeleteIncomeForm } from "../income/delete-form";
+import { TrashIcon, PencilIcon } from "@heroicons/react/24/outline";
+import { Button, Price } from "../../components";
+import { useState } from "react";
+import { UpdateCategoryForm } from "../income-categories";
+import { AppDictionary } from "@/src/translations";
+
+export type IncomeTableProps = {
+  categoryName: string;
+  subcategories: {
+    [subcategoryName: string]: Earning[];
+  };
+  dict: AppDictionary;
+};
+
+const calculateSubcategoryTotal = (incomes: Earning[]) => {
+  return incomes.reduce((acc, income) => acc + income.amount, 0);
+};
+const calculateTotal = (subcategories: {
+  [subcategoryName: string]: Earning[];
+}) => {
+  return Object.values(subcategories).reduce(
+    (acc, incomes) => acc + calculateSubcategoryTotal(incomes),
+    0
+  );
+};
+
+const getCategory = (subcategories: {
+  [subcategoryName: string]: Earning[];
+}): EarningCategory => {
+  for (const incomeArray of Object.values(subcategories)) {
+    const income = incomeArray[0];
+
+    return income.category;
+  }
+
+  return {} as EarningCategory;
+};
+
+export const IncomeTable = ({
+  categoryName,
+  subcategories,
+  dict,
+}: IncomeTableProps) => {
+  const getCategoryColor = (subcategories: {
+    [subcategoryName: string]: Earning[];
+  }): string => {
+    for (const incomeArray of Object.values(subcategories)) {
+      const income = incomeArray[0];
+
+      return income.category.color;
+    }
+
+    return "#FFFFFF";
+  };
+  const color = getCategoryColor(subcategories);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [incomeIdToDelete, setIncomeIdToDelete] = useState<string>();
+
+  const [isUpdateCategoryModalOpen, setIsUpdateCategoryModalOpen] =
+    useState(false);
+  const [categoryToUpdate, setCategoryToUpdate] = useState<
+    Partial<EarningCategory>
+  >({});
+
+  return (
+    <>
+      <DeleteIncomeForm
+        isOpen={isDeleteModalOpen}
+        closeModal={() => setIsDeleteModalOpen(false)}
+        incomeId={incomeIdToDelete as string}
+      />
+
+      {isUpdateCategoryModalOpen && (
+        <UpdateCategoryForm
+          category={categoryToUpdate as EarningCategory}
+          closeModal={() => setIsUpdateCategoryModalOpen(false)}
+          isOpen
+        />
+      )}
+
+      <div className="shadow-sm rounded-sm bg-white">
+        <div
+          style={{
+            backgroundColor: color,
+          }}
+          className="h-[4px] rounded-t-sm"
+        />
+        <div className="flex items-center justify-between pt-4 px-4">
+          <h2 className="font-bold text-lg uppercase text-gray-600">
+            {categoryName}
+          </h2>
+
+          <Button
+            onClick={() => {
+              setIsUpdateCategoryModalOpen(true);
+              setCategoryToUpdate(getCategory(subcategories));
+            }}
+            className="!w-10"
+          >
+            <PencilIcon className="w-4" />
+          </Button>
+        </div>
+        {Object.entries(subcategories).map(
+          ([subcategoryName, incomeArray], index) => (
+            <div
+              key={subcategoryName}
+              className={clsx("mb-2", {
+                "mb-0": index === Object.entries(subcategories).length - 1,
+              })}
+            >
+              <h3 className="text-base text-gray-600 py-2 px-4">
+                {subcategoryName}
+              </h3>
+              {incomeArray.map((income) => (
+                <div key={income.id} className="grid grid-cols-4 py-2 px-4">
+                  <div className="font-medium flex items-center text-gray-500">
+                    {income.description}
+                  </div>
+
+                  <div className="flex items-center justify-center text-gray-500">
+                    {format(income.date, "EEE dd")}
+                  </div>
+                  <div className="flex items-center justify-end">
+                    <Price amount={income.amount} className="text-gray-500" />
+                  </div>
+
+                  <div className="flex items-center justify-end">
+                    <Button
+                      onClick={() => {
+                        setIsDeleteModalOpen(true);
+                        setIncomeIdToDelete(income.id);
+                      }}
+                      className="!w-10"
+                    >
+                      <TrashIcon className="w-4" />
+                    </Button>
+                  </div>
+                </div>
+              ))}
+              <div className="flex justify-between py-2 px-4">
+                <div className="font-bold text-gray-600">
+                  {dict.shared.total}
+                </div>
+                <div className="font-bold text-gray-600">
+                  <Price amount={calculateSubcategoryTotal(incomeArray)} />
+                </div>
+              </div>
+            </div>
+          )
+        )}
+        <div className="flex justify-between pb-4 px-4 rounded">
+          <div className="font-bold text-gray-600">{dict.shared.total}</div>
+          <div className="font-bold text-gray-600">
+            <Price amount={calculateTotal(subcategories)} />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};

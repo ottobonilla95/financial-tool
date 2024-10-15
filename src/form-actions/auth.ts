@@ -175,6 +175,7 @@ export async function createUser(
       name,
       password: hashedPassword,
       currencyId,
+      lang,
     });
 
     await signIn("credentials", { email, password });

@@ -1,4 +1,5 @@
 import { AppDictionary } from "@/src/translations";
+import Link from "next/link";
 import React from "react";
 
 export type FooterProps = {
@@ -25,30 +26,33 @@ export const Footer = ({ dict }: FooterProps) => {
             </h3>
             <ul>
               <li className="mb-2">
-                <a href="/" className="text-gray-400 hover:text-white">
+                <Link href="/" className="text-gray-400 hover:text-white">
                   {dict.footer.home}
-                </a>
+                </Link>
               </li>
               <li className="mb-2">
-                <a href="/about-us" className="text-gray-400 hover:text-white">
+                <Link
+                  href="/about-us"
+                  className="text-gray-400 hover:text-white"
+                >
                   {dict.footer.aboutUs}
-                </a>
+                </Link>
               </li>
               <li className="mb-2">
-                <a
+                <Link
                   href="/contact-us"
                   className="text-gray-400 hover:text-white"
                 >
                   {dict.footer.contactUs}
-                </a>
+                </Link>
               </li>
               <li className="mb-2">
-                <a
+                <Link
                   href="/privacy-policy"
                   className="text-gray-400 hover:text-white"
                 >
                   {dict.footer.privacyPolicy}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

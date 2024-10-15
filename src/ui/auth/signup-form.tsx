@@ -12,7 +12,7 @@ import { Button, Dropdown } from "@/src/ui/components";
 import { useActionState, useState } from "react";
 import { createUser, CreateUserFormState } from "@/src/form-actions/auth";
 import { Currency } from "@/src/types";
-import { AppDictionary } from "@/src/translations";
+import { AppDictionary, AvailableLanguages } from "@/src/translations";
 import { useTranslations } from "@/src/translations/use-translations";
 
 export type SignupFormPropd = {
