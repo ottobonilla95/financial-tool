@@ -23,6 +23,8 @@ export default async function AccountPage({
     select: {
       name: true,
       email: true,
+      subscription_plan: true,
+      subscription_cancel_at: true,
       currency: {
         select: {
           name: true,
@@ -31,6 +33,25 @@ export default async function AccountPage({
       },
     },
   })) as User;
+
+  const stripeCustomerPortalLink = `${process.env.STRIPE_CUSTOMER_PORTAL_URL}?prefilled_email=${user.email}`;
+
+  let cancelDateString;
+
+  if (user.subscriptionCancelAt) {
+    const cancelDate = new Date(user.subscriptionCancelAt * 1000);
+
+    const formattedDate = cancelDate.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+
+    cancelDateString = formattedDate;
+  }
 
   return (
     <div className="p-2 md:p-5">
@@ -63,6 +84,21 @@ export default async function AccountPage({
             <div>
               <Button href="/dashboard/account/change-password">
                 {`${dict.accountPage.changePassword}`}
+              </Button>
+            </div>
+          </div>
+
+          <div className="flex justify-between items-center py-1">
+            <p>
+              <strong>{`${"Plan"}:`}</strong>
+              <span className="ml-1 mr-1">{user.subscriptionPlan}</span>
+              {cancelDateString && (
+                <span>{`(Finishes at: ${cancelDateString})`}</span>
+              )}
+            </p>
+            <div>
+              <Button href={stripeCustomerPortalLink} target="_blank">
+                {`${"Manage subscription"}`}
               </Button>
             </div>
           </div>

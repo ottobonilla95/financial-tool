@@ -12,18 +12,23 @@ import { Button, Dropdown } from "@/src/ui/components";
 import { useActionState, useState } from "react";
 import { createUser, CreateUserFormState } from "@/src/form-actions/auth";
 import { Currency } from "@/src/types";
-import { AppDictionary, AvailableLanguages } from "@/src/translations";
+import { AppDictionary } from "@/src/translations";
 import { useTranslations } from "@/src/translations/use-translations";
+import { SubscriptionPlan, pricingPlans } from "../financial-app/pricing";
 
 export type SignupFormPropd = {
   currencies: Currency[];
   dict: AppDictionary;
+  plan: SubscriptionPlan;
 };
-export const SignupForm = ({ currencies, dict }: SignupFormPropd) => {
+export const SignupForm = ({ currencies, dict, plan }: SignupFormPropd) => {
   const initialState: CreateUserFormState = { message: {}, errors: {} };
+  const paymentLink = pricingPlans.find(
+    (p) => p.planName === plan
+  )?.paymentLink;
 
   const { lang } = useTranslations();
-  const createUserAction = createUser.bind(null, lang);
+  const createUserAction = createUser.bind(null, lang, plan, paymentLink);
 
   const [state, formAction, isPending] = useActionState(
     createUserAction,

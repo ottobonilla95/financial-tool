@@ -12,6 +12,7 @@ import {
   AvailableLanguages,
   getDictionary,
 } from "../translations";
+import { SubscriptionPlan } from "../ui/financial-app/pricing";
 
 export type AuthFormState = {
   errors?: {
@@ -125,12 +126,15 @@ export async function authenticate(
 
 export async function createUser(
   lang: AvailableLanguages,
+  plan: SubscriptionPlan,
+  paymentLink: string | undefined,
   prevState: CreateUserFormState,
   formData: FormData
 ) {
   const dict = await getDictionary(lang);
 
   const CreateUser = createSchema(dict);
+  const isFreePlan = plan === "free";
 
   const validatedFields = CreateUser.safeParse({
     name: formData.get("name"),
@@ -152,6 +156,7 @@ export async function createUser(
 
   // Prepare data for insertion into the database
   const { name, password, email, currencyId } = validatedFields.data;
+  let userCreatedId: string;
 
   try {
     const user = await getDBUser({
@@ -170,7 +175,7 @@ export async function createUser(
     }
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await createDbUser({
+    const userCreted = await createDbUser({
       email,
       name,
       password: hashedPassword,
@@ -178,11 +183,24 @@ export async function createUser(
       lang,
     });
 
-    await signIn("credentials", { email, password });
+    userCreatedId = userCreted.id;
+
+    const returnUrl = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
   } catch (error) {
     throw error;
   }
-  redirect("/dashboard");
+
+  if (isFreePlan) {
+    redirect("/dashboard");
+  } else {
+    const paymentUrl = `${paymentLink}?client_reference_id=${userCreatedId}&prefilled_email=${email}&locale=${lang}`;
+
+    redirect(paymentUrl);
+  }
 }
 
 export async function updatePassword(

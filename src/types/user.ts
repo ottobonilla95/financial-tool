@@ -8,4 +8,6 @@ export type User = {
   password?: string;
   currency?: Currency;
   tourFinished?: boolean;
+  subscriptionPlan?: string;
+  subscriptionCancelAt?: number;
 };

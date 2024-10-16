@@ -2,13 +2,14 @@ import AppLogo from "@/src/ui/app-logo";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import Image from "next/image";
-import { Footer } from "@/src/ui/components";
+import { Footer, Header } from "@/src/ui/components";
 import { AvailableLanguages, getDictionary } from "@/src/translations";
 import {
   KeyFeatures,
   HowItWorks,
   Testimonials,
   AppScreenshots,
+  Pricing,
 } from "@/src/ui/financial-app/home-page";
 import FAQs from "@/src/ui/faqs/faqs";
 import { LanguagePicker } from "@/src/ui/language-picker";
@@ -23,16 +24,8 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
   return (
     <>
       <main className="flex min-h-screen flex-col">
-        <div className="flex h-[120px] shrink-0 items-center bg-black p-4 md:h-[200px] sm:px-10">
-          <div className="flex-1">
-            <Link href="/">
-              <AppLogo />
-            </Link>
-          </div>
-          <div>
-            <LanguagePicker currentLocale={lang} />
-          </div>
-        </div>
+        <Header lang={lang} />
+
         <div className="mt-4 flex grow flex-col gap-4 md:flex-row">
           <div className="flex flex-col justify-center gap-6 rounded-lg bg-gray-50 px-6 py-10 md:w-2/5 md:px-20">
             <p
@@ -49,7 +42,7 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
               <ArrowRightIcon className="w-5 md:w-6" />
             </Link>
             <Link
-              href="/signup"
+              href="/pricing"
               className="flex items-center gap-5 self-start rounded-lg px-6 py-3 text-sm font-medium transition-colors hover:opacity-70 md:text-base"
             >
               <span>{dict.authPages.createAccount}</span>
@@ -76,8 +69,11 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
         <KeyFeatures dict={dict} />
         <HowItWorks dict={dict} />
         <AppScreenshots dict={dict} />
-        {/* <Pricing /> */}
         <Testimonials dict={dict} />
+        <div className="py-10">
+          <h2 className="text-4xl font-bold mb-10 text-center">Pricing</h2>
+          <Pricing />
+        </div>
         <FAQs dict={dict} />
       </main>
       <Footer dict={dict} />

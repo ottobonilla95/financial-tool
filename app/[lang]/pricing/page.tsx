@@ -1,9 +1,9 @@
 import { AvailableLanguages, getDictionary } from "@/src/translations";
 import AppLogo from "@/src/ui/app-logo";
-import { Metadata } from "next";
 import { Footer, Header } from "@/src/ui/components";
-import { EnPrivacyPolicy } from "@/src/ui/policies/en/privacy-policy";
-import { EsPrivacyPolicy } from "@/src/ui/policies/es/privacy-policy";
+import { Pricing } from "@/src/ui/financial-app/home-page";
+import { LanguagePicker } from "@/src/ui/language-picker";
+import { Metadata } from "next";
 import Link from "next/link";
 
 export async function generateMetadata({
@@ -14,27 +14,27 @@ export async function generateMetadata({
   const dict = await getDictionary(params.lang);
 
   return {
-    title: dict.privacyPolicyPage.meta.title,
-    description: dict.privacyPolicyPage.meta.description,
+    title: dict.aboutUsPage.meta.title,
+    description: dict.aboutUsPage.meta.description,
   };
 }
 
-export type PrivacyPolicyPageProps = {
+export type AboutUsPageProps = {
   params: { lang: AvailableLanguages };
 };
-
-export default async function PrivacyPolicyPage({
+export default async function AboutUsPage({
   params: { lang },
-}: PrivacyPolicyPageProps) {
+}: AboutUsPageProps) {
   const dict = await getDictionary(lang);
-  const policies = { es: EsPrivacyPolicy, en: EnPrivacyPolicy };
-  const Policy = policies[lang];
 
   return (
     <>
       <main className="flex min-h-screen flex-col">
         <Header lang={lang} />
-        <Policy />
+        <h2 className="text-4xl font-bold mb-10 text-center pt-16">
+          Choose Your Plan
+        </h2>
+        <Pricing />
       </main>
       <Footer dict={dict} />
     </>

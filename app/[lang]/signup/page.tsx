@@ -3,14 +3,17 @@ import { AvailableLanguages, getDictionary } from "@/src/translations";
 import { IntlProvider } from "@/src/translations/provider";
 import AppLogo from "@/src/ui/app-logo";
 import { SignupForm } from "@/src/ui/auth";
+import { SubscriptionPlan } from "@/src/ui/financial-app/pricing";
 import Link from "next/link";
 
 export type SignupPageProps = {
   params: { lang: AvailableLanguages };
+  searchParams: { plan: string };
 };
 
 export default async function SignupPage({
   params: { lang },
+  searchParams: { plan },
 }: SignupPageProps) {
   const dict = await getDictionary(lang);
 
@@ -27,7 +30,11 @@ export default async function SignupPage({
               </Link>
             </div>
           </div>
-          <SignupForm currencies={currencies} dict={dict} />
+          <SignupForm
+            currencies={currencies}
+            dict={dict}
+            plan={plan as SubscriptionPlan}
+          />
         </div>
       </main>
     </IntlProvider>

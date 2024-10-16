@@ -11,6 +11,8 @@ export type Data = {
   password: string;
   currency?: Currency;
   tour_finished?: boolean;
+  subscription_plan?: string;
+  subscription_cancel_at?: number;
 };
 
 type GetUserDataProps = {
@@ -44,5 +46,7 @@ export const mapUser = (user: Data): User => {
     password: user.password,
     currency: user.currency,
     tourFinished: user.tour_finished,
+    subscriptionPlan: user.subscription_plan,
+    subscriptionCancelAt: user.subscription_cancel_at,
   };
 };

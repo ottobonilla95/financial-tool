@@ -87,7 +87,7 @@ export const LoginForm = ({ dict }: LoginFormProps) => {
             aria-disabled={isPending}
             icon={<ArrowRightIcon className="h-5 w-5" />}
             iconPosition="right"
-            href="/signup"
+            href="/pricing"
           >
             {dict.authPages.createAccount}
           </Button>

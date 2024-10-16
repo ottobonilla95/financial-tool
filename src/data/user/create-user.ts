@@ -18,7 +18,7 @@ export async function createDbUser({
   lang,
 }: UserToCreate) {
   try {
-    await prisma.users.create({
+    const user = await prisma.users.create({
       data: {
         name,
         email,
@@ -28,6 +28,7 @@ export async function createDbUser({
         lang,
       },
     });
+    return user;
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to create expense.");

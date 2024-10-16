@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { Spinner } from "./icons";
+import { HTMLAttributeAnchorTarget } from "react";
 
 export type ButtonProps = {
   href?: string;
@@ -10,6 +11,7 @@ export type ButtonProps = {
   iconPosition?: "left" | "right";
   className?: string;
   loading?: boolean;
+  target?: HTMLAttributeAnchorTarget;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = ({
@@ -20,6 +22,7 @@ export const Button = ({
   iconPosition = "left",
   className: inputClassname,
   loading,
+  target,
   ...rest
 }: ButtonProps) => {
   const className = clsx(
@@ -46,7 +49,7 @@ export const Button = ({
   }
   if (href) {
     return (
-      <Link className={className} href={href}>
+      <Link className={className} href={href} target={target}>
         {content}
       </Link>
     );
