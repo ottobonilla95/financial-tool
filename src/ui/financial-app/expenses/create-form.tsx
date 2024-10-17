@@ -6,11 +6,11 @@ import {
   FaceFrownIcon,
 } from "@heroicons/react/24/outline";
 import { createExpense, ExpenseFormState } from "@/src/form-actions/expenses";
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useContext, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { Emotion, ExpenseCategory } from "@/src/types";
 import { toast, TypeOptions } from "react-toastify";
-import { Dropdown, Modal, Spinner } from "../../components";
+import { Button, Dropdown, Modal, Spinner } from "../../components";
 import {
   CreateCategoryForm,
   CreateSubCategoryForm,
@@ -21,6 +21,8 @@ import { CancelButton, SubmitButton } from "../../forms";
 import clsx from "clsx";
 import { formatDateToLocal } from "@/src/helpers/format-date-to-local";
 import { useTranslations } from "@/src/translations/use-translations";
+import { MAX_CATEGORIES_FREE_PLAN } from "@/src/constants/categories";
+import { AppContext } from "@/src/app-wrappper/provider";
 
 export type CreateExpenseFormProps = {
   closeModal: () => void;
@@ -36,6 +38,9 @@ export const CreateExpenseForm = ({
   const { dict, lang } = useTranslations();
 
   const createExpenseAction = createExpense.bind(null, lang);
+
+  const { subscriptionDetails } = useContext(AppContext);
+  const isPremium = subscriptionDetails?.isPremium;
 
   const initialState: ExpenseFormState = { message: {}, errors: {} };
   const [state, formAction, loading] = useActionState(
@@ -54,6 +59,7 @@ export const CreateExpenseForm = ({
   const [isSubCategoryFormOpen, setIsSubCategoryFormOpen] = useState(false);
   const [selectedSatisfaction, setSelectedSatisfaction] = useState(3);
   const [selectedEmotion, setSelectedEmotion] = useState(9);
+  const [shoMaxCategoriesAdded, setShowMaxCategoriesAdded] = useState(false);
 
   const {
     data,
@@ -78,8 +84,58 @@ export const CreateExpenseForm = ({
     }
   }, [state]);
 
+  const categoriesCount = categories.length;
+
+  const onAddNewCategoryPressed = () => {
+    if (categoriesCount < MAX_CATEGORIES_FREE_PLAN) {
+      setIsCategoryFormOpen(true);
+    } else {
+      setShowMaxCategoriesAdded(true);
+    }
+  };
+
   return (
     <>
+      <Modal
+        isOpen={shoMaxCategoriesAdded}
+        className="p-10"
+        modalClassName="sm:max-w-[400px]"
+        zIndex={60}
+      >
+        <form action={formAction}>
+          <div className="font-bold text-lg mb-2">
+            {
+              dict.shared?.subscriptionMessages
+                .youHaveReaachedYourCategoryLimitTitle
+            }
+          </div>
+          <div className="mb-5">
+            {dict.shared?.subscriptionMessages.youHaveReaachedYourCategoryLimit}
+          </div>
+          <div className="flex gap-4">
+            <Button onClick={() => setShowMaxCategoriesAdded(false)}>
+              {dict.shared?.close}
+            </Button>
+
+            <div className="w-full">
+              {subscriptionDetails?.isUserOnStripe ? (
+                <Button
+                  href={subscriptionDetails.stripeCustomerPortalLink}
+                  target="_blank"
+                  className="text-white bg-black"
+                >
+                  {`${dict.shared?.manageSubscription}`}
+                </Button>
+              ) : (
+                <Button
+                  href="/dashboard/pricing"
+                  className="text-white bg-black"
+                >{`${dict.shared?.goPremium}`}</Button>
+              )}
+            </div>
+          </div>
+        </form>
+      </Modal>
       <CreateCategoryForm
         isOpen={isCategoryFormOpen}
         closeModal={() => setIsCategoryFormOpen(false)}
@@ -133,7 +189,7 @@ export const CreateExpenseForm = ({
                           )?.subcategories || []
                         );
                       }}
-                      onAddNewClick={() => setIsCategoryFormOpen(true)}
+                      onAddNewClick={() => onAddNewCategoryPressed()}
                       disabled={loading}
                     />
                     <input
@@ -300,160 +356,230 @@ export const CreateExpenseForm = ({
                 </div>
 
                 {/* plenitud */}
-                <fieldset>
-                  <legend className="mb-2 block text-sm font-medium">
-                    {dict.forms?.expense.create.levelOfSatisfaction}
-                  </legend>
-                  <div className="rounded-md border border-gray-200 bg-white px-3 py-3">
-                    <div className="flex gap-4 flex-col">
-                      <div className="flex items-center">
-                        <input
-                          id="1"
-                          name="fulfillment"
-                          type="radio"
-                          value="1"
-                          className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                          onChange={() => setSelectedSatisfaction(1)}
-                          checked={selectedSatisfaction === 1}
-                          disabled={loading}
-                        />
-                        <label
-                          htmlFor="1"
-                          className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-red-400 px-3 py-1.5 text-xs font-medium"
-                        >
-                          -- <FaceFrownIcon className="h-4 w-4" />
-                        </label>
-                      </div>
-                      <div className="flex items-center">
-                        <input
-                          id="2"
-                          name="fulfillment"
-                          type="radio"
-                          value="2"
-                          className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                          onChange={() => setSelectedSatisfaction(2)}
-                          checked={selectedSatisfaction === 2}
-                          disabled={loading}
-                        />
-                        <label
-                          htmlFor="2"
-                          className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-red-400 px-3 py-1.5 text-xs font-medium"
-                        >
-                          - <FaceFrownIcon className="h-4 w-4" />
-                        </label>
-                      </div>
-                      <div className="flex items-center">
-                        <input
-                          id="3"
-                          name="fulfillment"
-                          type="radio"
-                          checked={selectedSatisfaction === 3}
-                          className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                          onChange={() => setSelectedSatisfaction(3)}
-                          disabled={loading}
-                        />
-                        <label
-                          htmlFor="3"
-                          className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-blue-400 px-3 py-1.5 text-xs font-medium"
-                        >
-                          Ok <FaceSmileIcon className="h-4 w-4" />
-                        </label>
-                      </div>
-                      <div className="flex items-center">
-                        <input
-                          id="4"
-                          name="fulfillment"
-                          type="radio"
-                          value="4"
-                          className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                          onChange={() => setSelectedSatisfaction(4)}
-                          checked={selectedSatisfaction === 4}
-                          disabled={loading}
-                        />
-                        <label
-                          htmlFor="4"
-                          className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-green-400 px-3 py-1.5 text-xs font-medium"
-                        >
-                          + <FaceSmileIcon className="h-4 w-4" />
-                        </label>
-                      </div>
-                      <div className="flex items-center">
-                        <input
-                          id="5"
-                          name="fulfillment"
-                          type="radio"
-                          value="5"
-                          className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                          onChange={() => setSelectedSatisfaction(5)}
-                          checked={selectedSatisfaction === 5}
-                          disabled={loading}
-                        />
-                        <label
-                          htmlFor="5"
-                          className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-green-400 px-3 py-1.5 text-xs font-medium"
-                        >
-                          ++ <FaceSmileIcon className="h-4 w-4" />
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </fieldset>
-                <input
-                  type="hidden"
-                  name="satisfaction"
-                  value={selectedSatisfaction}
-                />
-                {/* Emotion */}
-                <fieldset className="mt-5">
-                  <legend className="mb-2 block text-sm font-medium">
-                    {dict.forms?.expense.create.whatEmotionDidIFeel}
-                  </legend>
-                  <div className="rounded-md border border-gray-200 bg-white px-3 py-3">
-                    <div className="flex flex-col gap-4">
-                      {emotions?.map((emotion) => (
-                        <div className="flex items-center">
-                          <input
-                            id={emotion.name.toLocaleLowerCase()}
-                            name="emotion"
-                            type="radio"
-                            className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                            onChange={() => setSelectedEmotion(emotion.id)}
-                            checked={selectedEmotion === emotion.id}
-                            disabled={loading}
-                          />
-                          <label
-                            htmlFor={emotion.name.toLocaleLowerCase()}
-                            className={clsx(
-                              "ml-2 flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium",
-                              {
-                                "bg-red-400":
-                                  emotion.emotionType === "negative",
-                                "bg-green-400":
-                                  emotion.emotionType === "positive",
-                                "bg-blue-400":
-                                  emotion.emotionType === "neutral",
-                              }
-                            )}
-                          >
+                <div className="relative py-3 ">
+                  {!isPremium && !isLoading && (
+                    <>
+                      <div
+                        className="bg-black inset-0 absolute blur-sm rounded-md z-[1000]"
+                        style={{ opacity: "10%" }}
+                      />
+                      <div className="inset-0 absolute flex items-center p-5  z-[10001]">
+                        <div className="w-full p-5 rounded-md border border-gray-200 border-solid bg-white">
+                          <div className="text-lg font-bold  mb-3">
                             {
-                              dict.forms?.expense.create[
-                                emotion.name as keyof typeof dict.forms.expense.create
-                              ]
-                            }{" "}
-                            {emotion.emotionType === "negative" ? (
-                              <FaceFrownIcon className="h-4 w-4" />
-                            ) : (
-                              <FaceSmileIcon className="h-4 w-4" />
-                            )}
-                          </label>
+                              dict.shared?.subscriptionMessages
+                                .addEmotionsAndLevelOfSatisfactionTitle
+                            }
+                          </div>
+                          <div className=" mb-3">
+                            {
+                              dict.shared?.subscriptionMessages
+                                .addEmotionsAndLevelOfSatisfactionMessage
+                            }
+                          </div>
+                          {subscriptionDetails?.isUserOnStripe ? (
+                            <Button
+                              href={
+                                subscriptionDetails.stripeCustomerPortalLink
+                              }
+                              target="_blank"
+                              className="text-white bg-black"
+                            >
+                              {`${dict.shared?.manageSubscription}`}
+                            </Button>
+                          ) : (
+                            <Button
+                              href="/dashboard/pricing"
+                              className="text-white bg-black"
+                            >{`${dict.shared?.goPremium}`}</Button>
+                          )}
                         </div>
-                      ))}
-                    </div>
+                      </div>
+                    </>
+                  )}
+
+                  <div
+                    className={clsx({
+                      "blur-sm p-5": !isPremium,
+                    })}
+                  >
+                    <fieldset>
+                      <legend className="mb-2 block text-sm font-medium">
+                        {dict.forms?.expense.create.levelOfSatisfaction}
+                      </legend>
+                      <div className="px-3 py-3">
+                        <div className="flex gap-4">
+                          <div className="flex items-center rounded-md border-solid border-gray-200 border px-2">
+                            <input
+                              id="1"
+                              name="fulfillment"
+                              type="radio"
+                              value="1"
+                              className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                              onChange={() => setSelectedSatisfaction(1)}
+                              checked={selectedSatisfaction === 1}
+                              disabled={loading}
+                            />
+                            <label
+                              htmlFor="1"
+                              className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full py-1.5 text-xs font-medium"
+                            >
+                              --
+                              <span className="px-2 py-1 rounded-md bg-red-200">
+                                <FaceFrownIcon className="h-4 w-4" />
+                              </span>
+                            </label>
+                          </div>
+                          <div className="flex items-center rounded-md border-solid border-gray-200 border px-2">
+                            <input
+                              id="2"
+                              name="fulfillment"
+                              type="radio"
+                              value="2"
+                              className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                              onChange={() => setSelectedSatisfaction(2)}
+                              checked={selectedSatisfaction === 2}
+                              disabled={loading}
+                            />
+                            <label
+                              htmlFor="2"
+                              className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full py-1.5 text-xs font-medium"
+                            >
+                              -
+                              <span className="px-2 py-1 rounded-md bg-red-100">
+                                <FaceFrownIcon className="h-4 w-4" />
+                              </span>
+                            </label>
+                          </div>
+                          <div className="flex items-center rounded-md border-solid border-gray-200 border px-2">
+                            <input
+                              id="3"
+                              name="fulfillment"
+                              type="radio"
+                              checked={selectedSatisfaction === 3}
+                              className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                              onChange={() => setSelectedSatisfaction(3)}
+                              disabled={loading}
+                            />
+                            <label
+                              htmlFor="3"
+                              className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full py-1.5 text-xs font-medium"
+                            >
+                              Ok
+                              <span className="px-2 py-1 rounded-md bg-blue-100">
+                                <FaceSmileIcon className="h-4 w-4" />
+                              </span>
+                            </label>
+                          </div>
+                          <div className="flex items-center rounded-md border-solid border-gray-200 border px-2">
+                            <input
+                              id="4"
+                              name="fulfillment"
+                              type="radio"
+                              value="4"
+                              className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                              onChange={() => setSelectedSatisfaction(4)}
+                              checked={selectedSatisfaction === 4}
+                              disabled={loading}
+                            />
+                            <label
+                              htmlFor="4"
+                              className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full py-1.5 text-xs font-medium"
+                            >
+                              +
+                              <span className="px-2 py-1 rounded-md bg-green-100">
+                                <FaceSmileIcon className="h-4 w-4" />
+                              </span>
+                            </label>
+                          </div>
+                          <div className="flex items-center rounded-md border-solid border-gray-200 border px-2">
+                            <input
+                              id="5"
+                              name="fulfillment"
+                              type="radio"
+                              value="5"
+                              className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                              onChange={() => setSelectedSatisfaction(5)}
+                              checked={selectedSatisfaction === 5}
+                              disabled={loading}
+                            />
+                            <label
+                              htmlFor="5"
+                              className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full py-1.5 text-xs font-medium"
+                            >
+                              ++
+                              <span className="px-2 py-1 rounded-md bg-green-200">
+                                <FaceSmileIcon className="h-4 w-4" />
+                              </span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+
+                    <input
+                      type="hidden"
+                      name="satisfaction"
+                      value={selectedSatisfaction}
+                    />
+                    {/* Emotion */}
+
+                    <fieldset className="mt-5">
+                      <legend className="mb-2 block text-sm font-medium">
+                        {dict.forms?.expense.create.whatEmotionDidIFeel}
+                      </legend>
+                      <div className="px-3 py-3 sm:max-w-[400px]">
+                        <div className="flex gap-4 flex-wrap">
+                          {emotions?.map((emotion) => (
+                            <div className="flex items-center rounded-md border-solid border-gray-200 border px-2">
+                              <input
+                                id={emotion.name.toLocaleLowerCase()}
+                                name="emotion"
+                                type="radio"
+                                className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                                onChange={() => setSelectedEmotion(emotion.id)}
+                                checked={selectedEmotion === emotion.id}
+                                disabled={loading}
+                              />
+                              <label
+                                htmlFor={emotion.name.toLocaleLowerCase()}
+                                className={clsx(
+                                  "ml-2 flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium"
+                                )}
+                              >
+                                {
+                                  dict.forms?.expense.create[
+                                    emotion.name as keyof typeof dict.forms.expense.create
+                                  ]
+                                }{" "}
+                                {emotion.emotionType === "negative" ? (
+                                  <span className="px-2 py-1 rounded-md bg-red-200">
+                                    <FaceFrownIcon className="h-4 w-4" />
+                                  </span>
+                                ) : (
+                                  <span
+                                    className={clsx("px-2 py-1 rounded-md", {
+                                      "bg-green-100":
+                                        emotion.emotionType === "positive",
+                                      "bg-blue-100":
+                                        emotion.emotionType === "neutral",
+                                    })}
+                                  >
+                                    <FaceSmileIcon className="h-4 w-4" />
+                                  </span>
+                                )}
+                              </label>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </fieldset>
                   </div>
-                </fieldset>
+                </div>
+
                 <input type="hidden" name="emotionId" value={selectedEmotion} />
               </div>
-              <div className="mt-6 flex justify-end gap-4">
+              <div className="flex justify-end gap-4">
                 <CancelButton onClick={closeModal} />
                 <SubmitButton text={dict.forms?.shared.save} />
               </div>

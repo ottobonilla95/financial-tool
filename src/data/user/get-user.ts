@@ -13,6 +13,7 @@ export type Data = {
   tour_finished?: boolean;
   subscription_plan?: string;
   subscription_cancel_at?: number;
+  stripeId?: string;
 };
 
 type GetUserDataProps = {
@@ -48,5 +49,6 @@ export const mapUser = (user: Data): User => {
     tourFinished: user.tour_finished,
     subscriptionPlan: user.subscription_plan,
     subscriptionCancelAt: user.subscription_cancel_at,
+    stripeId: user.stripeId,
   };
 };

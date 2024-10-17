@@ -10,4 +10,5 @@ export type User = {
   tourFinished?: boolean;
   subscriptionPlan?: string;
   subscriptionCancelAt?: number;
+  stripeId?: string;
 };

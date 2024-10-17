@@ -1,18 +1,20 @@
 http://localhost:3005/en/contacts-app/dashboard
 
 - remove feats for the basic plan
-- add translations 
-- handle move free user to premium 
+- move all in strpe to prod
+- test all
 
 ----hoy-----f
+
 - Create Backlinks
-- pensar en el premium 
+- pensar en el premium
 
 ---- future feats -----
+
 - set reminders.
 - alerts -> ooops parace que este mes tus gastos en xxx han superado lo habitual.
-          -> oops parace que has ahoorado mucho mas este mes!
-          -> ops este mes has gastado mas de lo esperado!
+  -> oops parace que has ahoorado mucho mas este mes!
+  -> ops este mes has gastado mas de lo esperado!
 
 - motivation quotes!
 - emotion tracking! apart!
@@ -20,16 +22,18 @@ http://localhost:3005/en/contacts-app/dashboard
   ------- Promociaonar sitio ----------
 
 - social media promo.
-- recokmend to a friend. 
+- recokmend to a friend.
 - pricing!
 - email to recomend a friend
 
   - articles, blogs: importancia de.
-- mejorarar dashboard: 
+
+- mejorarar dashboard:
+
   - quitar tablas y expandibles con acordion.
   - agregar insigies de emotiones y cosas asi.
 
-- calculafdor de patrimonio 
+- calculafdor de patrimonio
 
 - Add see last 3 months.
 - Add see last 6 months.
@@ -49,5 +53,6 @@ http://localhost:3005/en/contacts-app/dashboard
 - Editar gasto
 
 despues:
+
 - guardar unibacion, pais?
 - add to update language in settings

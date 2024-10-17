@@ -4,7 +4,7 @@ import { fetchExpenses } from "@/src/data/expenses";
 import { fetchEarnings } from "@/src/data/earning";
 import { fetchSavings } from "@/src/data/saving";
 import { getDBUser } from "@/src/data/user";
-import { Currency } from "@/src/types";
+import { Currency, SubscriptionPlanOption } from "@/src/types";
 import { NoExpensesAdded, LastUpdated } from "@/src/ui/financial-app/dashboard";
 import { TotalLineChart } from "@/src/ui/financial-app/insights";
 import { AvailableLanguages, getDictionary } from "@/src/translations";
@@ -37,24 +37,38 @@ export default async function Page({ params: { lang } }: InsightsPageProps) {
     },
   });
 
-  const currency = (
-    await getDBUser({
-      filters: {
-        id: userId,
-      },
-      select: {
-        currency: {
-          select: {
-            name: true,
-            symbol: true,
-          },
+  const user = await getDBUser({
+    filters: {
+      id: userId,
+    },
+    select: {
+      subscription_plan: true,
+      email: true,
+      stripeId: true,
+      currency: {
+        select: {
+          name: true,
+          symbol: true,
         },
       },
-    })
-  )?.currency;
+    },
+  });
+
+  const currency = user?.currency;
+
+  const isPremium = user?.subscriptionPlan === SubscriptionPlanOption.Premium;
+  const stripeCustomerPortalLink = `${process.env.STRIPE_CUSTOMER_PORTAL_URL}?prefilled_email=${user?.email}`;
+  const isUserOnStripe = Boolean(user?.stripeId);
 
   return (
-    <AppProvider currency={currency as Currency}>
+    <AppProvider
+      currency={currency as Currency}
+      subscriptionDetails={{
+        isPremium,
+        stripeCustomerPortalLink,
+        isUserOnStripe,
+      }}
+    >
       <main>
         <Suspense fallback={<div>loading...</div>}>
           <LastUpdated dict={dict} />

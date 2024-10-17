@@ -23,12 +23,12 @@ export async function POST(request: Request) {
       const checkoutCompleted = event.data.object;
 
       const clientId = checkoutCompleted.client_reference_id;
-      const stripeId = checkoutCompleted.customer;
+      const stripeId = checkoutCompleted.customer as string;
 
       const newPlan: SubscriptionPlan = "premium";
       await updateDBUser({
         data: {
-          plan: newPlan,
+          subscription_plan: newPlan,
           stripeId,
         },
         filters: {

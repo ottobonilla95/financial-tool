@@ -86,7 +86,18 @@
     "email": "Correo electrónico",
     "confirmPassword": "Confirmar contraseña",
     "currency": "Moneda",
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "pricing": "Precios",
+    "goPremium": "Ir a Premium",
+    "manageSubscription": "Administrar suscripción",
+    "subscriptionMessages": {
+      "youHaveReaachedYourCategoryLimitTitle": "¡Has alcanzado el límite de categorías!",
+      "youHaveReaachedYourCategoryLimit": "Has utilizado todas las categorías disponibles en el plan gratuito. Actualiza a Premium para desbloquear categorías ilimitadas y obtener informes más detallados sobre tus gastos.",
+      "addEmotionsAndLevelOfSatisfactionTitle": "¡Agrega emociones y nivel de satisfacción a tus gastos!",
+      "addEmotionsAndLevelOfSatisfactionMessage": "Actualiza a Premium para registrar cómo te sientes con cada gasto y tu nivel de satisfacción, y así obtener análisis más detallados de tus finanzas.",
+      "seeExpensesPerMonthByCategoryTitle": "¡Ver gastos por mes y por categoría!",
+      "seeExpensesPerMonthByCategoryMessage": "Actualiza a Premium para ver informes detallados de tus gastos desglosados por categoría para cada mes."
+    }
   },
   "insights": {
     "totalIncomeExpensesSavings": "Ingresos, gastos y ahorros totales",
@@ -204,7 +215,10 @@
     "currentPassword": "Contraseña actual",
     "enterCurrentPassword": "Ingresa tu contraseña actual",
     "enterNewPassword": "Ingresa tu nueva contraseña",
-    "enterYourPasswordConfirmation": "Ingresa tu confirmación de contraseña"
+    "enterYourPasswordConfirmation": "Ingresa tu confirmación de contraseña",
+    "finishesOn": "Finaliza el",
+    "premium": "Premium",
+    "free": "Gratuíto"
   },
   "privacyPolicyPage": {
     "meta": {
@@ -309,5 +323,24 @@
     "step2": "A continuación, agrega tus ingresos. Haz clic en el botón 'Agregar Ingreso' para registrar tus ingresos.",
     "step3": "Ahora, agrega tus gastos. Haz clic en el botón 'Agregar Gasto' para registrar tus transacciones.",
     "step4": "Para ver análisis más avanzados, dirígete a la sección 'Resumen' en el menú del tablero."
+  },
+  "pricingPage": {
+    "chooseYourPlan": "Elige tu plan",
+    "mostPopular": "Más popular",
+    "free": "Gratis",
+    "per": "por",
+    "month": "mes",
+    "currentPlan": "Plan actual",
+    "subscribe": "Suscribirse",
+    "getStarted": "Comenzar",
+    "basicPlan": "Basic Plan",
+    "premiumPlan": "Premium Plan",
+    "trackExpenses": "Rastrea tus gastos",
+    "basicReporting": "Informes básicos",
+    "advancedAnalytics": "Informes avanzados",
+    "prioritySupport": "Soporte prioritario",
+    "unlimitedCategories": "Categorías ilimitadas",
+    "upTo9Categories": "Hasta 9 categorías",
+    "emtionTrackingAndLevelOfSatisfaction": "Seguimiento de emociones y nivel de satisfacción"
   }
 }

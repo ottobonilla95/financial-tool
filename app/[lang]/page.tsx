@@ -1,4 +1,3 @@
-import AppLogo from "@/src/ui/app-logo";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import Image from "next/image";
@@ -24,7 +23,7 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
   return (
     <>
       <main className="flex min-h-screen flex-col">
-        <Header lang={lang} />
+        <Header lang={lang} dict={dict} />
 
         <div className="mt-4 flex grow flex-col gap-4 md:flex-row">
           <div className="flex flex-col justify-center gap-6 rounded-lg bg-gray-50 px-6 py-10 md:w-2/5 md:px-20">
@@ -71,8 +70,10 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
         <AppScreenshots dict={dict} />
         <Testimonials dict={dict} />
         <div className="py-10">
-          <h2 className="text-4xl font-bold mb-10 text-center">Pricing</h2>
-          <Pricing />
+          <h2 className="text-4xl font-bold mb-10 text-center">
+            {dict.shared.pricing}
+          </h2>
+          <Pricing dict={dict} lang={lang} />
         </div>
         <FAQs dict={dict} />
       </main>

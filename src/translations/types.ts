@@ -88,6 +88,17 @@ export type AppDictionary = {
     confirmPassword: string;
     currency: string;
     close: string;
+    pricing: string;
+    goPremium: string;
+    manageSubscription: string;
+    subscriptionMessages: {
+      youHaveReaachedYourCategoryLimitTitle: string;
+      youHaveReaachedYourCategoryLimit: string;
+      addEmotionsAndLevelOfSatisfactionTitle: string;
+      addEmotionsAndLevelOfSatisfactionMessage: string;
+      seeExpensesPerMonthByCategoryTitle: string;
+      seeExpensesPerMonthByCategoryMessage: string;
+    };
   };
   insights: {
     totalIncomeExpensesSavings: string;
@@ -186,6 +197,9 @@ export type AppDictionary = {
     enterCurrentPassword: string;
     enterNewPassword: string;
     enterYourPasswordConfirmation: string;
+    finishesOn: string;
+    premium: string;
+    free: string;
   };
   privacyPolicyPage: {
     meta: {
@@ -290,6 +304,22 @@ export type AppDictionary = {
     step2: string;
     step3: string;
     step4: string;
+  };
+  pricingPage: {
+    chooseYourPlan: string;
+    mostPopular: string;
+    free: string;
+    per: string;
+    month: string;
+    currentPlan: string;
+    subscribe: string;
+    getStarted: string;
+    basicPlan: string;
+    premiumPlan: string;
+    trackExpenses: string;
+    basicReporting: string;
+    advancedAnalytics: string;
+    prioritySupport: string;
   };
 };
 

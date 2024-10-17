@@ -1,10 +1,8 @@
 import { AvailableLanguages, getDictionary } from "@/src/translations";
-import AppLogo from "@/src/ui/app-logo";
 import { Metadata } from "next";
 import { Footer, Header } from "@/src/ui/components";
 import { EnPrivacyPolicy } from "@/src/ui/policies/en/privacy-policy";
 import { EsPrivacyPolicy } from "@/src/ui/policies/es/privacy-policy";
-import Link from "next/link";
 
 export async function generateMetadata({
   params,
@@ -33,7 +31,7 @@ export default async function PrivacyPolicyPage({
   return (
     <>
       <main className="flex min-h-screen flex-col">
-        <Header lang={lang} />
+        <Header lang={lang} dict={dict} />
         <Policy />
       </main>
       <Footer dict={dict} />

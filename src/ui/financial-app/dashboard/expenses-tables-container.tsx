@@ -5,6 +5,7 @@ import { AppDictionary } from "@/src/translations";
 export type ExpensesTableContainerProps = {
   expenses: Expense[];
   dict: AppDictionary;
+  isPremium: boolean;
 };
 
 const splitByCategoryAndSubcategory = (expenses: Expense[]) => {
@@ -24,12 +25,15 @@ const splitByCategoryAndSubcategory = (expenses: Expense[]) => {
 export const ExpensesTableContainer = ({
   expenses,
   dict,
+  isPremium,
 }: ExpensesTableContainerProps) => {
   const expensesByCategory = splitByCategoryAndSubcategory(expenses);
 
   return (
     <div className="mt-10">
-      <div className="font-bold mb-5 text-gray-600 uppercase">{dict.dashboard.expense}</div>
+      <div className="font-bold mb-5 text-gray-600 uppercase">
+        {dict.dashboard.expense}
+      </div>
       <div className="gap-4 grid grid-cols-1 lg:grid-cols-2 grid-flow-dense">
         {Object.entries(expensesByCategory).map(
           ([categoryName, subcategories]) => (
@@ -38,6 +42,7 @@ export const ExpensesTableContainer = ({
               categoryName={categoryName}
               subcategories={subcategories}
               dict={dict}
+              isPremium={isPremium}
             />
           )
         )}

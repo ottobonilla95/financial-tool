@@ -185,7 +185,7 @@ export async function createUser(
 
     userCreatedId = userCreted.id;
 
-    const returnUrl = await signIn("credentials", {
+    await signIn("credentials", {
       email,
       password,
       redirect: false,

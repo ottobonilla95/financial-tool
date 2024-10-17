@@ -86,7 +86,18 @@
     "email": "Email",
     "confirmPassword": "Confirm password",
     "currency": "Currency",
-    "close": "Close"
+    "close": "Close",
+    "pricing": "Pricing",
+    "goPremium": "Go Premium",
+    "manageSubscription": "Manage Subscription",
+    "subscriptionMessages": {
+      "youHaveReaachedYourCategoryLimitTitle": "You’ve Reached Your Category Limit!",
+      "youHaveReaachedYourCategoryLimit": "You’ve used all available categories for the free plan. Upgrade to Premium to unlock unlimited categories and gain deeper insights into your spending.",
+      "addEmotionsAndLevelOfSatisfactionTitle": "Add emotions and satisfaction to your expenses!",
+      "addEmotionsAndLevelOfSatisfactionMessage": "Upgrade to Premium to track how each expense makes you feel and your level of satisfaction for deeper insights into your spending.",
+      "seeExpensesPerMonthByCategoryTitle": "See expenses per month by category!",
+      "seeExpensesPerMonthByCategoryMessage": "Upgrade to Premium to view detailed reports of your expenses broken down by category for each month."
+    }
   },
   "insights": {
     "totalIncomeExpensesSavings": "Total income, expenses, and savings",
@@ -204,7 +215,10 @@
     "currentPassword": "Current Password",
     "enterCurrentPassword": "Enter your current password",
     "enterNewPassword": "Enter your new password",
-    "enterYourPasswordConfirmation": "Enter your password confirmation"
+    "enterYourPasswordConfirmation": "Enter your password confirmation",
+    "finishesOn": "Finishes on",
+    "premium": "Premium",
+    "free": "Free"
   },
   "privacyPolicyPage": {
     "meta": {
@@ -310,5 +324,24 @@
     "step2": "Next, add your income. Click the 'Add Income' button to log your earnings.",
     "step3": "Now, add your expenses. Click the 'Add Expense' button to record your transactions.",
     "step4": "For more advanced insights, head over to the 'Summary' section from the dashboard menu."
+  },
+  "pricingPage": {
+    "chooseYourPlan": "Choose Your Plan",
+    "mostPopular": "Most Popular",
+    "free": "Free",
+    "per": "per",
+    "month": "month",
+    "currentPlan": "Current Plan",
+    "subscribe": "Subscribe",
+    "getStarted": "Get Started",
+    "basicPlan": "Basic Plan",
+    "premiumPlan": "Premium Plan",
+    "trackExpenses": "Track Expenses",
+    "basicReporting": "Basic Reporting",
+    "advancedAnalytics": "Advanced Analytics",
+    "prioritySupport": "Priority Support",
+    "unlimitedCategories": "Unlimited Categories",
+    "upTo9Categories": "Up to 9 Categories",
+    "emtionTrackingAndLevelOfSatisfaction": "Emotion Tracking and Level of Satisfaction"
   }
 }

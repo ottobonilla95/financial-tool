@@ -17,6 +17,7 @@ export type ExpenseTableProps = {
     [subcategoryName: string]: Expense[];
   };
   dict: AppDictionary;
+  isPremium: boolean;
 };
 
 const calculateSubcategoryTotal = (expenses: Expense[]) => {
@@ -144,6 +145,7 @@ export const ExpenseTable = ({
   categoryName,
   subcategories,
   dict,
+  isPremium,
 }: ExpenseTableProps) => {
   const getCategoryColor = (subcategories: {
     [subcategoryName: string]: Expense[];
@@ -216,7 +218,14 @@ export const ExpenseTable = ({
               <h3 className="font-bold text-base  py-2 px-4 text-gray-600">
                 {subcategoryName}
               </h3>
-              <div className="grid grid-cols-5 sm:grid-cols-6 py-2 px-4 text-gray-600">
+              <div
+                className={clsx(
+                  "grid grid-cols-3 sm:grid-cols-4 py-2 px-4 text-gray-600",
+                  {
+                    "!grid-cols-5 sm:!grid-cols-6": isPremium,
+                  }
+                )}
+              >
                 <div className="font-bold flex items-center">
                   {dict.shared.name}
                 </div>
@@ -226,18 +235,28 @@ export const ExpenseTable = ({
                 <div className="font-bold flex items-center justify-center">
                   {dict.shared.price}
                 </div>
-                <div className="font-bold flex items-center justify-center">
-                  {dict.shared.satisfaction}
-                </div>
-                <div className="font-bold  items-center justify-center hidden sm:flex">
-                  {dict.shared.emotion}
-                </div>
+                {isPremium && (
+                  <>
+                    <div className="font-bold flex items-center justify-center">
+                      {dict.shared.satisfaction}
+                    </div>
+                    <div className="font-bold  items-center justify-center hidden sm:flex">
+                      {dict.shared.emotion}
+                    </div>
+                  </>
+                )}
+
                 <div></div>
               </div>
               {expenseArray.map((expense) => (
                 <div
                   key={expense.id}
-                  className="grid grid-cols-5 sm:grid-cols-6 py-2 px-4 text-gray-500"
+                  className={clsx(
+                    "grid grid-cols-3 sm:grid-cols-4 py-2 px-4 text-gray-500",
+                    {
+                      "!grid-cols-5 sm:!grid-cols-6": isPremium,
+                    }
+                  )}
                 >
                   <div className="font-medium flex items-center">
                     {expense.description}
@@ -249,14 +268,19 @@ export const ExpenseTable = ({
                   <div className="flex items-center justify-center">
                     <Price amount={expense.amount} />
                   </div>
-                  <div className="flex items-center justify-center">
-                    <ExpenseSatisfactionIcon
-                      satisfaction={expense.satisfaction}
-                    />
-                  </div>
-                  <div className="items-center justify-center hidden sm:flex">
-                    <ExpenseEmotionIcon {...expense.emotion} />
-                  </div>
+
+                  {isPremium && (
+                    <>
+                      <div className="flex items-center justify-center">
+                        <ExpenseSatisfactionIcon
+                          satisfaction={expense.satisfaction}
+                        />
+                      </div>
+                      <div className="items-center justify-center hidden sm:flex">
+                        <ExpenseEmotionIcon {...expense.emotion} />
+                      </div>
+                    </>
+                  )}
 
                   <div className="flex items-center justify-end">
                     <Button

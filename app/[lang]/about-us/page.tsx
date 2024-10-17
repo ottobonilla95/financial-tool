@@ -1,9 +1,6 @@
 import { AvailableLanguages, getDictionary } from "@/src/translations";
-import AppLogo from "@/src/ui/app-logo";
 import { Footer, Header } from "@/src/ui/components";
-import { LanguagePicker } from "@/src/ui/language-picker";
 import { Metadata } from "next";
-import Link from "next/link";
 
 export async function generateMetadata({
   params,
@@ -29,7 +26,7 @@ export default async function AboutUsPage({
   return (
     <>
       <main className="flex min-h-screen flex-col">
-        <Header lang={lang} />
+        <Header lang={lang} dict={dict} />
 
         <div className="mt-4 flex grow flex-col gap-4">
           <div className="flex flex-col justify-center gap-6 rounded-lg bg-gray-50 px-6 py-10">

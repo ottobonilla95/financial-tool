@@ -1,10 +1,7 @@
 import { AvailableLanguages, getDictionary } from "@/src/translations";
-import AppLogo from "@/src/ui/app-logo";
 import { Footer, Header } from "@/src/ui/components";
 import { Pricing } from "@/src/ui/financial-app/home-page";
-import { LanguagePicker } from "@/src/ui/language-picker";
 import { Metadata } from "next";
-import Link from "next/link";
 
 export async function generateMetadata({
   params,
@@ -30,11 +27,11 @@ export default async function AboutUsPage({
   return (
     <>
       <main className="flex min-h-screen flex-col">
-        <Header lang={lang} />
+        <Header dict={dict} lang={lang} />
         <h2 className="text-4xl font-bold mb-10 text-center pt-16">
-          Choose Your Plan
+          {dict.pricingPage.chooseYourPlan}
         </h2>
-        <Pricing />
+        <Pricing dict={dict} lang={lang} />
       </main>
       <Footer dict={dict} />
     </>

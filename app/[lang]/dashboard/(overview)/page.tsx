@@ -1,7 +1,6 @@
 import { fetchExpenses } from "@/src/data/expenses";
 import { auth } from "@/auth";
 import {
-  DashboardDatePicker,
   ExpensesPieChart,
   ExpensesTableContainer,
   DashboardTotals,
@@ -19,7 +18,7 @@ import { getAllEmotions } from "@/src/data/emotion";
 import { fetchSavings } from "@/src/data/saving";
 import { getDBUser } from "@/src/data/user";
 import { AppProvider } from "@/src/app-wrappper/provider";
-import { Currency } from "@/src/types";
+import { Currency, SubscriptionPlanOption } from "@/src/types";
 import { endOfMonth, startOfMonth } from "date-fns";
 import { getDictionary, AvailableLanguages } from "@/src/translations";
 import { IntlProvider } from "@/src/translations/provider";
@@ -49,6 +48,9 @@ export default async function Page({
       id: userId,
     },
     select: {
+      subscription_plan: true,
+      email: true,
+      stripeId: true,
       currency: {
         select: {
           name: true,
@@ -58,6 +60,10 @@ export default async function Page({
       tour_finished: true,
     },
   });
+
+  const isPremium = user?.subscriptionPlan === SubscriptionPlanOption.Premium;
+  const stripeCustomerPortalLink = `${process.env.STRIPE_CUSTOMER_PORTAL_URL}?prefilled_email=${user?.email}`;
+  const isUserOnStripe = Boolean(user?.stripeId);
 
   const currency = user?.currency;
   const tourFinished = user?.tourFinished;
@@ -103,7 +109,14 @@ export default async function Page({
   );
 
   return (
-    <AppProvider currency={currency as Currency}>
+    <AppProvider
+      currency={currency as Currency}
+      subscriptionDetails={{
+        isPremium,
+        stripeCustomerPortalLink,
+        isUserOnStripe,
+      }}
+    >
       <IntlProvider dict={dict} lang={lang}>
         <TourProvider>
           <main>
@@ -112,7 +125,7 @@ export default async function Page({
               <LastUpdated dict={dict} />
             </Suspense>
             <div className="h-5" />
-            <div className="px-6 md:px-12">
+            <div className="px-6 md:px-12 pb-12">
               <div className="tour-step-0">
                 <Suspense fallback={<Spinner className="w-5" />}>
                   <DashboardButtons
@@ -132,16 +145,19 @@ export default async function Page({
 
               {expenses.length > 0 && (
                 <div className="flex gap-4 flex-col lg:flex-row">
-                  <div className="flex-1">
-                    <DashboardExpeneseByEmotion
-                      expenses={expenses}
-                      dict={dict}
-                    />
-                    <DashboardExpeneseBySatisfaction
-                      expenses={expenses}
-                      dict={dict}
-                    />
-                  </div>
+                  {isPremium && (
+                    <div className="flex-1">
+                      <DashboardExpeneseByEmotion
+                        expenses={expenses}
+                        dict={dict}
+                      />
+                      <DashboardExpeneseBySatisfaction
+                        expenses={expenses}
+                        dict={dict}
+                      />
+                    </div>
+                  )}
+
                   <div className="flex-1">
                     <div className="w-full ">
                       <ExpensesPieChart expenses={expenses} />
@@ -162,7 +178,11 @@ export default async function Page({
               )}
               {expenses.length > 0 && (
                 <div>
-                  <ExpensesTableContainer expenses={expenses} dict={dict} />
+                  <ExpensesTableContainer
+                    expenses={expenses}
+                    dict={dict}
+                    isPremium={isPremium}
+                  />
                 </div>
               )}
 

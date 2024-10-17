@@ -25,6 +25,7 @@ export default async function AccountPage({
       email: true,
       subscription_plan: true,
       subscription_cancel_at: true,
+      stripeId: true,
       currency: {
         select: {
           name: true,
@@ -45,9 +46,6 @@ export default async function AccountPage({
       year: "numeric",
       month: "long",
       day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
     });
 
     cancelDateString = formattedDate;
@@ -91,15 +89,25 @@ export default async function AccountPage({
           <div className="flex justify-between items-center py-1">
             <p>
               <strong>{`${"Plan"}:`}</strong>
-              <span className="ml-1 mr-1">{user.subscriptionPlan}</span>
+              <span className="ml-1 mr-1">
+                {
+                  dict.accountPage[
+                    user.subscriptionPlan as keyof typeof dict.accountPage
+                  ]
+                }
+              </span>
               {cancelDateString && (
-                <span>{`(Finishes at: ${cancelDateString})`}</span>
+                <span>{`(${dict.accountPage.finishesOn}: ${cancelDateString})`}</span>
               )}
             </p>
             <div>
-              <Button href={stripeCustomerPortalLink} target="_blank">
-                {`${"Manage subscription"}`}
-              </Button>
+              {user.stripeId ? (
+                <Button href={stripeCustomerPortalLink} target="_blank">
+                  {`${dict.shared.manageSubscription}`}
+                </Button>
+              ) : (
+                <Button href="/dashboard/pricing">{`${dict.shared.goPremium}`}</Button>
+              )}
             </div>
           </div>
         </div>
