@@ -408,7 +408,7 @@ export const CreateExpenseForm = ({
                         {dict.forms?.expense.create.levelOfSatisfaction}
                       </legend>
                       <div className="px-3 py-3">
-                        <div className="flex gap-4">
+                        <div className="flex gap-4 flex-wrap">
                           <div className="flex items-center rounded-md border-solid border-gray-200 border px-2">
                             <input
                               id="1"
