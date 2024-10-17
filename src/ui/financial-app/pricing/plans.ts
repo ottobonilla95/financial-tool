@@ -35,9 +35,6 @@ export const pricingPlans: PricingPlan[] = [
     mostPopular: true,
     period: "monthly",
     planName: "premium",
-    paymentLink:
-      process.env.NODE_ENV === "production"
-        ? "https://buy.stripe.com/test_28o9EwbX6bls32o288"
-        : "https://buy.stripe.com/test_28o9EwbX6bls32o288",
+    paymentLink: process.env.STRIPE_PREMIUM_PLAN_PAYMENT_LINK,
   },
 ];
