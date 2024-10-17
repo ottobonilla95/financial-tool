@@ -24,8 +24,6 @@ export const Pricing = ({
 
   const router = useRouter();
 
-  const paymentLink = pricingPlans[1]?.paymentLink;
-
   const onButtonClick = (plan: string) => {
     if (!user) {
       router.push(`/signup?plan=${plan}`);
@@ -40,7 +38,6 @@ export const Pricing = ({
 
   return (
     <section className="">
-      {paymentLink}
       <div className="container mx-auto">
         <div className="flex flex-col sm:flex-row sm:justify-center gap-4 px-10 sm:px-0">
           {pricingPlans.map((plan, index) => {
