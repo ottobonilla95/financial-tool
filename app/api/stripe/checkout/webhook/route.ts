@@ -3,7 +3,7 @@ import { SubscriptionPlan } from "@/src/ui/financial-app/pricing";
 import { headers } from "next/headers";
 import stripe from "stripe";
 
-const endpointSecret = "whsec_LDd7PeBnMaRx4ZvLawK3WLa4oSNsNsRw";
+const endpointSecret = process.env.STRIPE_CHECKOUT_WEBHOOK_SECRET as string;
 
 export async function POST(request: Request) {
   const body = await request.text();
