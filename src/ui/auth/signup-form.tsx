@@ -23,9 +23,11 @@ export type SignupFormPropd = {
 };
 export const SignupForm = ({ currencies, dict, plan }: SignupFormPropd) => {
   const initialState: CreateUserFormState = { message: {}, errors: {} };
-  const paymentLink = pricingPlans.find(
+  const paymentLinkEnvVar = pricingPlans.find(
     (p) => p.planName === plan
   )?.paymentLink;
+
+  const paymentLink = process.env[paymentLinkEnvVar as string] || "";
 
   const { lang } = useTranslations();
   const createUserAction = createUser.bind(null, lang, plan, paymentLink);

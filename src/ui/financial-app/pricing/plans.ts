@@ -35,6 +35,6 @@ export const pricingPlans: PricingPlan[] = [
     mostPopular: true,
     period: "monthly",
     planName: "premium",
-    paymentLink: process.env.STRIPE_PREMIUM_PLAN_PAYMENT_LINK,
+    paymentLink: "NEXT_PUBLIC_STRIPE_PREMIUM_PLAN_PAYMENT_LINK",
   },
 ];

@@ -29,7 +29,11 @@ export const Pricing = ({
       router.push(`/signup?plan=${plan}`);
     } else {
       const selectedPlan = pricingPlans.find((p) => p.planName === plan);
-      const paymentUrl = `${selectedPlan?.paymentLink}?client_reference_id=${user.id}&prefilled_email=${user.email}&locale=${lang}`;
+
+      const paymentLink =
+        process.env[selectedPlan?.paymentLink as string] || "";
+
+      const paymentUrl = `${paymentLink}?client_reference_id=${user.id}&prefilled_email=${user.email}&locale=${lang}`;
 
       router.push(paymentUrl);
     }
