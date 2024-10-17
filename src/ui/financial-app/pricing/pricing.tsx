@@ -24,7 +24,7 @@ export const Pricing = ({
 
   const router = useRouter();
 
-  const paymentLink = process.env[pricingPlans[1]?.paymentLink as string] || "";
+  const paymentLink = pricingPlans[1]?.paymentLink;
 
   const onButtonClick = (plan: string) => {
     if (!user) {
@@ -32,10 +32,7 @@ export const Pricing = ({
     } else {
       const selectedPlan = pricingPlans.find((p) => p.planName === plan);
 
-      const paymentLink =
-        process.env[selectedPlan?.paymentLink as string] || "";
-
-      const paymentUrl = `${paymentLink}?client_reference_id=${user.id}&prefilled_email=${user.email}&locale=${lang}`;
+      const paymentUrl = `${selectedPlan?.paymentLink}?client_reference_id=${user.id}&prefilled_email=${user.email}&locale=${lang}`;
 
       router.push(paymentUrl);
     }
