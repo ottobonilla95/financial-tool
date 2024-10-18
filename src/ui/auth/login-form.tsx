@@ -27,7 +27,7 @@ export const LoginForm = () => {
     <form action={formAction}>
       <div className="flex-1 text-neutral-100 min-w-[350px]">
         <h1 className={`${lusitana.className} mb-3 text-5xl font-extrabold`}>
-          {dict.authPages.login}
+          {dict.authPages?.login}
         </h1>
         <div className="w-full">
           <div>
@@ -35,18 +35,18 @@ export const LoginForm = () => {
               className="mb-3 mt-5 block text-xs font-medium "
               htmlFor="email"
             >
-              {dict.shared.email}
+              {dict.shared?.email}
             </label>
             <div className="relative">
               <input
-                className="peer block w-full rounded-md border py-[9px] pl-10 text-sm outline-2 placeholder:text-neutral-500"
+                className="peer block w-full rounded-md border py-[9px] pl-10 text-sm outline-2 placeholder:text-neutral-500 text-neutral-500"
                 id="email"
                 type="email"
                 name="email"
-                placeholder={dict.authPages.enterYourEmail}
+                placeholder={dict.authPages?.enterYourEmail}
                 required
               />
-              <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 peer-focus:text-gray-900" />
+              <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-neutral-500 peer-focus:text-neutral-900" />
             </div>
           </div>
           <div className="mt-4">
@@ -54,19 +54,19 @@ export const LoginForm = () => {
               className="mb-3 mt-5 block text-xs font-medium"
               htmlFor="password"
             >
-              {dict.shared.password}
+              {dict.shared?.password}
             </label>
             <div className="relative">
               <input
-                className="peer block w-full rounded-md border py-[9px] pl-10 text-sm outline-2 placeholder:text-neutral-500"
+                className="peer block w-full rounded-md border py-[9px] pl-10 text-sm outline-2 placeholder:text-neutral-500 text-neutral-500"
                 id="password"
                 type="password"
                 name="password"
-                placeholder={dict.authPages.enterYourPassword}
+                placeholder={dict.authPages?.enterYourPassword}
                 required
                 minLength={6}
               />
-              <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-neutral-500 peer-focus:text-gray-900" />
             </div>
           </div>
         </div>
@@ -77,7 +77,7 @@ export const LoginForm = () => {
           iconPosition="right"
           loading={isPending}
         >
-          {dict.authPages.login}
+          {dict.authPages?.login}
         </Button>
         {!isPending && (
           <Button
@@ -87,7 +87,7 @@ export const LoginForm = () => {
             iconPosition="right"
             href="/pricing"
           >
-            {dict.authPages.createAccount}
+            {dict.authPages?.createAccount}
           </Button>
         )}
 
