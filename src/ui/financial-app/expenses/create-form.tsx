@@ -335,7 +335,9 @@ export const CreateExpenseForm = ({
                         maxDate={new Date()}
                         aria-describedby="date-error"
                         dateFormat={"dd MMM yyyy"}
-                        className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500 z-[10002]"
+                        popperClassName="z-[1000000]"
+                        calendarClassName="z-[1000000]"
+                        className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500 z-[100001]"
                       />
                       <input
                         type="hidden"
