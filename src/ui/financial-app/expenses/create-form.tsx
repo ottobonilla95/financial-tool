@@ -335,7 +335,7 @@ export const CreateExpenseForm = ({
                         maxDate={new Date()}
                         aria-describedby="date-error"
                         dateFormat={"dd MMM yyyy"}
-                        className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
+                        className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500 z-[10002]"
                       />
                       <input
                         type="hidden"
@@ -354,6 +354,13 @@ export const CreateExpenseForm = ({
                     </div>
                   </div>
                 </div>
+
+                {!isPremium && (
+                  <div className="flex justify-end gap-4 mb-4">
+                    <CancelButton onClick={closeModal} />
+                    <SubmitButton text={dict.forms?.shared.save} />
+                  </div>
+                )}
 
                 {/* plenitud */}
                 <div className="relative py-3 ">
@@ -579,10 +586,12 @@ export const CreateExpenseForm = ({
 
                 <input type="hidden" name="emotionId" value={selectedEmotion} />
               </div>
-              <div className="flex justify-end gap-4">
-                <CancelButton onClick={closeModal} />
-                <SubmitButton text={dict.forms?.shared.save} />
-              </div>
+              {isPremium && (
+                <div className="flex justify-end gap-4">
+                  <CancelButton onClick={closeModal} />
+                  <SubmitButton text={dict.forms?.shared.save} />
+                </div>
+              )}
             </form>
           </div>
         </Modal>
