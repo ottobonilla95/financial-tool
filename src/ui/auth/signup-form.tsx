@@ -62,14 +62,14 @@ export const SignupForm = ({ currencies, plan }: SignupFormPropd) => {
             </label>
             <div className="relative">
               <input
-                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+                className="peer block w-full rounded-md border border-neutral-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-neutral-500 text-neutral-500 "
                 id="name"
                 type="text"
                 name="name"
                 placeholder={dict.authPages?.enterYourName}
                 required
               />
-              <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-neutral-500 peer-focus:text-neutral-900" />
             </div>
           </div>
           <div>
@@ -81,14 +81,14 @@ export const SignupForm = ({ currencies, plan }: SignupFormPropd) => {
             </label>
             <div className="relative">
               <input
-                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+                className="peer block w-full rounded-md border border-neutral-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-neutral-500 text-neutral-500"
                 id="email"
                 type="email"
                 name="email"
                 placeholder={dict.authPages?.enterYourEmail}
                 required
               />
-              <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-neutral-500 peer-focus:text-neutral-900" />
             </div>
           </div>
           {/* Currency */}
@@ -132,7 +132,7 @@ export const SignupForm = ({ currencies, plan }: SignupFormPropd) => {
             </label>
             <div className="relative">
               <input
-                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+                className="peer block w-full rounded-md border border-neutral-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-neutral-500 text-neutral-500"
                 id="password"
                 type="password"
                 name="password"
@@ -140,7 +140,7 @@ export const SignupForm = ({ currencies, plan }: SignupFormPropd) => {
                 required
                 minLength={6}
               />
-              <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-neutral-500 peer-focus:text-neutral-900" />
             </div>
           </div>
           <div className="mt-4">
@@ -152,7 +152,7 @@ export const SignupForm = ({ currencies, plan }: SignupFormPropd) => {
             </label>
             <div className="relative">
               <input
-                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+                className="peer block w-full rounded-md border border-neutral-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-neutral-500 text-neutral-500"
                 id="passwordConfirmation"
                 type="password"
                 name="passwordConfirmation"
@@ -160,7 +160,7 @@ export const SignupForm = ({ currencies, plan }: SignupFormPropd) => {
                 required
                 minLength={6}
               />
-              <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-neutral-500 peer-focus:text-neutral-900" />
             </div>
           </div>
         </div>
@@ -171,7 +171,7 @@ export const SignupForm = ({ currencies, plan }: SignupFormPropd) => {
             id="terms"
             checked={isChecked}
             onChange={handleCheckboxChange}
-            className="h-4 w-4 text-lime-500 border-gray-300 rounded focus:ring-indigo-500"
+            className="h-4 w-4 text-lime-500 border-neutral-300 rounded focus:ring-indigo-500"
           />
           <label htmlFor="terms" className="ml-2 text-sm">
             {dict.authPages?.acceptPrivacyPolicy}{" "}

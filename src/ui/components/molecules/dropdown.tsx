@@ -86,6 +86,7 @@ export const Dropdown = ({
       }}
       components={{ NoOptionsMessage, Option }}
       isDisabled={disabled}
+      className="text-neutral-800"
     />
   );
 };
