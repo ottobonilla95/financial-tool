@@ -131,6 +131,8 @@ export type AppDictionary = {
     enterYourPassword: string;
     enterYourPasswordConfirmation: string;
     enterYourName: string;
+    acceptPrivacyPolicy: string;
+    privacyPolicy: string;
   };
   mainPage: {
     welcome: string;

@@ -7,12 +7,12 @@ export type SupportPageProps = {
 
 export default async function FAQs({ dict }: SupportPageProps) {
   return (
-    <div className="bg-gray-100">
+    <div className="text-neutral-100 tracking-tight">
       <div className="container mx-auto px-4 sm:px-0 py-16 sm:py-24">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+        <h2 className="text-5xl font-semibold mb-6">
           {dict.faqs.title}
         </h2>
-        <div className="bg-white shadow-lg rounded-lg p-6">
+        <div className="">
           {/* FAQ 1 */}
           {/* <div className="mb-4">
               <h3 className="text-xl font-medium text-gray-700">
@@ -26,10 +26,10 @@ export default async function FAQs({ dict }: SupportPageProps) {
             </div> */}
           {/* FAQ 2 */}
           <div className="mb-4">
-            <h3 className="text-xl font-medium text-gray-700">
+            <h3 className="text-xl font-medium ">
               {dict.faqs.question1}
             </h3>
-            <p className="text-gray-600 mt-2">
+            <p className="mt-2 text-lg opacity-80">
               {`${dict.faqs.answer1} `}
               <a
                 href="mailto:support@trackmyspend.co"

@@ -3,6 +3,7 @@ import { AvailableLanguages, getDictionary } from "@/src/translations";
 import { IntlProvider } from "@/src/translations/provider";
 import AppLogo from "@/src/ui/app-logo";
 import { SignupForm } from "@/src/ui/auth";
+import { Header } from "@/src/ui/components";
 import { SubscriptionPlan } from "@/src/ui/financial-app/pricing";
 import Link from "next/link";
 
@@ -18,6 +19,21 @@ export default async function SignupPage({
   const dict = await getDictionary(lang);
 
   const currencies = await getAllCurrencies();
+
+  return (
+    <IntlProvider lang={lang} dict={dict}>
+      <div className="min-h-screen bg-neutral-800">
+        <Header lang={lang} dict={dict} />
+        <div className="flex h-full items-center justify-center mt-32">
+          <SignupForm
+            currencies={currencies}
+            dict={dict}
+            plan={plan as SubscriptionPlan}
+          />
+        </div>
+      </div>
+    </IntlProvider>
+  );
 
   return (
     <IntlProvider lang={lang} dict={dict}>

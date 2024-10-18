@@ -98,7 +98,8 @@
       "addEmotionsAndLevelOfSatisfactionMessage": "Upgrade to Premium to track how each expense makes you feel and your level of satisfaction for deeper insights into your spending.",
       "seeExpensesPerMonthByCategoryTitle": "See expenses per month by category!",
       "seeExpensesPerMonthByCategoryMessage": "Upgrade to Premium to view detailed reports of your expenses broken down by category for each month."
-    }
+    },
+    "privacyPolicy": "Privacy Policy"
   },
   "insights": {
     "totalIncomeExpensesSavings": "Total income, expenses, and savings",
@@ -129,7 +130,9 @@
     "enterYourEmail": "Enter your email",
     "enterYourPassword": "Enter your password",
     "enterYourPasswordConfirmation": "Enter your password confirmation",
-    "enterYourName": "Enter your name"
+    "enterYourName": "Enter your name",
+    "acceptPrivacyPolicy": "I accept the Privacy Policy",
+    "privacyPolicy": "Privacy Policy"
   },
   "mainPage": {
     "welcome": "Welcome to Track My Expense.",

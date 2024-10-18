@@ -129,7 +129,9 @@
     "enterYourEmail": "Ingresa tu correo electrónico",
     "enterYourPassword": "Ingresa tu contraseña",
     "enterYourPasswordConfirmation": "Ingresa tu confirmación de contraseña",
-    "enterYourName": "Ingresa tu nombre"
+    "enterYourName": "Ingresa tu nombre",
+    "acceptPrivacyPolicy": "Acepto la política de privacidad",
+    "privacyPolicy": "Política de privacidad"
   },
   "mainPage": {
     "welcome": "Bienvenido a Track My Expense.",

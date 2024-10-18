@@ -26,7 +26,7 @@ export default async function AboutUsPage({
 
   return (
     <>
-      <main className="flex min-h-screen flex-col">
+      <main className="flex min-h-screen flex-col bg-neutral-800 text-neutral-100">
         <Header dict={dict} lang={lang} />
         <h2 className="text-4xl font-bold mb-10 text-center pt-16">
           {dict.pricingPage.chooseYourPlan}

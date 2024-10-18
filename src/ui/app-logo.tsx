@@ -1,13 +1,13 @@
-import { WalletIcon } from "@heroicons/react/24/outline";
-import { lusitana } from "@/src/styles/fonts";
+import { WalletIcon } from "@heroicons/react/24/solid";
+import { bricolageGrotesque } from "@/src/styles/fonts";
 
 export default function PageLogo() {
   return (
     <div
-      className={`${lusitana.className} flex flex-row items-center leading-none text-white gap-3`}
+      className={`${bricolageGrotesque.className} flex flex-row leading-none text-white gap-3 items-center`}
     >
-      <WalletIcon className="h-10 w-10 rotate-[15deg]" />
-      <h1 className="text-[28px] sm:text-[34px]">Track My Spend</h1>
+      <WalletIcon className="h-8 w-8 rotate-[35deg] text-lime-500" />
+      <div className="text-[24px] sm:text-[28px] font-bold">Track My Spend</div>
     </div>
   );
 }

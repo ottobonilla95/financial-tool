@@ -1,5 +1,5 @@
 import { AvailableLanguages, getDictionary } from "@/src/translations";
-import { Footer, Header } from "@/src/ui/components";
+import { Container, Footer, Header } from "@/src/ui/components";
 import { Metadata } from "next";
 
 export async function generateMetadata({
@@ -25,22 +25,23 @@ export default async function AboutUsPage({
 
   return (
     <>
-      <main className="flex min-h-screen flex-col">
+      <main className="flex min-h-screen flex-col bg-neutral-800 text-neutral-100">
         <Header lang={lang} dict={dict} />
-
-        <div className="mt-4 flex grow flex-col gap-4">
-          <div className="flex flex-col justify-center gap-6 rounded-lg bg-gray-50 px-6 py-10">
-            <h1 className="text-xl text-gray-800 md:text-3xl font-bold">
-              {dict.aboutUsPage.aboutUs}
-            </h1>
-            <p className="text-lg text-gray-700 md:text-xl">
-              {dict.aboutUsPage.aboutUsDescription}
-            </p>
-            <p className="text-lg text-gray-700 md:text-xl">
-              {dict.aboutUsPage.aboutUsDescription2}
-            </p>
+        <Container>
+          <div className="mt-8 flex grow flex-col gap-4">
+            <div className="flex flex-col justify-center gap-6">
+              <h1 className="text-3xl md:text-5xl font-bold">
+                {dict.aboutUsPage.aboutUs}
+              </h1>
+              <p className="text-lg md:text-xl opacity-80">
+                {dict.aboutUsPage.aboutUsDescription}
+              </p>
+              <p className="text-lg md:text-xl  opacity-80">
+                {dict.aboutUsPage.aboutUsDescription2}
+              </p>
+            </div>
           </div>
-        </div>
+        </Container>
       </main>
       <Footer dict={dict} />
     </>

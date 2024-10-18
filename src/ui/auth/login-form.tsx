@@ -26,41 +26,41 @@ export const LoginForm = ({ dict }: LoginFormProps) => {
   );
 
   return (
-    <form action={formAction} className="space-y-3">
-      <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
-        <h1 className={`${lusitana.className} mb-3 text-2xl`}>
-          {dict.authPages.pleaseLogIn}
+    <form action={formAction}>
+      <div className="flex-1 text-neutral-100 min-w-[350px]">
+        <h1 className={`${lusitana.className} mb-3 text-5xl font-extrabold`}>
+          {dict.authPages.login}
         </h1>
         <div className="w-full">
           <div>
             <label
-              className="mb-3 mt-5 block text-xs font-medium text-gray-900"
+              className="mb-3 mt-5 block text-xs font-medium "
               htmlFor="email"
             >
               {dict.shared.email}
             </label>
             <div className="relative">
               <input
-                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+                className="peer block w-full rounded-md border py-[9px] pl-10 text-sm outline-2 placeholder:text-neutral-500"
                 id="email"
                 type="email"
                 name="email"
                 placeholder={dict.authPages.enterYourEmail}
                 required
               />
-              <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 peer-focus:text-gray-900" />
             </div>
           </div>
           <div className="mt-4">
             <label
-              className="mb-3 mt-5 block text-xs font-medium text-gray-900"
+              className="mb-3 mt-5 block text-xs font-medium"
               htmlFor="password"
             >
               {dict.shared.password}
             </label>
             <div className="relative">
               <input
-                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+                className="peer block w-full rounded-md border py-[9px] pl-10 text-sm outline-2 placeholder:text-neutral-500"
                 id="password"
                 type="password"
                 name="password"
@@ -73,9 +73,9 @@ export const LoginForm = ({ dict }: LoginFormProps) => {
           </div>
         </div>
         <Button
-          className="mt-4 rounded-lg bg-black font-medium text-white hover:opacity-70 focus-visible:outline-black active:opacity-80"
+          className="mt-4 rounded-lg bg-lime-500 font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0"
           aria-disabled={isPending}
-          icon={<ArrowRightIcon className="h-5 w-5 text-gray-50" />}
+          icon={<ArrowRightIcon className="h-5 w-5" />}
           iconPosition="right"
           loading={isPending}
         >
@@ -83,7 +83,7 @@ export const LoginForm = ({ dict }: LoginFormProps) => {
         </Button>
         {!isPending && (
           <Button
-            className="mt-4"
+            className="mt-4 border-0"
             aria-disabled={isPending}
             icon={<ArrowRightIcon className="h-5 w-5" />}
             iconPosition="right"

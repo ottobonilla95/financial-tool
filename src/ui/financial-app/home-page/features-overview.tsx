@@ -38,25 +38,22 @@ export const KeyFeatures = ({ dict }: KeyFeaturesProps) => {
   return (
     <section
       id="key-features"
-      className="py-16 sm:py-24 bg-black text-white px-4 md:px-0"
+      className="text-neutral-100 px-4 md:px-0 text-center tracking-tight"
     >
-      <div className="container mx-auto text-center">
-        <h2 className="text-4xl font-bold mb-10">
-          {dict.mainPage.keyFeatures.title}
-        </h2>
-        <p className="mb-10">{dict.mainPage.keyFeatures.description}</p>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className="bg-white p-8 rounded-lg shadow-lg flex items-center flex-col text-black"
-            >
-              <img className="w-[150px] mb-4" src={feature.icon} />
-              <h3 className="text-2xl font-semibold mb-4">{feature.title}</h3>
-              <p className="text-gray-600">{feature.description}</p>
-            </div>
-          ))}
-        </div>
+      <h2 className="text-4xl md:text-5xl font-bold mb-10">
+        {dict.mainPage.keyFeatures.title}
+      </h2>
+      <p className="mb-10 text-lg opacity-80">
+        {dict.mainPage.keyFeatures.description}
+      </p>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {features.map((feature, index) => (
+          <div key={index} className="p-8 flex items-center flex-col">
+            <img className="w-[100px] mb-4 invert" src={feature.icon} />
+            <h3 className="text-2xl font-semibold mb-4">{feature.title}</h3>
+            <p className="">{feature.description}</p>
+          </div>
+        ))}
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 import { AvailableLanguages, getDictionary } from "@/src/translations";
 import { Metadata } from "next";
-import { Footer, Header } from "@/src/ui/components";
+import { Container, Footer, Header } from "@/src/ui/components";
 import { EnPrivacyPolicy } from "@/src/ui/policies/en/privacy-policy";
 import { EsPrivacyPolicy } from "@/src/ui/policies/es/privacy-policy";
 
@@ -32,7 +32,9 @@ export default async function PrivacyPolicyPage({
     <>
       <main className="flex min-h-screen flex-col">
         <Header lang={lang} dict={dict} />
-        <Policy />
+        <Container>
+          <Policy />
+        </Container>
       </main>
       <Footer dict={dict} />
     </>

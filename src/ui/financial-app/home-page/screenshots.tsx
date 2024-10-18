@@ -20,19 +20,19 @@ export const AppScreenshots = ({ dict }: AppScreenshotsProps) => {
   ];
 
   return (
-    <section className="py-16  bg-gray-50 px-4 sm:px-0">
+    <section className="py-16 px-4 sm:px-0 text-neutral-100 tracking-tight">
       <div className="container mx-auto text-center">
-        <h2 className="text-4xl font-bold mb-10">
+        <h2 className="text-5xl font-bold mb-10">
           {dict.mainPage.screenShots.title}
         </h2>
-        <p className="text-gray-600 mb-6">
+        <p className="mb-6 text-lg opacity-80">
           {dict.mainPage.screenShots.description}
         </p>
-        <div className="flex gap-8 justify-center flex-col sm:flex-row">
+        <div className="flex gap-8 justify-center items-center flex-col sm:flex-row">
           {screenshots.map((screenshot, index) => (
             <div
               key={index}
-              className="bg-white p-4 rounded-lg shadow-lg w-full max-w-[500px]"
+              className="bg-white p-4 rounded-lg w-full max-w-[400px]"
             >
               <img
                 src={screenshot.image}

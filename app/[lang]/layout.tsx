@@ -1,5 +1,5 @@
 import "@/src/styles/global.css";
-import { roboto } from "@/src/styles/fonts";
+import { bricolageGrotesque } from "@/src/styles/fonts";
 import { ToastContainer } from "react-toastify";
 import Script from "next/script";
 import { AvailableLanguages, getDictionary } from "@/src/translations";
@@ -28,7 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${roboto.className} antialiased`}>
+      <body className={`${bricolageGrotesque.className} antialiased`}>
         {children}
         <ToastContainer />
         <div className="fixed bottom-2 right-2 text-sm text-gray-400">

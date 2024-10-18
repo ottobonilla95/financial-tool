@@ -39,16 +39,22 @@ export const SignupForm = ({ currencies, dict, plan }: SignupFormPropd) => {
 
   const [selectedCurrency, setSelectedCurrency] = useState<string>();
 
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
+
   return (
     <form action={formAction} className="space-y-3">
-      <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
-        <h1 className={`${lusitana.className} mb-3 text-2xl`}>
+      <div className="flex-1 px-6 pb-4 pt-8 text-neutral-900 text-neutral-100">
+        <h1 className={`${lusitana.className} mb-3 text-5xl font-extrabold`}>
           {dict.authPages.createAccount}
         </h1>
         <div className="w-full">
           <div>
             <label
-              className="mb-3 mt-5 block text-xs font-medium text-gray-900"
+              className="mb-3 mt-5 block text-xs font-medium "
               htmlFor="name"
             >
               {`${dict.shared.name} *`}
@@ -67,7 +73,7 @@ export const SignupForm = ({ currencies, dict, plan }: SignupFormPropd) => {
           </div>
           <div>
             <label
-              className="mb-3 mt-5 block text-xs font-medium text-gray-900"
+              className="mb-3 mt-5 block text-xs font-medium"
               htmlFor="email"
             >
               {`${dict.shared.email} *`}
@@ -88,7 +94,7 @@ export const SignupForm = ({ currencies, dict, plan }: SignupFormPropd) => {
           <div className="my-4">
             <label
               htmlFor="category"
-              className="mb-3 mt-5 block text-xs font-medium text-gray-900"
+              className="mb-3 mt-5 block text-xs font-medium"
             >
               {`${dict.shared.currency} *`}
             </label>
@@ -118,7 +124,7 @@ export const SignupForm = ({ currencies, dict, plan }: SignupFormPropd) => {
           </div>
           <div className="mt-4">
             <label
-              className="mb-3 mt-5 block text-xs font-medium text-gray-900"
+              className="mb-3 mt-5 block text-xs font-medium"
               htmlFor="password"
             >
               {`${dict.shared.password} *`}
@@ -138,7 +144,7 @@ export const SignupForm = ({ currencies, dict, plan }: SignupFormPropd) => {
           </div>
           <div className="mt-4">
             <label
-              className="mb-3 mt-5 block text-xs font-medium text-gray-900"
+              className="mb-3 mt-5 block text-xs font-medium"
               htmlFor="password"
             >
               {`${dict.shared.confirmPassword} *`}
@@ -158,12 +164,32 @@ export const SignupForm = ({ currencies, dict, plan }: SignupFormPropd) => {
           </div>
         </div>
 
+        <div className="my-4">
+          <input
+            type="checkbox"
+            id="terms"
+            checked={isChecked}
+            onChange={handleCheckboxChange}
+            className="h-4 w-4 text-lime-500 border-gray-300 rounded focus:ring-indigo-500"
+          />
+          <label htmlFor="terms" className="ml-2 text-sm">
+            {dict.authPages.acceptPrivacyPolicy}{" "}
+            <a href="/privacy-policy text-lime-500" className="underline">
+              {dict.authPages.privacyPolicy}
+            </a>
+          </label>
+        </div>
+
+        {/* Submit Button */}
         <Button
-          className="mt-4 rounded-lg bg-black font-medium text-white hover:opacity-70 focus-visible:outline-black active:opacity-80"
-          aria-disabled={isPending}
-          icon={<ArrowRightIcon className="h-5 w-5 text-gray-50" />}
+          className={`mt-4 rounded-lg bg-lime-500 font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 ${
+            !isChecked ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          aria-disabled={isPending || !isChecked}
+          icon={<ArrowRightIcon className="h-5 w-5" />}
           iconPosition="right"
           loading={isPending}
+          disabled={!isChecked} // Disable the button if terms are not accepted
         >
           {dict.authPages.createAccount}
         </Button>
