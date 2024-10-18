@@ -21,16 +21,21 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
 
   return (
     <>
-      <main className="flex  flex-col bg-neutral-800">
+      <main className="flex flex-col bg-neutral-800">
         <div className="min-h-screen">
           <Header lang={lang} dict={dict} />
           <Container>
-            <div className="mt-4 flex grow flex-col md:flex-row py-10">
+            <div className="mt-4 sm:mt-10 flex grow flex-col xl:flex-row">
               <div className="flex flex-col justify-center gap-6 text-neutral-100">
-                <h1 className="font-extrabold text-4xl lg:text-6xl tracking-tight md:-mb-4 flex flex-col gap-3 items-center lg:items-start">
-                  <span className="relative">Take control of your </span>
+                <h1 className="font-extrabold  text-center sm:text-left text-4xl lg:text-6xl tracking-tight md:-mb-4 flex flex-col gap-3 items-center sm:items-start">
+                  <span className="relative">
+                    Take control of your
+                    <span className="inline md:hidden">spending, </span>
+                  </span>
                   <span className="whitespace-nowrap relative">
-                    <span className="mr-3 sm:mr-4 md:mr-5">spending,</span>
+                    <span className="mr-3 sm:mr-4 md:mr-5 hidden sm:inline">
+                      spending,
+                    </span>
                     <span className="relative whitespace-nowrap">
                       <span className="absolute bg-gray-100 -left-2 -top-1 -bottom-1 -right-2 md:-left-3 md:-top-0 md:-bottom-0 md:-right-3 -rotate-1"></span>
                       <span className="relative text-neutral-900">
@@ -51,30 +56,30 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
                     href="/pricing"
                     className="tracking-tight group border-0 gap-2 text-black flex px-4 py-2 rounded-md bg-lime-500 font-medium"
                   >
-                    <BanknotesIcon className=" w-6 h-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-200 ease-in-out" />
+                    <BanknotesIcon className="w-6 h-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-200 ease-in-out" />
                     Take Control Today
                   </Link>
                 </div>
               </div>
-              <div className="flex items-center justify-center p-6">
+              <div className="flex items-center justify-center">
                 <Image
                   src={`/images/home-page/${lang}/hero-desktop.png`}
                   width={1000}
                   height={760}
-                  className="hidden md:block"
+                  className="hidden xl:block"
                   alt="Screenshots of the dashboard project showing desktop version"
                 />
                 <Image
                   src={`/images/home-page/${lang}/hero-mobile.png`}
-                  width={560}
+                  width={400}
                   height={620}
-                  className="block md:hidden"
+                  className="block xl:hidden"
                   alt="Screenshot of the dashboard project showing mobile version"
                 />
               </div>
             </div>
 
-            <section className="p-8 md:p-12 flex flex-wrap items-center justify-center gap-4 md:gap-8 text-neutral-100">
+            <section className="flex flex-wrap items-center justify-center text-neutral-100 mt-3 mb-10 xl:mt-32 xl:mb-0">
               <span className="text-xs opacity-50">Featured on</span>
               <a
                 href="https://x.com/ottobonilla95/status/1843986969715691806"

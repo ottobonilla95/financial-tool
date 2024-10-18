@@ -1,11 +1,9 @@
 import { getAllCurrencies } from "@/src/data/currency";
 import { AvailableLanguages, getDictionary } from "@/src/translations";
 import { IntlProvider } from "@/src/translations/provider";
-import AppLogo from "@/src/ui/app-logo";
 import { SignupForm } from "@/src/ui/auth";
-import { Header } from "@/src/ui/components";
+import { Container, Header } from "@/src/ui/components";
 import { SubscriptionPlan } from "@/src/ui/financial-app/pricing";
-import Link from "next/link";
 
 export type SignupPageProps = {
   params: { lang: AvailableLanguages };
@@ -24,35 +22,10 @@ export default async function SignupPage({
     <IntlProvider lang={lang} dict={dict}>
       <div className="min-h-screen bg-neutral-800">
         <Header lang={lang} dict={dict} />
-        <div className="flex h-full items-center justify-center mt-32">
-          <SignupForm
-            currencies={currencies}
-            dict={dict}
-            plan={plan as SubscriptionPlan}
-          />
-        </div>
+        <Container className="flex justify-center pt-20">
+          <SignupForm currencies={currencies} plan={plan as SubscriptionPlan} />
+        </Container>
       </div>
-    </IntlProvider>
-  );
-
-  return (
-    <IntlProvider lang={lang} dict={dict}>
-      <main className="flex items-center justify-center">
-        <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4">
-          <div className="flex h-20 w-full items-end rounded-lg bg-black p-3 md:h-36">
-            <div className="text-white flex items-center h-full w-full justify-center">
-              <Link href="/">
-                <AppLogo />
-              </Link>
-            </div>
-          </div>
-          <SignupForm
-            currencies={currencies}
-            dict={dict}
-            plan={plan as SubscriptionPlan}
-          />
-        </div>
-      </main>
     </IntlProvider>
   );
 }

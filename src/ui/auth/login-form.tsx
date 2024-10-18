@@ -8,15 +8,13 @@ import {
 } from "@heroicons/react/24/outline";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { Button } from "@/src/ui/components";
-import { useActionState } from "react";
+import { useActionState, useContext } from "react";
 import { authenticate } from "@/src/form-actions/auth";
-import { AppDictionary } from "@/src/translations";
 import { useTranslations } from "@/src/translations/use-translations";
+import { IntlContext } from "@/src/translations/provider";
 
-export type LoginFormProps = {
-  dict: AppDictionary;
-};
-export const LoginForm = ({ dict }: LoginFormProps) => {
+export const LoginForm = () => {
+  const { dict } = useContext(IntlContext);
   const { lang } = useTranslations();
   const authenticateAction = authenticate.bind(null, lang);
 

@@ -9,19 +9,20 @@ import {
 } from "@heroicons/react/24/outline";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { Button, Dropdown } from "@/src/ui/components";
-import { useActionState, useState } from "react";
+import { useActionState, useContext, useState } from "react";
 import { createUser, CreateUserFormState } from "@/src/form-actions/auth";
 import { Currency } from "@/src/types";
-import { AppDictionary } from "@/src/translations";
 import { useTranslations } from "@/src/translations/use-translations";
 import { SubscriptionPlan, pricingPlans } from "../financial-app/pricing";
+import { IntlContext } from "@/src/translations/provider";
 
 export type SignupFormPropd = {
   currencies: Currency[];
-  dict: AppDictionary;
   plan: SubscriptionPlan;
 };
-export const SignupForm = ({ currencies, dict, plan }: SignupFormPropd) => {
+export const SignupForm = ({ currencies, plan }: SignupFormPropd) => {
+  const { dict } = useContext(IntlContext);
+
   const initialState: CreateUserFormState = { message: {}, errors: {} };
   const paymentLinkEnvVar = pricingPlans.find(
     (p) => p.planName === plan
@@ -46,10 +47,10 @@ export const SignupForm = ({ currencies, dict, plan }: SignupFormPropd) => {
   };
 
   return (
-    <form action={formAction} className="space-y-3">
-      <div className="flex-1 px-6 pb-4 pt-8 text-neutral-900 text-neutral-100">
+    <form action={formAction}>
+      <div className="flex-1 text-neutral-100 max-w-[350px]">
         <h1 className={`${lusitana.className} mb-3 text-5xl font-extrabold`}>
-          {dict.authPages.createAccount}
+          {dict.authPages?.createAccount}
         </h1>
         <div className="w-full">
           <div>
@@ -57,7 +58,7 @@ export const SignupForm = ({ currencies, dict, plan }: SignupFormPropd) => {
               className="mb-3 mt-5 block text-xs font-medium "
               htmlFor="name"
             >
-              {`${dict.shared.name} *`}
+              {`${dict.shared?.name} *`}
             </label>
             <div className="relative">
               <input
@@ -65,7 +66,7 @@ export const SignupForm = ({ currencies, dict, plan }: SignupFormPropd) => {
                 id="name"
                 type="text"
                 name="name"
-                placeholder={dict.authPages.enterYourName}
+                placeholder={dict.authPages?.enterYourName}
                 required
               />
               <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
@@ -76,7 +77,7 @@ export const SignupForm = ({ currencies, dict, plan }: SignupFormPropd) => {
               className="mb-3 mt-5 block text-xs font-medium"
               htmlFor="email"
             >
-              {`${dict.shared.email} *`}
+              {`${dict.shared?.email} *`}
             </label>
             <div className="relative">
               <input
@@ -84,7 +85,7 @@ export const SignupForm = ({ currencies, dict, plan }: SignupFormPropd) => {
                 id="email"
                 type="email"
                 name="email"
-                placeholder={dict.authPages.enterYourEmail}
+                placeholder={dict.authPages?.enterYourEmail}
                 required
               />
               <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
@@ -96,7 +97,7 @@ export const SignupForm = ({ currencies, dict, plan }: SignupFormPropd) => {
               htmlFor="category"
               className="mb-3 mt-5 block text-xs font-medium"
             >
-              {`${dict.shared.currency} *`}
+              {`${dict.shared?.currency} *`}
             </label>
             <div className="relative">
               <Dropdown
@@ -127,7 +128,7 @@ export const SignupForm = ({ currencies, dict, plan }: SignupFormPropd) => {
               className="mb-3 mt-5 block text-xs font-medium"
               htmlFor="password"
             >
-              {`${dict.shared.password} *`}
+              {`${dict.shared?.password} *`}
             </label>
             <div className="relative">
               <input
@@ -135,7 +136,7 @@ export const SignupForm = ({ currencies, dict, plan }: SignupFormPropd) => {
                 id="password"
                 type="password"
                 name="password"
-                placeholder={dict.authPages.enterYourPassword}
+                placeholder={dict.authPages?.enterYourPassword}
                 required
                 minLength={6}
               />
@@ -147,7 +148,7 @@ export const SignupForm = ({ currencies, dict, plan }: SignupFormPropd) => {
               className="mb-3 mt-5 block text-xs font-medium"
               htmlFor="password"
             >
-              {`${dict.shared.confirmPassword} *`}
+              {`${dict.shared?.confirmPassword} *`}
             </label>
             <div className="relative">
               <input
@@ -155,7 +156,7 @@ export const SignupForm = ({ currencies, dict, plan }: SignupFormPropd) => {
                 id="passwordConfirmation"
                 type="password"
                 name="passwordConfirmation"
-                placeholder={dict.authPages.enterYourPasswordConfirmation}
+                placeholder={dict.authPages?.enterYourPasswordConfirmation}
                 required
                 minLength={6}
               />
@@ -173,16 +174,16 @@ export const SignupForm = ({ currencies, dict, plan }: SignupFormPropd) => {
             className="h-4 w-4 text-lime-500 border-gray-300 rounded focus:ring-indigo-500"
           />
           <label htmlFor="terms" className="ml-2 text-sm">
-            {dict.authPages.acceptPrivacyPolicy}{" "}
+            {dict.authPages?.acceptPrivacyPolicy}{" "}
             <a href="/privacy-policy text-lime-500" className="underline">
-              {dict.authPages.privacyPolicy}
+              {dict.authPages?.privacyPolicy}
             </a>
           </label>
         </div>
 
         {/* Submit Button */}
         <Button
-          className={`mt-4 rounded-lg bg-lime-500 font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 ${
+          className={`border-0 mt-4 rounded-lg bg-lime-500 font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 ${
             !isChecked ? "opacity-50 cursor-not-allowed" : ""
           }`}
           aria-disabled={isPending || !isChecked}
@@ -191,18 +192,18 @@ export const SignupForm = ({ currencies, dict, plan }: SignupFormPropd) => {
           loading={isPending}
           disabled={!isChecked} // Disable the button if terms are not accepted
         >
-          {dict.authPages.createAccount}
+          {dict.authPages?.createAccount}
         </Button>
 
         {!isPending && (
           <Button
-            className="mt-4"
+            className="mt-4 border-0"
             aria-disabled={isPending}
             icon={<ArrowRightIcon className="h-5 w-5" />}
             iconPosition="right"
             href="/login"
           >
-            {dict.authPages.login}
+            {dict.authPages?.login}
           </Button>
         )}
 
