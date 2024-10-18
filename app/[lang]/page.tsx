@@ -25,7 +25,7 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
         <div className="min-h-screen">
           <Header lang={lang} dict={dict} />
           <Container>
-            <div className="mt-4 sm:mt-10 flex grow flex-col xl:flex-row">
+            <div className="mt-4 sm:mt-10 flex grow gap-6 xl:gap-0 flex-col xl:flex-row">
               <div className="flex flex-col justify-center gap-6 text-neutral-100">
                 <h1 className="font-extrabold  text-center sm:text-left text-4xl lg:text-6xl tracking-tight md:-mb-4 flex flex-col gap-3 items-center sm:items-start">
                   <span className="relative">
@@ -79,7 +79,7 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
               </div>
             </div>
 
-            <section className="flex flex-wrap items-center justify-center text-neutral-100 mt-3 mb-10 xl:mt-32 xl:mb-0">
+            <section className="flex flex-wrap items-center justify-center text-neutral-100 mt-6 mb-12 xl:mt-32 xl:mb-0">
               <span className="text-xs opacity-50">Featured on</span>
               <a
                 href="https://x.com/ottobonilla95/status/1843986969715691806"
