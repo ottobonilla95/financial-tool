@@ -10,3 +10,4 @@ export * from "./no-expenses-added";
 export * from "./saving-tables-container";
 export * from "./total-by-emotion";
 export * from "./total-by-satisfaction";
+export * from "./expenses-by-day-graph";

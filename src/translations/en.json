@@ -10,7 +10,8 @@
     "totalExpenses": "Total expenses",
     "balance": "Balance",
     "byEmotion": "By Emotion",
-    "bySatisfaction": "By Satisfaction"
+    "bySatisfaction": "By Satisfaction",
+    "totalExpensesPerDayByCategory": "Total expenses per day by category"
   },
   "forms": {
     "expense": {

@@ -11,6 +11,7 @@ export type AppDictionary = {
     balance: string;
     byEmotion: string;
     bySatisfaction: string;
+    totalExpensesPerDayByCategory: string;
   };
   forms: {
     expense: {

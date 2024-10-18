@@ -11,6 +11,7 @@ import {
   SavingTableContainer,
   DashboardExpeneseByEmotion,
   DashboardExpeneseBySatisfaction,
+  ExpensesByDayGraph,
 } from "@/src/ui/financial-app/dashboard";
 import { Suspense } from "react";
 import { fetchEarnings } from "@/src/data/earning";
@@ -166,6 +167,9 @@ export default async function Page({
                 </div>
               )}
 
+              <div className="py-5">
+                <ExpensesByDayGraph expenses={expenses} dict={dict} />
+              </div>
               {savings.length > 0 && (
                 <div>
                   <SavingTableContainer savings={savings} dict={dict} />
