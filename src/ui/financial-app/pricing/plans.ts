@@ -1,4 +1,4 @@
-export type SubscriptionPlan = "free" | "premium";
+export type SubscriptionPlan = "free" | "premium" | "lifetime";
 
 export type PricingPlan = {
   title: string;
@@ -36,5 +36,15 @@ export const pricingPlans: PricingPlan[] = [
     period: "monthly",
     planName: "premium",
     paymentLink: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PLAN_PAYMENT_LINK,
+  },
+  {
+    title: "lifeTimeDeal",
+    price: "$49",
+    features: ["allPremiumFeatures"],
+    buttonLabel: "oneTimePayment",
+    mostPopular: false,
+    period: "lifetime",
+    planName: "lifetime",
+    paymentLink: process.env.NEXT_PUBLIC_STRIPE_LIFETIME_DEAL_PLAN_PAYMENT_LINK,
   },
 ];

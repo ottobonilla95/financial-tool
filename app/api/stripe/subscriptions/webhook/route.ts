@@ -16,17 +16,18 @@ export async function POST(request: Request) {
   } catch (err: any) {
     return Response.json(`Webhook Error: ${err.message}`, { status: 400 });
   }
+  let user, stripeId;
 
   // Handle the event
   switch (event.type) {
     case "customer.subscription.deleted":
       const customerSubscriptionDeleted = event.data.object;
 
-      const stripeId = customerSubscriptionDeleted.customer;
+      stripeId = customerSubscriptionDeleted.customer;
 
       const newPlan: SubscriptionPlan = "free";
 
-      const user = await getDBUser({
+      user = await getDBUser({
         filters: { stripeId: stripeId as string },
       });
 
@@ -45,17 +46,23 @@ export async function POST(request: Request) {
     case "customer.subscription.updated":
       const customerSubscriptionUpdated = event.data.object;
 
-      const stripeIdToUpdate = customerSubscriptionUpdated.customer;
+      stripeId = customerSubscriptionUpdated.customer;
       const cancelAt = customerSubscriptionUpdated.cancel_at;
 
-      await updateDBUser({
-        data: {
-          subscription_cancel_at: cancelAt,
-        },
-        filters: {
-          stripeId: stripeIdToUpdate as string,
-        },
+      user = await getDBUser({
+        filters: { stripeId: stripeId as string },
       });
+
+      if (user) {
+        await updateDBUser({
+          data: {
+            subscription_cancel_at: cancelAt,
+          },
+          filters: {
+            stripeId: stripeId as string,
+          },
+        });
+      }
 
       break;
     default:

@@ -91,6 +91,7 @@
     "pricing": "Precios",
     "goPremium": "Ir a Premium",
     "manageSubscription": "Administrar suscripción",
+    "changeSubsCription": "Cambiar suscripción",
     "subscriptionMessages": {
       "youHaveReaachedYourCategoryLimitTitle": "¡Has alcanzado el límite de categorías!",
       "youHaveReaachedYourCategoryLimit": "Has utilizado todas las categorías disponibles en el plan gratuito. Actualiza a Premium para desbloquear categorías ilimitadas y obtener informes más detallados sobre tus gastos.",
@@ -134,8 +135,11 @@
     "privacyPolicy": "Política de privacidad"
   },
   "mainPage": {
-    "welcome": "Bienvenido a Track My Expense.",
-    "welcomeDescription": "Lleva un registro de tus gastos de manera fácil y eficiente.",
+    "introMessage1": "Controla tu dinero",
+    "introMessage2": "de forma fácil y",
+    "introMessage3": "rápida",
+    "welcomeDescription": "Controla, gestiona y analiza tus gastos con una herramienta sencilla. Toma decisiones inteligentes sobre tu dinero y gana control en cada paso.",
+    "takeControlToday": "Toma el control hoy",
     "keyFeatures": {
       "title": "Lo Que Ofrece TrackMySpend",
       "description": "TrackMySpend te proporciona las herramientas para gestionar tu dinero sin esfuerzo y obtener información detallada sobre tus hábitos de gasto.",
@@ -344,6 +348,9 @@
     "prioritySupport": "Soporte prioritario",
     "unlimitedCategories": "Categorías ilimitadas",
     "upTo9Categories": "Hasta 9 categorías",
-    "emtionTrackingAndLevelOfSatisfaction": "Seguimiento de emociones y nivel de satisfacción"
+    "emtionTrackingAndLevelOfSatisfaction": "Seguimiento de emociones y nivel de satisfacción",
+    "lifeTimeDeal": "Oferta de por vida",
+    "allPremiumFeatures": "Todas las funciones Premium",
+    "oneTimePayment": "Pago único"
   }
 }

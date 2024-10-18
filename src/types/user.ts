@@ -11,4 +11,5 @@ export type User = {
   subscriptionPlan?: string;
   subscriptionCancelAt?: number;
   stripeId?: string;
+  subscriptionId?: string;
 };

@@ -92,6 +92,7 @@ export type AppDictionary = {
     pricing: string;
     goPremium: string;
     manageSubscription: string;
+    changeSubsCription: string;
     subscriptionMessages: {
       youHaveReaachedYourCategoryLimitTitle: string;
       youHaveReaachedYourCategoryLimit: string;
@@ -135,8 +136,11 @@ export type AppDictionary = {
     privacyPolicy: string;
   };
   mainPage: {
-    welcome: string;
+    introMessage1: string;
+    introMessage2: string;
+    introMessage3: string;
     welcomeDescription: string;
+    takeControlToday: string;
     keyFeatures: {
       title: string;
       description: string;
@@ -323,6 +327,9 @@ export type AppDictionary = {
     basicReporting: string;
     advancedAnalytics: string;
     prioritySupport: string;
+    lifeTimeDeal: string;
+    allPremiumFeatures: string;
+    oneTimePayment: string;
   };
 };
 

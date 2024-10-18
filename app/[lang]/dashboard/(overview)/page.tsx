@@ -167,9 +167,12 @@ export default async function Page({
                 </div>
               )}
 
-              <div className="py-5">
-                <ExpensesByDayGraph expenses={expenses} dict={dict} />
-              </div>
+              {expenses.length > 0 && isPremium && (
+                <div className="py-5">
+                  <ExpensesByDayGraph expenses={expenses} dict={dict} />
+                </div>
+              )}
+
               {savings.length > 0 && (
                 <div>
                   <SavingTableContainer savings={savings} dict={dict} />

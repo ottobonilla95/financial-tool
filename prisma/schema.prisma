@@ -37,6 +37,7 @@ model users {
   tour_finished          Boolean?           @default(false)
   lang                   String?
   subscription_plan      String?            @default("free")
+  subscription_id        String?            
   subscription_cancel_at Int?               @default(0)
   stripeId               String?            @unique
   earning                earning[]

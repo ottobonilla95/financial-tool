@@ -29,35 +29,34 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
               <div className="flex flex-col justify-center gap-6 text-neutral-100">
                 <h1 className="font-extrabold  text-center sm:text-left text-4xl lg:text-6xl tracking-tight md:-mb-4 flex flex-col gap-3 items-center sm:items-start">
                   <span className="relative">
-                    Take control of your
-                    <span className="inline md:hidden">spending, </span>
+                    {dict.mainPage.introMessage1}
+                    <span className="inline md:hidden">
+                      {dict.mainPage.introMessage2}
+                    </span>
                   </span>
                   <span className="whitespace-nowrap relative">
                     <span className="mr-3 sm:mr-4 md:mr-5 hidden sm:inline">
-                      spending,
+                      {dict.mainPage.introMessage2}
                     </span>
                     <span className="relative whitespace-nowrap">
                       <span className="absolute bg-gray-100 -left-2 -top-1 -bottom-1 -right-2 md:-left-3 md:-top-0 md:-bottom-0 md:-right-3 -rotate-1"></span>
                       <span className="relative text-neutral-900">
-                        effortlessly
+                        {dict.mainPage.introMessage3}
                       </span>
                     </span>
                   </span>
                 </h1>
-                {/* <strong>{`${dict.mainPage.welcome} `}</strong>
-                {dict.mainPage.welcomeDescription} */}
+
                 <p className="text-lg opacity-80 leading-relaxed mt-4 sm:mt-8 text-center sm:text-left">
-                  Track, manage, and analyze your expenses in one simple tool.
-                  Make informed decisions about your money and feel empowered
-                  every step of the way.
+                  {dict.mainPage.welcomeDescription}
                 </p>
                 <div className="flex mt-4 sm:mt-8 mb-4 justify-center sm:justify-start">
                   <Link
                     href="/pricing"
-                    className="tracking-tight group border-0 gap-2 text-black flex px-4 py-2 rounded-md bg-lime-500 font-medium"
+                    className="tracking-tight group border-0 gap-2 text-black flex px-5 py-2 rounded-md bg-lime-500 font-medium"
                   >
                     <BanknotesIcon className="w-6 h-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-200 ease-in-out" />
-                    Take Control Today
+                    {dict.mainPage.takeControlToday}
                   </Link>
                 </div>
               </div>

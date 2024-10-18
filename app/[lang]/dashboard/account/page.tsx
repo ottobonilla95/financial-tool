@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { getDBUser } from "@/src/data/user";
 import { AvailableLanguages, getDictionary } from "@/src/translations";
-import { User } from "@/src/types";
+import { SubscriptionPlanOption, User } from "@/src/types";
 import { Button } from "@/src/ui/components";
 
 export type AccountPageProps = {
@@ -51,6 +51,35 @@ export default async function AccountPage({
     cancelDateString = formattedDate;
   }
 
+  const renderButtons = () => {
+    if (user.stripeId) {
+      if (user.subscriptionPlan === SubscriptionPlanOption.Lifetime) {
+        return (
+          <div className="text-neutral-800 text-sm">
+            {dict.pricingPage.lifeTimeDeal}
+          </div>
+        );
+      }
+      return (
+        <div className="flex gap-4">
+          <Button href="/dashboard/pricing" target="_blank">
+            {`${dict.shared.changeSubsCription}`}
+          </Button>
+          <Button
+            href={stripeCustomerPortalLink}
+            className="whitespace-nowrap"
+            target="_blank"
+          >
+            {`${dict.shared.manageSubscription}`}
+          </Button>
+        </div>
+      );
+    }
+
+    return (
+      <Button href="/dashboard/pricing">{`${dict.shared.goPremium}`}</Button>
+    );
+  };
   return (
     <div className="p-2 md:p-5">
       <div className="rounded-sm shadow-sm bg-white p-5">
@@ -86,7 +115,7 @@ export default async function AccountPage({
             </div>
           </div>
 
-          <div className="flex justify-between items-center py-1">
+          <div className="flex justify-between items-center py-2">
             <p>
               <strong>{`${"Plan"}:`}</strong>
               <span className="ml-1 mr-1">
@@ -100,15 +129,7 @@ export default async function AccountPage({
                 <span>{`(${dict.accountPage.finishesOn}: ${cancelDateString})`}</span>
               )}
             </p>
-            <div>
-              {user.stripeId ? (
-                <Button href={stripeCustomerPortalLink} target="_blank">
-                  {`${dict.shared.manageSubscription}`}
-                </Button>
-              ) : (
-                <Button href="/dashboard/pricing">{`${dict.shared.goPremium}`}</Button>
-              )}
-            </div>
+            <div>{renderButtons()}</div>
           </div>
         </div>
       </div>

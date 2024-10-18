@@ -14,12 +14,14 @@ export type PricingProps = {
   user?: User;
   lang: string;
   dict: AppDictionary;
+  showFreePlan?: boolean;
 };
 export const Pricing = ({
   currenSubscriptionPlan,
   user,
   lang,
   dict,
+  showFreePlan = true,
 }: PricingProps) => {
   const [period, setPeriod] = useState("monthly");
 
@@ -40,6 +42,9 @@ export const Pricing = ({
   return (
     <div className="flex flex-col sm:flex-row sm:justify-center gap-4 px-10 sm:px-0">
       {pricingPlans.map((plan, index) => {
+        if (plan.planName === "free" && !showFreePlan) {
+          return null;
+        }
         const alreadySelected = plan.planName === currenSubscriptionPlan;
         return (
           <div
@@ -73,10 +78,12 @@ export const Pricing = ({
                     <p className="text-4xl font-bold mb-4">
                       {plan.price === "free" ? "Free" : `US ${plan.price}`}
                     </p>
-                    <div className="flex flex-col opacity-80 text-xs leading-[18px] pl-1">
-                      <span className="">{dict.pricingPage.per}</span>
-                      <span className="">{dict.pricingPage.month}</span>
-                    </div>
+                    {plan.period !== "lifetime" && (
+                      <div className="flex flex-col opacity-80 text-xs leading-[18px] pl-1">
+                        <span className="">{dict.pricingPage.per}</span>
+                        <span className="">{dict.pricingPage.month}</span>
+                      </div>
+                    )}
                   </>
                 )}
               </div>

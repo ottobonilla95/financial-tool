@@ -91,6 +91,7 @@
     "pricing": "Pricing",
     "goPremium": "Go Premium",
     "manageSubscription": "Manage Subscription",
+    "changeSubsCription": "Change Subscription",
     "subscriptionMessages": {
       "youHaveReaachedYourCategoryLimitTitle": "You’ve Reached Your Category Limit!",
       "youHaveReaachedYourCategoryLimit": "You’ve used all available categories for the free plan. Upgrade to Premium to unlock unlimited categories and gain deeper insights into your spending.",
@@ -135,8 +136,11 @@
     "privacyPolicy": "Privacy Policy"
   },
   "mainPage": {
-    "welcome": "Welcome to Track My Expense.",
-    "welcomeDescription": "Keep track of your expenses easily and efficiently.",
+    "introMessage1": "Take control of your",
+    "introMessage2": "spending,",
+    "introMessage3": "effortlessly",
+    "welcomeDescription": "Track, manage, and analyze your expenses in one simple tool. Make informed decisions about your money and feel empowered every step of the way.",
+    "takeControlToday": "Take control today",
     "keyFeatures": {
       "title": "Key Features of TrackMySpend",
       "description": "TrackMySpend provides you with the tools to manage your money effortlessly and gain deep insights into your spending habits.",
@@ -341,11 +345,14 @@
     "basicPlan": "Basic Plan",
     "premiumPlan": "Premium Plan",
     "trackExpenses": "Track Expenses",
-    "basicReporting": "Basic Reporting",
+    "basicReporting": "Basic Analytics",
     "advancedAnalytics": "Advanced Analytics",
     "prioritySupport": "Priority Support",
     "unlimitedCategories": "Unlimited Categories",
     "upTo9Categories": "Up to 9 Categories",
-    "emtionTrackingAndLevelOfSatisfaction": "Emotion Tracking and Level of Satisfaction"
+    "emtionTrackingAndLevelOfSatisfaction": "Emotion Tracking and Level of Satisfaction",
+    "lifeTimeDeal": "Life Time Deal",
+    "allPremiumFeatures": "All Premium Features",
+    "oneTimePayment": "One Time Payment"
   }
 }
