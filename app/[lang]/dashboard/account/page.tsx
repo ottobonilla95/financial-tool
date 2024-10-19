@@ -62,7 +62,7 @@ export default async function AccountPage({
       }
       return (
         <div className="flex gap-4">
-          <Button href="/dashboard/pricing" target="_blank">
+          <Button href="/dashboard/pricing">
             {`${dict.shared.changeSubsCription}`}
           </Button>
           <Button
