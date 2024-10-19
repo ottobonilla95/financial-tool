@@ -28,10 +28,11 @@ export default async function AboutUsPage({
     <>
       <main className="flex min-h-screen flex-col bg-neutral-800 text-neutral-100">
         <Header dict={dict} lang={lang} />
-        <h2 className="text-4xl font-bold mb-10 text-center pt-16">
+        <h2 className="text-4xl font-bold sm:pb-12 text-center pt-4 xl:pt-8">
           {dict.pricingPage.chooseYourPlan}
         </h2>
         <Pricing dict={dict} lang={lang} />
+        <div className="h-10"/>
       </main>
       <Footer dict={dict} />
     </>

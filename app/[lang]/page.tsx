@@ -1,7 +1,7 @@
 import { BanknotesIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import Image from "next/image";
-import { Container, Footer, Header } from "@/src/ui/components";
+import { Container, Footer, Header, XIcon } from "@/src/ui/components";
 import { AvailableLanguages, getDictionary } from "@/src/translations";
 import {
   KeyFeatures,
@@ -78,7 +78,7 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
               </div>
             </div>
 
-            <section className="flex flex-wrap items-center justify-center text-neutral-100 mt-6 mb-12 xl:mt-32 xl:mb-0">
+            <section className="flex flex-wrap items-center justify-center text-neutral-100 mt-6 mb-12 xl:py-5">
               <span className="text-xs opacity-50">Featured on</span>
               <a
                 href="https://x.com/ottobonilla95/status/1843986969715691806"
@@ -86,30 +86,7 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
                 rel="noreferrer"
                 title="Featured on X.com"
               >
-                <svg
-                  className="w-8 md:w-9 fill-base-content saturate-0 contrast-50 opacity-80 hover:opacity-100 hover:saturate-100 hover:contrast-100 duration-100 cursor-pointer"
-                  viewBox="0 0 252 252"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g clip-path="url(#clip0_177_29)">
-                    <path
-                      d="M126 250.793C195.036 250.793 251 194.875 251 125.897C251 56.9181 195.036 1 126 1C56.9644 1 1 56.9181 1 125.897C1 194.875 56.9644 250.793 126 250.793Z"
-                      fill="black"
-                      stroke="white"
-                      stroke-miterlimit="10"
-                    ></path>
-                    <path
-                      d="M48.9999 53.5352L108.748 133.357L48.6233 198.256H62.1561L114.797 141.435L157.327 198.256H203.377L140.265 113.945L196.23 53.5352H182.697L134.219 105.865L95.0494 53.5352H48.9999ZM68.9004 63.4941H90.0554L183.474 188.297H162.319L68.9004 63.4941Z"
-                      fill="white"
-                    ></path>
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_177_29">
-                      <rect width="252" height="252" fill="white"></rect>
-                    </clipPath>
-                  </defs>
-                </svg>
+                <XIcon className="w-8 md:w-9" />
               </a>
             </section>
           </Container>
@@ -121,7 +98,7 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
           <AppScreenshots dict={dict} />
           <Testimonials dict={dict} />
           <div className="py-10 text-neutral-100 tracking-tight">
-            <h2 className="text-5xl font-bold mb-10 text-center">
+            <h2 className="text-5xl font-bold sm:mb-10 xl:mb-12 text-center">
               {dict.shared.pricing}
             </h2>
             <Pricing dict={dict} lang={lang} />

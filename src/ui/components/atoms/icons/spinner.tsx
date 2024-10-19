@@ -1,8 +1,7 @@
 import clsx from "clsx";
+import { IconProps } from "./types";
 
-export type SpinnerProps = { className?: string };
-
-export const Spinner = ({ className }: SpinnerProps) => {
+export const Spinner = ({ className }: IconProps) => {
   return (
     <svg
       aria-hidden="true"
