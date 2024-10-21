@@ -41,6 +41,8 @@ export default async function Page({
 }: DashboardPageProps) {
   const dict = await getDictionary(lang);
 
+  console.log("searchParams", searchParams);
+
   const session = await auth();
   const userId = session?.user?.id as string;
 
