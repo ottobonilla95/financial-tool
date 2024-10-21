@@ -11,6 +11,7 @@ import {
   AvailableLanguages,
   getDictionary,
 } from "../translations";
+import { redirect } from "next/navigation";
 
 export type ExpenseFormState = {
   errors?: {
@@ -117,7 +118,7 @@ export async function createExpense(
       },
     };
   }
-  revalidateTag("/dashboard?month=5&year=2024");
+  redirect("/dashboard?month=5&year=2024");
 
   return {
     message: {
