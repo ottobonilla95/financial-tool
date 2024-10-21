@@ -117,7 +117,7 @@ export async function createExpense(
       },
     };
   }
-  revalidatePath("/dashboard?month=5&year=2024");
+  revalidatePath("/dashboard");
 
   return {
     message: {

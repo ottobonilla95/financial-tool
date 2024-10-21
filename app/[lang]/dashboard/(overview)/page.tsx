@@ -121,7 +121,6 @@ export default async function Page({
       <IntlProvider dict={dict} lang={lang}>
         <TourProvider>
           <main>
-            {JSON.stringify(searchParams)}
             {!tourFinished && <TourInitiator />}
             <Suspense fallback={<div>loading...</div>}>
               <LastUpdated dict={dict} />
