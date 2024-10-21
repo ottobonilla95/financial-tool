@@ -39,7 +39,7 @@ export const CreateSavingForm = ({
   return (
     <Modal isOpen onCloseModal={closeModal}>
       <form action={formAction}>
-        <div className="rounded-md bg-gray-50 p-4 md:p-6 ">
+        <div className="p-4 md:p-6 !pt-[80px]">
           {/* Description */}
           <div className="mb-4">
             <label
@@ -114,6 +114,8 @@ export const CreateSavingForm = ({
                   maxDate={new Date()}
                   aria-describedby="date-error"
                   dateFormat={"dd MMM yyyy"}
+                  popperClassName="z-[10000000]"
+                  calendarClassName="z-[10000000]"
                   className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
                 />
                 <input

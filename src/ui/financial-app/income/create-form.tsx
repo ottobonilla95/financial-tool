@@ -263,6 +263,8 @@ export const CreateIncomeForm = ({
                         maxDate={new Date()}
                         dateFormat={"dd MMM yyyy"}
                         aria-describedby="date-error"
+                        popperClassName="z-[1000000]"
+                        calendarClassName="z-[1000000]"
                         className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
                       />
                       <input

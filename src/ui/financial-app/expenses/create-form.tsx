@@ -416,7 +416,7 @@ export const CreateExpenseForm = ({
                       <legend className="mb-2 block text-sm font-medium">
                         {dict.forms?.expense.create.levelOfSatisfaction}
                       </legend>
-                      <div className="px-3 py-3">
+                      <div className="py-3">
                         <div className="flex gap-4 flex-wrap">
                           <div className="flex items-center rounded-md border-solid border-gray-200 border px-2">
                             <input
@@ -537,7 +537,7 @@ export const CreateExpenseForm = ({
                       <legend className="mb-2 block text-sm font-medium">
                         {dict.forms?.expense.create.whatEmotionDidIFeel}
                       </legend>
-                      <div className="px-3 py-3 sm:max-w-[400px]">
+                      <div className="py-3 sm:max-w-[400px]">
                         <div className="flex gap-4 flex-wrap">
                           {emotions?.map((emotion) => (
                             <div className="flex items-center rounded-md border-solid border-gray-200 border px-2">
