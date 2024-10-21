@@ -35,7 +35,7 @@ export default function RootLayout({
           &copy; {new Date().getFullYear()} TrackMySpend
         </div>
       </body>
-      {process.env.NODE_ENV === "production" && (
+      {/* {process.env.NODE_ENV === "production" && (
         <Script
           id="Cookiebot"
           src="https://consent.cookiebot.com/uc.js"
@@ -43,7 +43,7 @@ export default function RootLayout({
           data-blockingmode="auto"
           type="text/javascript"
         />
-      )}
+      )} */}
     </html>
   );
 }
