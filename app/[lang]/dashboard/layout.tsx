@@ -1,7 +1,7 @@
 import { AvailableLanguages, getDictionary } from "@/src/translations";
 import SideNav from "@/src/ui/financial-app/dashboard/sidenav";
 
-export const experimental_ppr = true;
+// export const experimental_ppr = true;
 
 export type LayoutProps = {
   params: { lang: AvailableLanguages };
