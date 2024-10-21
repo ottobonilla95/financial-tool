@@ -62,7 +62,7 @@ export default async function Page({
     },
   });
 
-  const isPremium = user?.subscriptionPlan === SubscriptionPlanOption.Premium;
+  const isPremium = user?.subscriptionPlan !== SubscriptionPlanOption.Free;
   const stripeCustomerPortalLink = `${process.env.STRIPE_CUSTOMER_PORTAL_URL}?prefilled_email=${user?.email}`;
   const isUserOnStripe = Boolean(user?.stripeId);
 
@@ -167,7 +167,7 @@ export default async function Page({
                 </div>
               )}
 
-              {expenses.length > 0 && isPremium && (
+              {expenses.length > 0 && (
                 <div className="py-5">
                   <ExpensesByDayGraph expenses={expenses} dict={dict} />
                 </div>

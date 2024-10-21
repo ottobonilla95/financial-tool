@@ -128,7 +128,7 @@ export const TotalLineChart = ({
           <>
             <div
               className="bg-black inset-0 absolute blur-sm rounded-md z-[1000]"
-              style={{ opacity: "10%" }}
+              style={{ opacity: "5%" }}
             />
             <div className="inset-0 absolute flex pt-10 items-center justify-center z-[10001]">
               <div className="w-full max-w-[400px] p-5 bg-white rounded-md border border-gray-200 border-solid">

@@ -56,7 +56,7 @@ export default async function Page({ params: { lang } }: InsightsPageProps) {
 
   const currency = user?.currency;
 
-  const isPremium = user?.subscriptionPlan === SubscriptionPlanOption.Premium;
+  const isPremium = user?.subscriptionPlan !== SubscriptionPlanOption.Free;
   const stripeCustomerPortalLink = `${process.env.STRIPE_CUSTOMER_PORTAL_URL}?prefilled_email=${user?.email}`;
   const isUserOnStripe = Boolean(user?.stripeId);
 

@@ -100,6 +100,8 @@ export type AppDictionary = {
       addEmotionsAndLevelOfSatisfactionMessage: string;
       seeExpensesPerMonthByCategoryTitle: string;
       seeExpensesPerMonthByCategoryMessage: string;
+      seeTotalExpensesPerDayTitle: string;
+      seeTotalExpensesPerDayMessage: string;
     };
   };
   insights: {

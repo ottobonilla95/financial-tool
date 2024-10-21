@@ -98,7 +98,9 @@
       "addEmotionsAndLevelOfSatisfactionTitle": "Add emotions and satisfaction to your expenses!",
       "addEmotionsAndLevelOfSatisfactionMessage": "Upgrade to Premium to track how each expense makes you feel and your level of satisfaction for deeper insights into your spending.",
       "seeExpensesPerMonthByCategoryTitle": "See expenses per month by category!",
-      "seeExpensesPerMonthByCategoryMessage": "Upgrade to Premium to view detailed reports of your expenses broken down by category for each month."
+      "seeExpensesPerMonthByCategoryMessage": "Upgrade to Premium to view detailed reports of your expenses broken down by category for each month.",
+      "seeTotalExpensesPerDayTitle": "See total expenses per day!",
+      "seeTotalExpensesPerDayMessage": "Upgrade to Premium to view detailed reports of your total expenses per day."
     },
     "privacyPolicy": "Privacy Policy"
   },

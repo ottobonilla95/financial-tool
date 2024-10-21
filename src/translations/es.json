@@ -98,7 +98,9 @@
       "addEmotionsAndLevelOfSatisfactionTitle": "¡Agrega emociones y nivel de satisfacción a tus gastos!",
       "addEmotionsAndLevelOfSatisfactionMessage": "Actualiza a Premium para registrar cómo te sientes con cada gasto y tu nivel de satisfacción, y así obtener análisis más detallados de tus finanzas.",
       "seeExpensesPerMonthByCategoryTitle": "¡Ver gastos por mes y por categoría!",
-      "seeExpensesPerMonthByCategoryMessage": "Actualiza a Premium para ver informes detallados de tus gastos desglosados por categoría para cada mes."
+      "seeExpensesPerMonthByCategoryMessage": "Actualiza a Premium para ver informes detallados de tus gastos desglosados por categoría para cada mes.",
+      "seeTotalExpensesPerDayTitle": "¡Ver gastos totales por día!",
+      "seeTotalExpensesPerDayMessage": "Actualiza a Premium para ver informes detallados de tus gastos totales por día."
     }
   },
   "insights": {
