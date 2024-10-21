@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { auth } from "@/auth";
 import { updateLastUpdated } from "../data/user";
 import { deleteDbExpense, createDbExpense } from "../data/expenses";
@@ -118,7 +118,7 @@ export async function createExpense(
       },
     };
   }
-  redirect("/en/dashboard?month=5&year=2024");
+  revalidatePath("/en/dashboard?month=5&year=2024");
 
   return {
     message: {
