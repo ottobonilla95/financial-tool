@@ -56,7 +56,6 @@ const createFormSchema = (dict: AppDictionary) =>
 
 export async function createExpense(
   lang: AvailableLanguages,
-  prevState: ExpenseFormState,
   formData: FormData
 ) {
   const dict = await getDictionary(lang);

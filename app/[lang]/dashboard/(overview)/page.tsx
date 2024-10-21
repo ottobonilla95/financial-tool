@@ -175,7 +175,7 @@ export default async function Page({
                 </div>
               )}
 
-              {savings.length > 0 && (
+              {/* {savings.length > 0 && (
                 <div>
                   <SavingTableContainer savings={savings} dict={dict} />
                 </div>
@@ -184,7 +184,7 @@ export default async function Page({
                 <div>
                   <IncomeTableContainer earnings={earnings} dict={dict} />
                 </div>
-              )}
+              )} */}
               {expenses.length > 0 && (
                 <div>
                   <ExpensesTableContainer

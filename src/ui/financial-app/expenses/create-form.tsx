@@ -6,7 +6,7 @@ import {
   FaceFrownIcon,
 } from "@heroicons/react/24/outline";
 import { createExpense, ExpenseFormState } from "@/src/form-actions/expenses";
-import { useActionState, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { Emotion, ExpenseCategory } from "@/src/types";
 import { toast, TypeOptions } from "react-toastify";
@@ -23,6 +23,7 @@ import { formatDateToLocal } from "@/src/helpers/format-date-to-local";
 import { useTranslations } from "@/src/translations/use-translations";
 import { MAX_CATEGORIES_FREE_PLAN } from "@/src/constants/categories";
 import { AppContext } from "@/src/app-wrappper/provider";
+import { useFormStatus } from "react-dom";
 
 export type CreateExpenseFormProps = {
   closeModal: () => void;
@@ -43,10 +44,13 @@ export const CreateExpenseForm = ({
   const isPremium = subscriptionDetails?.isPremium;
 
   const initialState: ExpenseFormState = { message: {}, errors: {} };
-  const [state, formAction, loading] = useActionState(
-    createExpenseAction,
-    initialState
-  );
+  // const [state, formAction, loading] = useActionState(
+  //   createExpenseAction,
+  //   initialState
+  // );
+
+  const { pending: loading } = useFormStatus();
+
   const [categories, setCategories] = useState<ExpenseCategory[]>([]);
   const currentYear = new Date().getFullYear();
   const [startDate, setStartDate] = useState(new Date(currentYear, month - 1));
@@ -78,11 +82,11 @@ export const CreateExpenseForm = ({
     );
   }, [data]);
 
-  useEffect(() => {
-    if (state.message?.text) {
-      toast(state.message.text, { type: state.message.type as TypeOptions });
-    }
-  }, [state]);
+  // useEffect(() => {
+  //   if (state.message?.text) {
+  //     toast(state.message.text, { type: state.message.type as TypeOptions });
+  //   }
+  // }, [state]);
 
   const categoriesCount = categories.length;
 
@@ -102,41 +106,39 @@ export const CreateExpenseForm = ({
         modalClassName="sm:max-w-[400px]"
         zIndex={60}
       >
-        <form action={formAction}>
-          <div className="font-bold text-lg mb-2">
-            {
-              dict.shared?.subscriptionMessages
-                .youHaveReaachedYourCategoryLimitTitle
-            }
-          </div>
-          <div className="mb-5">
-            {dict.shared?.subscriptionMessages.youHaveReaachedYourCategoryLimit}
-          </div>
-          <div className="flex gap-4">
-            <Button onClick={() => setShowMaxCategoriesAdded(false)}>
-              {dict.shared?.close}
-            </Button>
+        <div className="font-bold text-lg mb-2">
+          {
+            dict.shared?.subscriptionMessages
+              .youHaveReaachedYourCategoryLimitTitle
+          }
+        </div>
+        <div className="mb-5">
+          {dict.shared?.subscriptionMessages.youHaveReaachedYourCategoryLimit}
+        </div>
+        <div className="flex gap-4">
+          <Button onClick={() => setShowMaxCategoriesAdded(false)}>
+            {dict.shared?.close}
+          </Button>
 
-            <div className="w-full">
-              {subscriptionDetails?.isUserOnStripe ? (
-                <Button
-                  href={subscriptionDetails.stripeCustomerPortalLink}
-                  target="_blank"
-                  className="text-white bg-black"
-                >
-                  {`${dict.shared?.manageSubscription}`}
-                </Button>
-              ) : (
-                <Button
-                  href="/dashboard/pricing"
-                  className="text-white bg-black"
-                >{`${dict.shared?.goPremium}`}</Button>
-              )}
-            </div>
+          <div className="w-full">
+            {subscriptionDetails?.isUserOnStripe ? (
+              <Button
+                href={subscriptionDetails.stripeCustomerPortalLink}
+                target="_blank"
+                className="text-white bg-black"
+              >
+                {`${dict.shared?.manageSubscription}`}
+              </Button>
+            ) : (
+              <Button
+                href="/dashboard/pricing"
+                className="text-white bg-black"
+              >{`${dict.shared?.goPremium}`}</Button>
+            )}
           </div>
-        </form>
+        </div>
       </Modal>
-      <CreateCategoryForm
+      {/* <CreateCategoryForm
         isOpen={isCategoryFormOpen}
         closeModal={() => setIsCategoryFormOpen(false)}
         onSuccess={getAllCategories}
@@ -152,7 +154,7 @@ export const CreateExpenseForm = ({
         isOpen={isSubCategoryFormOpen}
         closeModal={() => setIsSubCategoryFormOpen(false)}
         onSuccess={getAllCategories}
-      />
+      /> */}
 
       <>
         <Modal isOpen onCloseModal={closeModal}>
@@ -163,7 +165,7 @@ export const CreateExpenseForm = ({
               </div>
             )}
 
-            <form action={formAction}>
+            <form action={createExpenseAction}>
               <div className="rounded-md p-4 md:p-6 ">
                 {/* Category */}
                 <div className="mb-4">
@@ -203,12 +205,12 @@ export const CreateExpenseForm = ({
                     aria-live="polite"
                     aria-atomic="true"
                   >
-                    {state?.errors?.categoryId &&
+                    {/* {state?.errors?.categoryId &&
                       state.errors.categoryId.map((error: string) => (
                         <p className="mt-2 text-sm text-red-500" key={error}>
                           {error}
                         </p>
-                      ))}
+                      ))} */}
                   </div>
                 </div>
 
@@ -272,12 +274,12 @@ export const CreateExpenseForm = ({
                       aria-live="polite"
                       aria-atomic="true"
                     >
-                      {state?.errors?.description &&
+                      {/* {state?.errors?.description &&
                         state.errors.description.map((error: string) => (
                           <p className="mt-2 text-sm text-red-500" key={error}>
                             {error}
                           </p>
-                        ))}
+                        ))} */}
                     </div>
                   </div>
                 </div>
@@ -310,12 +312,12 @@ export const CreateExpenseForm = ({
                       aria-live="polite"
                       aria-atomic="true"
                     >
-                      {state?.errors?.amount &&
+                      {/* {state?.errors?.amount &&
                         state.errors.amount.map((error: string) => (
                           <p className="mt-2 text-sm text-red-500" key={error}>
                             {error}
                           </p>
-                        ))}
+                        ))} */}
                     </div>
                   </div>
                 </div>
@@ -347,12 +349,12 @@ export const CreateExpenseForm = ({
                       />
                     </div>
                     <div id="date-error" aria-live="polite" aria-atomic="true">
-                      {state?.errors?.date &&
+                      {/* {state?.errors?.date &&
                         state.errors.date.map((error: string) => (
                           <p className="mt-2 text-sm text-red-500" key={error}>
                             {error}
                           </p>
-                        ))}
+                        ))} */}
                     </div>
                   </div>
                 </div>
