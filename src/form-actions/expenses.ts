@@ -118,7 +118,7 @@ export async function createExpense(
       },
     };
   }
-  redirect("/dashboard?month=5&year=2024");
+  redirect("/en/dashboard?month=5&year=2024");
 
   return {
     message: {
