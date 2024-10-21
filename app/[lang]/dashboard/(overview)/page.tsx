@@ -38,6 +38,7 @@ export type DashboardPageProps = {
 export default async function Page({
   searchParams,
   params: { lang },
+  ...rest
 }: DashboardPageProps) {
   const dict = await getDictionary(lang);
 
@@ -121,7 +122,8 @@ export default async function Page({
       <IntlProvider dict={dict} lang={lang}>
         <TourProvider>
           <main>
-            {!tourFinished && <TourInitiator />}
+            {JSON.stringify(searchParams)}
+            {JSON.stringify({ ...rest })} {!tourFinished && <TourInitiator />}
             <Suspense fallback={<div>loading...</div>}>
               <LastUpdated dict={dict} />
             </Suspense>
