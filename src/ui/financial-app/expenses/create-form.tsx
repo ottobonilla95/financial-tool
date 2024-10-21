@@ -23,7 +23,7 @@ import { formatDateToLocal } from "@/src/helpers/format-date-to-local";
 import { useTranslations } from "@/src/translations/use-translations";
 import { MAX_CATEGORIES_FREE_PLAN } from "@/src/constants/categories";
 import { AppContext } from "@/src/app-wrappper/provider";
-import { useFormStatus } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 
 export type CreateExpenseFormProps = {
   closeModal: () => void;
@@ -44,12 +44,9 @@ export const CreateExpenseForm = ({
   const isPremium = subscriptionDetails?.isPremium;
 
   const initialState: ExpenseFormState = { message: {}, errors: {} };
-  // const [state, formAction, loading] = useActionState(
-  //   createExpenseAction,
-  //   initialState
-  // );
 
   const { pending: loading } = useFormStatus();
+  const [state, formAction] = useFormState(createExpenseAction, initialState);
 
   const [categories, setCategories] = useState<ExpenseCategory[]>([]);
   const currentYear = new Date().getFullYear();
@@ -82,11 +79,11 @@ export const CreateExpenseForm = ({
     );
   }, [data]);
 
-  // useEffect(() => {
-  //   if (state.message?.text) {
-  //     toast(state.message.text, { type: state.message.type as TypeOptions });
-  //   }
-  // }, [state]);
+  useEffect(() => {
+    if (state.message?.text) {
+      toast(state.message.text, { type: state.message.type as TypeOptions });
+    }
+  }, [state]);
 
   const categoriesCount = categories.length;
 
@@ -138,7 +135,7 @@ export const CreateExpenseForm = ({
           </div>
         </div>
       </Modal>
-      {/* <CreateCategoryForm
+      <CreateCategoryForm
         isOpen={isCategoryFormOpen}
         closeModal={() => setIsCategoryFormOpen(false)}
         onSuccess={getAllCategories}
@@ -154,7 +151,7 @@ export const CreateExpenseForm = ({
         isOpen={isSubCategoryFormOpen}
         closeModal={() => setIsSubCategoryFormOpen(false)}
         onSuccess={getAllCategories}
-      /> */}
+      />
 
       <>
         <Modal isOpen onCloseModal={closeModal}>
@@ -165,7 +162,7 @@ export const CreateExpenseForm = ({
               </div>
             )}
 
-            <form action={createExpenseAction}>
+            <form action={formAction}>
               <div className="rounded-md p-4 md:p-6 ">
                 {/* Category */}
                 <div className="mb-4">
@@ -205,12 +202,12 @@ export const CreateExpenseForm = ({
                     aria-live="polite"
                     aria-atomic="true"
                   >
-                    {/* {state?.errors?.categoryId &&
+                    {state?.errors?.categoryId &&
                       state.errors.categoryId.map((error: string) => (
                         <p className="mt-2 text-sm text-red-500" key={error}>
                           {error}
                         </p>
-                      ))} */}
+                      ))}
                   </div>
                 </div>
 
@@ -274,12 +271,12 @@ export const CreateExpenseForm = ({
                       aria-live="polite"
                       aria-atomic="true"
                     >
-                      {/* {state?.errors?.description &&
+                      {state?.errors?.description &&
                         state.errors.description.map((error: string) => (
                           <p className="mt-2 text-sm text-red-500" key={error}>
                             {error}
                           </p>
-                        ))} */}
+                        ))}
                     </div>
                   </div>
                 </div>
@@ -312,12 +309,12 @@ export const CreateExpenseForm = ({
                       aria-live="polite"
                       aria-atomic="true"
                     >
-                      {/* {state?.errors?.amount &&
+                      {state?.errors?.amount &&
                         state.errors.amount.map((error: string) => (
                           <p className="mt-2 text-sm text-red-500" key={error}>
                             {error}
                           </p>
-                        ))} */}
+                        ))}
                     </div>
                   </div>
                 </div>
@@ -349,12 +346,12 @@ export const CreateExpenseForm = ({
                       />
                     </div>
                     <div id="date-error" aria-live="polite" aria-atomic="true">
-                      {/* {state?.errors?.date &&
+                      {state?.errors?.date &&
                         state.errors.date.map((error: string) => (
                           <p className="mt-2 text-sm text-red-500" key={error}>
                             {error}
                           </p>
-                        ))} */}
+                        ))}
                     </div>
                   </div>
                 </div>

@@ -3,8 +3,9 @@
 import { useTour } from "@reactour/tour";
 import { Button, Modal } from "../../components";
 import { useTranslations } from "@/src/translations/use-translations";
-import { useActionState, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { setTourFinished } from "@/src/form-actions/user";
+import { useFormState, useFormStatus } from "react-dom";
 
 export default function TourProvider() {
   const { setIsOpen, isOpen } = useTour();
@@ -18,7 +19,8 @@ export default function TourProvider() {
     }
   }, [isOpen, isModalOpen]);
 
-  const [status, formAction, loading] = useActionState(setTourFinished, null);
+  const { pending: loading } = useFormStatus();
+  const [status, formAction] = useFormState(setTourFinished, null);
 
   useEffect(() => {
     if (status === "success") {

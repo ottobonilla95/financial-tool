@@ -9,12 +9,13 @@ import {
 } from "@heroicons/react/24/outline";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { Button, Dropdown } from "@/src/ui/components";
-import { useActionState, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { createUser, CreateUserFormState } from "@/src/form-actions/auth";
 import { Currency } from "@/src/types";
 import { useTranslations } from "@/src/translations/use-translations";
 import { SubscriptionPlan, pricingPlans } from "../financial-app/pricing";
 import { IntlContext } from "@/src/translations/provider";
+import { useFormState, useFormStatus } from "react-dom";
 
 export type SignupFormPropd = {
   currencies: Currency[];
@@ -33,10 +34,8 @@ export const SignupForm = ({ currencies, plan }: SignupFormPropd) => {
   const { lang } = useTranslations();
   const createUserAction = createUser.bind(null, lang, plan, paymentLink);
 
-  const [state, formAction, isPending] = useActionState(
-    createUserAction,
-    initialState
-  );
+  const { pending: isPending } = useFormStatus();
+  const [state, formAction] = useFormState(createUserAction, initialState);
 
   const [selectedCurrency, setSelectedCurrency] = useState<string>();
 

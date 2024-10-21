@@ -3,7 +3,7 @@
 import React from "react";
 import { KeyIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
-import { useActionState, useEffect } from "react";
+import { useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
 import { AppDictionary } from "@/src/translations";
 import {
@@ -12,6 +12,7 @@ import {
 } from "@/src/form-actions/auth";
 import { Button } from "../components";
 import { useTranslations } from "@/src/translations/use-translations";
+import { useFormState, useFormStatus } from "react-dom";
 
 export type ChangePasswordFormProps = {
   dict: AppDictionary;
@@ -23,10 +24,8 @@ export const ChangePasswordForm = ({ dict }: ChangePasswordFormProps) => {
   const { lang } = useTranslations();
   const updatePasswordAction = updatePassword.bind(null, lang);
 
-  const [state, formAction, loading] = useActionState(
-    updatePasswordAction,
-    initialState
-  );
+  const { pending: loading } = useFormStatus();
+  const [state, formAction] = useFormState(updatePasswordAction, initialState);
 
   const router = useRouter();
 

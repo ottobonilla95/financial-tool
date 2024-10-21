@@ -5,13 +5,14 @@ import {
   UpdateFormState,
 } from "@/src/form-actions/income-categories";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
-import { useActionState, useEffect } from "react";
+import { useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
 import React from "react";
 import { ChromePicker } from "react-color";
 import { EarningCategory } from "@/src/types";
 import { CancelButton, SubmitButton } from "../../forms";
 import { useTranslations } from "@/src/translations/use-translations";
+import { useFormState } from "react-dom";
 
 export type UpdateCategoryFormProps = {
   isOpen: boolean;
@@ -29,10 +30,11 @@ export const UpdateCategoryForm = ({
   const { lang, dict } = useTranslations();
   const updateIncomeCategoryAction = updateIncomeCategory.bind(null, lang);
 
-  const [state, formAction] = useActionState(
+  const [state, formAction] = useFormState(
     updateIncomeCategoryAction,
     initialState
   );
+
   const [color, setColor] = React.useState<string>(category.color);
 
   useEffect(() => {

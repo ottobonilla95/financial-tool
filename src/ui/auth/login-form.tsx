@@ -8,17 +8,19 @@ import {
 } from "@heroicons/react/24/outline";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { Button } from "@/src/ui/components";
-import { useActionState, useContext } from "react";
+import { useContext } from "react";
 import { authenticate } from "@/src/form-actions/auth";
 import { useTranslations } from "@/src/translations/use-translations";
 import { IntlContext } from "@/src/translations/provider";
+import { useFormState, useFormStatus } from "react-dom";
 
 export const LoginForm = () => {
   const { dict } = useContext(IntlContext);
   const { lang } = useTranslations();
   const authenticateAction = authenticate.bind(null, lang);
 
-  const [errorMessage, formAction, isPending] = useActionState(
+  const { pending: isPending } = useFormStatus();
+  const [errorMessage, formAction] = useFormState(
     authenticateAction,
     undefined
   );

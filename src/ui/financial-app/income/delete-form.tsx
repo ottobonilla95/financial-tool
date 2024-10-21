@@ -1,12 +1,13 @@
 "use client";
 
 import { deleteIncome, DeleteFormState } from "@/src/form-actions/income";
-import { useActionState, useEffect } from "react";
+import { useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
 import React from "react";
 import { CancelButton, SubmitButton } from "../../forms";
 import { Modal } from "../../components";
 import { useTranslations } from "@/src/translations/use-translations";
+import { useFormState } from "react-dom";
 
 export type DeleteIncomeFormProps = {
   isOpen: boolean;
@@ -25,7 +26,7 @@ export const DeleteIncomeForm = ({
 
   const initialState: DeleteFormState = { message: {}, errors: {} };
 
-  const [state, formAction] = useActionState(deleteInvoiceWithId, initialState);
+  const [state, formAction] = useFormState(deleteInvoiceWithId, initialState);
 
   useEffect(() => {
     if (state.message) {

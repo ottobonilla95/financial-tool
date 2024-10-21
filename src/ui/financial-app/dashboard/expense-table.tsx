@@ -171,7 +171,7 @@ export const ExpenseTable = ({
   return (
     <>
       <Tooltip id="my-tooltip" />
-      {/* <DeleteExpenseForm
+      <DeleteExpenseForm
         isOpen={isDeleteModalOpen}
         closeModal={() => setIsDeleteModalOpen(false)}
         expenseId={expenseIdToDelete as string}
@@ -183,7 +183,7 @@ export const ExpenseTable = ({
           closeModal={() => setIsUpdateCategoryModalOpen(false)}
           isOpen
         />
-      )} */}
+      )}
 
       <div className="shadow-sm rounded-sm bg-white">
         <div

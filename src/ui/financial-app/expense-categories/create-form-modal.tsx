@@ -4,13 +4,14 @@ import {
   createCategory,
   CategoryFormState,
 } from "@/src/form-actions/expense-categories";
-import { useActionState, useEffect } from "react";
+import { useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
 import React from "react";
 import { ChromePicker } from "react-color";
 import { CancelButton, SubmitButton } from "../../forms";
 import { Modal } from "../../components";
 import { useTranslations } from "@/src/translations/use-translations";
+import { useFormState } from "react-dom";
 
 export type CreateCategoryFormProps = {
   isOpen: boolean;
@@ -28,10 +29,8 @@ export const CreateCategoryForm = ({
   const { lang, dict } = useTranslations();
   const createCategoryAction = createCategory.bind(null, lang);
 
-  const [state, formAction] = useActionState(
-    createCategoryAction,
-    initialState
-  );
+  const [state, formAction] = useFormState(createCategoryAction, initialState);
+
   const [color, setColor] = React.useState<string>();
 
   useEffect(() => {

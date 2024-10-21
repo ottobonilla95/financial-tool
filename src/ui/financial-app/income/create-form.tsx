@@ -2,7 +2,7 @@
 
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { createIncome, IncomeFormState } from "@/src/form-actions/income";
-import { useActionState, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { EarningCategory } from "@/src/types";
 import { toast, TypeOptions } from "react-toastify";
@@ -16,6 +16,7 @@ import { fetcher } from "@/src/utils/fetcher";
 import { CancelButton, SubmitButton } from "../../forms";
 import { formatDateToLocal } from "@/src/helpers/format-date-to-local";
 import { useTranslations } from "@/src/translations/use-translations";
+import { useFormState } from "react-dom";
 
 export type CreateIncomeFormProps = {
   closeModal: () => void;
@@ -30,7 +31,8 @@ export const CreateIncomeForm = ({
   const { lang, dict } = useTranslations();
   const createIncomeAction = createIncome.bind(null, lang);
 
-  const [state, formAction] = useActionState(createIncomeAction, initialState);
+  const [state, formAction] = useFormState(createIncomeAction, initialState);
+
   const [categories, setCategories] = useState<EarningCategory[]>([]);
 
   const currentYear = new Date().getFullYear();

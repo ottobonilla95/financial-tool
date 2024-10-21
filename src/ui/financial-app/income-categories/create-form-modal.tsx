@@ -4,13 +4,14 @@ import {
   createIncomeCategory,
   IncomeCategoryFormState,
 } from "@/src/form-actions/income-categories";
-import { useActionState, useEffect } from "react";
+import { useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
 import React from "react";
 import { ChromePicker } from "react-color";
 import { CancelButton, SubmitButton } from "../../forms";
 import { Modal } from "../../components";
 import { useTranslations } from "@/src/translations/use-translations";
+import { useFormState } from "react-dom";
 
 export type CreateIncomeCategoryFormProps = {
   isOpen: boolean;
@@ -28,10 +29,11 @@ export const CreateIncomeCategoryForm = ({
   const { lang, dict } = useTranslations();
   const createIncomeCategoryAction = createIncomeCategory.bind(null, lang);
 
-  const [state, formAction] = useActionState(
+  const [state, formAction] = useFormState(
     createIncomeCategoryAction,
     initialState
   );
+
   const [color, setColor] = React.useState<string>();
 
   useEffect(() => {

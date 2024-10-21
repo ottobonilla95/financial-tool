@@ -5,11 +5,12 @@ import {
   IncomeSubCategoryFormState,
   createIncomeSubCategory,
 } from "@/src/form-actions/income-sub-category";
-import { useActionState, useEffect } from "react";
+import { useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
 import { CancelButton, SubmitButton } from "../../forms";
 import { Modal } from "../../components";
 import { useTranslations } from "@/src/translations/use-translations";
+import { useFormState } from "react-dom";
 
 export type CreateIncomeSubCategoryFormProps = {
   category: { id: string; name: string };
@@ -32,7 +33,7 @@ export const CreateIncomeSubCategoryForm = ({
     lang
   );
 
-  const [state, formAction] = useActionState(
+  const [state, formAction] = useFormState(
     createIncomeSubCategoryAction,
     initialState
   );

@@ -2,13 +2,14 @@
 
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { createSaving, SavingFormState } from "@/src/form-actions/saving";
-import { useActionState, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { toast, TypeOptions } from "react-toastify";
 import { Modal } from "../../components";
 import { CancelButton, SubmitButton } from "../../forms";
 import { formatDateToLocal } from "@/src/helpers/format-date-to-local";
 import { useTranslations } from "@/src/translations/use-translations";
+import { useFormState } from "react-dom";
 
 export type CreateSavingFormProps = {
   closeModal: () => void;
@@ -23,7 +24,8 @@ export const CreateSavingForm = ({
   const { lang, dict } = useTranslations();
   const createSavingAction = createSaving.bind(null, lang);
 
-  const [state, formAction] = useActionState(createSavingAction, initialState);
+  const [state, formAction] = useFormState(createSavingAction, initialState);
+
   const currentYear = new Date().getFullYear();
   const [startDate, setStartDate] = useState(new Date(currentYear, month - 1));
 
