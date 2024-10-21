@@ -41,8 +41,6 @@ export default async function Page({
 }: DashboardPageProps) {
   const dict = await getDictionary(lang);
 
-  console.log("searchParams", searchParams);
-
   const session = await auth();
   const userId = session?.user?.id as string;
 
@@ -123,6 +121,7 @@ export default async function Page({
       <IntlProvider dict={dict} lang={lang}>
         <TourProvider>
           <main>
+            {JSON.stringify(searchParams)}
             {!tourFinished && <TourInitiator />}
             <Suspense fallback={<div>loading...</div>}>
               <LastUpdated dict={dict} />
