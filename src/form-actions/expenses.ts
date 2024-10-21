@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { auth } from "@/auth";
 import { updateLastUpdated } from "../data/user";
 import { deleteDbExpense, createDbExpense } from "../data/expenses";
@@ -117,7 +117,7 @@ export async function createExpense(
       },
     };
   }
-  revalidatePath("/dashboard?month=5&year=2024", "page");
+  revalidateTag("/dashboard?month=5&year=2024");
 
   return {
     message: {
@@ -164,7 +164,7 @@ export async function deleteExpense(
     };
   }
 
-  revalidatePath("/dashboard");
+  revalidateTag("/dashboard");
 
   return {
     message: {
