@@ -6,7 +6,7 @@ import {
   FaceFrownIcon,
 } from "@heroicons/react/24/outline";
 import { createExpense, ExpenseFormState } from "@/src/form-actions/expenses";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import DatePicker from "react-datepicker";
 import { Emotion, ExpenseCategory } from "@/src/types";
 import { toast, TypeOptions } from "react-toastify";
@@ -61,6 +61,7 @@ export const CreateExpenseForm = ({
   const [selectedSatisfaction, setSelectedSatisfaction] = useState(3);
   const [selectedEmotion, setSelectedEmotion] = useState(9);
   const [shoMaxCategoriesAdded, setShowMaxCategoriesAdded] = useState(false);
+  const [showSubcategories, setShowSubcategories] = useState(true);
 
   const {
     data,
@@ -84,6 +85,14 @@ export const CreateExpenseForm = ({
       toast(state.message.text, { type: state.message.type as TypeOptions });
     }
   }, [state]);
+
+  useEffect(() => {
+    if (!showSubcategories) {
+      setTimeout(() => {
+        setShowSubcategories(true);
+      }, 500);
+    }
+  }, [showSubcategories]);
 
   const categoriesCount = categories.length;
 
@@ -182,11 +191,14 @@ export const CreateExpenseForm = ({
                       ]}
                       onChange={(option) => {
                         setSelectedCategory(option?.value);
-                        setSubCategories(
+                        const subCategories =
                           categories.find(
                             (category) => category.id === option?.value
-                          )?.subcategories || []
-                        );
+                          )?.subcategories || [];
+
+                        setSubCategories(subCategories);
+                        setSelectedSubCategory(undefined);
+                        setShowSubcategories(false);
                       }}
                       onAddNewClick={() => onAddNewCategoryPressed()}
                       disabled={loading}
@@ -212,7 +224,7 @@ export const CreateExpenseForm = ({
                 </div>
 
                 {/* SubCategory */}
-                {selectedCategory && (
+                {selectedCategory && showSubcategories && (
                   <div className="mb-4">
                     <label
                       htmlFor="subCategory"
