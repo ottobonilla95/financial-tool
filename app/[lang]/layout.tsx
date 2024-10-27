@@ -21,13 +21,96 @@ export async function generateMetadata({
   };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: { lang: AvailableLanguages };
 }) {
+  const dict = await getDictionary(params.lang);
+
   return (
-    <html lang="en">
+    <html lang={params.lang}>
+      <head>
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+
+        {/* Structured data JSON-LD script using translations */}
+        <Script
+          id="structured-data"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              name: dict.meta.title,
+              url: `https://www.trackmyspend.co/${lang}`,
+              description: dict.meta.description,
+              applicationCategory: "FinanceApplication",
+              operatingSystem: "Web, iOS, Android",
+              softwareVersion: "1.0",
+              aggregateRating: {
+                "@type": "AggregateRating",
+                ratingValue: "4.8",
+                reviewCount: "200",
+              },
+              offers: [
+                {
+                  "@type": "Offer",
+                  price: "0",
+                  priceCurrency: "USD",
+                  description: dict.meta.freeTierDescription,
+                  eligibleRegion: {
+                    "@type": "Country",
+                    name: "US",
+                  },
+                },
+                {
+                  "@type": "Offer",
+                  price: "4.99",
+                  priceCurrency: "USD",
+                  description: dict.meta.monthlySubscriptionDescription,
+                  eligibleRegion: {
+                    "@type": "Country",
+                    name: "US",
+                  },
+                },
+                {
+                  "@type": "Offer",
+                  price: "49.00",
+                  priceCurrency: "USD",
+                  description: dict.meta.lifetimeAccessDescription,
+                  eligibleRegion: {
+                    "@type": "Country",
+                    name: "US",
+                  },
+                },
+              ],
+              author: {
+                "@type": "Organization",
+                name: "TrackMySpend",
+              },
+            }),
+          }}
+        />
+      </head>
       <body className={`${bricolageGrotesque.className} antialiased`}>
         {children}
         <ToastContainer />

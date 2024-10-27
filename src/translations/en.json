@@ -247,8 +247,60 @@
     "allRightsReserved": "All rights reserved."
   },
   "meta": {
-    "title": "TrackMySpend | Simplify Your Personal Finances and Reach Your Financial Goals",
-    "description": "TrackMySpend is an intuitive tool designed to help you monitor expenses, manage income, and grow savings with ease. Get a clear overview of your financial health, identify spending patterns, and make informed decisions to meet your financial goals. Start tracking your money today and take control of your financial future."
+    "title": "TrackMySpend – Best App to Track Budget and Spending",
+    "description": "TrackMySpend is the best app for budget tracking and personal finance goals. Easily track spending, manage income, and grow savings for a secure financial future!",
+    "structuredData": {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "TrackMySpend",
+      "url": "https://www.trackmyspend.co/en",
+      "image": "https://www.trackmyspend.co/your-image.jpg",
+      "description": "TrackMySpend is the best app for tracking your budget, managing expenses, and achieving personal finance goals.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "softwareVersion": "1.0",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "200"
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "description": "Free tier available with basic features",
+          "eligibleRegion": {
+            "@type": "Country",
+            "name": "US"
+          }
+        },
+        {
+          "@type": "Offer",
+          "price": "4.99",
+          "priceCurrency": "USD",
+          "description": "Monthly subscription with premium features",
+          "eligibleRegion": {
+            "@type": "Country",
+            "name": "US"
+          }
+        },
+        {
+          "@type": "Offer",
+          "price": "49.00",
+          "priceCurrency": "USD",
+          "description": "Lifetime access with all premium features",
+          "eligibleRegion": {
+            "@type": "Country",
+            "name": "US"
+          }
+        }
+      ],
+      "author": {
+        "@type": "Organization",
+        "name": "TrackMySpend"
+      }
+    }
   },
   "api": {
     "shared": {

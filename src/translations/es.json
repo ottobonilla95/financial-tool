@@ -246,8 +246,60 @@
     "allRightsReserved": "Todos los derechos reservados"
   },
   "meta": {
-    "title": "TrackMySpend | Simplifica tus Finanzas Personales y Alcanza tus Metas Financieras",
-    "description": "TrackMySpend es una herramienta intuitiva que te ayuda a controlar tus gastos, administrar tus ingresos y aumentar tus ahorros de manera sencilla. Obtén una visión clara de tu salud financiera, identifica patrones de gasto y toma decisiones informadas para alcanzar tus metas financieras. Comienza a gestionar tu dinero hoy y toma el control de tu futuro financiero."
+    "title": "TrackMySpend – La Mejor App para Controlar Presupuesto y Gastos",
+    "description": "TrackMySpend es la mejor app para hacer seguimiento de tu presupuesto, gestionar tus gastos y alcanzar tus metas financieras. Controla tus finanzas, ahorra y asegura un futuro financiero estable.",
+    "structuredData": {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "TrackMySpend",
+      "url": "https://www.trackmyspend.co/en",
+      "image": "https://www.trackmyspend.co/your-image.jpg",
+      "description": "TrackMySpend es la mejor app para hacer seguimiento de tu presupuesto, gestionar tus gastos y alcanzar tus metas financieras.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "softwareVersion": "1.0",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "200"
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "description": "Versión gratuita con funciones básicas",
+          "eligibleRegion": {
+            "@type": "Country",
+            "name": "US"
+          }
+        },
+        {
+          "@type": "Offer",
+          "price": "4.99",
+          "priceCurrency": "USD",
+          "description": "Suscripción mensual con funciones premium",
+          "eligibleRegion": {
+            "@type": "Country",
+            "name": "US"
+          }
+        },
+        {
+          "@type": "Offer",
+          "price": "49.00",
+          "priceCurrency": "USD",
+          "description": "Acceso de por vida con todas las funciones premium",
+          "eligibleRegion": {
+            "@type": "Country",
+            "name": "US"
+          }
+        }
+      ],
+      "author": {
+        "@type": "Organization",
+        "name": "TrackMySpend"
+      }
+    }
   },
   "api": {
     "shared": {

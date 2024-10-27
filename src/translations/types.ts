@@ -229,6 +229,9 @@ export type AppDictionary = {
   meta: {
     title: string;
     description: string;
+    freeTierDescription: string;
+    monthlySubscriptionDescription: string;
+    lifetimeAccessDescription: string;
   };
   api: {
     shared: {
