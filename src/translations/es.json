@@ -249,56 +249,10 @@
     "title": "TrackMySpend – La Mejor App para Controlar Presupuesto y Gastos",
     "description": "TrackMySpend es la mejor app para hacer seguimiento de tu presupuesto, gestionar tus gastos y alcanzar tus metas financieras. Controla tus finanzas, ahorra y asegura un futuro financiero estable.",
     "structuredData": {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "TrackMySpend",
-      "url": "https://www.trackmyspend.co/en",
-      "image": "https://www.trackmyspend.co/your-image.jpg",
       "description": "TrackMySpend es la mejor app para hacer seguimiento de tu presupuesto, gestionar tus gastos y alcanzar tus metas financieras.",
-      "applicationCategory": "FinanceApplication",
-      "operatingSystem": "Web, iOS, Android",
-      "softwareVersion": "1.0",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "reviewCount": "200"
-      },
-      "offers": [
-        {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD",
-          "description": "Versión gratuita con funciones básicas",
-          "eligibleRegion": {
-            "@type": "Country",
-            "name": "US"
-          }
-        },
-        {
-          "@type": "Offer",
-          "price": "4.99",
-          "priceCurrency": "USD",
-          "description": "Suscripción mensual con funciones premium",
-          "eligibleRegion": {
-            "@type": "Country",
-            "name": "US"
-          }
-        },
-        {
-          "@type": "Offer",
-          "price": "49.00",
-          "priceCurrency": "USD",
-          "description": "Acceso de por vida con todas las funciones premium",
-          "eligibleRegion": {
-            "@type": "Country",
-            "name": "US"
-          }
-        }
-      ],
-      "author": {
-        "@type": "Organization",
-        "name": "TrackMySpend"
-      }
+      "freeTierDescription": "Versión gratuita con funciones básicas",
+      "monthlySubscriptionDescription": "Suscripción mensual con funciones premium",
+      "lifetimeAccessDescription": "Acceso de por vida con todas las funciones premium"
     }
   },
   "api": {

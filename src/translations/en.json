@@ -250,56 +250,10 @@
     "title": "TrackMySpend – Best App to Track Budget and Spending",
     "description": "TrackMySpend is the best app for budget tracking and personal finance goals. Easily track spending, manage income, and grow savings for a secure financial future!",
     "structuredData": {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "TrackMySpend",
-      "url": "https://www.trackmyspend.co/en",
-      "image": "https://www.trackmyspend.co/your-image.jpg",
       "description": "TrackMySpend is the best app for tracking your budget, managing expenses, and achieving personal finance goals.",
-      "applicationCategory": "FinanceApplication",
-      "operatingSystem": "Web, iOS, Android",
-      "softwareVersion": "1.0",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "reviewCount": "200"
-      },
-      "offers": [
-        {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD",
-          "description": "Free tier available with basic features",
-          "eligibleRegion": {
-            "@type": "Country",
-            "name": "US"
-          }
-        },
-        {
-          "@type": "Offer",
-          "price": "4.99",
-          "priceCurrency": "USD",
-          "description": "Monthly subscription with premium features",
-          "eligibleRegion": {
-            "@type": "Country",
-            "name": "US"
-          }
-        },
-        {
-          "@type": "Offer",
-          "price": "49.00",
-          "priceCurrency": "USD",
-          "description": "Lifetime access with all premium features",
-          "eligibleRegion": {
-            "@type": "Country",
-            "name": "US"
-          }
-        }
-      ],
-      "author": {
-        "@type": "Organization",
-        "name": "TrackMySpend"
-      }
+      "freeTierDescription": "Free tier available with basic features",
+      "monthlySubscriptionDescription": "Monthly subscription with premium features",
+      "lifetimeAccessDescription": "Lifetime access with all premium features"
     }
   },
   "api": {
