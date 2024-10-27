@@ -62,7 +62,7 @@ export default async function RootLayout({
               "@type": "SoftwareApplication",
               name: dict.meta.title,
               url: `https://www.trackmyspend.co/${params.lang}`,
-              description: dict.meta.description,
+              description: dict.meta.structuredData.description,
               applicationCategory: "FinanceApplication",
               operatingSystem: "Web, iOS, Android",
               softwareVersion: "1.0",
@@ -76,7 +76,7 @@ export default async function RootLayout({
                   "@type": "Offer",
                   price: "0",
                   priceCurrency: "USD",
-                  description: dict.meta.freeTierDescription,
+                  description: dict.meta.structuredData.freeTierDescription,
                   eligibleRegion: {
                     "@type": "Country",
                     name: "US",
@@ -86,7 +86,8 @@ export default async function RootLayout({
                   "@type": "Offer",
                   price: "4.99",
                   priceCurrency: "USD",
-                  description: dict.meta.monthlySubscriptionDescription,
+                  description:
+                    dict.meta.structuredData.monthlySubscriptionDescription,
                   eligibleRegion: {
                     "@type": "Country",
                     name: "US",
@@ -96,7 +97,8 @@ export default async function RootLayout({
                   "@type": "Offer",
                   price: "49.00",
                   priceCurrency: "USD",
-                  description: dict.meta.lifetimeAccessDescription,
+                  description:
+                    dict.meta.structuredData.lifetimeAccessDescription,
                   eligibleRegion: {
                     "@type": "Country",
                     name: "US",
