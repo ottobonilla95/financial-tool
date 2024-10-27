@@ -61,7 +61,7 @@ export default async function RootLayout({
               "@context": "https://schema.org",
               "@type": "SoftwareApplication",
               name: dict.meta.title,
-              url: `https://www.trackmyspend.co/${lang}`,
+              url: `https://www.trackmyspend.co/${params.lang}`,
               description: dict.meta.description,
               applicationCategory: "FinanceApplication",
               operatingSystem: "Web, iOS, Android",
