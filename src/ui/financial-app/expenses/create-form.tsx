@@ -507,7 +507,7 @@ export const CreateExpenseForm = ({
                               className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full py-1.5 text-xs font-medium"
                             >
                               +
-                              <span className="px-2 py-1 rounded-md bg-green-100">
+                              <span className="px-2 py-1 rounded-md bg-lime-100">
                                 <FaceSmileIcon className="h-4 w-4" />
                               </span>
                             </label>
@@ -528,7 +528,7 @@ export const CreateExpenseForm = ({
                               className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full py-1.5 text-xs font-medium"
                             >
                               ++
-                              <span className="px-2 py-1 rounded-md bg-green-200">
+                              <span className="px-2 py-1 rounded-md bg-lime-200">
                                 <FaceSmileIcon className="h-4 w-4" />
                               </span>
                             </label>
@@ -543,7 +543,6 @@ export const CreateExpenseForm = ({
                       value={selectedSatisfaction}
                     />
                     {/* Emotion */}
-
                     <fieldset className="mt-5">
                       <legend className="mb-2 block text-sm font-medium">
                         {dict.forms?.expense.create.whatEmotionDidIFeel}
@@ -579,7 +578,7 @@ export const CreateExpenseForm = ({
                                 ) : (
                                   <span
                                     className={clsx("px-2 py-1 rounded-md", {
-                                      "bg-green-100":
+                                      "bg-lime-100":
                                         emotion.emotionType === "positive",
                                       "bg-blue-100":
                                         emotion.emotionType === "neutral",

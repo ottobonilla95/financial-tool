@@ -54,7 +54,7 @@ export const DashboardExpeneseBySatisfaction = ({
 
         <div
           className={clsx(
-            "w-8 h-8 flex items-center justify-center bg-gray-100 rounded-md bg-green-100"
+            "w-8 h-8 flex items-center justify-center bg-gray-100 rounded-md bg-lime-100"
           )}
         >
           <FaceSmileIcon className="w-4" />

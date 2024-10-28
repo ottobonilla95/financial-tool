@@ -20,7 +20,7 @@ import { fetchSavings } from "@/src/data/saving";
 import { getDBUser } from "@/src/data/user";
 import { AppProvider } from "@/src/app-wrappper/provider";
 import { Currency, SubscriptionPlanOption } from "@/src/types";
-import { endOfMonth, startOfMonth } from "date-fns";
+import { endOfMonth, startOfMonth, subMonths } from "date-fns";
 import { getDictionary, AvailableLanguages } from "@/src/translations";
 import { IntlProvider } from "@/src/translations/provider";
 import { Spinner } from "@/src/ui/components";
@@ -71,36 +71,86 @@ export default async function Page({
 
   const currentDate = new Date();
 
+  const dayOfMonth = currentDate.getDate();
+
   const month = Number(searchParams.month) || currentDate.getMonth() + 1;
   const year = Number(searchParams.year) || currentDate.getFullYear();
 
-  const startDate = startOfMonth(new Date(year, month - 1));
-  const endDate = endOfMonth(new Date(year, month - 1));
+  // const startDate = startOfMonth(new Date(year, month - 1));
+  // const endDate = endOfMonth(new Date(year, month - 1));
 
-  const expenses = await fetchExpenses({
+  const startDateCurrent = startOfMonth(new Date(year, month - 1));
+  const endDateCurrent = new Date(year, month - 1, dayOfMonth);
+
+  const startDatePrevious = startOfMonth(subMonths(startDateCurrent, 1));
+  const endDatePrevious = new Date(
+    startDatePrevious.getFullYear(),
+    startDatePrevious.getMonth(),
+    dayOfMonth
+  );
+
+  // Fetch expenses for the current month up to today's date
+  const expensesCurrent = await fetchExpenses({
     filters: {
       user_id: userId,
       date: {
-        gte: startDate.toISOString(),
-        lte: endDate.toISOString(),
+        gte: startDateCurrent.toISOString(),
+        lte: endDateCurrent.toISOString(),
       },
     },
   });
-  const earnings = await fetchEarnings({
+
+  // Fetch expenses for the previous month up to the same day as today
+  const expensesPrevious = await fetchExpenses({
     filters: {
       user_id: userId,
       date: {
-        gte: startDate.toISOString(),
-        lte: endDate.toISOString(),
+        gte: startDatePrevious.toISOString(),
+        lte: endDatePrevious.toISOString(),
       },
     },
   });
-  const savings = await fetchSavings({
+
+  // Fetch earnings for the current month up to today's date
+  const earningsCurrent = await fetchEarnings({
     filters: {
       user_id: userId,
       date: {
-        gte: startDate.toISOString(),
-        lte: endDate.toISOString(),
+        gte: startDateCurrent.toISOString(),
+        lte: endDateCurrent.toISOString(),
+      },
+    },
+  });
+
+  // Fetch earnings for the previous month up to the same day as today
+  const earningsPrevious = await fetchEarnings({
+    filters: {
+      user_id: userId,
+      date: {
+        gte: startDatePrevious.toISOString(),
+        lte: endDatePrevious.toISOString(),
+      },
+    },
+  });
+
+  // Fetch savings for the current month up to today's date
+  const savingsCurrent = await fetchSavings({
+    filters: {
+      user_id: userId,
+      date: {
+        gte: startDateCurrent.toISOString(),
+        lte: endDateCurrent.toISOString(),
+      },
+    },
+  });
+
+  // Fetch savings for the previous month up to the same day as today
+  const savingsPrevious = await fetchSavings({
+    filters: {
+      user_id: userId,
+      date: {
+        gte: startDatePrevious.toISOString(),
+        lte: endDatePrevious.toISOString(),
       },
     },
   });
@@ -138,22 +188,25 @@ export default async function Page({
               </div>
 
               <DashboardTotals
-                expenses={expenses}
-                earnings={earnings}
-                savings={savings}
+                expenses={expensesCurrent}
+                earnings={earningsCurrent}
+                earningsPrevious={earningsPrevious}
+                savings={savingsCurrent}
+                savingsPrevious={savingsPrevious}
                 dict={dict}
+                expensesPrevious={expensesPrevious}
               />
 
-              {expenses.length > 0 && (
+              {expensesCurrent.length > 0 && (
                 <div className="flex gap-4 flex-col lg:flex-row">
                   {isPremium && (
                     <div className="flex-1">
                       <DashboardExpeneseByEmotion
-                        expenses={expenses}
+                        expenses={expensesCurrent}
                         dict={dict}
                       />
                       <DashboardExpeneseBySatisfaction
-                        expenses={expenses}
+                        expenses={expensesCurrent}
                         dict={dict}
                       />
                     </div>
@@ -161,39 +214,42 @@ export default async function Page({
 
                   <div className="flex-1">
                     <div className="w-full ">
-                      <ExpensesPieChart expenses={expenses} />
+                      <ExpensesPieChart expenses={expensesCurrent} />
                     </div>
                   </div>
                 </div>
               )}
 
-              {expenses.length > 0 && (
+              {expensesCurrent.length > 0 && (
                 <div className="py-5">
-                  <ExpensesByDayGraph expenses={expenses} dict={dict} />
+                  <ExpensesByDayGraph expenses={expensesCurrent} dict={dict} />
                 </div>
               )}
 
-              {savings.length > 0 && (
+              {savingsCurrent.length > 0 && (
                 <div>
-                  <SavingTableContainer savings={savings} dict={dict} />
+                  <SavingTableContainer savings={savingsCurrent} dict={dict} />
                 </div>
               )}
-              {earnings.length > 0 && (
+              {earningsCurrent.length > 0 && (
                 <div>
-                  <IncomeTableContainer earnings={earnings} dict={dict} />
+                  <IncomeTableContainer
+                    earnings={earningsCurrent}
+                    dict={dict}
+                  />
                 </div>
               )}
-              {expenses.length > 0 && (
+              {expensesCurrent.length > 0 && (
                 <div>
                   <ExpensesTableContainer
-                    expenses={expenses}
+                    expenses={expensesCurrent}
                     dict={dict}
                     isPremium={isPremium}
                   />
                 </div>
               )}
 
-              {expenses.length === 0 && earnings.length === 0 && (
+              {expensesCurrent.length === 0 && earningsCurrent.length === 0 && (
                 <NoExpensesAdded dict={dict} />
               )}
             </div>

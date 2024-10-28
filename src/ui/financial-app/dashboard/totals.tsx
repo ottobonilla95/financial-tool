@@ -11,15 +11,21 @@ import {
 
 export type DashboardTotalsProps = {
   expenses: Expense[];
+  expensesPrevious: Expense[];
   earnings: Earning[];
+  earningsPrevious: Earning[];
   savings: Saving[];
+  savingsPrevious: Saving[];
   dict: AppDictionary;
 };
 
 export const DashboardTotals = ({
   expenses,
+  expensesPrevious,
   earnings,
+  earningsPrevious,
   savings,
+  savingsPrevious,
   dict,
 }: DashboardTotalsProps) => {
   const calculateTotal = (expenses: (Expense | Earning | Saving)[]) => {
@@ -30,11 +36,15 @@ export const DashboardTotals = ({
     return null;
   }
 
-  const totalEarnings = calculateTotal(earnings);
   const totalExpenses = calculateTotal(expenses);
+  const totalExpensesPrevious = calculateTotal(expensesPrevious);
+  const totalEarnings = calculateTotal(earnings);
+  const totalEarningsPrevious = calculateTotal(earningsPrevious);
   const totalSavings = calculateTotal(savings);
-
+  const totalSavingsPrevious = calculateTotal(savingsPrevious);
   const totalBalance = totalEarnings - totalExpenses - totalSavings;
+  const totalBalancePrevious =
+    totalEarningsPrevious - totalExpensesPrevious - totalSavingsPrevious;
 
   return (
     <div className="flex flex-col md:flex-row mb-5 gap-2 md:flex-wrap">
@@ -42,13 +52,16 @@ export const DashboardTotals = ({
         icon={<BanknotesIcon className="w-5" />}
         label={dict.dashboard.totalIncome}
         value={totalEarnings}
-        iconClassName="bg-green-100"
+        iconClassName="bg-lime-100"
+        previousMonthValue={totalEarningsPrevious}
       />
       <DashboardTotalBox
         icon={<FireIcon className="w-5" />}
         label={dict.dashboard.totalExpenses}
         value={totalExpenses}
+        previousMonthValue={totalExpensesPrevious}
         iconClassName="bg-red-100"
+        negativeIncrease
       />
       <DashboardTotalBox
         icon={<ScaleIcon className="w-5" />}
@@ -56,16 +69,18 @@ export const DashboardTotals = ({
         value={totalBalance}
         iconClassName={clsx({
           "bg-red-100": totalBalance < 0,
-          "bg-green-100": totalBalance >= 0,
+          "bg-lime-100": totalBalance >= 0,
         })}
+        previousMonthValue={totalBalancePrevious}
       />
       <DashboardTotalBox
         icon={<WalletIcon className="w-5" />}
         label={dict.shared.savings}
         value={totalSavings}
         iconClassName={clsx({
-          "bg-green-100": totalSavings > 0,
+          "bg-lime-100": totalSavings > 0,
         })}
+        previousMonthValue={totalSavingsPrevious}
       />
     </div>
   );
