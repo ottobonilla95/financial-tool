@@ -79,9 +79,9 @@ export const DashboardTotalBox = ({
   return (
     <div className="flex flex-col w-full lg:max-w-[220px] rounded-sm cursor-pointer shadow-sm ">
       {variant === "topline" && (
-        <div style={topLineStyles} className="h-[4px] rounded-t-sm" />
+        <div style={topLineStyles} className="h-[3px] rounded-t-md" />
       )}
-      <div className="flex flex-col bg-white px-5 py-4">
+      <div className="flex flex-col bg-white px-5 py-4 flex-1">
         <div className="flex items-center justify-between mb-4">
           <div className="text-gray-500 flex items-center"> {label}</div>
           {variant === "icon" && (

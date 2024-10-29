@@ -70,6 +70,11 @@ export const ExpenseTotalsPerCategory = ({
 }: ExpenseTotalsPerCategoryProps) => {
   const monthlyTotals = calculateMonthlyTotals(expenses, expensesPrevious);
 
+  // Sort categories by highest expense in the current month
+  const sortedCategories = Object.entries(monthlyTotals)
+    .sort(([, a], [, b]) => b.current - a.current) // Sort descending by current expense
+    .map(([category, totals]) => ({ category, ...totals })); // Format for easier mapping
+
   return (
     <div>
       <div className="font-bold mb-5 text-gray-600 uppercase">
@@ -77,15 +82,15 @@ export const ExpenseTotalsPerCategory = ({
       </div>
 
       <div className="flex flex-col md:flex-row mb-5 gap-2 md:flex-wrap">
-        {Object.keys(monthlyTotals).map((category) => (
+        {sortedCategories.map(({ category, current, previous, color }) => (
           <DashboardTotalBox
             icon={<BanknotesIcon className="w-5" />}
             label={capitalizeFirstLetter(category)}
             topLineStyles={{
-              backgroundColor: monthlyTotals[category].color,
+              backgroundColor: color,
             }}
-            value={monthlyTotals[category].current}
-            previousMonthValue={monthlyTotals[category].previous}
+            value={current}
+            previousMonthValue={previous}
             negativeIncrease
             variant="topline"
           />
