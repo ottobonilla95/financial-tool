@@ -32,7 +32,7 @@ export const ExpensesTableContainer = ({
   return (
     <div className="mt-10">
       <div className="font-bold mb-5 text-gray-600 uppercase">
-        {dict.dashboard.expense}
+        {dict.dashboard.totalExpenses}
       </div>
       <div className="gap-4 grid grid-cols-1 lg:grid-cols-2 grid-flow-dense">
         {Object.entries(expensesByCategory).map(

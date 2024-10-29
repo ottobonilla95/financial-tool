@@ -52,7 +52,7 @@ export const DashboardTotals = ({
         icon={<BanknotesIcon className="w-5" />}
         label={dict.dashboard.totalIncome}
         value={totalEarnings}
-        iconClassName="bg-lime-100"
+        iconClassName="!bg-lime-100"
         previousMonthValue={totalEarningsPrevious}
       />
       <DashboardTotalBox
@@ -60,7 +60,7 @@ export const DashboardTotals = ({
         label={dict.dashboard.totalExpenses}
         value={totalExpenses}
         previousMonthValue={totalExpensesPrevious}
-        iconClassName="bg-red-100"
+        iconClassName="!bg-red-100"
         negativeIncrease
       />
       <DashboardTotalBox
@@ -68,8 +68,8 @@ export const DashboardTotals = ({
         label={dict.dashboard.balance}
         value={totalBalance}
         iconClassName={clsx({
-          "bg-red-100": totalBalance < 0,
-          "bg-lime-100": totalBalance >= 0,
+          "!bg-red-100": totalBalance < 0,
+          "!bg-lime-100": totalBalance >= 0,
         })}
         previousMonthValue={totalBalancePrevious}
       />
@@ -78,7 +78,7 @@ export const DashboardTotals = ({
         label={dict.shared.savings}
         value={totalSavings}
         iconClassName={clsx({
-          "bg-lime-100": totalSavings > 0,
+          "!bg-lime-100": totalSavings > 0,
         })}
         previousMonthValue={totalSavingsPrevious}
       />

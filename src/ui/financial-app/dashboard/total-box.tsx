@@ -4,6 +4,7 @@ import {
   ArrowTrendingUpIcon,
   ArrowTrendingDownIcon,
 } from "@heroicons/react/24/solid";
+import { CSSProperties } from "react";
 
 function calculatePercentageChange(
   current: number,
@@ -36,8 +37,11 @@ export type DashboardTotalsProps = {
   value: number;
   icon: React.ReactNode;
   iconClassName?: string;
+  iconStyles?: CSSProperties;
   previousMonthValue?: number;
   negativeIncrease?: boolean;
+  variant?: "icon" | "topline";
+  topLineStyles?: CSSProperties;
 };
 
 export const DashboardTotalBox = ({
@@ -45,15 +49,16 @@ export const DashboardTotalBox = ({
   value,
   icon,
   iconClassName,
+  iconStyles,
   previousMonthValue,
   negativeIncrease,
+  variant = "icon",
+  topLineStyles,
 }: DashboardTotalsProps) => {
   const { percentageChange, isIncrease } = calculatePercentageChange(
     value,
     previousMonthValue || 0
   );
-
-  console.log("aca", label, percentageChange, isIncrease);
 
   const renderGreen = () => {
     if (negativeIncrease) {
@@ -72,47 +77,55 @@ export const DashboardTotalBox = ({
   };
 
   return (
-    <div className="flex flex-col bg-white shadow-sm px-5 py-4 cursor-pointer rounded-sm w-full lg:max-w-[220px]">
-      <div className="flex items-center justify-between mb-4">
-        <div className="text-gray-500 flex items-center"> {label}</div>
-        <div
-          className={clsx(
-            "w-8 h-8 flex items-center justify-center bg-gray-100 rounded-md",
-            iconClassName
-          )}
-        >
-          {icon}
-        </div>
-      </div>
-      {percentageChange > 0 ? (
-        <div
-          className={clsx("flex gap-2 mb-1 text-red-500", {
-            "!text-lime-500": renderGreen(),
-          })}
-        >
-          <div
-            className={clsx(
-              "px-1 rounded-md py-[1px] flex items-center bg-red-100",
-              {
-                "!bg-lime-100": renderGreen(),
-              }
-            )}
-          >
-            {isIncrease ? (
-              <ArrowTrendingUpIcon className="w-4" />
-            ) : (
-              <ArrowTrendingDownIcon className="w-4" />
-            )}
-          </div>
-
-          {`${percentageChange.toFixed(2)} %`}
-        </div>
-      ) : (
-        <div className="flex-1" />
+    <div className="flex flex-col w-full lg:max-w-[220px] rounded-sm cursor-pointer shadow-sm ">
+      {variant === "topline" && (
+        <div style={topLineStyles} className="h-[4px] rounded-t-sm" />
       )}
+      <div className="flex flex-col bg-white px-5 py-4">
+        <div className="flex items-center justify-between mb-4">
+          <div className="text-gray-500 flex items-center"> {label}</div>
+          {variant === "icon" && (
+            <div
+              className={clsx(
+                "w-8 h-8 flex items-center justify-center bg-neutral-100 rounded-md",
+                iconClassName
+              )}
+              style={iconStyles}
+            >
+              {icon}
+            </div>
+          )}
+        </div>
+        {percentageChange > 0 ? (
+          <div
+            className={clsx("flex gap-2 mb-1 text-red-500", {
+              "!text-lime-500": renderGreen(),
+            })}
+          >
+            <div
+              className={clsx(
+                "px-1 rounded-md py-[1px] flex items-center bg-red-100",
+                {
+                  "!bg-lime-100": renderGreen(),
+                }
+              )}
+            >
+              {isIncrease ? (
+                <ArrowTrendingUpIcon className="w-4" />
+              ) : (
+                <ArrowTrendingDownIcon className="w-4" />
+              )}
+            </div>
 
-      <div>
-        <Price amount={value} className="text-2xl text-gray-600 font-bold" />
+            {`${percentageChange.toFixed(2)} %`}
+          </div>
+        ) : (
+          <div className="flex-1" />
+        )}
+
+        <div>
+          <Price amount={value} className="text-2xl text-gray-600 font-bold" />
+        </div>
       </div>
     </div>
   );

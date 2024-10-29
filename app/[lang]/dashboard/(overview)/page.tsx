@@ -12,6 +12,7 @@ import {
   DashboardExpeneseByEmotion,
   DashboardExpeneseBySatisfaction,
   ExpensesByDayGraph,
+  ExpenseTotalsPerCategory,
 } from "@/src/ui/financial-app/dashboard";
 import { Suspense } from "react";
 import { fetchEarnings } from "@/src/data/earning";
@@ -218,6 +219,17 @@ export default async function Page({
                     </div>
                   </div>
                 </div>
+              )}
+
+              {isPremium && (
+                <>
+                  <div className="h-5" />
+                  <ExpenseTotalsPerCategory
+                    expenses={expensesCurrent}
+                    expensesPrevious={expensesPrevious}
+                    dict={dict}
+                  />
+                </>
               )}
 
               {expensesCurrent.length > 0 && (

@@ -1,4 +1,4 @@
-import { darkenHexColor } from "@/src/helpers/darken-color";
+import { darkenHexColor } from "@/src/helpers/modify-color";
 import { Expense } from "@/src/types";
 import clsx from "clsx";
 import { format } from "date-fns";

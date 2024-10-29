@@ -101,12 +101,6 @@ export const ExpensesByDayGraph = ({
 
   const [props] = useState<AgChartProps>({
     options: {
-      title: {
-        text: dict.dashboard.totalExpensesPerDayByCategory,
-        color: "#6b7280",
-        fontSize: 18,
-        fontFamily: "Roboto",
-      },
       data,
       series, // Correctly typed series array with the total added
       axes: [
@@ -133,50 +127,58 @@ export const ExpensesByDayGraph = ({
   });
 
   return (
-    <div className="p-5 rounded-sm shadow-sm bg-white relative">
-      {!isPremium && (
-        <>
-          <div
-            className="bg-black inset-0 absolute blur-sm rounded-md z-[1000]"
-            style={{ opacity: "5%" }}
-          />
-          <div className="inset-0 absolute flex items-center justify-center p-5 z-[10001]">
-            <div className="w-full p-5 rounded-md border border-gray-200 border-solid bg-white max-w-[350px]">
-              <div className="text-lg font-bold  mb-3">
-                {dict.shared?.subscriptionMessages.seeTotalExpensesPerDayTitle}
-              </div>
-              <div className=" mb-3">
-                {
-                  dict.shared?.subscriptionMessages
-                    .seeTotalExpensesPerDayMessage
-                }
-              </div>
-              {subscriptionDetails?.isUserOnStripe ? (
-                <Button
-                  href={subscriptionDetails.stripeCustomerPortalLink}
-                  target="_blank"
-                  className="text-white bg-black"
-                >
-                  {`${dict.shared?.manageSubscription}`}
-                </Button>
-              ) : (
-                <Button
-                  href="/dashboard/pricing"
-                  className="text-white bg-black"
-                >{`${dict.shared?.goPremium}`}</Button>
-              )}
-            </div>
-          </div>
-        </>
-      )}
-
-      <div
-        className={clsx({
-          "blur-sm p-5": !isPremium,
-        })}
-      >
-        <AgCharts options={props.options} />
+    <>
+      <div className="font-bold mb-5 text-gray-600 uppercase">
+        {dict.dashboard.totalExpensesPerDayByCategory}
       </div>
-    </div>
+      <div className="p-5 rounded-sm shadow-sm bg-white relative">
+        {!isPremium && (
+          <>
+            <div
+              className="bg-black inset-0 absolute blur-sm rounded-md z-[1000]"
+              style={{ opacity: "5%" }}
+            />
+            <div className="inset-0 absolute flex items-center justify-center p-5 z-[10001]">
+              <div className="w-full p-5 rounded-md border border-gray-200 border-solid bg-white max-w-[350px]">
+                <div className="text-lg font-bold  mb-3">
+                  {
+                    dict.shared?.subscriptionMessages
+                      .seeTotalExpensesPerDayTitle
+                  }
+                </div>
+                <div className=" mb-3">
+                  {
+                    dict.shared?.subscriptionMessages
+                      .seeTotalExpensesPerDayMessage
+                  }
+                </div>
+                {subscriptionDetails?.isUserOnStripe ? (
+                  <Button
+                    href={subscriptionDetails.stripeCustomerPortalLink}
+                    target="_blank"
+                    className="text-white bg-black"
+                  >
+                    {`${dict.shared?.manageSubscription}`}
+                  </Button>
+                ) : (
+                  <Button
+                    href="/dashboard/pricing"
+                    className="text-white bg-black"
+                  >{`${dict.shared?.goPremium}`}</Button>
+                )}
+              </div>
+            </div>
+          </>
+        )}
+
+        <div
+          className={clsx({
+            "blur-sm p-5": !isPremium,
+          })}
+        >
+          <AgCharts options={props.options} />
+        </div>
+      </div>
+    </>
   );
 };
