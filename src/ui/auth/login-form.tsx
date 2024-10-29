@@ -13,6 +13,7 @@ import { authenticate } from "@/src/form-actions/auth";
 import { useTranslations } from "@/src/translations/use-translations";
 import { IntlContext } from "@/src/translations/provider";
 import { useFormState, useFormStatus } from "react-dom";
+import { SubmitButton } from "../forms";
 
 export const LoginForm = () => {
   const { dict } = useContext(IntlContext);
@@ -72,7 +73,8 @@ export const LoginForm = () => {
             </div>
           </div>
         </div>
-        <Button
+
+        <SubmitButton
           className="mt-4 rounded-lg bg-lime-500 font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0"
           aria-disabled={isPending}
           icon={<ArrowRightIcon className="h-5 w-5" />}
@@ -80,7 +82,8 @@ export const LoginForm = () => {
           loading={isPending}
         >
           {dict.authPages?.login}
-        </Button>
+        </SubmitButton>
+
         {!isPending && (
           <Button
             className="mt-4 border-0"

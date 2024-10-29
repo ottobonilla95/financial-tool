@@ -1,25 +1,25 @@
 import { useFormStatus } from "react-dom";
-import { Button, Spinner } from "../components";
+import { Button, ButtonProps, Spinner } from "../components";
 import { useTranslations } from "@/src/translations/use-translations";
 
-export type SubmitButtonProps = {
-  text?: string;
-};
+export type SubmitButtonProps = ButtonProps;
 
-export const SubmitButton = ({ text }: SubmitButtonProps) => {
+export const SubmitButton = ({ children, ...props }: SubmitButtonProps) => {
   const { pending } = useFormStatus();
 
   if (pending) {
     return (
-      <Button isDisabled icon={<Spinner className="h-5 w-5" />}>
-        Loading...
-      </Button>
+      <Button
+        isDisabled
+        {...props}
+        icon={<Spinner className="h-5 w-5 fill-black" />}
+      ></Button>
     );
   }
 
   return (
-    <Button type="submit" disabled={pending} className="bg-black text-white">
-      {text}
+    <Button type="submit" {...props}>
+      {children}
     </Button>
   );
 };

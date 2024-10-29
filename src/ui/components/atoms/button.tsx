@@ -6,7 +6,7 @@ import { HTMLAttributeAnchorTarget } from "react";
 export type ButtonProps = {
   href?: string;
   isDisabled?: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   icon?: React.ReactNode;
   iconPosition?: "left" | "right";
   className?: string;
