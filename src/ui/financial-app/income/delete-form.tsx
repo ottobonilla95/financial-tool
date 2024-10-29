@@ -46,7 +46,7 @@ export const DeleteIncomeForm = ({
 
         <div className="flex gap-4">
           <CancelButton onClick={closeModal} />
-          <SubmitButton text={dict.forms?.shared.delete} />
+          <SubmitButton>{dict.forms?.shared.delete}</SubmitButton>
         </div>
       </form>
     </Modal>

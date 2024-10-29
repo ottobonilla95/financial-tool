@@ -139,7 +139,7 @@ export const CreateSavingForm = ({
         </div>
         <div className="mt-6 flex justify-end gap-4">
           <CancelButton onClick={closeModal} />
-          <SubmitButton text={dict.forms?.shared.save} />
+          <SubmitButton>{dict.forms?.shared.save}</SubmitButton>
         </div>
       </form>
     </Modal>

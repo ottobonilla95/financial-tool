@@ -371,7 +371,7 @@ export const CreateExpenseForm = ({
                 {!isPremium && (
                   <div className="flex justify-end gap-4 mb-4">
                     <CancelButton onClick={closeModal} />
-                    <SubmitButton text={dict.forms?.shared.save} />
+                    <SubmitButton>{dict.forms?.shared.save}</SubmitButton>
                   </div>
                 )}
 
@@ -601,7 +601,7 @@ export const CreateExpenseForm = ({
               {isPremium && (
                 <div className="flex justify-end gap-4">
                   <CancelButton onClick={closeModal} />
-                  <SubmitButton text={dict.forms?.shared.save} />
+                  <SubmitButton>{dict.forms?.shared.save}</SubmitButton>
                 </div>
               )}
             </form>

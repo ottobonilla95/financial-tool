@@ -89,7 +89,7 @@ export const CreateIncomeSubCategoryForm = ({
 
         <div className="flex gap-4">
           <CancelButton onClick={closeModal} />
-          <SubmitButton text={dict.forms?.shared.save} />
+          <SubmitButton>{dict.forms?.shared.save}</SubmitButton>
         </div>
       </form>
     </Modal>
