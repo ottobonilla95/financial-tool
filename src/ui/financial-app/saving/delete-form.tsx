@@ -20,7 +20,7 @@ export const DeleteSavingForm = ({
   closeModal,
   savingId,
 }: DeleteSavingFormProps) => {
-  const { lang } = useTranslations();
+  const { lang, dict } = useTranslations();
 
   const deleteInvoiceWithId = deleteSaving.bind(null, savingId, lang);
 
@@ -40,13 +40,13 @@ export const DeleteSavingForm = ({
   return (
     <Modal isOpen={isOpen} onCloseModal={closeModal}>
       <form action={formAction}>
-        <div className="font-bold mb-1">Eliminar ahorro</div>
+        <div className="font-bold mb-1">{dict.forms?.saving.delete.title}</div>
 
-        <div className="mb-5">¿Esta seguro que desea eliminar este ahorro?</div>
+        <div className="mb-5">{dict.forms?.saving.delete.message}</div>
 
         <div className="flex gap-4">
           <CancelButton onClick={closeModal} />
-          <SubmitButton text="Eliminar" />
+          <SubmitButton>{dict.forms?.shared.delete}</SubmitButton>
         </div>
       </form>
     </Modal>

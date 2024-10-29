@@ -39,6 +39,12 @@ export type AppDictionary = {
         message: string;
       };
     };
+    saving: {
+      delete: {
+        title: string;
+        message: string;
+      };
+    };
     category: {
       create: {
         title: string;
