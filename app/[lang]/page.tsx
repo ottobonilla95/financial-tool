@@ -31,11 +31,11 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
                   <span className="relative">
                     {dict.mainPage.introMessage1}
                     <span className="inline md:hidden">
-                      {dict.mainPage.introMessage2}
+                      {` ${dict.mainPage.introMessage2}`}
                     </span>
                   </span>
                   <span className="whitespace-nowrap relative">
-                    <span className="mr-3 sm:mr-4 md:mr-5 hidden sm:inline">
+                    <span className="mr-3 sm:mr-4 md:mr-5 hidden md:inline">
                       {dict.mainPage.introMessage2}
                     </span>
                     <span className="relative whitespace-nowrap">
