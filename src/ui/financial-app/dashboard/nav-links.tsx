@@ -18,10 +18,9 @@ import { Tooltip } from "react-tooltip";
 
 export type NavLinksProps = {
   dict: AppDictionary;
-  isPremium: boolean;
 };
 
-export default function NavLinks({ dict, isPremium }: NavLinksProps) {
+export default function NavLinks({ dict }: NavLinksProps) {
   let pathname = usePathname();
 
   const params = useParams();
@@ -44,8 +43,6 @@ export default function NavLinks({ dict, isPremium }: NavLinksProps) {
       href: "/dashboard/psychology",
       icon: BrainIcon,
       className: "tour-step-4",
-      block: !isPremium,
-      tooltipPremiumMessage: dict.psychologyPage.premiumNavLinkMessage,
     },
     {
       name: dict.sideMenu.support,
@@ -62,29 +59,6 @@ export default function NavLinks({ dict, isPremium }: NavLinksProps) {
       {links.map((link) => {
         const LinkIcon = link.icon;
 
-        if (link.block) {
-          return (
-            <div className="flex h-[48px] grow items-center cursor-pointer justify-center bg-neutral-300 gap-2 rounded-md p-3 text-sm font-medium md:flex-none md:justify-start md:p-2 md:px-3">
-              <LinkIcon
-                className={clsx(
-                  "w-6",
-                  pathname.replace(`/${lang}`, "") === link.href
-                    ? "fill-white stroke-white" // Active state (e.g., white if bg-black)
-                    : "" // Default state
-                )}
-              />
-              <p className="hidden md:block">{link.name}</p>
-
-              <span
-                data-tooltip-id="my-tooltip"
-                data-tooltip-content={link.tooltipPremiumMessage}
-                className="uppercase text-xs font-bold tracking-tight bg-neutral-400 px-2 py-1 rounded-sm"
-              >
-                premium
-              </span>
-            </div>
-          );
-        }
         return (
           <Link
             key={link.name}

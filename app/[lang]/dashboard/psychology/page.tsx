@@ -10,6 +10,8 @@ import {
   EmotionSpendingPatternsGraph,
   SatisfactionSpendingPatternsGraph,
 } from "@/src/ui/financial-app/psychology";
+import { Button } from "@/src/ui/components";
+import clsx from "clsx";
 
 export type InsightsPageProps = {
   params: { lang: AvailableLanguages };
@@ -63,12 +65,55 @@ export default async function Page({ params: { lang } }: InsightsPageProps) {
         <Suspense fallback={<div>loading...</div>}>
           <LastUpdated dict={dict} />
         </Suspense>
-        <div className="p-4 md:p-10">
+        <div className="relative p-4 md:p-10">
+          {!isPremium && (
+            <>
+              <div
+                className="bg-black inset-0 absolute blur-sm rounded-md z-[1000]"
+                style={{ opacity: "5%" }}
+              />
+              <div className="inset-0 absolute flex pt-10 items-center justify-center z-[10001]">
+                <div className="w-full max-w-[400px] p-5 bg-white rounded-md border border-gray-200 border-solid">
+                  <div className="text-lg font-bold  mb-3">
+                    {
+                      dict.shared?.subscriptionMessages
+                        .seeExpensesPerMonthByCategoryTitle
+                    }
+                  </div>
+                  <div className=" mb-3">
+                    {
+                      dict.shared?.subscriptionMessages
+                        .seeExpensesPerMonthByCategoryMessage
+                    }
+                  </div>
+                  {isUserOnStripe ? (
+                    <Button
+                      href={stripeCustomerPortalLink}
+                      target="_blank"
+                      className="text-white bg-black"
+                    >
+                      {`${dict.shared?.manageSubscription}`}
+                    </Button>
+                  ) : (
+                    <Button
+                      href="/dashboard/pricing"
+                      className="text-white bg-black"
+                    >{`${dict.shared?.goPremium}`}</Button>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+
           {expenses.length === 0 && expenses.length === 0 && (
             <NoExpensesAdded dict={dict} />
           )}
           {expenses.length > 0 && (
-            <div className="flex flex-col xl:flex-row gap-4 w-full">
+            <div
+              className={clsx("flex flex-col xl:flex-row gap-4 w-full", {
+                "blur-sm": !isPremium,
+              })}
+            >
               <div className="flex-1">
                 <EmotionSpendingPatternsGraph expenses={expenses} dict={dict} />
               </div>

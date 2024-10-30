@@ -112,7 +112,9 @@
       "seeExpensesPerMonthByCategoryTitle": "See expenses per month by category!",
       "seeExpensesPerMonthByCategoryMessage": "Upgrade to Premium to view detailed reports of your expenses broken down by category for each month.",
       "seeTotalExpensesPerDayTitle": "See total expenses per day!",
-      "seeTotalExpensesPerDayMessage": "Upgrade to Premium to view detailed reports of your total expenses per day."
+      "seeTotalExpensesPerDayMessage": "Upgrade to Premium to view detailed reports of your total expenses per day.",
+      "psychologyPagePremiumTitle": "Unlock Deeper Spending Psychology Insights",
+      "psychologyPagePremiumMessage": "Upgrade to Premium for a comprehensive view into the emotions, triggers, and patterns that shape your financial habits."
     },
     "privacyPolicy": "Privacy Policy",
     "satisfactionLevels": {

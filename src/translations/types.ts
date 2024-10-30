@@ -114,6 +114,8 @@ export type AppDictionary = {
       seeExpensesPerMonthByCategoryMessage: string;
       seeTotalExpensesPerDayTitle: string;
       seeTotalExpensesPerDayMessage: string;
+      psychologyPagePremiumTitle: string;
+      psychologyPagePremiumMessage: string;
     };
     satisfactionLevels: {
       veryUnsatisfied: string;

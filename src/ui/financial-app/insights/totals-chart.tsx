@@ -16,6 +16,7 @@ import { capitalizeFirstLetter } from "@/src/helpers/capitalize-first-letter";
 import { Button } from "../../components";
 import { AppContext } from "@/src/app-wrappper/provider";
 import clsx from "clsx";
+import { useBreakpoint } from "@/src/hooks";
 
 export type PieChartProps = {
   expenses: Expense[];
@@ -41,6 +42,13 @@ export const TotalLineChart = ({
 
   const { subscriptionDetails } = useContext(AppContext);
   const isPremium = subscriptionDetails?.isPremium;
+
+  const { isLg } = useBreakpoint("lg");
+  const categoriesToRender = isPremium
+    ? Object.keys(groupedExpenses)
+    : isLg
+    ? Object.keys(groupedExpenses).slice(0, 4)
+    : Object.keys(groupedExpenses).slice(0, 2);
 
   const [props] = useState<AgChartProps>({
     options: {
@@ -174,7 +182,7 @@ export const TotalLineChart = ({
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {/* categories charts */}
-            {Object.keys(groupedExpenses).map((categoryName) => {
+            {categoriesToRender.map((categoryName) => {
               const data = getChartDataForCategory(
                 groupedExpenses,
                 categoryName
