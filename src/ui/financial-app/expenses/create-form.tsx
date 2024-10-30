@@ -90,7 +90,7 @@ export const CreateExpenseForm = ({
     if (!showSubcategories) {
       setTimeout(() => {
         setShowSubcategories(true);
-      }, 500);
+      }, 10);
     }
   }, [showSubcategories]);
 
