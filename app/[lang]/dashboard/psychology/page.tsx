@@ -77,13 +77,13 @@ export default async function Page({ params: { lang } }: InsightsPageProps) {
                   <div className="text-lg font-bold  mb-3">
                     {
                       dict.shared?.subscriptionMessages
-                        .seeExpensesPerMonthByCategoryTitle
+                        .psychologyPagePremiumTitle
                     }
                   </div>
                   <div className=" mb-3">
                     {
                       dict.shared?.subscriptionMessages
-                        .seeExpensesPerMonthByCategoryMessage
+                        .psychologyPagePremiumMessage
                     }
                   </div>
                   {isUserOnStripe ? (
