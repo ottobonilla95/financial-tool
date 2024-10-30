@@ -5,7 +5,7 @@ import clsx from "clsx";
 import { format } from "date-fns";
 import { DeleteExpenseForm } from "../expenses/delete-expense-modal-form";
 import { TrashIcon, PencilIcon } from "@heroicons/react/24/outline";
-import { Button, Price } from "../../components";
+import { Button, Divider, Price } from "../../components";
 import { useState } from "react";
 import { UpdateCategoryForm } from "../expense-categories";
 import { Tooltip } from "react-tooltip";
@@ -170,6 +170,7 @@ export const ExpenseTable = ({
 
   return (
     <>
+      <div id={`${categoryName.replaceAll(" ", "").toLocaleLowerCase()}-table`} />
       <Tooltip id="my-tooltip" />
       <DeleteExpenseForm
         isOpen={isDeleteModalOpen}
@@ -295,20 +296,27 @@ export const ExpenseTable = ({
                   </div>
                 </div>
               ))}
-              <div className="flex justify-between py-2 px-4">
-                <div className="font-bold text-gray-600">
+              <div className="px-4">
+                <Divider className="border-neutral-200" />
+              </div>
+              <div className="flex justify-between py-2 px-4 py-2">
+                <div className="font-bold text-neutral-600">
                   {dict.shared.total}
                 </div>
-                <div className="font-bold text-gray-600">
+                <div className="font-bold text-neutral-600">
                   <Price amount={calculateSubcategoryTotal(expenseArray)} />
                 </div>
+              </div>
+              <div className="px-4">
+                <Divider className="border-neutral-200" />
               </div>
             </div>
           )
         )}
+
         <div className="flex justify-between py-2 px-4 rounded">
-          <div className="font-bold text-gray-600">{dict.shared.total}</div>
-          <div className="font-bold text-gray-600">
+          <div className="font-bold text-neutral-600">{dict.shared.total}</div>
+          <div className="font-bold text-neutral-600">
             <Price amount={calculateTotal(subcategories)} />
           </div>
         </div>

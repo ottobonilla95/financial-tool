@@ -9,31 +9,37 @@ export type groupExpensesBySatisfactionProps = {
   dict: AppDictionary;
 };
 
-function groupExpensesBySatisfaction(
-  expenses: Expense[]
-): Record<number, number> {
+function groupExpensesBySatisfaction(expenses: Expense[]): {
+  [key: number]: { total: number; percentage: number };
+} {
+  const totalExpenses = expenses.reduce(
+    (sum, expense) => sum + expense.amount,
+    0
+  );
+
   return expenses.reduce((acc, expense) => {
     const satisfactionLevel = expense.satisfaction;
     if (!acc[satisfactionLevel]) {
-      acc[satisfactionLevel] = 0;
+      acc[satisfactionLevel] = { total: 0, percentage: 0 };
     }
-    acc[satisfactionLevel] += expense.amount;
+    acc[satisfactionLevel].total += expense.amount;
+    acc[satisfactionLevel].percentage =
+      (acc[satisfactionLevel].total / totalExpenses) * 100;
     return acc;
-  }, {} as Record<number, number>);
+  }, {} as { [key: number]: { total: number; percentage: number } });
 }
-
-const getSatifactionLabel = (satisfaction: string) => {
+const getSatifactionLabel = (satisfaction: string, dict: AppDictionary) => {
   switch (satisfaction) {
     case "1":
-      return "Very Unsatisfied";
+      return dict.shared.satisfactionLevels.veryUnsatisfied;
     case "2":
-      return "Unsatisfied";
+      return dict.shared.satisfactionLevels.unsatisfied;
     case "3":
-      return "Neutral";
+      return dict.shared.satisfactionLevels.neutral;
     case "4":
-      return "Satisfied";
+      return dict.shared.satisfactionLevels.satisfied;
     case "5":
-      return "Very Satisfied";
+      return dict.shared.satisfactionLevels.verySatisfied;
     default:
       return "Unknown";
   }
@@ -65,13 +71,21 @@ export const DashboardExpeneseBySatisfaction = ({
         {Object.entries(groupedExpenses).map(([satisfaction, total]) => (
           <li
             key={satisfaction}
-            className="hover:bg-gray-100 transition py-4 px-2"
+            className="hover:bg-neutral-100 transition py-4 px-2"
           >
             <div className="flex justify-between items-center">
-              <span className="text-gray-500">
-                {getSatifactionLabel(satisfaction)}
+              <span className="text-neutral-500">
+                {getSatifactionLabel(satisfaction, dict)}
               </span>
-              <Price amount={total} className="text-gray-500" />
+              <div className="flex gap-2 justify-between">
+                <span className="text-neutral-400">{`(${total.percentage.toFixed(
+                  2
+                )}%)`}</span>
+                <Price
+                  amount={total.total}
+                  className="text-neutral-600 font-medium"
+                />
+              </div>
             </div>
           </li>
         ))}

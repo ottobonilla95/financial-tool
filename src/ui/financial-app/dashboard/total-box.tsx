@@ -1,3 +1,5 @@
+"use client";
+
 import { Price } from "../../components";
 import clsx from "clsx";
 import {
@@ -42,6 +44,7 @@ export type DashboardTotalsProps = {
   negativeIncrease?: boolean;
   variant?: "icon" | "topline";
   topLineStyles?: CSSProperties;
+  clickable?: boolean;
 };
 
 export const DashboardTotalBox = ({
@@ -54,6 +57,7 @@ export const DashboardTotalBox = ({
   negativeIncrease,
   variant = "icon",
   topLineStyles,
+  clickable,
 }: DashboardTotalsProps) => {
   const { percentageChange, isIncrease } = calculatePercentageChange(
     value,
@@ -76,8 +80,29 @@ export const DashboardTotalBox = ({
     }
   };
 
+  const scrollToDiv = (categoryName: string) => {
+    const element = document.getElementById(
+      `${categoryName.replaceAll(" ", "").toLocaleLowerCase()}-table`
+    );
+
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <div className="flex flex-col w-full lg:max-w-[220px] rounded-sm cursor-pointer shadow-sm ">
+    <div
+      className={clsx(
+        "flex flex-col w-full lg:max-w-[220px] rounded-sm shadow-sm ",
+        {
+          "hover:opacity-70 transition duration-200 ease-in-out cursor-pointer":
+            clickable,
+        }
+      )}
+      onClick={() => {
+        if (clickable) scrollToDiv(label);
+      }}
+    >
       {variant === "topline" && (
         <div style={topLineStyles} className="h-[3px] rounded-t-md" />
       )}

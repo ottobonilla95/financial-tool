@@ -10,6 +10,7 @@ import Link from "next/link";
 import { usePathname, useParams } from "next/navigation";
 import clsx from "clsx";
 import { AppDictionary } from "@/src/translations";
+import { BrainIcon } from "../../components";
 
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.
@@ -37,6 +38,12 @@ export default function NavLinks({ dict }: NavLinksProps) {
       className: "tour-step-4",
     },
     {
+      name: dict.sideMenu.yourPsychology,
+      href: "/dashboard/psychology",
+      icon: BrainIcon,
+      className: "tour-step-4",
+    },
+    {
       name: dict.sideMenu.support,
       href: "/dashboard/support",
       icon: UserGroupIcon,
@@ -61,7 +68,14 @@ export default function NavLinks({ dict }: NavLinksProps) {
               }
             )}
           >
-            <LinkIcon className="w-6" />
+            <LinkIcon
+              className={clsx(
+                "w-6",
+                pathname.replace(`/${lang}`, "") === link.href
+                  ? "fill-white stroke-white" // Active state (e.g., white if bg-black)
+                  : "" // Default state
+              )}
+            />
             <p className="hidden md:block">{link.name}</p>
           </Link>
         );

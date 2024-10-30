@@ -3,7 +3,6 @@ import { AppDictionary } from "@/src/translations";
 import { DashboardTotalBox } from "./total-box";
 import { BanknotesIcon } from "@heroicons/react/24/outline";
 import { capitalizeFirstLetter } from "@/src/helpers/capitalize-first-letter";
-import { lightenHexColor } from "@/src/helpers/modify-color";
 
 // Helper function to calculate totals per category
 const calculateTotalsPerCategory = (expenses: Expense[]) => {
@@ -93,6 +92,7 @@ export const ExpenseTotalsPerCategory = ({
             previousMonthValue={previous}
             negativeIncrease
             variant="topline"
+            clickable
           />
         ))}
       </div>

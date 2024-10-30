@@ -107,7 +107,7 @@ export const TotalLineChart = ({
           position: "bottom",
         },
       ],
-      height: 450,
+      height: 550,
       padding: {
         right: 0,
         left: 0,

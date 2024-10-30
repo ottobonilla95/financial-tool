@@ -78,6 +78,10 @@ export type AppDictionary = {
       add: string;
     };
   };
+  psychologyPage: {
+    emotionalSpendingPatterns: string;
+    satisfactionSpendingPatterns: string;
+  };
 
   shared: {
     total: string;
@@ -109,6 +113,13 @@ export type AppDictionary = {
       seeExpensesPerMonthByCategoryMessage: string;
       seeTotalExpensesPerDayTitle: string;
       seeTotalExpensesPerDayMessage: string;
+    };
+    satisfactionLevels: {
+      veryUnsatisfied: string;
+      unsatisfied: string;
+      neutral: string;
+      satisfied: string;
+      verySatisfied: string;
     };
   };
   insights: {
@@ -190,6 +201,7 @@ export type AppDictionary = {
   sideMenu: {
     home: string;
     summary: string;
+    yourPsychology: string;
     support: string;
     account: string;
     logOut: string;

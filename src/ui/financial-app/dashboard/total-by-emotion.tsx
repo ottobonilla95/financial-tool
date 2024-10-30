@@ -10,15 +10,24 @@ export type DashboardExpeneseByEmotionProps = {
   dict: AppDictionary;
 };
 
-function groupExpensesByEmotion(expenses: Expense[]): Record<string, number> {
+function groupExpensesByEmotion(expenses: Expense[]): {
+  [key: string]: { total: number; percentage: number };
+} {
+  const totalExpenses = expenses.reduce(
+    (sum, expense) => sum + expense.amount,
+    0
+  );
+
   return expenses.reduce((acc, expense) => {
-    const emotionName = expense.emotion?.name || "No Emotion"; // Handle cases where emotion might be missing
+    const emotionName = expense.emotion?.name || "No Emotion";
     if (!acc[emotionName]) {
-      acc[emotionName] = 0;
+      acc[emotionName] = { total: 0, percentage: 0 };
     }
-    acc[emotionName] += expense.amount;
+    acc[emotionName].total += expense.amount;
+    acc[emotionName].percentage =
+      (acc[emotionName].total / totalExpenses) * 100;
     return acc;
-  }, {} as Record<string, number>);
+  }, {} as { [key: string]: { total: number; percentage: number } });
 }
 
 export const DashboardExpeneseByEmotion = ({
@@ -54,7 +63,15 @@ export const DashboardExpeneseByEmotion = ({
                   ] || ""
                 )}
               </span>
-              <Price amount={total} className="text-gray-500" />
+              <div className="flex gap-2 justify-between">
+                <span className="text-neutral-400">{`(${total.percentage.toFixed(
+                  2
+                )}%)`}</span>
+                <Price
+                  amount={total.total}
+                  className="text-neutral-600 font-medium"
+                />
+              </div>
             </div>
           </li>
         ))}

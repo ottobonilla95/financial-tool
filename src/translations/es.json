@@ -79,6 +79,10 @@
       "add": "Añadir"
     }
   },
+  "psychologyPage": {
+    "emotionalSpendingPatterns": "Patrones de gasto emocional",
+    "satisfactionSpendingPatterns": "Patrones de gasto de satisfacción"
+  },
   "shared": {
     "total": "Total",
     "name": "Nombre",
@@ -109,6 +113,13 @@
       "seeExpensesPerMonthByCategoryMessage": "Actualiza a Premium para ver informes detallados de tus gastos desglosados por categoría para cada mes.",
       "seeTotalExpensesPerDayTitle": "¡Ver gastos totales por día!",
       "seeTotalExpensesPerDayMessage": "Actualiza a Premium para ver informes detallados de tus gastos totales por día."
+    },
+    "satisfactionLevels": {
+      "veryUnsatisfied": "Muy insatisfecho",
+      "unsatisfied": "Insatisfecho",
+      "neutral": "Neutral",
+      "satisfied": "Satisfecho",
+      "verySatisfied": "Muy satisfecho"
     }
   },
   "insights": {
@@ -210,6 +221,7 @@
   "sideMenu": {
     "home": "Inicio",
     "summary": "Resumen",
+    "yourPsychology": "Tu Psicología",
     "support": "Soporte",
     "account": "Cuenta",
     "logOut": "Cerrar sesión"

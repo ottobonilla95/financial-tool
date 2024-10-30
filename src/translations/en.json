@@ -78,6 +78,10 @@
       "add": "Add"
     }
   },
+  "psychologyPage": {
+    "emotionalSpendingPatterns": "Emotional spending patterns",
+    "satisfactionSpendingPatterns": "Satisfaction spending patterns"
+  },
   "shared": {
     "total": "Total",
     "name": "Name",
@@ -109,7 +113,14 @@
       "seeTotalExpensesPerDayTitle": "See total expenses per day!",
       "seeTotalExpensesPerDayMessage": "Upgrade to Premium to view detailed reports of your total expenses per day."
     },
-    "privacyPolicy": "Privacy Policy"
+    "privacyPolicy": "Privacy Policy",
+    "satisfactionLevels": {
+      "veryUnsatisfied": "Very unsatisfied",
+      "unsatisfied": "Unsatisfied",
+      "neutral": "Neutral",
+      "satisfied": "Satisfied",
+      "verySatisfied": "Very satisfied"
+    }
   },
   "insights": {
     "totalIncomeExpensesSavings": "Total income, expenses, and savings",
@@ -210,6 +221,7 @@
   "sideMenu": {
     "home": "Home",
     "summary": "Summary",
+    "yourPsychology": "Your Psychology",
     "support": "Support",
     "account": "Account",
     "logOut": "Log out"
