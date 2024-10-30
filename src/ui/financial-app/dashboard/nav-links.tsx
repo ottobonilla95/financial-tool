@@ -11,15 +11,17 @@ import { usePathname, useParams } from "next/navigation";
 import clsx from "clsx";
 import { AppDictionary } from "@/src/translations";
 import { BrainIcon } from "../../components";
+import { Tooltip } from "react-tooltip";
 
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.
 
 export type NavLinksProps = {
   dict: AppDictionary;
+  isPremium: boolean;
 };
 
-export default function NavLinks({ dict }: NavLinksProps) {
+export default function NavLinks({ dict, isPremium }: NavLinksProps) {
   let pathname = usePathname();
 
   const params = useParams();
@@ -42,6 +44,8 @@ export default function NavLinks({ dict }: NavLinksProps) {
       href: "/dashboard/psychology",
       icon: BrainIcon,
       className: "tour-step-4",
+      block: !isPremium,
+      tooltipPremiumMessage: dict.psychologyPage.premiumNavLinkMessage,
     },
     {
       name: dict.sideMenu.support,
@@ -53,14 +57,40 @@ export default function NavLinks({ dict }: NavLinksProps) {
 
   return (
     <>
+      <Tooltip id="my-tooltip" />
+
       {links.map((link) => {
         const LinkIcon = link.icon;
+
+        if (link.block) {
+          return (
+            <div className="flex h-[48px] grow items-center cursor-pointer justify-center bg-neutral-300 gap-2 rounded-md p-3 text-sm font-medium md:flex-none md:justify-start md:p-2 md:px-3">
+              <LinkIcon
+                className={clsx(
+                  "w-6",
+                  pathname.replace(`/${lang}`, "") === link.href
+                    ? "fill-white stroke-white" // Active state (e.g., white if bg-black)
+                    : "" // Default state
+                )}
+              />
+              <p className="hidden md:block">{link.name}</p>
+
+              <span
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content={link.tooltipPremiumMessage}
+                className="uppercase text-xs font-bold tracking-tight bg-neutral-400 px-2 py-1 rounded-sm"
+              >
+                premium
+              </span>
+            </div>
+          );
+        }
         return (
           <Link
             key={link.name}
             href={link.href}
             className={clsx(
-              "flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-gray-500 hover:text-white md:flex-none md:justify-start md:p-2 md:px-3",
+              "flex h-[48px] grow items-center justify-center gap-2 hover:bg-gray-500 hover:text-white rounded-md bg-gray-50 p-3 text-sm font-medium md:flex-none md:justify-start md:p-2 md:px-3",
               link.className,
               {
                 "!bg-black text-white":

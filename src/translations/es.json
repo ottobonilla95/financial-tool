@@ -81,7 +81,8 @@
   },
   "psychologyPage": {
     "emotionalSpendingPatterns": "Patrones de gasto emocional",
-    "satisfactionSpendingPatterns": "Patrones de gasto de satisfacción"
+    "satisfactionSpendingPatterns": "Patrones de gasto de satisfacción",
+    "premiumNavLinkMessage": "Actualiza a Premium para ver análisis más detallados de tus gastos basados en emociones y nivel de satisfacción."
   },
   "shared": {
     "total": "Total",

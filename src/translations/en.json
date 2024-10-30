@@ -80,7 +80,8 @@
   },
   "psychologyPage": {
     "emotionalSpendingPatterns": "Emotional spending patterns",
-    "satisfactionSpendingPatterns": "Satisfaction spending patterns"
+    "satisfactionSpendingPatterns": "Satisfaction spending patterns",
+    "premiumNavLinkMessage": "Unlock Premium for advanced insights into your spending patterns, emotions, and satisfaction levels."
   },
   "shared": {
     "total": "Total",

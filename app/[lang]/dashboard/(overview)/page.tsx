@@ -21,7 +21,7 @@ import { fetchSavings } from "@/src/data/saving";
 import { getDBUser } from "@/src/data/user";
 import { AppProvider } from "@/src/app-wrappper/provider";
 import { Currency, SubscriptionPlanOption } from "@/src/types";
-import { endOfMonth, startOfMonth, subMonths } from "date-fns";
+import { startOfMonth, subMonths } from "date-fns";
 import { getDictionary, AvailableLanguages } from "@/src/translations";
 import { IntlProvider } from "@/src/translations/provider";
 import { Spinner } from "@/src/ui/components";

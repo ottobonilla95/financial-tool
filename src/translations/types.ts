@@ -81,6 +81,7 @@ export type AppDictionary = {
   psychologyPage: {
     emotionalSpendingPatterns: string;
     satisfactionSpendingPatterns: string;
+    premiumNavLinkMessage: string;
   };
 
   shared: {
