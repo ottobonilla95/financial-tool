@@ -77,9 +77,6 @@ export default async function Page({
   const month = Number(searchParams.month) || currentDate.getMonth() + 1;
   const year = Number(searchParams.year) || currentDate.getFullYear();
 
-  // const startDate = startOfMonth(new Date(year, month - 1));
-  // const endDate = endOfMonth(new Date(year, month - 1));
-
   const startDateCurrent = startOfMonth(new Date(year, month - 1));
   const endDateCurrent = new Date(year, month - 1, dayOfMonth);
 
@@ -172,6 +169,8 @@ export default async function Page({
       <IntlProvider dict={dict} lang={lang}>
         <TourProvider>
           <main>
+            <div className="mb-8">{startDateCurrent.toISOString()}</div>
+            <div>{endDateCurrent.toISOString()}</div>
             {!tourFinished && <TourInitiator />}
             <Suspense fallback={<div>loading...</div>}>
               <LastUpdated dict={dict} />
