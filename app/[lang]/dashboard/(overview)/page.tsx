@@ -78,14 +78,14 @@ export default async function Page({
   const year = Number(searchParams.year) || currentDate.getFullYear();
 
   const startDateCurrent = startOfMonth(new Date(year, month - 1));
-  const endDateCurrent = new Date(year, month - 1, dayOfMonth);
+  // Adjust endDateCurrent to the last day of the selected month
+  const endDateCurrent =
+    month === currentDate.getMonth() + 1 && year === currentDate.getFullYear()
+      ? new Date(year, month - 1, dayOfMonth)
+      : endOfMonth(new Date(year, month - 1));
 
   const startDatePrevious = startOfMonth(subMonths(startDateCurrent, 1));
-  const endDatePrevious = new Date(
-    startDatePrevious.getFullYear(),
-    startDatePrevious.getMonth(),
-    dayOfMonth
-  );
+  const endDatePrevious = endOfMonth(startDatePrevious);
 
   // Fetch expenses for the current month up to today's date
   const expensesCurrent = await fetchExpenses({
