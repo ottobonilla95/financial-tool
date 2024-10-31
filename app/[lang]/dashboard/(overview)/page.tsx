@@ -194,6 +194,7 @@ export default async function Page({
           <main>
             <div className="mb-4">{`${startDateCurrent}-----${endDateCurrent}`}</div>
             <div className="mb-4">{`${startDatePrevious}-----${endDatePrevious}`}</div>
+            {expensesCurrent.length}
             {!tourFinished && <TourInitiator />}
             <Suspense fallback={<div>loading...</div>}>
               <LastUpdated dict={dict} />
