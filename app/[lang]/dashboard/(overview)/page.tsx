@@ -192,6 +192,8 @@ export default async function Page({
       <IntlProvider dict={dict} lang={lang}>
         <TourProvider>
           <main>
+            <div className="mb-4">{`${startDateCurrent}-----${endDateCurrent}`}</div>
+            <div className="mb-4">{`${startDatePrevious}-----${endDatePrevious}`}</div>
             {!tourFinished && <TourInitiator />}
             <Suspense fallback={<div>loading...</div>}>
               <LastUpdated dict={dict} />
