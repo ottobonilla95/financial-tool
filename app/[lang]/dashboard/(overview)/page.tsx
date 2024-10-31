@@ -81,34 +81,71 @@ export default async function Page({
     Number(searchParams.month) || currentDate.getMonth() + 1;
   const selectedYear = Number(searchParams.year) || currentDate.getFullYear();
 
-  // Determine if we're looking at the current month and year
+  // Check if the selected month and year are the current month and year
   const isCurrentMonth =
     selectedMonth === currentDate.getMonth() + 1 &&
     selectedYear === currentDate.getFullYear();
 
   // Current month start and end dates
-  const startDateCurrent = startOfMonth(
-    new Date(selectedYear, selectedMonth - 1, 1)
-  );
+  const startDateCurrent = new Date(
+    Date.UTC(selectedYear, selectedMonth - 1, 1, 0, 0, 0)
+  ); // Start of the month at 00:00 UTC
   const endDateCurrent = isCurrentMonth
     ? new Date(
-        selectedYear,
-        selectedMonth - 1,
-        Math.min(dayOfMonth, endOfMonth(startDateCurrent).getDate())
-      )
-    : endOfMonth(startDateCurrent); // Full month if not current
+        Date.UTC(
+          selectedYear,
+          selectedMonth - 1,
+          Math.min(dayOfMonth, endOfMonth(startDateCurrent).getDate()),
+          23,
+          59,
+          59
+        )
+      ) // Up to today at 23:59:59 UTC if current month
+    : new Date(Date.UTC(selectedYear, selectedMonth, 0, 23, 59, 59)); // Full month if not current
 
   // Previous month start and end dates
-  const startDatePrevious = startOfMonth(subMonths(startDateCurrent, 1));
+  const startDatePrevious = new Date(
+    Date.UTC(
+      startDateCurrent.getFullYear(),
+      startDateCurrent.getMonth() - 1,
+      1,
+      0,
+      0,
+      0
+    )
+  ); // Start of previous month at 00:00 UTC
   const endDatePrevious = isCurrentMonth
     ? dayOfMonth <= endOfMonth(startDatePrevious).getDate()
       ? new Date(
+          Date.UTC(
+            startDatePrevious.getFullYear(),
+            startDatePrevious.getMonth(),
+            dayOfMonth,
+            23,
+            59,
+            59
+          )
+        ) // Up to the same day as today in the previous month at 23:59:59 UTC
+      : new Date(
+          Date.UTC(
+            startDatePrevious.getFullYear(),
+            startDatePrevious.getMonth() + 1,
+            0,
+            23,
+            59,
+            59
+          )
+        ) // Last day of the previous month if today’s day doesn’t exist in that month
+    : new Date(
+        Date.UTC(
           startDatePrevious.getFullYear(),
-          startDatePrevious.getMonth(),
-          dayOfMonth
+          startDatePrevious.getMonth() + 1,
+          0,
+          23,
+          59,
+          59
         )
-      : endOfMonth(startDatePrevious)
-    : endOfMonth(startDatePrevious); // Full month if not current
+      ); // Full month if not current
 
   // Fetch expenses for the current month up to today's date
   const expensesCurrent = await fetchExpenses({
