@@ -129,7 +129,7 @@ export default async function Page({ params: { lang } }: InsightsPageProps) {
                   />
                 </div>
               </div>
-              <EmotionCategoryList expenses={expenses} />
+              <EmotionCategoryList expenses={expenses} dict={dict} />
             </>
           )}
         </div>

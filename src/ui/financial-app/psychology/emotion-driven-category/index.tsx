@@ -1,9 +1,11 @@
 import React from "react";
 import { Expense } from "@/src/types";
 import { EmotionCategoryItem } from "./emotion-category-item";
+import { AppDictionary } from "@/src/translations";
 
 type EmotionCategoryListProps = {
   expenses: Expense[];
+  dict: AppDictionary;
 };
 
 // Helper function to process expenses and calculate top categories by emotion
@@ -48,18 +50,24 @@ function calculateTopCategoriesByEmotion(expenses: Expense[]) {
   return topCategoriesByEmotion;
 }
 
-export const EmotionCategoryList = ({ expenses }: EmotionCategoryListProps) => {
+export const EmotionCategoryList = ({
+  expenses,
+  dict,
+}: EmotionCategoryListProps) => {
   const topCategoriesByEmotion = calculateTopCategoriesByEmotion(expenses);
 
   return (
-    <section className="mt-8 p-4 bg-white rounded shadow">
-      <h2 className="text-lg font-semibold mb-4">Spending by Emotion</h2>
+    <section className="mt-8 p-4 bg-white rounded-sm shadow-sm">
+      <h2 className="font-semibold mb-4 uppercase text-neutral-600">
+        {dict.psychologyPage.spendingByEmotion}
+      </h2>
       <div className="space-y-6">
         {topCategoriesByEmotion.length > 0 ? (
           topCategoriesByEmotion.map((emotionData) => (
             <EmotionCategoryItem
               key={emotionData.emotionName}
               emotionData={emotionData}
+              dict={dict}
             />
           ))
         ) : (
