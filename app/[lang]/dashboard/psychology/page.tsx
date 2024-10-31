@@ -9,6 +9,7 @@ import { Suspense } from "react";
 import {
   EmotionSpendingPatternsGraph,
   SatisfactionSpendingPatternsGraph,
+  EmotionCategoryList,
 } from "@/src/ui/financial-app/psychology";
 import { Button } from "@/src/ui/components";
 import clsx from "clsx";
@@ -109,21 +110,27 @@ export default async function Page({ params: { lang } }: InsightsPageProps) {
             <NoExpensesAdded dict={dict} />
           )}
           {expenses.length > 0 && (
-            <div
-              className={clsx("flex flex-col xl:flex-row gap-4 w-full", {
-                "blur-sm": !isPremium,
-              })}
-            >
-              <div className="flex-1">
-                <EmotionSpendingPatternsGraph expenses={expenses} dict={dict} />
+            <>
+              <div
+                className={clsx("flex flex-col xl:flex-row gap-4 w-full", {
+                  "blur-sm": !isPremium,
+                })}
+              >
+                <div className="flex-1">
+                  <EmotionSpendingPatternsGraph
+                    expenses={expenses}
+                    dict={dict}
+                  />
+                </div>
+                <div className="flex-1">
+                  <SatisfactionSpendingPatternsGraph
+                    expenses={expenses}
+                    dict={dict}
+                  />
+                </div>
               </div>
-              <div className="flex-1">
-                <SatisfactionSpendingPatternsGraph
-                  expenses={expenses}
-                  dict={dict}
-                />
-              </div>
-            </div>
+              <EmotionCategoryList expenses={expenses} />
+            </>
           )}
         </div>
       </main>

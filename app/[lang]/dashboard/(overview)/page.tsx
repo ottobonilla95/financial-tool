@@ -75,17 +75,40 @@ export default async function Page({
   const dayOfMonth = currentDate.getDate();
 
   const month = Number(searchParams.month) || currentDate.getMonth() + 1;
-  const year = Number(searchParams.year) || currentDate.getFullYear();
 
-  const startDateCurrent = startOfMonth(new Date(year, month - 1));
-  // Adjust endDateCurrent to the last day of the selected month
-  const endDateCurrent =
-    month === currentDate.getMonth() + 1 && year === currentDate.getFullYear()
-      ? new Date(year, month - 1, dayOfMonth)
-      : endOfMonth(new Date(year, month - 1));
+  // Use month and year from searchParams if provided, otherwise use current month and year
+  const selectedMonth =
+    Number(searchParams.month) || currentDate.getMonth() + 1;
+  const selectedYear = Number(searchParams.year) || currentDate.getFullYear();
 
+  // Determine if we're looking at the current month and year
+  const isCurrentMonth =
+    selectedMonth === currentDate.getMonth() + 1 &&
+    selectedYear === currentDate.getFullYear();
+
+  // Current month start and end dates
+  const startDateCurrent = startOfMonth(
+    new Date(selectedYear, selectedMonth - 1, 1)
+  );
+  const endDateCurrent = isCurrentMonth
+    ? new Date(
+        selectedYear,
+        selectedMonth - 1,
+        Math.min(dayOfMonth, endOfMonth(startDateCurrent).getDate())
+      )
+    : endOfMonth(startDateCurrent); // Full month if not current
+
+  // Previous month start and end dates
   const startDatePrevious = startOfMonth(subMonths(startDateCurrent, 1));
-  const endDatePrevious = endOfMonth(startDatePrevious);
+  const endDatePrevious = isCurrentMonth
+    ? dayOfMonth <= endOfMonth(startDatePrevious).getDate()
+      ? new Date(
+          startDatePrevious.getFullYear(),
+          startDatePrevious.getMonth(),
+          dayOfMonth
+        )
+      : endOfMonth(startDatePrevious)
+    : endOfMonth(startDatePrevious); // Full month if not current
 
   // Fetch expenses for the current month up to today's date
   const expensesCurrent = await fetchExpenses({
@@ -169,8 +192,6 @@ export default async function Page({
       <IntlProvider dict={dict} lang={lang}>
         <TourProvider>
           <main>
-            <div className="mb-8">{startDateCurrent.toISOString()}</div>
-            <div>{endDateCurrent.toISOString()}</div>
             {!tourFinished && <TourInitiator />}
             <Suspense fallback={<div>loading...</div>}>
               <LastUpdated dict={dict} />
