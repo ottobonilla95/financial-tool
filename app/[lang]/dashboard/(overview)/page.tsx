@@ -115,8 +115,8 @@ export default async function Page({
     filters: {
       user_id: userId,
       date: {
-        gte: startDateCurrent.toISOString(),
-        lte: endDateCurrent.toISOString(),
+        gte: startDateCurrent,
+        lte: endDateCurrent,
       },
     },
   });
@@ -126,8 +126,8 @@ export default async function Page({
     filters: {
       user_id: userId,
       date: {
-        gte: startDatePrevious.toISOString(),
-        lte: endDatePrevious.toISOString(),
+        gte: startDatePrevious,
+        lte: endDatePrevious,
       },
     },
   });
@@ -137,8 +137,8 @@ export default async function Page({
     filters: {
       user_id: userId,
       date: {
-        gte: startDateCurrent.toISOString(),
-        lte: endDateCurrent.toISOString(),
+        gte: startDateCurrent,
+        lte: endDateCurrent,
       },
     },
   });
@@ -148,8 +148,8 @@ export default async function Page({
     filters: {
       user_id: userId,
       date: {
-        gte: startDatePrevious.toISOString(),
-        lte: endDatePrevious.toISOString(),
+        gte: startDatePrevious,
+        lte: endDatePrevious,
       },
     },
   });
@@ -159,8 +159,8 @@ export default async function Page({
     filters: {
       user_id: userId,
       date: {
-        gte: startDateCurrent.toISOString(),
-        lte: endDateCurrent.toISOString(),
+        gte: startDateCurrent,
+        lte: endDateCurrent,
       },
     },
   });
@@ -170,8 +170,8 @@ export default async function Page({
     filters: {
       user_id: userId,
       date: {
-        gte: startDatePrevious.toISOString(),
-        lte: endDatePrevious.toISOString(),
+        gte: startDatePrevious,
+        lte: endDatePrevious,
       },
     },
   });
