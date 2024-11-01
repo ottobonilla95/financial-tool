@@ -11,8 +11,10 @@ export const SubmitButton = ({ children, ...props }: SubmitButtonProps) => {
     return (
       <Button
         isDisabled
+        aria-disabled
+        disabled
         {...props}
-        icon={<Spinner className="h-5 w-5 fill-black" />}
+        icon={<Spinner className="h-5 w-5 !fill-black" />}
       ></Button>
     );
   }

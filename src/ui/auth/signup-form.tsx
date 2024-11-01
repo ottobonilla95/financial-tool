@@ -16,6 +16,7 @@ import { useTranslations } from "@/src/translations/use-translations";
 import { SubscriptionPlan, pricingPlans } from "../financial-app/pricing";
 import { IntlContext } from "@/src/translations/provider";
 import { useFormState, useFormStatus } from "react-dom";
+import { SubmitButton } from "../forms";
 
 export type SignupFormPropd = {
   currencies: Currency[];
@@ -181,18 +182,17 @@ export const SignupForm = ({ currencies, plan }: SignupFormPropd) => {
         </div>
 
         {/* Submit Button */}
-        <Button
-          className={`border-0 mt-4 rounded-lg bg-lime-500 font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 ${
-            !isChecked ? "opacity-50 cursor-not-allowed" : ""
-          }`}
-          aria-disabled={isPending || !isChecked}
+
+        <SubmitButton
+          className="mt-4 rounded-lg bg-lime-500 font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0"
           icon={<ArrowRightIcon className="h-5 w-5" />}
           iconPosition="right"
           loading={isPending}
-          disabled={!isChecked} // Disable the button if terms are not accepted
+          disabled={!isChecked}
+          aria-disabled={isPending || !isChecked}
         >
           {dict.authPages?.createAccount}
-        </Button>
+        </SubmitButton>
 
         {!isPending && (
           <Button

@@ -6,6 +6,7 @@ import { useTranslations } from "@/src/translations/use-translations";
 import { useEffect, useState } from "react";
 import { setTourFinished } from "@/src/form-actions/user";
 import { useFormState, useFormStatus } from "react-dom";
+import { SubmitButton } from "../../forms";
 
 export default function TourProvider() {
   const { setIsOpen, isOpen } = useTour();
@@ -55,9 +56,7 @@ export default function TourProvider() {
         <form action={formAction}>
           <div className="font-bold text-lg mb-2">{dict.tour?.endTitle}</div>
           <div className="mb-5">{dict.tour?.endMessage}</div>
-          <Button type="submit" loading={loading}>
-            {dict.shared?.close}
-          </Button>
+          <SubmitButton loading={loading}>{dict.shared?.close}</SubmitButton>
         </form>
       </Modal>
     </>
