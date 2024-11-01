@@ -204,11 +204,30 @@
     "screenShots": {
       "title": "Explore the TrackMySpend App",
       "description": "Take a look at the interface and features that help you manage your finances effortlessly.",
+
       "screenshot1": {
-        "description": "Overview of your monthly expenses"
+        "description": "Overview of current month’s expenses"
       },
       "screenshot2": {
-        "description": "Visualize your spending habits with detailed charts"
+        "description": "View totals per category"
+      },
+      "screenshot3": {
+        "description": "Track total expenses per day"
+      },
+      "screenshot4": {
+        "description": "Detailed table of all expense records"
+      },
+      "screenshot5": {
+        "description": "Monthly totals displayed in a graph"
+      },
+      "screenshot6": {
+        "description": "Totals per month per category"
+      },
+      "screenshot7": {
+        "description": "Graphs showing total expenses by emotion and satisfaction level"
+      },
+      "screenshot8": {
+        "description": "Table of total expenses per emotion by category (e.g., sadness: Food, Clothes)"
       }
     },
     "testimonials": {

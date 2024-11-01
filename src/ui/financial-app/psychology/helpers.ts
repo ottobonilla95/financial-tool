@@ -12,7 +12,11 @@ export function getAllUniqueMonths(expenses: Expense[]) {
     uniqueMonths.add(monthYear);
   });
 
-  return Array.from(uniqueMonths).sort(); // Sort to ensure consistent order
+  return Array.from(uniqueMonths).sort((a, b) => {
+    const dateA = new Date(a);
+    const dateB = new Date(b);
+    return dateA.getTime() - dateB.getTime();
+  });
 }
 
 // Helper to group expenses by emotion with percentage calculations per month

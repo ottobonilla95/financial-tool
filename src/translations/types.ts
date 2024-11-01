@@ -189,6 +189,24 @@ export type AppDictionary = {
       screenshot2: {
         description: string;
       };
+      screenshot3: {
+        description: string;
+      };
+      screenshot4: {
+        description: string;
+      };
+      screenshot5: {
+        description: string;
+      };
+      screenshot6: {
+        description: string;
+      };
+      screenshot7: {
+        description: string;
+      };
+      screenshot8: {
+        description: string;
+      };
     };
     testimonials: {
       title: string;

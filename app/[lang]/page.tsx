@@ -95,7 +95,7 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
         <Container>
           <KeyFeatures dict={dict} />
           <HowItWorks dict={dict} />
-          <AppScreenshots dict={dict} />
+          <AppScreenshots dict={dict} lang={lang} />
           <Testimonials dict={dict} />
           <div className="py-10 text-neutral-100 tracking-tight">
             <h2 className="text-5xl font-bold sm:mb-10 xl:mb-12 text-center">

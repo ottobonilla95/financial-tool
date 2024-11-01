@@ -204,11 +204,30 @@
     "screenShots": {
       "title": "Explora la Aplicación TrackMySpend",
       "description": "Echa un vistazo a la interfaz y las características que te ayudan a gestionar tus finanzas sin esfuerzo.",
+
       "screenshot1": {
-        "description": "Visión general de tus gastos mensuales"
+        "description": "Resumen de los gastos del mes actual"
       },
       "screenshot2": {
-        "description": "Visualiza tus hábitos de gasto con gráficos detallados"
+        "description": "Ver los totales por categoría"
+      },
+      "screenshot3": {
+        "description": "Seguimiento de los gastos totales por día"
+      },
+      "screenshot4": {
+        "description": "Tabla detallada de todos los registros de gastos"
+      },
+      "screenshot5": {
+        "description": "Totales mensuales mostrados en un gráfico"
+      },
+      "screenshot6": {
+        "description": "Totales por mes y por categoría"
+      },
+      "screenshot7": {
+        "description": "Gráficos de gastos totales por emoción y nivel de satisfacción"
+      },
+      "screenshot8": {
+        "description": "Tabla de gastos totales por emoción y categoría (por ejemplo, tristeza: Comida, Ropa)"
       }
     },
     "testimonials": {
