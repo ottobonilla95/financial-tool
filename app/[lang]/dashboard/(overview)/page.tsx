@@ -278,7 +278,7 @@ export default async function Page({
                 </div>
               )}
 
-              {isPremium && (
+              {expensesCurrent.length > 0 && isPremium && (
                 <>
                   <div className="h-5" />
                   <ExpenseTotalsPerCategory
