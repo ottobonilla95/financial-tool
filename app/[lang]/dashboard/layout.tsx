@@ -19,7 +19,7 @@ export default async function Layout({
       <div className="w-full flex-none md:w-64">
         <SideNav dict={dict} />
       </div>
-      <div className="flex-grow md:overflow-y-auto bg-gray-50">
+      <div className="flex-grow md:overflow-y-auto bg-gray-50 relative">
         <div>{children}</div>
       </div>
     </div>

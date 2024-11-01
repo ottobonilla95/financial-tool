@@ -63,49 +63,49 @@ export default async function Page({ params: { lang } }: InsightsPageProps) {
       }}
     >
       <main>
+        {!isPremium && (
+          <>
+            <div
+              className="bg-black inset-0 absolute blur-sm rounded-md z-[1000]"
+              style={{ opacity: "5%" }}
+            />
+            <div className="inset-0 absolute flex pt-10 items-center justify-center z-[10001]">
+              <div className="w-full max-w-[400px] p-5 bg-white rounded-md border border-gray-200 border-solid">
+                <div className="text-lg font-bold  mb-3">
+                  {dict.shared?.subscriptionMessages.psychologyPagePremiumTitle}
+                </div>
+                <div className=" mb-3">
+                  {
+                    dict.shared?.subscriptionMessages
+                      .psychologyPagePremiumMessage
+                  }
+                </div>
+                {isUserOnStripe ? (
+                  <Button
+                    href={stripeCustomerPortalLink}
+                    target="_blank"
+                    className="text-white bg-black"
+                  >
+                    {`${dict.shared?.manageSubscription}`}
+                  </Button>
+                ) : (
+                  <Button
+                    href="/dashboard/pricing"
+                    className="text-white bg-black"
+                  >{`${dict.shared?.goPremium}`}</Button>
+                )}
+              </div>
+            </div>
+          </>
+        )}
         <Suspense fallback={<div>loading...</div>}>
           <LastUpdated dict={dict} />
         </Suspense>
-        <div className="relative p-4 md:p-10">
-          {!isPremium && (
-            <>
-              <div
-                className="bg-black inset-0 absolute blur-sm rounded-md z-[1000]"
-                style={{ opacity: "5%" }}
-              />
-              <div className="inset-0 absolute flex pt-10 items-center justify-center z-[10001]">
-                <div className="w-full max-w-[400px] p-5 bg-white rounded-md border border-gray-200 border-solid">
-                  <div className="text-lg font-bold  mb-3">
-                    {
-                      dict.shared?.subscriptionMessages
-                        .psychologyPagePremiumTitle
-                    }
-                  </div>
-                  <div className=" mb-3">
-                    {
-                      dict.shared?.subscriptionMessages
-                        .psychologyPagePremiumMessage
-                    }
-                  </div>
-                  {isUserOnStripe ? (
-                    <Button
-                      href={stripeCustomerPortalLink}
-                      target="_blank"
-                      className="text-white bg-black"
-                    >
-                      {`${dict.shared?.manageSubscription}`}
-                    </Button>
-                  ) : (
-                    <Button
-                      href="/dashboard/pricing"
-                      className="text-white bg-black"
-                    >{`${dict.shared?.goPremium}`}</Button>
-                  )}
-                </div>
-              </div>
-            </>
-          )}
-
+        <div
+          className={clsx("relative p-4 md:p-10", {
+            "blur-sm": !isPremium,
+          })}
+        >
           {expenses.length === 0 && expenses.length === 0 && (
             <NoExpensesAdded dict={dict} />
           )}
