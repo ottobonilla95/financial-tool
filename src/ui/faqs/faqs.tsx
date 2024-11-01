@@ -8,7 +8,7 @@ export type SupportPageProps = {
 export default async function FAQs({ dict }: SupportPageProps) {
   return (
     <div className="text-neutral-100 tracking-tight">
-      <div className="container mx-auto px-4 sm:px-0 py-16 sm:py-24">
+      <div className="py-16 sm:py-24">
         <h2 className="text-5xl font-semibold mb-6">
           {dict.faqs.title}
         </h2>

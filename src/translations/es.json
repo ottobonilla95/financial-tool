@@ -12,7 +12,8 @@
     "byEmotion": "Por Emoción",
     "bySatisfaction": "Por Satisfacción",
     "totalExpensesPerDayByCategory": "Gastos totales por día por categoría",
-    "totalExpensesPerCategory": "Gastos totales por categoría"
+    "totalExpensesPerCategory": "Gastos totales por categoría",
+    "samePeriodLastMonth": "Mismo período del mes pasado"
   },
   "forms": {
     "expense": {
@@ -380,7 +381,9 @@
     "prioritySupport": "Soporte prioritario",
     "unlimitedCategories": "Categorías ilimitadas",
     "upTo9Categories": "Hasta 9 categorías",
-    "emtionTrackingAndLevelOfSatisfaction": "Seguimiento de emociones y nivel de satisfacción",
+    "emotionAndSatisfactionTracking": "Seguimiento de emociones y satisfacción",
+    "spendingInsightsByEmotionAndCategory": "Informes de gastos por emoción y categoría",
+    "newFeaturesAndUpdatesRegularly": "Nuevas funciones y actualizaciones regularmente",
     "lifeTimeDeal": "Oferta de por vida",
     "allPremiumFeatures": "Todas las funciones Premium",
     "oneTimePayment": "Pago único"

@@ -6,7 +6,9 @@ import {
   ArrowTrendingUpIcon,
   ArrowTrendingDownIcon,
 } from "@heroicons/react/24/solid";
-import { CSSProperties } from "react";
+import { CSSProperties, useContext } from "react";
+import { AppContext } from "@/src/app-wrappper/provider";
+import { IntlContext } from "@/src/translations/provider";
 
 function calculatePercentageChange(
   current: number,
@@ -63,6 +65,7 @@ export const DashboardTotalBox = ({
     value,
     previousMonthValue || 0
   );
+  const { dict } = useContext(IntlContext);
 
   const renderGreen = () => {
     if (negativeIncrease) {
@@ -122,27 +125,32 @@ export const DashboardTotalBox = ({
           )}
         </div>
         {percentageChange > 0 ? (
-          <div
-            className={clsx("flex gap-2 mb-1 text-red-500", {
-              "!text-lime-500": renderGreen(),
-            })}
-          >
+          <div className="mb-1">
             <div
-              className={clsx(
-                "px-1 rounded-md py-[1px] flex items-center bg-red-100",
-                {
-                  "!bg-lime-100": renderGreen(),
-                }
-              )}
+              className={clsx("flex gap-2 mb-1 text-red-500", {
+                "!text-lime-500": renderGreen(),
+              })}
             >
-              {isIncrease ? (
-                <ArrowTrendingUpIcon className="w-4" />
-              ) : (
-                <ArrowTrendingDownIcon className="w-4" />
-              )}
-            </div>
+              <div
+                className={clsx(
+                  "px-1 rounded-md py-[1px] flex items-center bg-red-100",
+                  {
+                    "!bg-lime-100": renderGreen(),
+                  }
+                )}
+              >
+                {isIncrease ? (
+                  <ArrowTrendingUpIcon className="w-4" />
+                ) : (
+                  <ArrowTrendingDownIcon className="w-4" />
+                )}
+              </div>
 
-            {`${percentageChange.toFixed(2)} %`}
+              {`${percentageChange.toFixed(2)} %`}
+            </div>
+            <div className="uppercase text-[10px] tracking-thight text-neutral-400">
+              {dict.dashboard?.samePeriodLastMonth}
+            </div>
           </div>
         ) : (
           <div className="flex-1" />

@@ -58,7 +58,6 @@ const calculateMonthlyTotals = (
 export type ExpenseTotalsPerCategoryProps = {
   expenses: Expense[];
   expensesPrevious: Expense[];
-
   dict: AppDictionary;
 };
 
@@ -81,20 +80,23 @@ export const ExpenseTotalsPerCategory = ({
       </div>
 
       <div className="flex flex-col md:flex-row mb-5 gap-2 md:flex-wrap">
-        {sortedCategories.map(({ category, current, previous, color }) => (
-          <DashboardTotalBox
-            icon={<BanknotesIcon className="w-5" />}
-            label={capitalizeFirstLetter(category)}
-            topLineStyles={{
-              backgroundColor: color,
-            }}
-            value={current}
-            previousMonthValue={previous}
-            negativeIncrease
-            variant="topline"
-            clickable
-          />
-        ))}
+        {sortedCategories.map(
+          ({ category, current, previous, color }) =>
+            current > 0 && (
+              <DashboardTotalBox
+                icon={<BanknotesIcon className="w-5" />}
+                label={capitalizeFirstLetter(category)}
+                topLineStyles={{
+                  backgroundColor: color,
+                }}
+                value={current}
+                previousMonthValue={previous}
+                negativeIncrease
+                variant="topline"
+                clickable
+              />
+            )
+        )}
       </div>
     </div>
   );

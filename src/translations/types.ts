@@ -13,6 +13,7 @@ export type AppDictionary = {
     bySatisfaction: string;
     totalExpensesPerDayByCategory: string;
     totalExpensesPerCategory: string;
+    samePeriodLastMonth: string;
   };
   forms: {
     expense: {

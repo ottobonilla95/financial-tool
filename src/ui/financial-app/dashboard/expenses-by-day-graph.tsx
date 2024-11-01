@@ -4,7 +4,7 @@ import { Expense } from "@/src/types";
 import { AppDictionary } from "@/src/translations";
 import { AgChartProps, AgCharts } from "ag-charts-react";
 import { abbreviateCurrency } from "@/src/helpers/abbreviate-currency";
-import { useContext, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import { AppContext } from "@/src/app-wrappper/provider";
 import { Button } from "../../components";
 import clsx from "clsx";
@@ -99,32 +99,34 @@ export const ExpensesByDayGraph = ({
     },
   });
 
-  const [props] = useState<AgChartProps>({
-    options: {
-      data,
-      series, // Correctly typed series array with the total added
-      axes: [
-        {
-          type: "number", // Numerical values on the y-axis
-          position: "left",
-          label: {
-            formatter: ({ value }) =>
-              abbreviateCurrency(value, currency.symbol),
+  const props = useMemo<AgChartProps>(() => {
+    return {
+      options: {
+        data,
+        series, // Correctly typed series array with the total added
+        axes: [
+          {
+            type: "number", // Numerical values on the y-axis
+            position: "left",
+            label: {
+              formatter: ({ value }) =>
+                abbreviateCurrency(value, currency.symbol),
+            },
+            min: 0,
           },
-          min: 0,
+          {
+            type: "category", // Categorical values (days) on the x-axis
+            position: "bottom",
+          },
+        ],
+        height: 450,
+        padding: {
+          right: 0,
+          left: 0,
         },
-        {
-          type: "category", // Categorical values (days) on the x-axis
-          position: "bottom",
-        },
-      ],
-      height: 450,
-      padding: {
-        right: 0,
-        left: 0,
       },
-    },
-  });
+    };
+  }, [data, series, currency]);
 
   return (
     <>

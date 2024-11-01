@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { pricingPlans, SubscriptionPlan } from "./plans";
 import { User } from "@/src/types";
 import { AppDictionary } from "@/src/translations";
-import { BanknotesIcon } from "@heroicons/react/24/solid";
+import { BanknotesIcon, CheckIcon } from "@heroicons/react/24/solid";
 
 export type PricingProps = {
   currenSubscriptionPlan?: SubscriptionPlan;
@@ -90,7 +90,8 @@ export const Pricing = ({
 
               <ul className="mb-6">
                 {plan.features.map((feature, idx) => (
-                  <li key={idx} className="opacity-80 mb-2">
+                  <li key={idx} className="opacity-80 mb-2 flex gap-2">
+                    <CheckIcon className="w-3" />
                     {dict.pricingPage[feature as keyof typeof dict.pricingPage]}
                   </li>
                 ))}
