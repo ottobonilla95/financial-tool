@@ -32,7 +32,7 @@ export const DashboardTotals = ({
     return expenses.reduce((acc, expense) => acc + expense.amount, 0);
   };
 
-  if (expenses.length === 0) {
+  if (expenses.length === 0 && earnings.length === 0 && savings.length === 0) {
     return null;
   }
 
