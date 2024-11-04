@@ -195,7 +195,7 @@ export async function createUser(
   }
 
   if (isFreePlan) {
-    redirect("/dashboard");
+    redirect(`/${lang}/dashboard`);
   } else {
     const paymentUrl = `${paymentLink}?client_reference_id=${userCreatedId}&prefilled_email=${email}&locale=${lang}`;
 
