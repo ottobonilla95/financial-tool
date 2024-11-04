@@ -110,6 +110,6 @@ export default auth(async function middleware(request: NextRequest) {
 export const config = {
   // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
   matcher: [
-    "/((?!api|_next/static|_next/image|.*\\.png$|.*\\.ico$|sitemap\\.xml|robots\\.txt).*)",
+    "/((?!api|_next/static|_next/image|.*\\.png$|.*\\.ico$|sitemap\\.xml|robots\\.txt|scripts/).*)",
   ],
 };

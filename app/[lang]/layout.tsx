@@ -4,6 +4,8 @@ import { ToastContainer } from "react-toastify";
 import Script from "next/script";
 import { AvailableLanguages, getDictionary } from "@/src/translations";
 import { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
+import FacebookPixel from "@/src/facebook-pixel";
 
 export async function generateMetadata({
   params,
@@ -119,6 +121,8 @@ export default async function RootLayout({
         <div className="fixed bottom-2 right-2 text-sm text-gray-400">
           &copy; {new Date().getFullYear()} TrackMySpend
         </div>
+        <Analytics />
+        <FacebookPixel />
       </body>
       {process.env.NODE_ENV === "production" && (
         <Script

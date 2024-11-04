@@ -17,6 +17,18 @@ export const Testimonials = ({ dict }: TestimonialsProps) => {
       image:
         "https://res.cloudinary.com/dav4ntxrq/image/upload/v1727954734/reviews/go2xix2zet4kd6xzr3xx.jpg",
     },
+    {
+      name: dict.mainPage.testimonials.testimonial3.name,
+      feedback: dict.mainPage.testimonials.testimonial3.feedback,
+      image:
+        "https://res.cloudinary.com/dav4ntxrq/image/upload/v1730743359/reviews/pejpz4ovgtfkscxgodlc.png",
+    },
+    {
+      name: dict.mainPage.testimonials.testimonial4.name,
+      feedback: dict.mainPage.testimonials.testimonial4.feedback,
+      image:
+        "https://res.cloudinary.com/dav4ntxrq/image/upload/v1730743409/reviews/jypittr7htt0dvidsqn4.png",
+    },
   ];
 
   return (

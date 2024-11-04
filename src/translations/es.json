@@ -239,6 +239,14 @@
       "testimonial2": {
         "feedback": "¡TrackMySpend ha sido un cambio radical! Es intuitivo, fácil de usar y me da una visión clara de mi salud financiera.",
         "name": "Diego Goicoechea"
+      },
+      "testimonial3": {
+        "feedback": "Usar TrackMySpend ha simplificado mi proceso de presupuesto. Ahora me siento más segura al manejar mis finanzas.",
+        "name": "Cindy Clement"
+      },
+      "testimonial4": {
+        "feedback": "TrackMySpend me ayuda a mantenerme al tanto de mis hábitos de gasto. ¡Es una herramienta imprescindible para quienes toman en serio sus finanzas!",
+        "name": "Shaquille Britton"
       }
     }
   },

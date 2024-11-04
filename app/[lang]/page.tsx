@@ -23,6 +23,7 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
     <>
       <main className="flex flex-col bg-neutral-800">
         <div className="min-h-screen">
+          <div />
           <Header lang={lang} dict={dict} />
           <Container>
             <div className="mt-4 sm:mt-10 flex grow gap-6 xl:gap-0 flex-col xl:flex-row">
