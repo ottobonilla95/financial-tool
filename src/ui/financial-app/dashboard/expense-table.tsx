@@ -6,10 +6,13 @@ import { format } from "date-fns";
 import { DeleteExpenseForm } from "../expenses/delete-expense-modal-form";
 import { TrashIcon, PencilIcon } from "@heroicons/react/24/outline";
 import { Button, Divider, Price } from "../../components";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { UpdateCategoryForm } from "../expense-categories";
 import { Tooltip } from "react-tooltip";
 import { AppDictionary } from "@/src/translations";
+import { useBreakpoint } from "@/src/hooks";
+import { abbreviateCurrency } from "@/src/helpers/abbreviate-currency";
+import { AppContext } from "@/src/app-wrappper/provider";
 
 export type ExpenseTableProps = {
   categoryName: string;
@@ -147,6 +150,9 @@ export const ExpenseTable = ({
   dict,
   isPremium,
 }: ExpenseTableProps) => {
+  const { currency } = useContext(AppContext);
+
+  const { isXs } = useBreakpoint("xs");
   const getCategoryColor = (subcategories: {
     [subcategoryName: string]: Expense[];
   }): string => {
@@ -170,7 +176,9 @@ export const ExpenseTable = ({
 
   return (
     <>
-      <div id={`${categoryName.replaceAll(" ", "").toLocaleLowerCase()}-table`} />
+      <div
+        id={`${categoryName.replaceAll(" ", "").toLocaleLowerCase()}-table`}
+      />
       <Tooltip id="my-tooltip" />
       <DeleteExpenseForm
         isOpen={isDeleteModalOpen}
@@ -239,7 +247,9 @@ export const ExpenseTable = ({
                 {isPremium && (
                   <>
                     <div className="font-bold flex items-center justify-center">
-                      {dict.shared.satisfaction}
+                      <span className="hidden sm:flex">
+                        {dict.shared.satisfaction}
+                      </span>
                     </div>
                     <div className="font-bold  items-center justify-center hidden sm:flex">
                       {dict.shared.emotion}
@@ -259,15 +269,19 @@ export const ExpenseTable = ({
                     }
                   )}
                 >
-                  <div className="font-medium flex items-center">
+                  <div className="font-medium flex items-center overflow-hidden text-ellipsis">
                     {expense.description}
                   </div>
 
                   <div className="flex items-center justify-center">
-                    {format(expense.date, "EEE dd")}
+                    {format(new Date(expense.date), "EEE dd")}
                   </div>
                   <div className="flex items-center justify-center">
-                    <Price amount={expense.amount} />
+                    {isXs ? (
+                      <>{abbreviateCurrency(expense.amount, currency.symbol)}</>
+                    ) : (
+                      <Price amount={expense.amount} />
+                    )}
                   </div>
 
                   {isPremium && (

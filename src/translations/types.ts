@@ -126,6 +126,34 @@ export type AppDictionary = {
       satisfied: string;
       verySatisfied: string;
     };
+    currencies: {
+      COP: string; // Colombian Peso
+      MXN: string; // Mexican Peso
+      ARS: string; // Argentine Peso
+      CLP: string; // Chilean Peso
+      UYU: string; // Uruguayan Peso
+      DOP: string; // Dominican Peso
+      VES: string; // Venezuelan Bolívar
+      PYG: string; // Paraguayan Guaraní
+      PEN: string; // Peruvian Sol
+      GTQ: string; // Guatemalan Quetzal
+      PAB: string; // Panamanian Balboa
+      NIO: string; // Nicaraguan Córdoba
+      HNL: string; // Honduran Lempira
+      USD: string; // US Dollar
+      EUR: string; // Euro
+      GBP: string; // British Pound
+      CHF: string; // Swiss Franc
+      CAD: string; // Canadian Dollar
+      JPY: string; // Japanese Yen
+      BRL: string; // Brazilian Real
+      AUD: string; // Australian Dollar
+      CNY: string; // Chinese Yuan
+      NZD: string; // New Zealand Dollar
+      RUB: string; // Russian Ruble
+      INR: string; // Indian Rupee
+      SEK: string; // Swedish Krona
+    };
   };
   insights: {
     totalIncomeExpensesSavings: string;

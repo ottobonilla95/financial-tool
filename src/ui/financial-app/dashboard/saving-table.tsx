@@ -4,9 +4,12 @@ import { Saving } from "@/src/types";
 import { format } from "date-fns";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { Button, Price } from "../../components";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Tooltip } from "react-tooltip";
 import { DeleteSavingForm } from "../saving/delete-form";
+import { AppContext } from "@/src/app-wrappper/provider";
+import { useBreakpoint } from "@/src/hooks";
+import { abbreviateCurrency } from "@/src/helpers/abbreviate-currency";
 
 const calculateTotal = (savings: Saving[]) => {
   return savings.reduce((acc, saving) => acc + saving.amount, 0);
@@ -18,6 +21,9 @@ export const SavingTable = ({ savings }: SavingTableProps) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [SavingIdToDelete, setSavingIdToDelete] = useState<string>();
 
+  const { currency } = useContext(AppContext);
+
+  const { isXs } = useBreakpoint("xs");
   return (
     <>
       <Tooltip id="my-tooltip" />
@@ -52,7 +58,11 @@ export const SavingTable = ({ savings }: SavingTableProps) => {
               {format(saving.date, "EEE dd")}
             </div>
             <div className="flex items-center justify-center">
-              <Price amount={saving.amount} />
+              {isXs ? (
+                <>{abbreviateCurrency(saving.amount, currency.symbol)}</>
+              ) : (
+                <Price amount={saving.amount} className="text-gray-500" />
+              )}
             </div>
 
             <div className="flex items-center justify-end">

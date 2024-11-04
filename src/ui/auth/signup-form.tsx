@@ -104,7 +104,10 @@ export const SignupForm = ({ currencies, plan }: SignupFormPropd) => {
                 options={[
                   ...currencies.map((currency) => ({
                     value: currency.id.toString(),
-                    label: currency.name,
+                    label:
+                      dict.shared?.currencies[
+                        currency.currencyCode as keyof typeof dict.shared.currencies
+                      ] || "",
                   })),
                 ]}
                 onChange={(option) => {

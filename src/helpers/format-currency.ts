@@ -1,6 +1,8 @@
-export const formatCurrency = (amount: number) => {
-  return (amount / 100).toLocaleString("en-US", {
+import { Currency } from "../types";
+
+export const formatCurrency = (amount: number, currency: Currency) => {
+  return new Intl.NumberFormat("es-CO", {
     style: "currency",
-    currency: "USD",
-  });
+    currency: currency.currencyCode?.toLocaleUpperCase(),
+  }).format(amount);
 };

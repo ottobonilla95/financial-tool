@@ -16,7 +16,7 @@ export const SavingTableContainer = ({
       <div className="font-bold mb-5 text-gray-600 uppercase">
         {dict.shared.savings}
       </div>
-      <div className="gap-4 grid grid-cols-1 lg:grid-cols-3 grid-flow-dense">
+      <div className="gap-4 grid grid-cols-1 grid-flow-dense">
         <SavingTable savings={savings} />
       </div>
     </div>

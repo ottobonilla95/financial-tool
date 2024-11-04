@@ -125,6 +125,35 @@
       "neutral": "Neutral",
       "satisfied": "Satisfied",
       "verySatisfied": "Very satisfied"
+    },
+
+    "currencies": {
+      "COP": "Colombian Peso",
+      "MXN": "Mexican Peso",
+      "ARS": "Argentine Peso",
+      "CLP": "Chilean Peso",
+      "UYU": "Uruguayan Peso",
+      "DOP": "Dominican Peso",
+      "VES": "Venezuelan Bolívar",
+      "PYG": "Paraguayan Guaraní",
+      "PEN": "Peruvian Sol",
+      "GTQ": "Guatemalan Quetzal",
+      "PAB": "Panamanian Balboa",
+      "NIO": "Nicaraguan Córdoba",
+      "HNL": "Honduran Lempira",
+      "USD": "US Dollar",
+      "EUR": "Euro",
+      "GBP": "British Pound",
+      "CHF": "Swiss Franc",
+      "CAD": "Canadian Dollar",
+      "JPY": "Japanese Yen",
+      "BRL": "Brazilian Real",
+      "AUD": "Australian Dollar",
+      "CNY": "Chinese Yuan",
+      "NZD": "New Zealand Dollar",
+      "RUB": "Russian Ruble",
+      "INR": "Indian Rupee",
+      "SEK": "Swedish Krona"
     }
   },
   "insights": {

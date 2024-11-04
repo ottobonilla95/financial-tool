@@ -49,6 +49,7 @@ export default async function Page({ params: { lang } }: InsightsPageProps) {
         select: {
           name: true,
           symbol: true,
+          currencyCode: true,
         },
       },
     },

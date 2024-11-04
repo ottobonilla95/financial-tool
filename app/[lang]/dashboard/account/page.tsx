@@ -30,6 +30,7 @@ export default async function AccountPage({
         select: {
           name: true,
           symbol: true,
+          currencyCode: true,
         },
       },
     },

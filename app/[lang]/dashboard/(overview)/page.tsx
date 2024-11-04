@@ -57,6 +57,7 @@ export default async function Page({
         select: {
           name: true,
           symbol: true,
+          currencyCode: true,
         },
       },
       tour_finished: true,
@@ -272,7 +273,10 @@ export default async function Page({
 
                   <div className="flex-1">
                     <div className="w-full ">
-                      <ExpensesPieChart expenses={expensesCurrent} />
+                      <ExpensesPieChart
+                        expenses={expensesCurrent}
+                        currency={currency as Currency}
+                      />
                     </div>
                   </div>
                 </div>

@@ -5,9 +5,12 @@ import { format } from "date-fns";
 import { DeleteIncomeForm } from "../income/delete-form";
 import { TrashIcon, PencilIcon } from "@heroicons/react/24/outline";
 import { Button, Price } from "../../components";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { UpdateCategoryForm } from "../income-categories";
 import { AppDictionary } from "@/src/translations";
+import { abbreviateCurrency } from "@/src/helpers/abbreviate-currency";
+import { AppContext } from "@/src/app-wrappper/provider";
+import { useBreakpoint } from "@/src/hooks";
 
 export type IncomeTableProps = {
   categoryName: string;
@@ -67,6 +70,10 @@ export const IncomeTable = ({
     Partial<EarningCategory>
   >({});
 
+  const { currency } = useContext(AppContext);
+
+  const { isXs } = useBreakpoint("xs");
+
   return (
     <>
       <DeleteIncomeForm
@@ -118,7 +125,7 @@ export const IncomeTable = ({
               </h3>
               {incomeArray.map((income) => (
                 <div key={income.id} className="grid grid-cols-4 py-2 px-4">
-                  <div className="font-medium flex items-center text-gray-500">
+                  <div className="font-medium flex items-center text-gray-500 overflow-hidden text-ellipsis">
                     {income.description}
                   </div>
 
@@ -126,7 +133,11 @@ export const IncomeTable = ({
                     {format(income.date, "EEE dd")}
                   </div>
                   <div className="flex items-center justify-end">
-                    <Price amount={income.amount} className="text-gray-500" />
+                    {isXs ? (
+                      <>{abbreviateCurrency(income.amount, currency.symbol)}</>
+                    ) : (
+                      <Price amount={income.amount} className="text-gray-500" />
+                    )}
                   </div>
 
                   <div className="flex items-center justify-end">
