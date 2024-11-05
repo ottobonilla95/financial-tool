@@ -10,4 +10,5 @@ export type Earning = {
     id: string;
     name: string;
   };
+  formattedDate?: string;
 };

@@ -1,7 +1,6 @@
 "use client";
 
 import { Saving } from "@/src/types";
-import { format } from "date-fns";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { Button, Price } from "../../components";
 import { useContext, useState } from "react";
@@ -55,7 +54,7 @@ export const SavingTable = ({ savings }: SavingTableProps) => {
             </div>
 
             <div className="flex items-center justify-center">
-              {format(saving.date, "EEE dd")}
+              {saving.formattedDate}
             </div>
             <div className="flex items-center justify-center">
               {isXs ? (

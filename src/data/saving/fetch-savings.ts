@@ -1,5 +1,6 @@
 import { PrismaClient, Prisma } from "@prisma/client";
 import { Saving } from "@/src/types";
+import { format } from "date-fns";
 
 const prisma = new PrismaClient();
 
@@ -45,5 +46,6 @@ export const mapSaving = (saving: Data): Saving => {
     date: new Date(saving.date || ""),
     description: saving.description || "",
     amount: saving.amount,
+    formattedDate: format(new Date(saving.date || ""), "EEE dd"),
   };
 };

@@ -3,4 +3,5 @@ export type Saving = {
   id: string;
   description: string;
   date: Date;
+  formattedDate?: string;
 };

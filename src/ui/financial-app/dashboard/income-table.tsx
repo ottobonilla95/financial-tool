@@ -1,7 +1,6 @@
 "use client";
 import { EarningCategory, Earning } from "@/src/types";
 import clsx from "clsx";
-import { format } from "date-fns";
 import { DeleteIncomeForm } from "../income/delete-form";
 import { TrashIcon, PencilIcon } from "@heroicons/react/24/outline";
 import { Button, Price } from "../../components";
@@ -130,7 +129,7 @@ export const IncomeTable = ({
                   </div>
 
                   <div className="flex items-center justify-center text-gray-500">
-                    {format(income.date, "EEE dd")}
+                    {income.formattedDate}
                   </div>
                   <div className="flex items-center justify-end">
                     {isXs ? (

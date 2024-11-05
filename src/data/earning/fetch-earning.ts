@@ -1,5 +1,6 @@
 import { PrismaClient, Prisma } from "@prisma/client";
 import { Earning } from "@/src/types";
+import { format } from "date-fns";
 
 const prisma = new PrismaClient();
 
@@ -76,5 +77,6 @@ export const mapEarning = (earning: Data): Earning => {
       id: earning.earning_subcategory?.id || "",
       name: earning.earning_subcategory?.name || "",
     },
+    formattedDate: format(new Date(earning.date || ""), "EEE dd"),
   };
 };
