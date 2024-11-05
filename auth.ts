@@ -21,6 +21,7 @@ async function getUser(email: string): Promise<User | undefined> {
             name: true,
             symbol: true,
             currencyCode: true,
+            countryCode: true,
           },
         },
         tour_finished: true,

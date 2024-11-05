@@ -58,6 +58,7 @@ export default async function Page({
           name: true,
           symbol: true,
           currencyCode: true,
+          countryCode: true,
         },
       },
       tour_finished: true,

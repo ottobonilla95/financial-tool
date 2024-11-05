@@ -31,6 +31,7 @@ export default async function AccountPage({
           name: true,
           symbol: true,
           currencyCode: true,
+          countryCode: true,
         },
       },
     },
