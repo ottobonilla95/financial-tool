@@ -262,20 +262,16 @@
     "testimonials": {
       "title": "What Our Users Say",
       "testimonial1": {
-        "feedback": "TrackMySpend changed the way I handle my finances! I now have full control over my expenses and savings.",
-        "name": "Marion Bonilla"
+        "feedback": "TrackMySpend changed the way I handle my finances! I now have full control over my expenses and savings."
       },
       "testimonial2": {
-        "feedback": "TrackMySpend has been a game-changer! It's intuitive, easy to use, and gives me a clear picture of my financial health.",
-        "name": "Diego Goicoechea"
+        "feedback": "TrackMySpend has been a game-changer! It's intuitive, easy to use, and gives me a clear picture of my financial health."
       },
       "testimonial3": {
-        "feedback": "Using TrackMySpend has simplified my budgeting process. I feel more confident in managing my finances now.",
-        "name": "Cindy Clement"
+        "feedback": "Using TrackMySpend has simplified my budgeting process. I feel more confident in managing my finances now."
       },
       "testimonial4": {
-        "feedback": "TrackMySpend helps me stay on top of my spending habits. It's a must-have tool for anyone serious about their finances!",
-        "name": "Shaquille Britton"
+        "feedback": "TrackMySpend helps me stay on top of my spending habits. It's a must-have tool for anyone serious about their finances!"
       }
     }
   },

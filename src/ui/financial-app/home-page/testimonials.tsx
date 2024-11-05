@@ -6,28 +6,28 @@ export type TestimonialsProps = { dict: AppDictionary };
 export const Testimonials = ({ dict }: TestimonialsProps) => {
   const testimonials = [
     {
-      name: dict.mainPage.testimonials.testimonial1.name,
+      name: "Kevin Di Risi",
+      feedback: dict.mainPage.testimonials.testimonial4.feedback,
+      image:
+        "https://res.cloudinary.com/dav4ntxrq/image/upload/v1730813558/reviews/yhhtpzonmvlwlgyvthyg.png",
+    },
+    {
+      name: "Marion Bonilla",
       feedback: dict.mainPage.testimonials.testimonial1.feedback,
       image:
         "https://res.cloudinary.com/dav4ntxrq/image/upload/v1727798049/1688637869155_ls44og.jpg",
     },
     {
-      name: dict.mainPage.testimonials.testimonial2.name,
+      name: "Diego Goicoechea",
       feedback: dict.mainPage.testimonials.testimonial2.feedback,
       image:
         "https://res.cloudinary.com/dav4ntxrq/image/upload/v1727954734/reviews/go2xix2zet4kd6xzr3xx.jpg",
     },
     {
-      name: dict.mainPage.testimonials.testimonial3.name,
+      name: "Cindy Clement",
       feedback: dict.mainPage.testimonials.testimonial3.feedback,
       image:
         "https://res.cloudinary.com/dav4ntxrq/image/upload/v1730743359/reviews/pejpz4ovgtfkscxgodlc.png",
-    },
-    {
-      name: dict.mainPage.testimonials.testimonial4.name,
-      feedback: dict.mainPage.testimonials.testimonial4.feedback,
-      image:
-        "https://res.cloudinary.com/dav4ntxrq/image/upload/v1730743409/reviews/jypittr7htt0dvidsqn4.png",
     },
   ];
 

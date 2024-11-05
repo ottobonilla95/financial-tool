@@ -240,19 +240,15 @@ export type AppDictionary = {
       title: string;
       testimonial1: {
         feedback: string;
-        name: string;
       };
       testimonial2: {
         feedback: string;
-        name: string;
       };
       testimonial3: {
         feedback: string;
-        name: string;
       };
       testimonial4: {
         feedback: string;
-        name: string;
       };
     };
   };
