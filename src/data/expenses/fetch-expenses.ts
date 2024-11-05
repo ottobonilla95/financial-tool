@@ -1,5 +1,6 @@
 import { PrismaClient, Prisma } from "@prisma/client";
 import { Expense } from "@/src/types";
+import { format } from "date-fns";
 
 const prisma = new PrismaClient();
 
@@ -93,6 +94,7 @@ export const mapExpense = (expense: Data): Expense => {
       emotionType: expense.emotion?.emotion_type || "",
       name: expense.emotion?.name || "",
     },
+    formattedDate: format(new Date(expense.date || ""), "EEE dd"),
   };
 };
 

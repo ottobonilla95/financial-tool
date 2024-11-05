@@ -13,4 +13,5 @@ export type Expense = {
   };
   satisfaction: number;
   emotion: Partial<Emotion>;
+  formattedDate?: string;
 };

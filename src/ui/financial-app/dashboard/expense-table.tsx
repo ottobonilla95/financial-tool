@@ -274,7 +274,7 @@ export const ExpenseTable = ({
                   </div>
 
                   <div className="flex items-center justify-center">
-                    {format(new Date(expense.date), "EEE dd")}
+                    {expense.formattedDate}
                   </div>
                   <div className="flex items-center justify-center">
                     {isXs ? (
