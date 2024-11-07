@@ -3,3 +3,7 @@ export * from "./how-it-works";
 export * from "./testimonials";
 export * from "../pricing/pricing";
 export * from "./screenshots";
+export * from "./visual-benefit";
+export * from "./my-story";
+export * from "./pain-points";
+export * from "./benefits";

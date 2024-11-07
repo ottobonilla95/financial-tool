@@ -9,6 +9,10 @@ import {
   Testimonials,
   AppScreenshots,
   Pricing,
+  MyStory,
+  VisualBenefit,
+  PainPoints,
+  Benefits
 } from "@/src/ui/financial-app/home-page";
 import FAQs from "@/src/ui/faqs/faqs";
 
@@ -94,7 +98,14 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
         </div>
 
         <Container>
+          <VisualBenefit dict={dict} />
+        </Container>
+        <PainPoints dict={dict} />
+
+        <Container>
+          <Benefits dict={dict} />
           <KeyFeatures dict={dict} />
+          <MyStory dict={dict} />
           <HowItWorks dict={dict} />
           <AppScreenshots dict={dict} lang={lang} />
           <Testimonials dict={dict} />
