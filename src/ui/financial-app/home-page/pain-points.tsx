@@ -10,7 +10,7 @@ export const PainPoints = ({ dict }: PainPointsProps) => {
   return (
     <section
       id="key-features"
-      className="text-neutral-100 px-4 md:px-0 tracking-tight my-32 text-center bg-neutral-900 py-16"
+      className="text-neutral-100 px-4 md:px-0 tracking-tight my-16 sm:my-32 text-center bg-neutral-900 py-16"
     >
       <h2 className="text-3xl sm:text-4xl font-bold text-center mb-8">
         {dict.mainPage.painPoints.title}

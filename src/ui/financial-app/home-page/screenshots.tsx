@@ -73,7 +73,7 @@ export const AppScreenshots = ({ dict, lang }: AppScreenshotsProps) => {
   ];
 
   return (
-    <section className="py-8 sm:py-16 px-4 sm:px-0 text-neutral-100 tracking-tight">
+    <section className="sm:py-16 px-4 sm:px-0 text-neutral-100 tracking-tight">
       <div className="container mx-auto text-center">
         <h2 className="text-4xl sm:text-5xl font-bold mb-10">
           {dict.mainPage.screenShots.title}

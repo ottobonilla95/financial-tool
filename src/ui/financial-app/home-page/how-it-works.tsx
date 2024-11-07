@@ -32,13 +32,13 @@ export const HowItWorks = ({ dict }: HowItWorksProps) => {
   return (
     <section className="py-16 sm:py-24 px-4 sm:px-0 text-neutral-100">
       <div className="container mx-auto text-center">
-        <h2 className="text-5xl font-bold mb-10">
+        <h2 className="text-4xl sm:text-5xl font-bold mb-10">
           {dict.mainPage.howItWorks.title}
         </h2>
         <div className="grid md:grid-cols-4 gap-8">
           {steps.map((step, index) => (
-            <div key={index} className="p-8">
-              <span className="text-6xl font-bold  mb-4 block text-lime-500">
+            <div key={index} className="p-6 sm:p-8">
+              <span className="text-6xl font-bold mb-4 block text-lime-500">
                 {step.number}
               </span>
               <h3 className="text-2xl font-semibold mb-4">{step.title}</h3>

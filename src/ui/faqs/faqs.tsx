@@ -9,7 +9,7 @@ export default async function FAQs({ dict }: SupportPageProps) {
   return (
     <div className="text-neutral-100 tracking-tight">
       <div className="py-16 sm:py-24">
-        <h2 className="text-5xl font-semibold mb-6">
+        <h2 className="text-3xl sm:text-5xl font-semibold mb-6">
           {dict.faqs.title}
         </h2>
         <div className="">
