@@ -194,6 +194,10 @@
     "introMessage3": "rápida",
     "welcomeDescription": "Controla, gestiona y analiza tus gastos con una herramienta sencilla. Toma decisiones inteligentes sobre tu dinero y gana control en cada paso.",
     "takeControlToday": "Toma el control hoy",
+    "visualBenefit": {
+      "changeFrom": "Cambia de esto",
+      "changeTo": "A esto"
+    },
     "keyFeatures": {
       "title": "Lo Que Ofrece TrackMySpend",
       "description": "TrackMySpend te proporciona las herramientas para gestionar tu dinero sin esfuerzo y obtener información detallada sobre tus hábitos de gasto.",
@@ -209,6 +213,77 @@
         "title": "Gastos Basados en Emociones",
         "description": "Asocia emociones a tus gastos y obtén información sobre cómo tus sentimientos influyen en tus decisiones financieras."
       }
+    },
+    "painPoints": {
+      "title": "Desventajas de no tener una herramienta financiera",
+      "items": [
+        {
+          "before": "Falta de",
+          "highlight": "conciencia",
+          "after": "financiera"
+        },
+        {
+          "before": "Oportunidades de ahorro",
+          "highlight": "perdidas",
+          "after": ""
+        },
+        {
+          "before": "",
+          "highlight": "Dificultad",
+          "after": "para presupuestar"
+        },
+        {
+          "before": "Falta de",
+          "highlight": "visión",
+          "after": "sobre los hábitos de gasto"
+        },
+        {
+          "before": "Aumento del",
+          "highlight": "estrés",
+          "after": "financiero"
+        },
+        {
+          "before": "Progreso",
+          "highlight": "inconsistente",
+          "after": "en tus metas"
+        },
+        {
+          "before": "Mayor riesgo de acumular",
+          "highlight": "deudas",
+          "after": ""
+        },
+        {
+          "before": "",
+          "highlight": "Falta",
+          "after": "de crecimiento financiero"
+        }
+      ],
+      "betterWayText": "Hay una mejor forma"
+    },
+    "benefits": {
+      "title": "Gestiona tu dinero como un experto y alcanza tus metas financieras!",
+      "items": [
+        {
+          "title": "Visión Financiera Clara",
+          "description": "Comprende en qué se va cada peso y ten una visión completa de tu situación financiera."
+        },
+        {
+          "title": "Aumenta tus Ahorros y Reduce Deudas",
+          "description": "Establece metas de ahorro, evita gastos innecesarios y trabaja para salir de deudas de forma constante."
+        },
+        {
+          "title": "Conciencia sobre el Gasto Emocional",
+          "description": "Descubre patrones de gasto ligados a tus emociones, como las compras impulsivas, y toma decisiones más conscientes."
+        },
+        {
+          "title": "Tranquilidad Financiera",
+          "description": "Reduce el estrés financiero sabiendo que tienes un plan claro y estás en control de tu dinero."
+        },
+        {
+          "title": "Hábitos de Gasto Saludables",
+          "description": "Identifica y mejora tus hábitos de gasto para lograr una vida financiera más equilibrada y satisfactoria."
+        }
+      ]
     },
     "howItWorks": {
       "title": "Cómo Funciona",

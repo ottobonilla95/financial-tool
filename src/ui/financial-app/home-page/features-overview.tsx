@@ -49,7 +49,10 @@ export const KeyFeatures = ({ dict }: KeyFeaturesProps) => {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {features.map((feature, index) => (
           <div key={index} className="p-8 flex items-center flex-col">
-            <img className="w-[100px] mb-4 bg-lime-400 rounded-md" src={feature.icon} />
+            <img
+              className="w-[100px] mb-4 bg-lime-400 rounded-md"
+              src={feature.icon}
+            />
             <h3 className="text-2xl font-semibold mb-4">{feature.title}</h3>
             <p className="">{feature.description}</p>
           </div>

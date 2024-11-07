@@ -4,14 +4,17 @@ import React from "react";
 export type VisualBenefitProps = {
   dict: AppDictionary;
 };
+
 export const VisualBenefit = ({ dict }: VisualBenefitProps) => {
   return (
     <section
       id="key-features"
-      className="text-neutral-100 px-4 md:px-0 tracking-tight flex flex-col md:flex-row space-y-4 md:space-x-8 justify-center my-16"
+      className="text-neutral-100 px-4 md:px-0 tracking-tight flex flex-col md:flex-row space-y-4 md:space-x-8 justify-center mt-16"
     >
-      <div className="flex items-center flex-col space-y-4">
-        <div className="text-3xl md:text-4xl font-bold">Cambia de esto</div>
+      <div className="flex items-center flex-col space-y-6">
+        <div className="text-3xl md:text-4xl font-bold">
+          {dict.mainPage.visualBenefit.changeFrom}
+        </div>
         <img
           src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1731011542/app%20images/k5ndgd55vy59n4mcxzo0.gif"
           className="w-[500px] rounded-md"
@@ -29,13 +32,17 @@ export const VisualBenefit = ({ dict }: VisualBenefitProps) => {
           className="w-[100px] rotate-90"
         />
       </div>
-      <div className="flex items-center flex-col space-y-4">
-        <div className="hidden md:flex text-3xl md:text-4xl font-bold">A esto</div>
+      <div className="flex items-center flex-col space-y-6">
+        <div className="hidden md:flex text-3xl md:text-4xl font-bold">
+          {dict.mainPage.visualBenefit.changeTo}
+        </div>
         <img
           src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1731014294/app%20images/vdyxz7rwrkxacl0etv43.gif"
           className="w-[500px] rounded-md"
         />
-        <div className="flex md:hidden text-3xl md:text-4xl font-bold">A esto</div>
+        <div className="flex md:hidden text-3xl md:text-4xl font-bold">
+          {dict.mainPage.visualBenefit.changeTo}
+        </div>
       </div>
     </section>
   );

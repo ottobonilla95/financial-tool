@@ -195,6 +195,73 @@
     "introMessage3": "effortlessly",
     "welcomeDescription": "Track, manage, and analyze your expenses in one simple tool. Make informed decisions about your money and feel empowered every step of the way.",
     "takeControlToday": "Take control today",
+    "visualBenefit": {
+      "changeFrom": "Change from this",
+      "changeTo": "To this"
+    },
+    "painPoints": {
+      "title": "Disadvantages of not having a financial tool",
+      "items": [
+        {
+          "before": "Lack of",
+          "highlight": "awareness",
+          "after": "in financial matters"
+        },
+        {
+          "before": "Lost",
+          "highlight": "opportunities",
+          "after": "for saving"
+        },
+        { "before": "", "highlight": "Difficulty", "after": "with budgeting" },
+        {
+          "before": "Lack of",
+          "highlight": "vision",
+          "after": "regarding spending habits"
+        },
+        {
+          "before": "Increased",
+          "highlight": "stress",
+          "after": "about finances"
+        },
+        {
+          "before": "",
+          "highlight": "Inconsistent",
+          "after": "progress towards your goals"
+        },
+        {
+          "before": "Higher risk of accumulating",
+          "highlight": "debt",
+          "after": ""
+        },
+        { "before": "", "highlight": "Lack", "after": "of financial growth" }
+      ],
+      "betterWayText": "There’s a better way"
+    },
+    "benefits": {
+      "title": "Manage your money like an expert and reach your financial goals!",
+      "items": [
+        {
+          "title": "Clear Financial Vision",
+          "description": "Understand where every dollar goes and get a full view of your financial situation."
+        },
+        {
+          "title": "Increase Savings and Reduce Debt",
+          "description": "Set savings goals, avoid unnecessary expenses, and work towards getting out of debt."
+        },
+        {
+          "title": "Awareness of Emotional Spending",
+          "description": "Discover spending patterns linked to your emotions, like impulsive purchases, and make more conscious decisions."
+        },
+        {
+          "title": "Financial Peace of Mind",
+          "description": "Reduce financial stress by having a clear plan and staying in control of your money."
+        },
+        {
+          "title": "Healthy Spending Habits",
+          "description": "Identify and improve your spending habits for a more balanced and satisfying financial life."
+        }
+      ]
+    },
     "keyFeatures": {
       "title": "Key Features of TrackMySpend",
       "description": "TrackMySpend provides you with the tools to manage your money effortlessly and gain deep insights into your spending habits.",

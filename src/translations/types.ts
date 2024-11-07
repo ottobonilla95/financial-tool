@@ -194,6 +194,27 @@ export type AppDictionary = {
     introMessage3: string;
     welcomeDescription: string;
     takeControlToday: string;
+    visualBenefit: {
+      changeFrom: string;
+      changeTo: string;
+    };
+    painPoints: {
+      title: string;
+      items: {
+        before: string;
+        highlight: string;
+        after: string;
+      }[];
+      betterWayText: string;
+    };
+    benefits: {
+      title: string;
+      items: {
+        title: string;
+        description: string;
+      }[];
+    };
+
     keyFeatures: {
       title: string;
       description: string;
