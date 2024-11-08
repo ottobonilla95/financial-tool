@@ -1,4 +1,4 @@
-import { BanknotesIcon } from "@heroicons/react/24/solid";
+import { FireIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import Image from "next/image";
 import { Container, Footer, Header, XIcon } from "@/src/ui/components";
@@ -12,7 +12,7 @@ import {
   MyStory,
   VisualBenefit,
   PainPoints,
-  Benefits
+  Benefits,
 } from "@/src/ui/financial-app/home-page";
 import FAQs from "@/src/ui/faqs/faqs";
 
@@ -55,14 +55,26 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
                 <p className="text-lg opacity-80 leading-relaxed mt-4 sm:mt-8 text-center sm:text-left">
                   {dict.mainPage.welcomeDescription}
                 </p>
-                <div className="flex mt-4 sm:mt-8 mb-4 justify-center sm:justify-start">
-                  <Link
-                    href="/pricing"
-                    className="tracking-tight group border-0 gap-2 text-black flex px-5 py-2 rounded-md bg-lime-500 font-medium"
-                  >
-                    <BanknotesIcon className="w-6 h-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-200 ease-in-out" />
-                    {dict.mainPage.takeControlToday}
-                  </Link>
+
+                <div className="xl:flex">
+                  <div className="flex items-center flex-col">
+                    <div>
+                      <img
+                        src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1731070991/app%20images/arrows/yluhzruf6wmgukjzzuin.png"
+                        className="w-[120px] sm:w-[180px]"
+                      />
+                    </div>
+
+                    <div className="flex mt-4 sm:mt-8 mb-4 justify-center sm:justify-start">
+                      <Link
+                        href="/pricing"
+                        className="tracking-tight group border-0 gap-2 text-black flex px-20 py-3 rounded-md bg-lime-500 font-medium"
+                      >
+                        <FireIcon className="w-6 h-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-200 ease-in-out" />
+                        {dict.mainPage.takeControlToday}
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="flex items-center justify-center">
@@ -108,6 +120,32 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
           <MyStory dict={dict} />
           <HowItWorks dict={dict} />
           <AppScreenshots dict={dict} lang={lang} />
+          <div className="">
+            <div className="flex items-center flex-col">
+              <div>
+                <img
+                  src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1731070991/app%20images/arrows/yluhzruf6wmgukjzzuin.png"
+                  className="w-[120px] sm:w-[180px]"
+                />
+              </div>
+
+              <div className="flex mt-4 sm:mt-8 mb-4 justify-center sm:justify-start">
+                <Link
+                  href="/pricing"
+                  className="tracking-tight group border-0 gap-2 text-black flex px-20 py-3 rounded-md bg-lime-500 font-medium"
+                >
+                  <FireIcon className="w-6 h-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-200 ease-in-out" />
+                  {dict.mainPage.takeControlToday}
+                </Link>
+              </div>
+              <div>
+                <img
+                  src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1731070991/app%20images/arrows/yluhzruf6wmgukjzzuin.png"
+                  className="w-[120px] sm:w-[180px] rotate-180"
+                />
+              </div>
+            </div>
+          </div>
           <Testimonials dict={dict} />
           <div className="py-10 text-neutral-100 tracking-tight">
             <h2 className="text-5xl font-bold sm:mb-10 xl:mb-12 text-center">
@@ -116,6 +154,32 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
             <Pricing dict={dict} lang={lang} />
           </div>
           <FAQs dict={dict} />
+          <div className="">
+            <div className="flex items-center flex-col">
+              <div>
+                <img
+                  src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1731070991/app%20images/arrows/yluhzruf6wmgukjzzuin.png"
+                  className="w-[120px] sm:w-[180px]"
+                />
+              </div>
+
+              <div className="flex mt-4 sm:mt-8 mb-4 justify-center sm:justify-start">
+                <Link
+                  href="/pricing"
+                  className="tracking-tight group border-0 gap-2 text-black flex px-20 py-3 rounded-md bg-lime-500 font-medium"
+                >
+                  <FireIcon className="w-6 h-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-200 ease-in-out" />
+                  {dict.mainPage.takeControlToday}
+                </Link>
+              </div>
+              <div className="mb-12">
+                <img
+                  src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1731070991/app%20images/arrows/yluhzruf6wmgukjzzuin.png"
+                  className="w-[120px] sm:w-[180px] rotate-180"
+                />
+              </div>
+            </div>
+          </div>
         </Container>
       </main>
       <Footer dict={dict} />
