@@ -120,7 +120,7 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
           <MyStory dict={dict} />
           <HowItWorks dict={dict} />
           <AppScreenshots dict={dict} lang={lang} />
-          <div className="">
+          <div className="mt-12">
             <div className="flex items-center flex-col">
               <div>
                 <img
