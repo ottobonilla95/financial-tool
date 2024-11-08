@@ -62,7 +62,7 @@ export const SignupForm = ({ currencies, plan }: SignupFormPropd) => {
             </label>
             <div className="relative">
               <input
-                className="peer block w-full rounded-md border border-neutral-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-neutral-500 text-neutral-500 "
+                className="peer block w-full rounded-md border border-neutral-200 py-[9px] pl-10 text-base outline-2 placeholder:text-neutral-500 text-neutral-500 "
                 id="name"
                 type="text"
                 name="name"
@@ -81,7 +81,7 @@ export const SignupForm = ({ currencies, plan }: SignupFormPropd) => {
             </label>
             <div className="relative">
               <input
-                className="peer block w-full rounded-md border border-neutral-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-neutral-500 text-neutral-500"
+                className="peer block w-full rounded-md border border-neutral-200 py-[9px] pl-10 text-base outline-2 placeholder:text-neutral-500 text-neutral-500"
                 id="email"
                 type="email"
                 name="email"
@@ -135,7 +135,7 @@ export const SignupForm = ({ currencies, plan }: SignupFormPropd) => {
             </label>
             <div className="relative">
               <input
-                className="peer block w-full rounded-md border border-neutral-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-neutral-500 text-neutral-500"
+                className="peer block w-full rounded-md border border-neutral-200 py-[9px] pl-10 text-base outline-2 placeholder:text-neutral-500 text-neutral-500"
                 id="password"
                 type="password"
                 name="password"
@@ -155,7 +155,7 @@ export const SignupForm = ({ currencies, plan }: SignupFormPropd) => {
             </label>
             <div className="relative">
               <input
-                className="peer block w-full rounded-md border border-neutral-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-neutral-500 text-neutral-500"
+                className="peer block w-full rounded-md border border-neutral-200 py-[9px] pl-10 text-base outline-2 placeholder:text-neutral-500 text-neutral-500"
                 id="passwordConfirmation"
                 type="password"
                 name="passwordConfirmation"
