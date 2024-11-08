@@ -65,10 +65,10 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
                       />
                     </div>
 
-                    <div className="flex mt-4 sm:mt-8 mb-4 justify-center sm:justify-start">
+                    <div className="flex mt-4 sm:mt-8 mb-4 justify-center sm:justify-start w-full sm:w-auto">
                       <Link
                         href="/pricing"
-                        className="tracking-tight group border-0 gap-2 text-black flex px-20 py-3 rounded-md bg-lime-500 font-medium"
+                        className="tracking-tight group border-0 gap-2 text-black flex w-full  justify-center sm:px-20 py-3 rounded-md bg-lime-500 font-medium"
                       >
                         <FireIcon className="w-6 h-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-200 ease-in-out" />
                         {dict.mainPage.takeControlToday}
@@ -129,10 +129,10 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
                 />
               </div>
 
-              <div className="flex mt-4 sm:mt-8 mb-4 justify-center sm:justify-start">
+              <div className="flex mt-4 sm:mt-8 mb-4 justify-center sm:justify-start w-full sm:w-auto">
                 <Link
                   href="/pricing"
-                  className="tracking-tight group border-0 gap-2 text-black flex px-20 py-3 rounded-md bg-lime-500 font-medium"
+                  className="tracking-tight group border-0 gap-2 text-black flex w-full  justify-center sm:px-20 py-3 rounded-md bg-lime-500 font-medium"
                 >
                   <FireIcon className="w-6 h-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-200 ease-in-out" />
                   {dict.mainPage.takeControlToday}
@@ -163,19 +163,19 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
                 />
               </div>
 
-              <div className="flex mt-4 sm:mt-8 mb-4 justify-center sm:justify-start">
+              <div className="flex mt-4 sm:mt-8 mb-4 justify-center sm:justify-start w-full sm:w-auto">
                 <Link
                   href="/pricing"
-                  className="tracking-tight group border-0 gap-2 text-black flex px-20 py-3 rounded-md bg-lime-500 font-medium"
+                  className="tracking-tight group border-0 gap-2 text-black flex w-full  justify-center sm:px-20 py-3 rounded-md bg-lime-500 font-medium"
                 >
                   <FireIcon className="w-6 h-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-200 ease-in-out" />
                   {dict.mainPage.takeControlToday}
                 </Link>
               </div>
-              <div className="mb-12">
+              <div>
                 <img
                   src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1731070991/app%20images/arrows/yluhzruf6wmgukjzzuin.png"
-                  className="w-[120px] sm:w-[180px] rotate-180"
+                  className="w-[120px] sm:w-[180px] rotate-180 mb-12"
                 />
               </div>
             </div>
