@@ -114,6 +114,12 @@ export default async function RootLayout({
             }),
           }}
         />
+        <script
+          defer
+          data-website-id="67324a7e48920f2d2ad55ea7"
+          data-domain="trackmyspend.co"
+          src="https://datafa.st/js/script.js"
+        ></script>
       </head>
       <body className={`${bricolageGrotesque.className} antialiased`}>
         {children}
