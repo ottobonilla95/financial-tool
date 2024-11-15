@@ -52,6 +52,20 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
                   </span>
                 </h1>
 
+                {lang === "es" && (
+                  <div className="flex items-center justify-center sm:hidden mt-6">
+                    <div className="w-full max-w-4xl aspect-video">
+                      <iframe
+                        className="w-full h-full rounded-lg"
+                        src="https://www.youtube.com/embed/7tUidBoLRqk?autoplay=1&mute=1"
+                        title="YouTube video"
+                        allow="autoplay; encrypted-media"
+                        allowFullScreen
+                      ></iframe>
+                    </div>
+                  </div>
+                )}
+
                 <p className="text-lg opacity-80 leading-relaxed mt-4 sm:mt-8 text-center sm:text-left">
                   {dict.mainPage.welcomeDescription}
                 </p>
@@ -96,7 +110,7 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
             </div>
 
             <section className="flex flex-wrap items-center justify-center text-neutral-100 mt-6 mb-12 xl:py-5">
-              <span className="text-xs opacity-50">Featured on</span>
+              <span className="text-xs opacity-50 mr-2">Featured on</span>
               <a
                 href="https://x.com/ottobonilla95/status/1843986969715691806"
                 target="_blank"
@@ -110,6 +124,48 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
         </div>
 
         <Container>
+          {lang === "es" && (
+            <div className="hidden sm:block">
+              <div className="flex items-center justify-center">
+                <div className="w-full max-w-3xl aspect-video">
+                  <iframe
+                    className="w-full h-full rounded-lg"
+                    src="https://www.youtube.com/embed/7tUidBoLRqk?autoplay=1&mute=1"
+                    title="YouTube video"
+                    allow="autoplay; encrypted-media"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              </div>
+              <div className="mt-12">
+                <div className="flex items-center flex-col">
+                  <div>
+                    <img
+                      src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1731070991/app%20images/arrows/yluhzruf6wmgukjzzuin.png"
+                      className="w-[120px] sm:w-[180px]"
+                    />
+                  </div>
+
+                  <div className="flex mt-4 sm:mt-8 mb-4 justify-center sm:justify-start w-full sm:w-auto">
+                    <Link
+                      href="/pricing"
+                      className="tracking-tight group border-0 gap-2 text-black flex w-full  justify-center sm:px-20 py-3 rounded-md bg-lime-500 font-medium"
+                    >
+                      <FireIcon className="w-6 h-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-200 ease-in-out" />
+                      {dict.mainPage.takeControlToday}
+                    </Link>
+                  </div>
+                  <div>
+                    <img
+                      src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1731070991/app%20images/arrows/yluhzruf6wmgukjzzuin.png"
+                      className="w-[120px] sm:w-[180px] rotate-180 mb-12"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           <VisualBenefit dict={dict} />
         </Container>
         <PainPoints dict={dict} />
@@ -117,6 +173,7 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
         <Container>
           <Benefits dict={dict} />
           <KeyFeatures dict={dict} />
+
           <MyStory dict={dict} />
           <HowItWorks dict={dict} />
           <AppScreenshots dict={dict} lang={lang} />

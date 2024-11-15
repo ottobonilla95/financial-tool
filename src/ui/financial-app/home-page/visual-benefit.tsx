@@ -9,7 +9,7 @@ export const VisualBenefit = ({ dict }: VisualBenefitProps) => {
   return (
     <section
       id="key-features"
-      className="text-neutral-100 px-4 md:px-0 tracking-tight flex flex-col md:flex-row space-y-4 md:space-x-8 justify-center mt-16"
+      className="text-neutral-100 px-4 md:px-0 tracking-tight flex flex-col md:flex-row space-y-4 md:space-x-8 justify-center mt-4"
     >
       <div className="flex items-center flex-col space-y-6">
         <div className="text-3xl md:text-4xl font-bold">
