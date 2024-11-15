@@ -26,11 +26,9 @@ export const SignupForm = ({ currencies, plan }: SignupFormPropd) => {
   const { dict } = useContext(IntlContext);
 
   const initialState: CreateUserFormState = { message: {}, errors: {} };
-  const paymentLinkEnvVar = pricingPlans.find(
+  const paymentLink = pricingPlans.find(
     (p) => p.planName === plan
   )?.paymentLink;
-
-  const paymentLink = process.env[paymentLinkEnvVar as string] || "";
 
   const { lang } = useTranslations();
   const createUserAction = createUser.bind(null, lang, plan, paymentLink);

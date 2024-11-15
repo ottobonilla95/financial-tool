@@ -194,6 +194,16 @@ export async function createUser(
     throw error;
   }
 
+  console.log('isFreePlan', isFreePlan);
+  console.log('isFreePlan', isFreePlan);
+  console.log('isFreePlan', isFreePlan);
+  console.log('isFreePlan', isFreePlan);
+  console.log('paymentLink', paymentLink);
+  console.log('paymentLink', paymentLink);
+  console.log('paymentLink', paymentLink);
+  console.log('paymentLink', paymentLink);
+  console.log('paymentLink', paymentLink);
+
   if (isFreePlan) {
     redirect(`/${lang}/dashboard`);
   } else {
