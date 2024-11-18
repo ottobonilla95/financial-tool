@@ -36,7 +36,12 @@ export const CreateIncomeForm = ({
   const [categories, setCategories] = useState<EarningCategory[]>([]);
 
   const currentYear = new Date().getFullYear();
-  const [startDate, setStartDate] = useState(new Date(currentYear, month - 1));
+  const currentMonth = new Date().getMonth() + 1;
+
+  const [startDate, setStartDate] = useState<Date | undefined>(
+    month === currentMonth ? new Date() : new Date(currentYear, month - 1)
+  );
+
   const [subCategories, setSubCategories] = useState<
     { name: string; id: string }[]
   >([]);
@@ -44,6 +49,8 @@ export const CreateIncomeForm = ({
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>();
   const [isCategoryFormOpen, setIsCategoryFormOpen] = useState(false);
   const [isSubCategoryFormOpen, setIsSubCategoryFormOpen] = useState(false);
+  const [amount, setAmount] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
 
   const {
     data,
@@ -66,7 +73,18 @@ export const CreateIncomeForm = ({
     if (state.message?.text) {
       toast(state.message.text, { type: state.message.type as TypeOptions });
     }
+    if (state.message?.type === "success") {
+      setAmount("");
+      setDescription("");
+    }
   }, [state]);
+
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(",", "."); // Normalize commas to dots
+    if (!isNaN(Number(value)) || value === "") {
+      setAmount(value);
+    }
+  };
 
   return (
     <>
@@ -192,6 +210,8 @@ export const CreateIncomeForm = ({
                         name="description"
                         type="text"
                         step="0.01"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                         placeholder={dict.forms?.shared.enterDescription}
                         className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
                         required
@@ -226,8 +246,10 @@ export const CreateIncomeForm = ({
                       <input
                         id="amount"
                         name="amount"
-                        type="number"
+                        type="text"
                         step="0.01"
+                        value={amount}
+                        onChange={handleAmountChange}
                         placeholder={dict.forms?.shared.enterAmount}
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                         required
