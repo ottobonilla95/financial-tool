@@ -56,6 +56,8 @@ export const EmotionCategoryList = ({
 }: EmotionCategoryListProps) => {
   const topCategoriesByEmotion = calculateTopCategoriesByEmotion(expenses);
 
+  console.log("topCategoriesByEmotion", JSON.stringify(topCategoriesByEmotion));
+
   return (
     <section className="mt-8 p-4 bg-white rounded-sm shadow-sm">
       <h2 className="font-semibold mb-4 uppercase text-neutral-600">
