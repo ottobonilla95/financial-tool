@@ -110,10 +110,14 @@ export const CreateExpenseForm = ({
   const categoriesCount = categories.length;
 
   const onAddNewCategoryPressed = () => {
-    if (categoriesCount < MAX_CATEGORIES_FREE_PLAN) {
-      setIsCategoryFormOpen(true);
+    if (!isPremium) {
+      if (categoriesCount < MAX_CATEGORIES_FREE_PLAN) {
+        setIsCategoryFormOpen(true);
+      } else {
+        setShowMaxCategoriesAdded(true);
+      }
     } else {
-      setShowMaxCategoriesAdded(true);
+      setIsCategoryFormOpen(true);
     }
   };
 

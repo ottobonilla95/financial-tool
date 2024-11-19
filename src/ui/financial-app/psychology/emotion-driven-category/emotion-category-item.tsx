@@ -10,6 +10,8 @@ type EmotionCategory = {
 
 type EmotionData = {
   emotionName: string;
+  color: string;
+  emotionType: string;
   categories: EmotionCategory[];
 };
 
@@ -29,13 +31,21 @@ export const EmotionCategoryItem = ({
 
   return (
     <div className="p-4">
-      <h3 className="font-medium text-md mb-2">
-        {`${dict.shared.emotion}: ${capitalizeFirstLetter(
+      <h3 className="font-medium text-md mb-2 flex items-center">
+        <div
+          className="w-4 h-4 rounded-full mr-2"
+          style={{ backgroundColor: emotionData.color }}
+        />
+        {`${capitalizeFirstLetter(
           dict.forms.expense.create[
             emotionData.emotionName as keyof typeof dict.forms.expense.create
           ]
         )}`}
+        <span className="ml-2">
+          {emotionData.emotionType === "postive" ? "🙂" : "😢"}
+        </span>
       </h3>
+
       <ul className="space-y-1 text-neutral-500">
         {emotionData.categories.slice(0, 3).map((category) => (
           <li key={category.name} className="flex justify-between">

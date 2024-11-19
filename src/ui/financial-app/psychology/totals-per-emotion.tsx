@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { AgCharts, AgChartProps } from "ag-charts-react";
 import { Expense } from "@/src/types";
 import {
-  emotionColors,
   getAllUniqueMonths,
   groupExpensesByEmotionWithPercentages,
 } from "./helpers";
@@ -40,30 +39,29 @@ export const EmotionSpendingPatternsGraph = ({
         });
         return entry;
       }),
-      series: Object.keys(groupedExpenses).map((emotion) => ({
-        type: "line",
-        xKey: "monthYear",
-        xName: "Month",
-        yKey: emotion,
-        yName:
-          dict.forms.expense.create[
-            emotion as keyof typeof dict.forms.expense.create
-          ],
-        interpolation: { type: "linear" },
-        stroke:
-          emotionColors[emotion.toLowerCase() as keyof typeof emotionColors] ||
-          "gray", // Use the color or default to gray
-        marker: {
-          fill:
-            emotionColors[
-              emotion.toLowerCase() as keyof typeof emotionColors
-            ] || "gray",
-          stroke:
-            emotionColors[
-              emotion.toLowerCase() as keyof typeof emotionColors
-            ] || "gray",
-        },
-      })),
+      series: Object.keys(groupedExpenses).map((emotion) => {
+        // Get the color from the first expense matching this emotion
+        const emotionColor =
+          expenses.find((expense) => expense.emotion?.name === emotion)?.emotion
+            ?.color || "gray";
+
+        return {
+          type: "line",
+          xKey: "monthYear",
+          xName: "Month",
+          yKey: emotion,
+          yName:
+            dict.forms.expense.create[
+              emotion as keyof typeof dict.forms.expense.create
+            ],
+          interpolation: { type: "linear" },
+          stroke: emotionColor,
+          marker: {
+            fill: emotionColor,
+            stroke: emotionColor,
+          },
+        };
+      }),
       axes: [
         {
           type: "number",

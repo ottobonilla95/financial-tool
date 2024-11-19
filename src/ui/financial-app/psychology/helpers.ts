@@ -19,7 +19,7 @@ export function getAllUniqueMonths(expenses: Expense[]) {
   });
 }
 
-// Helper to group expenses by emotion with percentage calculations per month
+
 export function groupExpensesByEmotionWithPercentages(
   expenses: Expense[],
   allMonths: string[]
@@ -70,6 +70,7 @@ export function groupExpensesByEmotionWithPercentages(
 
   return groupedByEmotion;
 }
+
 
 export const emotionColors = {
   sadness: "#6b7280", // Gray for Sadness

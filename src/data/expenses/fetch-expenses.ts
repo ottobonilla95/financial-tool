@@ -22,6 +22,7 @@ export type Data = {
   emotion: {
     emotion_type: string;
     name: string;
+    color: string | null;
   } | null;
 };
 
@@ -55,6 +56,7 @@ export async function fetchExpenses({ filters }: FetchExpensesProps) {
           select: {
             emotion_type: true,
             name: true,
+            color: true,
           },
         },
       },
@@ -93,6 +95,7 @@ export const mapExpense = (expense: Data): Expense => {
     emotion: {
       emotionType: expense.emotion?.emotion_type || "",
       name: expense.emotion?.name || "",
+      color: expense.emotion?.color || "",
     },
     formattedDate: format(new Date(expense.date || ""), "EEE dd"),
   };

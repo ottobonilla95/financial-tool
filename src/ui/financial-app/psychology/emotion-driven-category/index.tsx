@@ -12,36 +12,50 @@ type EmotionCategoryListProps = {
 function calculateTopCategoriesByEmotion(expenses: Expense[]) {
   const emotionMap: Record<
     string,
-    Record<string, { name: string; amount: number }>
+    {
+      color: string;
+      emotionType: string;
+      categories: Record<string, { name: string; amount: number }>;
+    }
   > = {};
 
   // Aggregate expenses by emotion name and category
-  expenses.forEach((expense) => {
-    const emotionName = expense.emotion?.name || "Unknown";
-    const categoryId = expense.category.id;
+  expenses
+    .filter((expense) => expense.emotion.name !== "neutral")
+    .forEach((expense) => {
+      const emotionName = expense.emotion?.name || "Unknown";
+      const emotionColor = expense.emotion?.color || "gray"; // Default to gray if color is missing
+      const emotionType = expense.emotion?.emotionType || "unknown"; // Default to "unknown" if emotionType is missing
+      const categoryId = expense.category.id;
 
-    if (!emotionMap[emotionName]) {
-      emotionMap[emotionName] = {};
-    }
+      if (!emotionMap[emotionName]) {
+        emotionMap[emotionName] = {
+          color: emotionColor,
+          emotionType: emotionType,
+          categories: {},
+        };
+      }
 
-    if (!emotionMap[emotionName][categoryId]) {
-      emotionMap[emotionName][categoryId] = {
-        name: expense.category.name,
-        amount: 0,
-      };
-    }
+      if (!emotionMap[emotionName].categories[categoryId]) {
+        emotionMap[emotionName].categories[categoryId] = {
+          name: expense.category.name,
+          amount: 0,
+        };
+      }
 
-    emotionMap[emotionName][categoryId].amount += expense.amount;
-  });
+      emotionMap[emotionName].categories[categoryId].amount += expense.amount;
+    });
 
   // Sort categories by amount within each emotion
   const topCategoriesByEmotion = Object.entries(emotionMap).map(
-    ([emotionName, categories]) => {
+    ([emotionName, { color, emotionType, categories }]) => {
       const sortedCategories = Object.values(categories).sort(
         (a, b) => b.amount - a.amount
       );
       return {
         emotionName,
+        color, // Include color for each emotion
+        emotionType, // Include emotionType for each emotion
         categories: sortedCategories,
       };
     }
@@ -56,26 +70,24 @@ export const EmotionCategoryList = ({
 }: EmotionCategoryListProps) => {
   const topCategoriesByEmotion = calculateTopCategoriesByEmotion(expenses);
 
-  console.log("topCategoriesByEmotion", JSON.stringify(topCategoriesByEmotion));
-
   return (
-    <section className="mt-8 p-4 bg-white rounded-sm shadow-sm">
-      <h2 className="font-semibold mb-4 uppercase text-neutral-600">
-        {dict.psychologyPage.spendingByEmotion}
-      </h2>
-      <div className="space-y-6">
-        {topCategoriesByEmotion.length > 0 ? (
-          topCategoriesByEmotion.map((emotionData) => (
-            <EmotionCategoryItem
-              key={emotionData.emotionName}
-              emotionData={emotionData}
-              dict={dict}
-            />
-          ))
-        ) : (
-          <p>No emotion-driven data available.</p>
-        )}
-      </div>
-    </section>
+    <>
+      <section className="mt-8 p-4 bg-white rounded-sm shadow-sm">
+        <h2 className="font-semibold mb-4 uppercase text-neutral-600">
+          {dict.psychologyPage.whereYouSpendTheMostByEmotion}
+        </h2>
+        <div className="space-y-6">
+          {topCategoriesByEmotion.length > 0 &&
+            topCategoriesByEmotion.map((emotionData) => (
+              <EmotionCategoryItem
+                key={emotionData.emotionName}
+                emotionData={emotionData}
+                dict={dict}
+              />
+            ))}
+        </div>
+      </section>
+      <div className="h-[200px]" />
+    </>
   );
 };

@@ -37,7 +37,7 @@ model users {
   tour_finished          Boolean?           @default(false)
   lang                   String?
   subscription_plan      String?            @default("free")
-  subscription_id        String?            
+  subscription_id        String?
   subscription_cancel_at Int?               @default(0)
   stripeId               String?            @unique
   earning                earning[]
@@ -105,11 +105,12 @@ model earning_subcategory {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model emotion {
-  id           Int        @id @default(autoincrement())
-  name         String     @db.VarChar(50)
+  id           Int     @id @default(autoincrement())
+  name         String  @db.VarChar(50)
   description  String?
-  emotion_type String     @db.VarChar(10)
-  expenses     expenses[]
+  emotion_type String  @db.VarChar(10)
+  color        String? @db.VarChar(7)
+  expenses expenses[]
 }
 
 model currency {

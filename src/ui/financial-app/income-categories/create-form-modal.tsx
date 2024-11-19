@@ -7,7 +7,7 @@ import {
 import { useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
 import React from "react";
-import { ChromePicker } from "react-color";
+import { CirclePicker } from "react-color";
 import { CancelButton, SubmitButton } from "../../forms";
 import { Modal } from "../../components";
 import { useTranslations } from "@/src/translations/use-translations";
@@ -51,11 +51,11 @@ export const CreateIncomeCategoryForm = ({
   return (
     <Modal isOpen={isOpen} onCloseModal={closeModal} zIndex={60}>
       <form action={formAction}>
-        <div className="font-bold"> {dict.forms?.subCategory.create.title}</div>
+        <div className="font-bold mb-2"> {dict.forms?.subCategory.create.title}</div>
         <div className="mb-4">
           <label
             htmlFor="description"
-            className="mb-2 block text-sm font-medium"
+            className="mb-1 block text-sm font-medium"
           >
             {dict.forms?.shared.name}
           </label>
@@ -91,7 +91,7 @@ export const CreateIncomeCategoryForm = ({
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
-              <ChromePicker
+              <CirclePicker
                 onChange={(value) => setColor(value.hex)}
                 color={color}
               />

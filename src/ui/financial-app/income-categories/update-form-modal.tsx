@@ -8,7 +8,7 @@ import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
 import React from "react";
-import { ChromePicker } from "react-color";
+import { CirclePicker } from "react-color";
 import { EarningCategory } from "@/src/types";
 import { CancelButton, SubmitButton } from "../../forms";
 import { useTranslations } from "@/src/translations/use-translations";
@@ -53,7 +53,7 @@ export const UpdateCategoryForm = ({
         <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
           <DialogPanel className="max-w-lg space-y-4 border bg-white p-12">
             <form action={formAction}>
-              <DialogTitle className="font-bold">
+              <DialogTitle className="font-bold mb-2">
                 {dict.forms?.category.update.title}
               </DialogTitle>
               <input type="hidden" name="categoryId" value={category.id} />
@@ -61,7 +61,7 @@ export const UpdateCategoryForm = ({
               <div className="mb-4">
                 <label
                   htmlFor="description"
-                  className="mb-2 block text-sm font-medium"
+                  className="mb-1 block text-sm font-medium"
                 >
                   {dict.forms?.shared.name}
                 </label>
@@ -98,7 +98,7 @@ export const UpdateCategoryForm = ({
                 </label>
                 <div className="relative mt-2 rounded-md">
                   <div className="relative">
-                    <ChromePicker
+                    <CirclePicker
                       onChange={(value) => setColor(value.hex)}
                       color={color}
                     />

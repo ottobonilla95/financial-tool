@@ -7,6 +7,7 @@ export type Data = {
   id: number;
   name: string;
   emotion_type: string;
+  color: string | null;
 };
 
 export async function getAllEmotions() {
@@ -16,6 +17,7 @@ export async function getAllEmotions() {
         id: true,
         name: true,
         emotion_type: true,
+        color: true,
       },
     });
 
@@ -32,5 +34,6 @@ export const mapEmotion = (emotion: Data): Emotion => {
     id: emotion.id,
     name: emotion.name,
     emotionType: emotion.emotion_type,
+    color: emotion.color || "",
   };
 };
