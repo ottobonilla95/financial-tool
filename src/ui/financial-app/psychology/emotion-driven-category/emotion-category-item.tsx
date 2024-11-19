@@ -42,7 +42,7 @@ export const EmotionCategoryItem = ({
           ]
         )}`}
         <span className="ml-2">
-          {emotionData.emotionType === "postive" ? "🙂" : "😢"}
+          {emotionData.emotionType === "positive" ? "🙂" : "😢"}
         </span>
       </h3>
 
