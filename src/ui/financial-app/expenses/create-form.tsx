@@ -6,14 +6,15 @@ import {
   FaceFrownIcon,
 } from "@heroicons/react/24/outline";
 import { createExpense, ExpenseFormState } from "@/src/form-actions/expenses";
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
-import { Emotion, ExpenseCategory } from "@/src/types";
+import { Emotion, ExpenseCategory, ExpenseSubCategory } from "@/src/types";
 import { toast, TypeOptions } from "react-toastify";
 import { Button, Dropdown, Modal, Spinner } from "../../components";
 import {
   CreateCategoryForm,
   CreateSubCategoryForm,
+  UpdateCategoryForm,
 } from "../expense-categories";
 import useSWR from "swr";
 import { fetcher } from "@/src/utils/fetcher";
@@ -24,6 +25,7 @@ import { useTranslations } from "@/src/translations/use-translations";
 import { MAX_CATEGORIES_FREE_PLAN } from "@/src/constants/categories";
 import { AppContext } from "@/src/app-wrappper/provider";
 import { useFormState, useFormStatus } from "react-dom";
+import { UpdateSubCategoryForm } from "../expense-categories/update-sub-category-form-modal";
 
 export type CreateExpenseFormProps = {
   closeModal: () => void;
@@ -63,10 +65,23 @@ export const CreateExpenseForm = ({
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>();
   const [isCategoryFormOpen, setIsCategoryFormOpen] = useState(false);
   const [isSubCategoryFormOpen, setIsSubCategoryFormOpen] = useState(false);
+  const [isUpdateCategoryModalOpen, setIsUpdateCategoryModalOpen] =
+    useState(false);
+  const [categoryToUpdate, setCategoryToUpdate] = useState<
+    Partial<ExpenseCategory>
+  >({});
+
+  const [isUpdateSubCategoryModalOpen, setIsUpdateSubCategoryModalOpen] =
+    useState(false);
+  const [subCategoryToUpdate, setSubCategoryToUpdate] = useState<
+    Partial<ExpenseCategory>
+  >({});
+
   const [selectedSatisfaction, setSelectedSatisfaction] = useState(3);
   const [selectedEmotion, setSelectedEmotion] = useState(9);
   const [shoMaxCategoriesAdded, setShowMaxCategoriesAdded] = useState(false);
   const [showSubcategories, setShowSubcategories] = useState(true);
+  const [showCategories, setShowCategories] = useState(true);
   const [amount, setAmount] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
@@ -85,6 +100,11 @@ export const CreateExpenseForm = ({
       loadedCategories.find((category) => category.id === selectedCategory)
         ?.subcategories || []
     );
+
+    setTimeout(() => {
+      setShowCategories(true);
+      setShowSubcategories(true);
+    }, 10);
   }, [data]);
 
   useEffect(() => {
@@ -173,7 +193,6 @@ export const CreateExpenseForm = ({
         closeModal={() => setIsCategoryFormOpen(false)}
         onSuccess={getAllCategories}
       />
-
       <CreateSubCategoryForm
         category={{
           id: selectedCategory!,
@@ -185,6 +204,29 @@ export const CreateExpenseForm = ({
         closeModal={() => setIsSubCategoryFormOpen(false)}
         onSuccess={getAllCategories}
       />
+      {isUpdateCategoryModalOpen && (
+        <UpdateCategoryForm
+          category={categoryToUpdate as ExpenseCategory}
+          closeModal={() => setIsUpdateCategoryModalOpen(false)}
+          isOpen
+          onSuccess={() => {
+            getAllCategories();
+            setShowCategories(false);
+          }}
+        />
+      )}
+
+      {isUpdateSubCategoryModalOpen && (
+        <UpdateSubCategoryForm
+          subCategory={subCategoryToUpdate as ExpenseSubCategory}
+          closeModal={() => setIsUpdateSubCategoryModalOpen(false)}
+          isOpen
+          onSuccess={() => {
+            getAllCategories();
+            setShowSubcategories(false);
+          }}
+        />
+      )}
 
       <>
         <Modal isOpen onCloseModal={closeModal}>
@@ -198,54 +240,63 @@ export const CreateExpenseForm = ({
             <form action={formAction}>
               <div className="rounded-md p-4 md:p-6 ">
                 {/* Category */}
-                <div className="mb-4">
-                  <label
-                    htmlFor="category"
-                    className="mb-2 block text-sm font-medium"
-                  >
-                    {dict.forms?.shared.category} *
-                  </label>
-                  <div className="relative">
-                    <Dropdown
-                      options={[
-                        ...categories.map((category) => ({
-                          value: category.id,
-                          label: category.name,
-                        })),
-                      ]}
-                      onChange={(option) => {
-                        setSelectedCategory(option?.value);
-                        const subCategories =
-                          categories.find(
-                            (category) => category.id === option?.value
-                          )?.subcategories || [];
+                {showCategories && (
+                  <div className="mb-4">
+                    <label
+                      htmlFor="category"
+                      className="mb-2 block text-sm font-medium"
+                    >
+                      {dict.forms?.shared.category} *
+                    </label>
+                    <div className="relative">
+                      <Dropdown
+                        options={[
+                          ...categories.map((category) => ({
+                            value: category.id,
+                            label: category.name,
+                          })),
+                        ]}
+                        onChange={(option) => {
+                          setSelectedCategory(option?.value);
+                          const subCategories =
+                            categories.find(
+                              (category) => category.id === option?.value
+                            )?.subcategories || [];
 
-                        setSubCategories(subCategories);
-                        setSelectedSubCategory(undefined);
-                        setShowSubcategories(false);
-                      }}
-                      onAddNewClick={() => onAddNewCategoryPressed()}
-                      disabled={loading}
-                    />
-                    <input
-                      type="hidden"
-                      name="categoryId"
-                      value={selectedCategory}
-                    />
+                          setSubCategories(subCategories);
+                          setSelectedSubCategory(undefined);
+                          setShowSubcategories(false);
+                        }}
+                        onAddNewClick={() => onAddNewCategoryPressed()}
+                        disabled={loading}
+                        onEditClick={(value) => {
+                          setCategoryToUpdate(
+                            categories.find((c) => c.id === value)!
+                          );
+                          setIsUpdateCategoryModalOpen(true);
+                        }}
+                        showEditButton
+                      />
+                      <input
+                        type="hidden"
+                        name="categoryId"
+                        value={selectedCategory}
+                      />
+                    </div>
+                    <div
+                      id="category-error"
+                      aria-live="polite"
+                      aria-atomic="true"
+                    >
+                      {state?.errors?.categoryId &&
+                        state.errors.categoryId.map((error: string) => (
+                          <p className="mt-2 text-sm text-red-500" key={error}>
+                            {error}
+                          </p>
+                        ))}
+                    </div>
                   </div>
-                  <div
-                    id="category-error"
-                    aria-live="polite"
-                    aria-atomic="true"
-                  >
-                    {state?.errors?.categoryId &&
-                      state.errors.categoryId.map((error: string) => (
-                        <p className="mt-2 text-sm text-red-500" key={error}>
-                          {error}
-                        </p>
-                      ))}
-                  </div>
-                </div>
+                )}
 
                 {/* SubCategory */}
                 {selectedCategory && showSubcategories && (
@@ -269,6 +320,13 @@ export const CreateExpenseForm = ({
                         }
                         onAddNewClick={() => setIsSubCategoryFormOpen(true)}
                         disabled={loading}
+                        onEditClick={(value) => {
+                          setSubCategoryToUpdate(
+                            subCategories.find((c) => c.id === value)!
+                          );
+                          setIsUpdateSubCategoryModalOpen(true);
+                        }}
+                        showEditButton
                       />
 
                       <input

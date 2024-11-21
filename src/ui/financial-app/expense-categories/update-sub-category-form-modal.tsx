@@ -1,40 +1,40 @@
 "use client";
 
-import {
-  updateCategory,
-  UpdateFormState,
-} from "@/src/form-actions/expense-categories";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { useEffect } from "react";
 import { toast, TypeOptions } from "react-toastify";
 import React from "react";
-import { CirclePicker } from "react-color";
-import { ExpenseCategory } from "@/src/types";
+import { ExpenseSubCategory } from "@/src/types";
 import { CancelButton, SubmitButton } from "../../forms";
 import { useTranslations } from "@/src/translations/use-translations";
 import { useFormState } from "react-dom";
+import {
+  UpdateFormState,
+  updateSubCategory,
+} from "@/src/form-actions/expense-sub-category";
 
-export type UpdateCategoryFormProps = {
+export type UpdateSubCategoryFormProps = {
   isOpen: boolean;
   closeModal: () => void;
-  category: ExpenseCategory;
+  subCategory: ExpenseSubCategory;
   onSuccess?: () => void;
 };
 
-export const UpdateCategoryForm = ({
+export const UpdateSubCategoryForm = ({
   isOpen,
   closeModal,
-  category,
+  subCategory,
   onSuccess,
-}: UpdateCategoryFormProps) => {
+}: UpdateSubCategoryFormProps) => {
   const initialState: UpdateFormState = { message: {}, errors: {} };
 
   const { lang, dict } = useTranslations();
-  const updateCategoryAction = updateCategory.bind(null, lang);
+  const updateSubCategoryAction = updateSubCategory.bind(null, lang);
 
-  const [state, formAction] = useFormState(updateCategoryAction, initialState);
-
-  const [color, setColor] = React.useState<string>(category.color);
+  const [state, formAction] = useFormState(
+    updateSubCategoryAction,
+    initialState
+  );
 
   useEffect(() => {
     if (state.message) {
@@ -56,9 +56,13 @@ export const UpdateCategoryForm = ({
           <DialogPanel className="max-w-lg space-y-4 border bg-white p-12">
             <form action={formAction}>
               <DialogTitle className="font-bold mb-2">
-                {dict.forms?.category.update.title}
+                {dict.forms?.subCategory.update.title}
               </DialogTitle>
-              <input type="hidden" name="categoryId" value={category.id} />
+              <input
+                type="hidden"
+                name="subCategoryId"
+                value={subCategory.id}
+              />
 
               <div className="mb-4">
                 <label
@@ -78,33 +82,8 @@ export const UpdateCategoryForm = ({
                       className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
                       required
                       aria-describedby="name-error"
-                      defaultValue={category.name}
+                      defaultValue={subCategory.name}
                     />
-                  </div>
-                  <div id="name-error" aria-live="polite" aria-atomic="true">
-                    {state?.errors?.name &&
-                      state.errors.name.map((error: string) => (
-                        <p className="mt-2 text-sm text-red-500" key={error}>
-                          {error}
-                        </p>
-                      ))}
-                  </div>
-                </div>
-              </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="description"
-                  className="mb-2 block text-sm font-medium"
-                >
-                  {dict.forms?.shared.color}
-                </label>
-                <div className="relative mt-2 rounded-md">
-                  <div className="relative">
-                    <CirclePicker
-                      onChange={(value) => setColor(value.hex)}
-                      color={color}
-                    />
-                    <input type="hidden" name="color" value={color} />
                   </div>
                   <div id="name-error" aria-live="polite" aria-atomic="true">
                     {state?.errors?.name &&

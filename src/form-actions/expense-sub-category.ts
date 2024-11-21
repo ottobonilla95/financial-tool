@@ -1,7 +1,10 @@
 "use server";
 
 import { z } from "zod";
-import { createDBSubCategory } from "../data/expense-category";
+import {
+  createDBSubCategory,
+  updateDBSubCategory,
+} from "../data/expense-category";
 import {
   AppDictionary,
   AvailableLanguages,
@@ -12,6 +15,16 @@ export type SubCategoryFormState = {
   errors?: {
     name?: string[];
     categoryId?: string[];
+  };
+  message?: {
+    text?: string;
+    type?: string;
+  };
+};
+
+export type UpdateFormState = {
+  errors?: {
+    name?: string[];
   };
   message?: {
     text?: string;
@@ -75,6 +88,55 @@ export async function createSubCategory(
   return {
     message: {
       text: dict.api.subCategory.create.success,
+      type: "success",
+    },
+  };
+}
+
+export async function updateSubCategory(
+  lang: AvailableLanguages,
+  prevState: UpdateFormState,
+  formData: FormData
+) {
+  const dict = await getDictionary(lang);
+  const UpdateCategory = creteFormSchema(dict).omit({ categoryId: true });
+
+  // Validate form using Zod
+  const validatedFields = UpdateCategory.safeParse({
+    id: formData.get("subCategoryId"),
+    name: formData.get("name"),
+  });
+
+  // If form validation fails, return errors early. Otherwise, continue.
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: {
+        text: "Database Error: Failed to Update Category.",
+        type: "error",
+      },
+    };
+  }
+
+  const { id, name } = validatedFields.data;
+
+  try {
+    await updateDBSubCategory({
+      id,
+      name,
+    });
+  } catch (error) {
+    return {
+      message: {
+        text: dict.api.category.update.error,
+        type: "error",
+      },
+    };
+  }
+
+  return {
+    message: {
+      text: dict.api.category.update.success,
       type: "success",
     },
   };

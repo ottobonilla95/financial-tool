@@ -2,10 +2,12 @@ export type ExpenseCategory = {
   id: string;
   name: string;
   color: string;
-  subcategories?: {
-    id: string;
-    name: string;
-  }[];
+  subcategories?: ExpenseSubCategory[];
+};
+
+export type ExpenseSubCategory = {
+  id: string;
+  name: string;
 };
 
 export type EarningCategory = {

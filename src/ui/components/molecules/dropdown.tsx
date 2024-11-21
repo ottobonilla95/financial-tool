@@ -1,7 +1,7 @@
 "use client";
 
 import Select, { NoticeProps, components, OptionProps } from "react-select";
-import { PlusIcon } from "@heroicons/react/24/outline";
+import { PlusIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
 import { useTranslations } from "@/src/translations/use-translations";
 
 export type DropdownProps = {
@@ -10,6 +10,8 @@ export type DropdownProps = {
   onAddNewClick?: () => void;
   disabled?: boolean;
   showAddButon?: boolean;
+  onEditClick?: (value: string) => void;
+  showEditButton?: boolean;
 };
 
 export const Dropdown = ({
@@ -18,6 +20,8 @@ export const Dropdown = ({
   onAddNewClick,
   disabled,
   showAddButon = true,
+  onEditClick,
+  showEditButton,
 }: DropdownProps) => {
   const { dict } = useTranslations();
   const NoOptionsMessage = ({ children, ...props }: NoticeProps) => {
@@ -44,6 +48,24 @@ export const Dropdown = ({
           <div className="flex">
             <PlusIcon className="w-4 mr-1" />
             {dict.forms?.shared.add}
+          </div>
+        </components.Option>
+      );
+    }
+
+    const value = (props as any).value;
+
+    if (showEditButton) {
+      return (
+        <components.Option innerProps={innerProps} {...props}>
+          <div className="flex justify-between w-full">
+            {props.children}
+            <div
+              onClick={() => onEditClick?.(value as string)}
+              className="cursor-pointer"
+            >
+              <PencilSquareIcon className="w-4 mr-1" />
+            </div>
           </div>
         </components.Option>
       );

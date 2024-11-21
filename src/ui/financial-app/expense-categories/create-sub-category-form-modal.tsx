@@ -54,7 +54,7 @@ export const CreateSubCategoryForm = ({
         </div>
 
         <div className="flex mb-2">
-          <div className="font-bold"> {dict.forms?.shared.category}:</div>
+          <div className="font-bold mr-1"> {dict.forms?.shared.category}:</div>
           <div>{` ${category.name}`}</div>
           <input type="hidden" name="categoryId" value={category.id} />
         </div>
