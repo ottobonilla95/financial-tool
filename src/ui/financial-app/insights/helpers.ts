@@ -93,8 +93,7 @@ export function groupExpensesByCategoryWithAllMonths(
     };
   } = {};
 
-  function getMonthYearUTC(dateString: string) {
-    const date = new Date(dateString);
+  function getMonthYearUTC(date: Date) {
     const year = date.getUTCFullYear();
     const month = date.toLocaleString("en-US", {
       month: "long",
@@ -106,7 +105,7 @@ export function groupExpensesByCategoryWithAllMonths(
   expenses.forEach((expense) => {
     const categoryName = expense.category.name;
     const subcategoryName = expense.subcategory.name;
-    const monthYear = getMonthYearUTC(expense.date);
+    const monthYear = getMonthYearUTC(expense.date); // Pass the Date object directly
 
     // Initialize the category if it doesn't exist
     if (!groupedExpenses[categoryName]) {
