@@ -6,8 +6,14 @@ export function getMonthlyTotals(
   savings: Saving[]
 ) {
   function getMonthYear(dateString: string) {
+    // Parse date as UTC and extract the correct month and year
     const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", { year: "numeric", month: "long" });
+    const year = date.getUTCFullYear();
+    const month = date.toLocaleString("en-US", {
+      month: "long",
+      timeZone: "UTC",
+    });
+    return `${month} ${year}`;
   }
 
   const monthlyTotals: {
@@ -87,13 +93,20 @@ export function groupExpensesByCategoryWithAllMonths(
     };
   } = {};
 
+  function getMonthYearUTC(dateString: string) {
+    const date = new Date(dateString);
+    const year = date.getUTCFullYear();
+    const month = date.toLocaleString("en-US", {
+      month: "long",
+      timeZone: "UTC",
+    });
+    return `${month} ${year}`;
+  }
+
   expenses.forEach((expense) => {
     const categoryName = expense.category.name;
     const subcategoryName = expense.subcategory.name;
-    const monthYear = expense.date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-    });
+    const monthYear = getMonthYearUTC(expense.date);
 
     // Initialize the category if it doesn't exist
     if (!groupedExpenses[categoryName]) {
@@ -151,16 +164,16 @@ export function groupExpensesByCategoryWithAllMonths(
     });
     // Sort the category totals by date
     categoryData.totals.sort((a, b) => {
-      const dateA = new Date(`${a.date} 1`);
-      const dateB = new Date(`${b.date} 1`);
+      const dateA = new Date(`${a.date} 1 UTC`);
+      const dateB = new Date(`${b.date} 1 UTC`);
       return dateA.getTime() - dateB.getTime();
     });
 
     // Sort each subcategory's totals by date
     Object.keys(categoryData.subcategories).forEach((subcategoryName) => {
       categoryData.subcategories[subcategoryName].sort((a, b) => {
-        const dateA = new Date(`${a.date} 1`);
-        const dateB = new Date(`${b.date} 1`);
+        const dateA = new Date(`${a.date} 1 UTC`);
+        const dateB = new Date(`${b.date} 1 UTC`);
         return dateA.getTime() - dateB.getTime();
       });
     });
@@ -168,6 +181,7 @@ export function groupExpensesByCategoryWithAllMonths(
 
   return groupedExpenses;
 }
+
 export function getChartDataForCategory(
   groupedExpenses: any,
   categoryName: string

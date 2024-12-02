@@ -97,9 +97,14 @@ export const mapExpense = (expense: Data): Expense => {
       name: expense.emotion?.name || "",
       color: expense.emotion?.color || "",
     },
-    formattedDate: format(new Date(expense.date || ""), "EEE dd"),
+    formattedDate: `${expense.date?.toUTCString().split(",")[0]} ${String(
+      expense.date?.getUTCDate()
+    ).padStart(2, "0")}`,
   };
 };
+
+// Combine them in the desired order
+// Ensure expense.date is treated as UTC
 
 // const ITEMS_PER_PAGE = 6;
 // export async function fetchFilteredInvoices(
