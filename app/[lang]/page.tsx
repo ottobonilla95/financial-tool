@@ -57,7 +57,7 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
                     <div className="w-full max-w-4xl aspect-video">
                       <iframe
                         className="w-full h-full rounded-lg"
-                        src="https://www.youtube.com/embed/ewdvStrSb7E?autoplay=1&mute=1"
+                        src="https://www.youtube.com/embed/pF_FUhNY--E?autoplay=1&mute=1"
                         title="YouTube video"
                         allow="autoplay; encrypted-media"
                         allowFullScreen
@@ -130,7 +130,7 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
                 <div className="w-full max-w-3xl aspect-video">
                   <iframe
                     className="w-full h-full rounded-lg"
-                    src="https://www.youtube.com/embed/ewdvStrSb7E?autoplay=1&mute=1"
+                    src="https://www.youtube.com/embed/pF_FUhNY--E?autoplay=1&mute=1"
                     title="YouTube video"
                     allow="autoplay; encrypted-media"
                     allowFullScreen
