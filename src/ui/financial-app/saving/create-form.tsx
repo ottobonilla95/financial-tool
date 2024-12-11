@@ -34,6 +34,11 @@ export const CreateSavingForm = ({
   const [startDate, setStartDate] = useState<Date | undefined>(
     month === currentMonth ? new Date() : new Date(currentYear, month - 1)
   );
+  const firstDayOfSelectedMonth = new Date(currentYear, month - 1, 1);
+  const isCurrentMonth = month === currentMonth;
+  const lastDayOfSelectedMonth = new Date(currentYear, month, 0); // Last day of the month
+  const maxDate = isCurrentMonth ? new Date() : lastDayOfSelectedMonth;
+
   useEffect(() => {
     if (state.message?.text) {
       toast(state.message.text, { type: state.message.type as TypeOptions });
@@ -129,7 +134,8 @@ export const CreateSavingForm = ({
                 <DatePicker
                   selected={startDate}
                   onChange={(date) => setStartDate(date as Date)}
-                  maxDate={new Date()}
+                  maxDate={maxDate}
+                  minDate={firstDayOfSelectedMonth}
                   aria-describedby="date-error"
                   dateFormat={"dd MMM yyyy"}
                   popperClassName="z-[10000000]"

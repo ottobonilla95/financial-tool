@@ -38,6 +38,11 @@ export const CreateIncomeForm = ({
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth() + 1;
 
+  const firstDayOfSelectedMonth = new Date(currentYear, month - 1, 1);
+  const isCurrentMonth = month === currentMonth;
+  const lastDayOfSelectedMonth = new Date(currentYear, month, 0); // Last day of the month
+  const maxDate = isCurrentMonth ? new Date() : lastDayOfSelectedMonth;
+
   const [startDate, setStartDate] = useState<Date | undefined>(
     month === currentMonth ? new Date() : new Date(currentYear, month - 1)
   );
@@ -284,7 +289,8 @@ export const CreateIncomeForm = ({
                       <DatePicker
                         selected={startDate}
                         onChange={(date) => setStartDate(date as Date)}
-                        maxDate={new Date()}
+                        maxDate={maxDate}
+                        minDate={firstDayOfSelectedMonth}
                         dateFormat={"dd MMM yyyy"}
                         aria-describedby="date-error"
                         popperClassName="z-[1000000]"

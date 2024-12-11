@@ -1,8 +1,9 @@
 -- see all users
-select U.name, CU.name from users U 
+select U.name, CU.name, U.subscription_plan, * from users U 
 join currency CU
 on U.currency_id = CU.id
 ORDER by U.created_at desc
+
 
 
 -- see those active
