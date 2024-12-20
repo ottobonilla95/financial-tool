@@ -361,7 +361,7 @@ export const CreateExpenseForm = ({
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder={dict.forms?.shared.enterDescription}
-                        className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
+                        className="peer block w-full rounded-md border border-gray-200 py-2 text-base outline-2 placeholder:text-gray-500"
                         required
                         aria-describedby="description-error"
                         disabled={loading}
@@ -401,7 +401,7 @@ export const CreateExpenseForm = ({
                         value={amount}
                         onChange={handleAmountChange}
                         placeholder={dict.forms?.shared.enterAmount}
-                        className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                        className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-base outline-2 placeholder:text-gray-500"
                         required
                         aria-describedby="amount-error"
                         disabled={loading}
@@ -441,7 +441,7 @@ export const CreateExpenseForm = ({
                         dateFormat={"dd MMM yyyy"}
                         popperClassName="z-[1000000]"
                         calendarClassName="z-[1000000]"
-                        className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500 z-[100001]"
+                        className="peer block w-full rounded-md border border-gray-200 py-2 text-base outline-2 placeholder:text-gray-500 z-[100001]"
                       />
                       <input
                         type="hidden"

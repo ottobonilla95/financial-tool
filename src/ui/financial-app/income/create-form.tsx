@@ -218,7 +218,7 @@ export const CreateIncomeForm = ({
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder={dict.forms?.shared.enterDescription}
-                        className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
+                        className="peer block w-full rounded-md border border-gray-200 py-2 text-base outline-2 placeholder:text-gray-500"
                         required
                         aria-describedby="description-error"
                       />
@@ -256,7 +256,7 @@ export const CreateIncomeForm = ({
                         value={amount}
                         onChange={handleAmountChange}
                         placeholder={dict.forms?.shared.enterAmount}
-                        className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                        className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-base outline-2 placeholder:text-gray-500"
                         required
                         aria-describedby="amount-error"
                       />
@@ -295,7 +295,7 @@ export const CreateIncomeForm = ({
                         aria-describedby="date-error"
                         popperClassName="z-[1000000]"
                         calendarClassName="z-[1000000]"
-                        className="peer block w-full rounded-md border border-gray-200 py-2 text-sm outline-2 placeholder:text-gray-500"
+                        className="peer block w-full rounded-md border border-gray-200 py-2 text-base outline-2 placeholder:text-gray-500"
                       />
                       <input
                         type="hidden"

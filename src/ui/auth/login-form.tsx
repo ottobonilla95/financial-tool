@@ -42,7 +42,7 @@ export const LoginForm = () => {
             </label>
             <div className="relative">
               <input
-                className="peer block w-full rounded-md border py-[9px] pl-10 text-sm outline-2 placeholder:text-neutral-500 text-neutral-500"
+                className="peer block w-full rounded-md border py-[9px] pl-10 text-base outline-2 placeholder:text-neutral-500 text-neutral-500"
                 id="email"
                 type="email"
                 name="email"
@@ -61,7 +61,7 @@ export const LoginForm = () => {
             </label>
             <div className="relative">
               <input
-                className="peer block w-full rounded-md border py-[9px] pl-10 text-sm outline-2 placeholder:text-neutral-500 text-neutral-500"
+                className="peer block w-full rounded-md border py-[9px] pl-10 text-base outline-2 placeholder:text-neutral-500 text-neutral-500"
                 id="password"
                 type="password"
                 name="password"

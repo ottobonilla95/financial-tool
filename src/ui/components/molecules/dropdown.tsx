@@ -30,7 +30,7 @@ export const Dropdown = ({
         {...props}
         innerProps={{ ...props.innerProps, onClick: onAddNewClick }}
       >
-        <div className="flex text-sm cursor-pointer hover:bg-blue-300 px-4 text-black py-1">
+        <div className="flex text-base cursor-pointer hover:bg-blue-300 px-4 text-black py-1">
           <PlusIcon className="w-4 mr-1" />
           {dict.forms?.shared.add}
         </div>
@@ -44,6 +44,7 @@ export const Dropdown = ({
         <components.Option
           innerProps={{ ...innerProps, onClick: onAddNewClick }}
           {...props}
+          className="text-base"
         >
           <div className="flex">
             <PlusIcon className="w-4 mr-1" />
@@ -90,12 +91,12 @@ export const Dropdown = ({
       styles={{
         control: (baseStyles, state) => ({
           ...baseStyles,
-          fontSize: 14,
+          fontSize: 16,
           outline: "none",
         }),
         option: (baseStyles, state) => ({
           ...baseStyles,
-          fontSize: 14,
+          fontSize: 16,
         }),
         noOptionsMessage: (base) => ({
           ...base,
