@@ -274,6 +274,12 @@ export type AppDictionary = {
       testimonial4: {
         feedback: string;
       };
+      testimonial5: {
+        feedback: string;
+      };
+      testimonial6: {
+        feedback: string;
+      };
     };
   };
 
@@ -305,8 +311,10 @@ export type AppDictionary = {
     enterNewPassword: string;
     enterYourPasswordConfirmation: string;
     finishesOn: string;
+    lifetime: string;
     premium: string;
     free: string;
+    noPlanFallback: string;
   };
   privacyPolicyPage: {
     meta: {

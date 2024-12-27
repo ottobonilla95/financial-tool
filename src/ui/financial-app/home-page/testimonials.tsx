@@ -1,9 +1,12 @@
 import { AppDictionary } from "@/src/translations";
 import React from "react";
 
-export type TestimonialsProps = { dict: AppDictionary };
+export type TestimonialsProps = {
+  dict: AppDictionary;
+  variant?: "default" | "light";
+};
 
-export const Testimonials = ({ dict }: TestimonialsProps) => {
+export const Testimonials = ({ dict, variant }: TestimonialsProps) => {
   const testimonials = [
     {
       name: "Kevin Di Risi",
@@ -29,6 +32,18 @@ export const Testimonials = ({ dict }: TestimonialsProps) => {
       image:
         "https://res.cloudinary.com/dav4ntxrq/image/upload/v1730743359/reviews/pejpz4ovgtfkscxgodlc.png",
     },
+    {
+      name: "Juan David Guerrero",
+      feedback: dict.mainPage.testimonials.testimonial5.feedback,
+      image:
+        "https://res.cloudinary.com/dav4ntxrq/image/upload/v1735280475/470478532_2362152754127240_6448902300653081500_n_iimxrg.jpg",
+    },
+    {
+      name: "Shaquille Britton",
+      feedback: dict.mainPage.testimonials.testimonial6.feedback,
+      image:
+        "https://res.cloudinary.com/dav4ntxrq/image/upload/v1735281303/reviews/gpunffdotd4xeohkzdve.png",
+    },
   ];
 
   return (
@@ -37,13 +52,13 @@ export const Testimonials = ({ dict }: TestimonialsProps) => {
         <h2 className="text-4xl sm:text-5xl font-bold mb-10">
           {dict.mainPage.testimonials.title}
         </h2>
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
             <div key={index} className="p-8">
               <img
                 src={testimonial.image}
                 alt={testimonial.name}
-                className="w-[120px] h-[120px] rounded-full mx-auto mb-4"
+                className="w-[120px] h-[120px] rounded-full mx-auto mb-4 object-cover"
               />
               <p className="text-lg opacity-80 mb-4">
                 "{testimonial.feedback}"

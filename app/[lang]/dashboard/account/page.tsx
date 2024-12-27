@@ -54,12 +54,11 @@ export default async function AccountPage({
     cancelDateString = formattedDate;
   }
 
-  if (!user?.subscriptionPlan) {
-    redirect("/dashboard/pricing");
-  }
-
   const renderButtons = () => {
-    if (user.stripeId) {
+    if (user.subscriptionPlan === SubscriptionPlanOption.Lifetime) {
+      return null;
+    }
+    if (user.stripeId && user.subscriptionPlan !== null) {
       return (
         <div className="flex gap-4">
           <Button
@@ -116,11 +115,10 @@ export default async function AccountPage({
             <p>
               <strong>{`${"Plan"}:`}</strong>
               <span className="ml-1 mr-1">
-                {
-                  dict.accountPage[
-                    user.subscriptionPlan as keyof typeof dict.accountPage
-                  ]
-                }
+                {dict.accountPage[
+                  user.subscriptionPlan as keyof typeof dict.accountPage
+                ] || dict.accountPage.noPlanFallback}
+                .
               </span>
               {cancelDateString && (
                 <span>{`(${dict.accountPage.finishesOn}: ${cancelDateString})`}</span>

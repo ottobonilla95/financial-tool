@@ -342,6 +342,12 @@
       },
       "testimonial4": {
         "feedback": "TrackMySpend helps me stay on top of my spending habits. It's a must-have tool for anyone serious about their finances!"
+      },
+      "testimonial5": {
+        "feedback": "TrackMySpend has transformed how I manage my money. It's easy to use, and now I have a clear understanding of my expenses and savings."
+      },
+      "testimonial6": {
+        "feedback": "Thanks to TrackMySpend, I’ve taken control of my finances. Tracking my expenses is now quick and hassle-free!"
       }
     }
   },
@@ -374,7 +380,9 @@
     "enterYourPasswordConfirmation": "Enter your password confirmation",
     "finishesOn": "Finishes on",
     "premium": "Premium",
-    "free": "Free"
+    "lifetime": "Lifetime",
+    "free": "Free",
+    "noPlanFallback": " You don't have a plan"
   },
   "privacyPolicyPage": {
     "meta": {

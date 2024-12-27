@@ -70,13 +70,6 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
 
                 <div className="xl:flex">
                   <div className="flex items-center flex-col">
-                    <div>
-                      <img
-                        src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1731070991/app%20images/arrows/yluhzruf6wmgukjzzuin.png"
-                        className="w-[120px] sm:w-[180px]"
-                      />
-                    </div>
-
                     <StartForm dict={dict} lang={lang} />
                   </div>
                 </div>
@@ -188,26 +181,6 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
             <Pricing dict={dict} lang={lang} />
           </div> */}
           <FAQs dict={dict} />
-          <div className="">
-            <div className="flex items-center flex-col">
-              <div>
-                <img
-                  src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1731070991/app%20images/arrows/yluhzruf6wmgukjzzuin.png"
-                  className="w-[120px] sm:w-[180px]"
-                />
-              </div>
-
-              <div className="flex mt-4 sm:mt-8 mb-4 justify-center sm:justify-start w-full sm:w-auto">
-                <StartForm dict={dict} lang={lang} />
-              </div>
-              <div>
-                <img
-                  src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1731070991/app%20images/arrows/yluhzruf6wmgukjzzuin.png"
-                  className="w-[120px] sm:w-[180px] rotate-180 mb-12"
-                />
-              </div>
-            </div>
-          </div>
         </Container>
       </main>
       <Footer dict={dict} />
