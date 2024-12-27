@@ -39,7 +39,6 @@ export default async function AccountPage({
           user={user}
           lang={lang}
           dict={dict}
-          showFreePlan={false}
         />
       </div>
     </div>

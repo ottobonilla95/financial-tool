@@ -15,7 +15,11 @@ import { IntlContext } from "@/src/translations/provider";
 import { useFormState, useFormStatus } from "react-dom";
 import { SubmitButton } from "../forms";
 
-export const LoginForm = () => {
+export type LoginFormProps = {
+  email?: string;
+};
+
+export const LoginForm = ({ email }: LoginFormProps) => {
   const { dict } = useContext(IntlContext);
   const { lang } = useTranslations();
   const authenticateAction = authenticate.bind(null, lang);
@@ -48,6 +52,7 @@ export const LoginForm = () => {
                 name="email"
                 placeholder={dict.authPages?.enterYourEmail}
                 required
+                defaultValue={email}
               />
               <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-neutral-500 peer-focus:text-neutral-900" />
             </div>

@@ -153,7 +153,10 @@
       "RUB": "Rublo Ruso",
       "INR": "Rupia India",
       "SEK": "Corona Sueca"
-    }
+    },
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "back": "Atrás"
   },
   "insights": {
     "totalIncomeExpensesSavings": "Ingresos, gastos y ahorros totales",
@@ -488,7 +491,8 @@
     "step1": "Primero, comencemos agregando un ahorro. Haz clic en el botón 'Agregar Ahorro' para registrar tus metas de ahorro.",
     "step2": "A continuación, agrega tus ingresos. Haz clic en el botón 'Agregar Ingreso' para registrar tus ingresos.",
     "step3": "Ahora, agrega tus gastos. Haz clic en el botón 'Agregar Gasto' para registrar tus transacciones.",
-    "step4": "Para ver análisis más avanzados, dirígete a la sección 'Resumen' en el menú del tablero."
+    "step4": "Para ver análisis más avanzados, dirígete a la sección 'Resumen' en el menú del tablero.",
+    "step5": "Finalmente, explora cómo tus emociones impactan tus gastos. Consulta el módulo 'Psicología' para obtener información sobre emociones y satisfacción."
   },
   "pricingPage": {
     "chooseYourPlan": "Elige tu plan",
@@ -512,6 +516,10 @@
     "newFeaturesAndUpdatesRegularly": "Nuevas funciones y actualizaciones regularmente",
     "lifeTimeDeal": "Oferta de por vida",
     "allPremiumFeatures": "Todas las funciones Premium",
-    "oneTimePayment": "Pago único"
+    "oneTimePayment": "Pago único",
+    "start14DayFreeTrial": "Empieza gratis por 14 días",
+    "monthly": "Mensual",
+    "yearly": "Anual",
+    "year": "año"
   }
 }

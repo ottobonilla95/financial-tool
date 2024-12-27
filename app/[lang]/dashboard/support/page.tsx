@@ -1,4 +1,7 @@
+import { auth } from "@/auth";
+import { getDBUser } from "@/src/data/user";
 import { AvailableLanguages, getDictionary } from "@/src/translations";
+import { redirect } from "next/navigation";
 import React from "react";
 
 export type SupportPageProps = {
@@ -10,6 +13,21 @@ export default async function SupportPage({
 }: SupportPageProps) {
   const dict = await getDictionary(lang);
 
+  const session = await auth();
+  const userId = session?.user?.id as string;
+
+  const user = await getDBUser({
+    filters: {
+      id: userId,
+    },
+    select: {
+      subscription_plan: true,
+    },
+  });
+
+  if (!user?.subscriptionPlan) {
+    redirect("/dashboard/pricing");
+  }
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="container mx-auto p-6">

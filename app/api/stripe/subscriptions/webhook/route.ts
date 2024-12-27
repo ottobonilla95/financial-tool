@@ -1,5 +1,4 @@
 import { getDBUser, updateDBUser } from "@/src/data/user";
-import { SubscriptionPlan } from "@/src/ui/financial-app/pricing";
 import { headers } from "next/headers";
 import stripe from "stripe";
 
@@ -20,12 +19,11 @@ export async function POST(request: Request) {
 
   // Handle the event
   switch (event.type) {
+    // this is fired when a customer's subscription is deleted
     case "customer.subscription.deleted":
       const customerSubscriptionDeleted = event.data.object;
 
       stripeId = customerSubscriptionDeleted.customer;
-
-      const newPlan: SubscriptionPlan = "free";
 
       user = await getDBUser({
         filters: { stripeId: stripeId as string },
@@ -34,7 +32,7 @@ export async function POST(request: Request) {
       if (user) {
         await updateDBUser({
           data: {
-            subscription_plan: newPlan,
+            subscription_plan: null,
           },
           filters: {
             stripeId: stripeId as string,
@@ -43,6 +41,7 @@ export async function POST(request: Request) {
       }
       break;
 
+    // This is fired when the user starts the cancellations but it is not yet cancelled
     case "customer.subscription.updated":
       const customerSubscriptionUpdated = event.data.object;
 

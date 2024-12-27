@@ -12,6 +12,7 @@ export type DropdownProps = {
   showAddButon?: boolean;
   onEditClick?: (value: string) => void;
   showEditButton?: boolean;
+  defaultValue?: { label: string; value: string };
 };
 
 export const Dropdown = ({
@@ -22,6 +23,7 @@ export const Dropdown = ({
   showAddButon = true,
   onEditClick,
   showEditButton,
+  defaultValue,
 }: DropdownProps) => {
   const { dict } = useTranslations();
   const NoOptionsMessage = ({ children, ...props }: NoticeProps) => {
@@ -110,6 +112,7 @@ export const Dropdown = ({
       components={{ NoOptionsMessage, Option }}
       isDisabled={disabled}
       className="text-neutral-800"
+      defaultValue={defaultValue}
     />
   );
 };

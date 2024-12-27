@@ -15,6 +15,7 @@ export type Data = {
   subscription_cancel_at?: number;
   stripeId?: string;
   subscription_id?: string;
+  fully_signed_up?: boolean;
 };
 
 type GetUserDataProps = {
@@ -52,5 +53,6 @@ export const mapUser = (user: Data): User => {
     subscriptionCancelAt: user.subscription_cancel_at,
     stripeId: user.stripeId,
     subscriptionId: user.subscription_id,
+    fullySignedUp: user.fully_signed_up || false,
   };
 };

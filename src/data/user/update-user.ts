@@ -4,7 +4,17 @@ const prisma = new PrismaClient();
 
 type UpdateUserDataProps = {
   filters: Prisma.usersWhereUniqueInput;
-  data: Prisma.usersUpdateInput;
+  data:
+    | (Prisma.Without<
+        Prisma.usersUpdateInput,
+        Prisma.usersUncheckedUpdateInput
+      > &
+        Prisma.usersUncheckedUpdateInput)
+    | (Prisma.Without<
+        Prisma.usersUncheckedUpdateInput,
+        Prisma.usersUpdateInput
+      > &
+        Prisma.usersUpdateInput);
 };
 
 export async function updateDBUser({ filters, data }: UpdateUserDataProps) {

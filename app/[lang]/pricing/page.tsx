@@ -18,21 +18,25 @@ export async function generateMetadata({
 
 export type AboutUsPageProps = {
   params: { lang: AvailableLanguages };
+  searchParams: { email: string };
 };
 export default async function AboutUsPage({
   params: { lang },
+  searchParams: { email },
 }: AboutUsPageProps) {
   const dict = await getDictionary(lang);
 
   return (
     <>
-      <main className="flex min-h-screen flex-col bg-neutral-800 text-neutral-100">
+      <main className="flex min-h-screen flex-col bg-neutral-800 text-neutral-100 px-4 sm:px-0">
         <Header dict={dict} lang={lang} />
-        <h2 className="text-4xl font-bold sm:pb-12 text-center pt-4 xl:pt-8">
+        <h2 className="text-4xl font-bold pb-8 sm:pb-12 text-center pt-4 xl:pt-8">
           {dict.pricingPage.chooseYourPlan}
         </h2>
-        <Pricing dict={dict} lang={lang} />
-        <div className="h-10"/>
+
+        <Pricing dict={dict} lang={lang} email={email} />
+
+        <div className="h-10" />
       </main>
       <Footer dict={dict} />
     </>

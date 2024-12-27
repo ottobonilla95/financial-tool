@@ -1,5 +1,4 @@
 export enum SubscriptionPlanOption {
-  Free = "free",
-  Premium = "premium",
-  Lifetime = "lifetime",
+  Monthly = "monthly",
+  Yearly = "yearly",
 }

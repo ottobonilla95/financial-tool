@@ -6,4 +6,5 @@ export * from "./screenshots";
 export * from "./visual-benefit";
 export * from "./my-story";
 export * from "./pain-points";
+export * from "./start-here-form";
 export * from "./benefits";

@@ -26,6 +26,10 @@ export default function TourProvider({ children }: DashboardPageProps) {
       selector: ".tour-step-4",
       content: dict.tour?.step4 || "",
     },
+    {
+      selector: ".tour-step-5",
+      content: dict.tour?.step5 || "xxxxxx",
+    },
   ];
 
   return <TourProviderLib steps={steps}>{children}</TourProviderLib>;

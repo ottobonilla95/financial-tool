@@ -7,12 +7,12 @@ import { SubscriptionPlan } from "@/src/ui/financial-app/pricing";
 
 export type SignupPageProps = {
   params: { lang: AvailableLanguages };
-  searchParams: { plan: string };
+  searchParams: { plan: string; email: string };
 };
 
 export default async function SignupPage({
   params: { lang },
-  searchParams: { plan },
+  searchParams: { plan, email },
 }: SignupPageProps) {
   const dict = await getDictionary(lang);
 
@@ -23,7 +23,7 @@ export default async function SignupPage({
       <div className="min-h-screen bg-neutral-800">
         <Header lang={lang} dict={dict} />
         <Container className="flex justify-center pt-20">
-          <SignupForm currencies={currencies} plan={plan as SubscriptionPlan} />
+          <SignupForm currencies={currencies} plan={plan as SubscriptionPlan} email={email}/>
         </Container>
       </div>
     </IntlProvider>

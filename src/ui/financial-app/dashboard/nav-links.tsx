@@ -42,7 +42,7 @@ export default function NavLinks({ dict }: NavLinksProps) {
       name: dict.sideMenu.yourPsychology,
       href: "/dashboard/psychology",
       icon: BrainIcon,
-      className: "tour-step-4",
+      className: "tour-step-5",
     },
     {
       name: dict.sideMenu.support,

@@ -3,6 +3,7 @@ import { getDBUser } from "@/src/data/user";
 import { AvailableLanguages, getDictionary } from "@/src/translations";
 import { SubscriptionPlanOption, User } from "@/src/types";
 import { Button } from "@/src/ui/components";
+import { redirect } from "next/navigation";
 
 export type AccountPageProps = {
   params: { lang: AvailableLanguages };
@@ -53,20 +54,14 @@ export default async function AccountPage({
     cancelDateString = formattedDate;
   }
 
+  if (!user?.subscriptionPlan) {
+    redirect("/dashboard/pricing");
+  }
+
   const renderButtons = () => {
     if (user.stripeId) {
-      if (user.subscriptionPlan === SubscriptionPlanOption.Lifetime) {
-        return (
-          <div className="text-neutral-800 text-sm">
-            {dict.pricingPage.lifeTimeDeal}
-          </div>
-        );
-      }
       return (
         <div className="flex gap-4">
-          <Button href="/dashboard/pricing">
-            {`${dict.shared.changeSubsCription}`}
-          </Button>
           <Button
             href={stripeCustomerPortalLink}
             className="whitespace-nowrap"

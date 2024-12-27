@@ -5,9 +5,13 @@ import { Container, Header } from "@/src/ui/components";
 
 export type LoginPageProps = {
   params: { lang: AvailableLanguages };
+  searchParams: { email?: string };
 };
 
-export default async function LoginPage({ params: { lang } }: LoginPageProps) {
+export default async function LoginPage({
+  params: { lang },
+  searchParams: { email },
+}: LoginPageProps) {
   const dict = await getDictionary(lang);
 
   return (
@@ -15,7 +19,7 @@ export default async function LoginPage({ params: { lang } }: LoginPageProps) {
       <div className="min-h-screen bg-neutral-800">
         <Header lang={lang} dict={dict} />
         <Container className="flex justify-center pt-20">
-          <LoginForm />
+          <LoginForm email={email} />
         </Container>
       </div>
     </IntlProvider>

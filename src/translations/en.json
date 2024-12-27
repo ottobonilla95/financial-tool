@@ -154,7 +154,10 @@
       "RUB": "Russian Ruble",
       "INR": "Indian Rupee",
       "SEK": "Swedish Krona"
-    }
+    },
+    "next": "Next",
+    "previous": "Previous",
+    "back": "Back"
   },
   "insights": {
     "totalIncomeExpensesSavings": "Total income, expenses, and savings",
@@ -482,7 +485,8 @@
     "step1": "First, let's start by adding a saving. Click the 'Add Saving' button to track your savings goals.",
     "step2": "Next, add your income. Click the 'Add Income' button to log your earnings.",
     "step3": "Now, add your expenses. Click the 'Add Expense' button to record your transactions.",
-    "step4": "For more advanced insights, head over to the 'Summary' section from the dashboard menu."
+    "step4": "For more advanced insights, head over to the 'Summary' section from the dashboard menu.",
+    "step5": "Finally, explore how your emotions impact your spending. Check out the 'Psychology' module for emotional and satisfaction insights."
   },
   "pricingPage": {
     "chooseYourPlan": "Choose Your Plan",
@@ -506,6 +510,10 @@
     "newFeaturesAndUpdatesRegularly": "New Features & Updates Regularly",
     "lifeTimeDeal": "Life Time Deal",
     "allPremiumFeatures": "All Premium Features",
-    "oneTimePayment": "One Time Payment"
+    "oneTimePayment": "One Time Payment",
+    "start14DayFreeTrial": "Start 14-Day Free Trial",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "year": "year"
   }
 }

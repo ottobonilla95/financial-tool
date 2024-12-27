@@ -1,4 +1,4 @@
-export type SubscriptionPlan = "free" | "premium" | "lifetime";
+export type SubscriptionPlan = "monthly" | "yearly";
 
 export type PricingPlan = {
   title: string;
@@ -13,16 +13,7 @@ export type PricingPlan = {
 
 export const pricingPlans: PricingPlan[] = [
   {
-    title: "basicPlan",
-    price: "free",
-    features: ["trackExpenses", "basicReporting", "upTo9Categories"],
-    buttonLabel: "getStarted",
-    mostPopular: false,
-    period: "monthly",
-    planName: "free",
-  },
-  {
-    title: "premiumPlan",
+    title: "monthly",
     price: "$4.99",
     features: [
       "trackExpenses",
@@ -33,20 +24,21 @@ export const pricingPlans: PricingPlan[] = [
       "prioritySupport",
       "newFeaturesAndUpdatesRegularly",
     ],
-    buttonLabel: "subscribe",
+    buttonLabel: "start14DayFreeTrial",
     mostPopular: true,
     period: "monthly",
-    planName: "premium",
+    planName: "monthly",
     paymentLink: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PLAN_PAYMENT_LINK,
   },
   {
-    title: "lifeTimeDeal",
+    title: "yearly",
     price: "$49",
     features: ["allPremiumFeatures"],
-    buttonLabel: "oneTimePayment",
+    buttonLabel: "start14DayFreeTrial",
     mostPopular: false,
-    period: "lifetime",
-    planName: "lifetime",
-    paymentLink: process.env.NEXT_PUBLIC_STRIPE_LIFETIME_DEAL_PLAN_PAYMENT_LINK,
+    period: "yearly",
+    planName: "yearly",
+    paymentLink:
+      process.env.NEXT_PUBLIC_STRIPE_YEARLY_PREMIUM_PLAN_PAYMENT_LINK,
   },
 ];

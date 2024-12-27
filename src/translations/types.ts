@@ -154,6 +154,9 @@ export type AppDictionary = {
       INR: string; // Indian Rupee
       SEK: string; // Swedish Krona
     };
+    next: string;
+    previous: string;
+    back: string;
   };
   insights: {
     totalIncomeExpensesSavings: string;
@@ -414,6 +417,7 @@ export type AppDictionary = {
     step2: string;
     step3: string;
     step4: string;
+    step5: string;
   };
   pricingPage: {
     chooseYourPlan: string;
@@ -433,6 +437,10 @@ export type AppDictionary = {
     lifeTimeDeal: string;
     allPremiumFeatures: string;
     oneTimePayment: string;
+    start14DayFreeTrial: string;
+    monthly: string;
+    yearly: string;
+    year: string;
   };
 };
 

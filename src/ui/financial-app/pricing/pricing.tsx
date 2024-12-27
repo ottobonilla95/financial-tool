@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import clsx from "clsx";
 import { Button } from "../../components";
 import { useRouter } from "next/navigation";
@@ -14,22 +14,24 @@ export type PricingProps = {
   user?: User;
   lang: string;
   dict: AppDictionary;
-  showFreePlan?: boolean;
+  email?: string;
 };
 export const Pricing = ({
   currenSubscriptionPlan,
   user,
   lang,
   dict,
-  showFreePlan = true,
+  email,
 }: PricingProps) => {
-  const [period, setPeriod] = useState("monthly");
-
   const router = useRouter();
 
   const onButtonClick = (plan: string) => {
     if (!user) {
-      router.push(`/signup?plan=${plan}`);
+      let url = `/signup?plan=${plan}`;
+      if (email) {
+        url += `&email=${email}`;
+      }
+      router.push(url);
     } else {
       const selectedPlan = pricingPlans.find((p) => p.planName === plan);
 
@@ -40,17 +42,14 @@ export const Pricing = ({
   };
 
   return (
-    <div className="flex flex-col sm:flex-row sm:justify-center gap-4 px-10 sm:px-0">
+    <div className="flex flex-col sm:flex-row sm:justify-center gap-4 sm:px-0">
       {pricingPlans.map((plan, index) => {
-        if (plan.planName === "free" && !showFreePlan) {
-          return null;
-        }
         const alreadySelected = plan.planName === currenSubscriptionPlan;
         return (
           <div
             key={index}
             className={clsx(
-              "p-8 rounded-lg w-full sm:w-[320px] flex flex-col",
+              "p-8 rounded-lg w-full sm:w-[420px] flex flex-col",
               {
                 "border border-lime-500 border-solid ": plan.mostPopular,
               }
@@ -78,12 +77,15 @@ export const Pricing = ({
                     <p className="text-4xl font-bold mb-4">
                       {plan.price === "free" ? "Free" : `US ${plan.price}`}
                     </p>
-                    {plan.period !== "lifetime" && (
-                      <div className="flex flex-col opacity-80 text-xs leading-[18px] pl-1">
-                        <span className="">{dict.pricingPage.per}</span>
-                        <span className="">{dict.pricingPage.month}</span>
-                      </div>
-                    )}
+
+                    <div className="flex flex-col opacity-80 text-xs leading-[18px] pl-1">
+                      <span className="">{dict.pricingPage.per}</span>
+                      <span className="">
+                        {plan.planName === "monthly"
+                          ? dict.pricingPage.month
+                          : dict.pricingPage.year}
+                      </span>
+                    </div>
                   </>
                 )}
               </div>

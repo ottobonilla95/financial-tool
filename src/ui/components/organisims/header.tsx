@@ -32,11 +32,11 @@ export const Header = ({ lang, dict }: HeaderProps) => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex flex-1 justify-end pr-10 gap-3">
-            <Link href="/pricing">
+            {/* <Link href="/pricing">
               <span className="text-white font-medium hover:underline">
                 {dict.shared.pricing}
               </span>
-            </Link>
+            </Link> */}
             <Link href="/login">
               <span className="text-white font-medium hover:underline">
                 {dict.authPages.login}

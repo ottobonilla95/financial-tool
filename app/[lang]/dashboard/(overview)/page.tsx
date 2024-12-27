@@ -27,6 +27,7 @@ import { IntlProvider } from "@/src/translations/provider";
 import { Spinner } from "@/src/ui/components";
 import TourProvider from "@/src/ui/financial-app/tour/provider";
 import TourInitiator from "@/src/ui/financial-app/tour/tour-initiator";
+import { redirect } from "next/navigation";
 
 export type DashboardPageProps = {
   searchParams: {
@@ -218,6 +219,10 @@ export default async function Page({
   const emotions = (await getAllEmotions()).sort((a, b) =>
     a.emotionType.localeCompare(b.emotionType)
   );
+
+  if (!user?.subscriptionPlan) {
+    redirect("/dashboard/pricing");
+  }
 
   return (
     <AppProvider

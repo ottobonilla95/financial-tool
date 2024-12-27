@@ -12,4 +12,5 @@ export type User = {
   subscriptionCancelAt?: number;
   stripeId?: string;
   subscriptionId?: string;
+  fullySignedUp: boolean;
 };

@@ -13,6 +13,7 @@ import {
 } from "@/src/ui/financial-app/psychology";
 import { Button } from "@/src/ui/components";
 import clsx from "clsx";
+import { redirect } from "next/navigation";
 
 export type InsightsPageProps = {
   params: { lang: AvailableLanguages };
@@ -55,6 +56,9 @@ export default async function Page({ params: { lang } }: InsightsPageProps) {
   const stripeCustomerPortalLink = `${process.env.STRIPE_CUSTOMER_PORTAL_URL}?prefilled_email=${user?.email}`;
   const isUserOnStripe = Boolean(user?.stripeId);
 
+  if (!user?.subscriptionPlan) {
+    redirect("/dashboard/pricing");
+  }
   return (
     <AppProvider
       currency={currency as Currency}

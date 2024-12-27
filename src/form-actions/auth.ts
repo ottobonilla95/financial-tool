@@ -2,7 +2,7 @@
 
 import { auth, signIn } from "@/auth";
 import { AuthError } from "next-auth";
-import { FormMessage } from "../types";
+import { FormMessage, User } from "../types";
 import { z } from "zod";
 import { createDbUser, getDBUser, updateDBUser } from "../data/user";
 import bcrypt from "bcrypt";
@@ -12,7 +12,6 @@ import {
   AvailableLanguages,
   getDictionary,
 } from "../translations";
-import { SubscriptionPlan } from "../ui/financial-app/pricing";
 
 export type AuthFormState = {
   errors?: {
@@ -25,11 +24,16 @@ export type AuthFormState = {
 
 export type CreateUserFormState = {
   errors?: {
+    email?: string[];
+  };
+} & FormMessage;
+
+export type ComleteUserCreationUserFormState = {
+  errors?: {
     name?: string[];
     email?: string[];
     currencyId?: string[];
     password?: string[];
-    passwordConfirmation?: string[];
   };
 } & FormMessage;
 
@@ -46,41 +50,46 @@ export type UpdatePasswordFormState = {
 };
 
 const createSchema = (dict: AppDictionary) =>
-  z
-    .object({
-      name: z
-        .string({
-          invalid_type_error: dict.api.shared.requiredField,
-        })
-        .min(1, { message: dict.api.shared.requiredField })
-        .refine((value) => value.trim().length > 0, {
-          message: dict.api.shared.requiredField,
-        }),
-      email: z
-        .string({
-          invalid_type_error: dict.api.shared.requiredField,
-        })
-        .email({ message: dict.api.shared.invalidEmail })
-        .min(1, { message: dict.api.shared.requiredField })
-        .refine((value) => value.trim().length > 0, {
-          message: dict.api.shared.requiredField,
-        }),
-      currencyId: z.string({
+  z.object({
+    email: z
+      .string({
         invalid_type_error: dict.api.shared.requiredField,
+      })
+      .email({ message: dict.api.shared.invalidEmail })
+      .min(1, { message: dict.api.shared.requiredField })
+      .refine((value) => value.trim().length > 0, {
+        message: dict.api.shared.requiredField,
       }),
-      password: z
-        .string({
-          invalid_type_error: dict.api.shared.requiredField,
-        })
-        .min(6, { message: dict.api.shared.passwordShouldHaveAtLeast6Chars }),
-      passwordConfirmation: z.string({
+  });
+
+const completeCreationSchema = (dict: AppDictionary) =>
+  z.object({
+    name: z
+      .string({
         invalid_type_error: dict.api.shared.requiredField,
+      })
+      .min(1, { message: dict.api.shared.requiredField })
+      .refine((value) => value.trim().length > 0, {
+        message: dict.api.shared.requiredField,
       }),
-    })
-    .refine((data) => data.password === data.passwordConfirmation, {
-      message: dict.api.shared.passwordsDontMatch,
-      path: ["passwordConfirmation"],
-    });
+    email: z
+      .string({
+        invalid_type_error: dict.api.shared.requiredField,
+      })
+      .email({ message: dict.api.shared.invalidEmail })
+      .min(1, { message: dict.api.shared.requiredField })
+      .refine((value) => value.trim().length > 0, {
+        message: dict.api.shared.requiredField,
+      }),
+    currencyId: z.string({
+      invalid_type_error: dict.api.shared.requiredField,
+    }),
+    password: z
+      .string({
+        invalid_type_error: dict.api.shared.requiredField,
+      })
+      .min(6, { message: dict.api.shared.passwordShouldHaveAtLeast6Chars }),
+  });
 
 const createUpdatePasswordFormSchema = (dict: AppDictionary) =>
   z
@@ -126,22 +135,69 @@ export async function authenticate(
 
 export async function createUser(
   lang: AvailableLanguages,
-  plan: SubscriptionPlan,
-  paymentLink: string | undefined,
   prevState: CreateUserFormState,
   formData: FormData
 ) {
   const dict = await getDictionary(lang);
 
   const CreateUser = createSchema(dict);
-  const isFreePlan = plan === "free";
+
+  const validatedFields = CreateUser.safeParse({
+    email: formData.get("email"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: {
+        text: dict.api.user.create.error,
+        type: "error",
+      },
+    };
+  }
+
+  // Prepare data for insertion into the database
+  const { email } = validatedFields.data;
+
+  try {
+    const user = await getDBUser({
+      filters: {
+        email,
+      },
+    });
+
+    if (user) {
+      if (user.fullySignedUp) {
+        redirect(`/login?email=${email}`);
+      }
+      redirect(`/pricing?email=${email}`);
+    }
+
+    await createDbUser({
+      email,
+      lang,
+    });
+
+    redirect(`/pricing?email=${email}`);
+  } catch (error) {
+    throw error;
+  }
+}
+export async function completeUserCreation(
+  lang: AvailableLanguages,
+  paymentLink: string | undefined,
+  prevState: ComleteUserCreationUserFormState,
+  formData: FormData
+) {
+  const dict = await getDictionary(lang);
+
+  const CreateUser = completeCreationSchema(dict);
 
   const validatedFields = CreateUser.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
     currencyId: formData.get("currencyId"),
     password: formData.get("password"),
-    passwordConfirmation: formData.get("passwordConfirmation"),
   });
 
   if (!validatedFields.success) {
@@ -156,34 +212,43 @@ export async function createUser(
 
   // Prepare data for insertion into the database
   const { name, password, email, currencyId } = validatedFields.data;
+
+  console.log(validatedFields.data);
+  console.log(validatedFields.data);
+  console.log(validatedFields.data);
   let userCreatedId: string;
 
   try {
     const user = await getDBUser({
       filters: {
         email,
+        fully_signed_up: false,
       },
     });
 
-    if (user) {
+    if (!user) {
       return {
         message: {
-          text: dict.api.user.create.alreadyExists,
+          text: "Error",
           type: "error",
         },
       };
     }
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const userCreted = await createDbUser({
-      email,
-      name,
-      password: hashedPassword,
-      currencyId,
-      lang,
+    await updateDBUser({
+      filters: {
+        id: (user as User).id,
+      },
+      data: {
+        password: hashedPassword,
+        name,
+        fully_signed_up: true,
+        currency_id: Number(currencyId),
+      },
     });
 
-    userCreatedId = userCreted.id;
+    userCreatedId = (user as User).id as string;
 
     await signIn("credentials", {
       email,
@@ -194,23 +259,9 @@ export async function createUser(
     throw error;
   }
 
-  console.log('isFreePlan', isFreePlan);
-  console.log('isFreePlan', isFreePlan);
-  console.log('isFreePlan', isFreePlan);
-  console.log('isFreePlan', isFreePlan);
-  console.log('paymentLink', paymentLink);
-  console.log('paymentLink', paymentLink);
-  console.log('paymentLink', paymentLink);
-  console.log('paymentLink', paymentLink);
-  console.log('paymentLink', paymentLink);
+  const paymentUrl = `${paymentLink}?client_reference_id=${userCreatedId}&prefilled_email=${email}&locale=${lang}`;
 
-  if (isFreePlan) {
-    redirect(`/${lang}/dashboard`);
-  } else {
-    const paymentUrl = `${paymentLink}?client_reference_id=${userCreatedId}&prefilled_email=${email}&locale=${lang}`;
-
-    redirect(paymentUrl);
-  }
+  redirect(paymentUrl);
 }
 
 export async function updatePassword(
