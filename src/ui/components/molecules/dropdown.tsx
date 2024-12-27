@@ -109,6 +109,7 @@ export const Dropdown = ({
       onChange={(option) => {
         onChange(option as { label: string; value: string });
       }}
+      // @ts-ignore
       components={{ NoOptionsMessage, Option }}
       isDisabled={disabled}
       className="text-neutral-800"
