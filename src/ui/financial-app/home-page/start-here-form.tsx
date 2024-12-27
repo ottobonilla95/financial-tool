@@ -8,12 +8,12 @@ import { SubmitButton } from "../../forms";
 import { AtSymbolIcon } from "@heroicons/react/24/outline";
 import { FireIcon } from "@heroicons/react/24/solid";
 
-export type AppScreenshotsProps = {
+export type StartFormProps = {
   dict: AppDictionary;
   lang: AvailableLanguages;
 };
 
-export const StartForm = ({ dict, lang }: AppScreenshotsProps) => {
+export const StartForm = ({ dict, lang }: StartFormProps) => {
   const initialState: CreateUserFormState = { message: {}, errors: {} };
 
   const createUserAction = createUser.bind(null, lang);
