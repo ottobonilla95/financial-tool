@@ -10,6 +10,7 @@ import {
   AvailableLanguages,
   getDictionary,
 } from "../translations";
+import { auth } from "@/auth";
 
 export type SubCategoryFormState = {
   errors?: {
@@ -50,6 +51,9 @@ export async function createSubCategory(
 ) {
   const dict = await getDictionary(lang);
 
+  const session = await auth();
+  const userId = session?.user?.id as string;
+
   const CreateSubCategory = creteFormSchema(dict).omit({ id: true });
 
   // Validate form using Zod
@@ -75,6 +79,7 @@ export async function createSubCategory(
     await createDBSubCategory({
       name,
       categoryId,
+      userId,
     });
   } catch (error) {
     return {
