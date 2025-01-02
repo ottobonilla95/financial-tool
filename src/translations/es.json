@@ -13,7 +13,8 @@
     "bySatisfaction": "Por Satisfacción",
     "totalExpensesPerDayByCategory": "Gastos totales por día por categoría",
     "totalExpensesPerCategory": "Gastos totales por categoría",
-    "samePeriodLastMonth": "Mismo período del mes pasado"
+    "samePeriodLastMonth": "Mismo período del mes pasado",
+    "totalFinancialRecords": "Total de registros financieros"
   },
   "forms": {
     "expense": {

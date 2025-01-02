@@ -14,11 +14,13 @@ import { useFormState } from "react-dom";
 export type CreateSavingFormProps = {
   closeModal: () => void;
   month: number;
+  year?: number;
 };
 
 export const CreateSavingForm = ({
   closeModal,
   month,
+  year,
 }: CreateSavingFormProps) => {
   const initialState: SavingFormState = { message: {}, errors: {} };
   const { lang, dict } = useTranslations();
@@ -28,7 +30,8 @@ export const CreateSavingForm = ({
   const [amount, setAmount] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
-  const currentYear = new Date().getFullYear();
+  const currentYear = year || new Date().getFullYear();
+
   const currentMonth = new Date().getMonth() + 1;
 
   const [startDate, setStartDate] = useState<Date | undefined>(

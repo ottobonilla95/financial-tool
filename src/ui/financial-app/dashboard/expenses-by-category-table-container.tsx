@@ -22,7 +22,7 @@ const splitByCategoryAndSubcategory = (expenses: Expense[]) => {
   }, {});
 };
 
-export const ExpensesTableContainer = ({
+export const ExpensesByCategoryTableContainer = ({
   expenses,
   dict,
   isPremium,

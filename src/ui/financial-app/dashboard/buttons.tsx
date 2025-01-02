@@ -14,12 +14,14 @@ export type DashboardButtonsProps = {
   emotions: Emotion[];
   month: number;
   dict: AppDictionary;
+  year?: number;
 };
 
 export const DashboardButtons = async ({
   emotions,
   month,
   dict,
+  year,
 }: DashboardButtonsProps) => {
   const [showCreateExpenseForm, setShowCreateExpenseForm] = useState(false);
   const [showCreateIncomeForm, setShowCreateIncomeForm] = useState(false);
@@ -33,6 +35,7 @@ export const DashboardButtons = async ({
             closeModal={() => setShowCreateExpenseForm(false)}
             emotions={emotions}
             month={month}
+            year={year}
           />
         </>
       )}
@@ -40,12 +43,14 @@ export const DashboardButtons = async ({
         <CreateIncomeForm
           closeModal={() => setShowCreateIncomeForm(false)}
           month={month}
+          year={year}
         />
       )}
       {showCreateSavingForm && (
         <CreateSavingForm
           closeModal={() => setShowCreateSavingForm(false)}
           month={month}
+          year={year}
         />
       )}
 

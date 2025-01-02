@@ -65,6 +65,9 @@ export async function createExpense(
   const userId = session?.user?.id as string;
 
   const CreateExpense = createFormSchema(dict).omit({ id: true });
+  console.log(formData)
+  console.log(formData)
+  console.log(formData)
 
   // Validate form using Zod
   const validatedFields = CreateExpense.safeParse({

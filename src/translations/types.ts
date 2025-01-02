@@ -14,6 +14,7 @@ export type AppDictionary = {
     totalExpensesPerDayByCategory: string;
     totalExpensesPerCategory: string;
     samePeriodLastMonth: string;
+    totalFinancialRecords: string;
   };
   forms: {
     expense: {

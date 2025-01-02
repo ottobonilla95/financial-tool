@@ -1,6 +1,6 @@
 export * from "./date-picker";
 export * from "./expenses-pie-chart";
-export * from "./expenses-tables-container";
+export * from "./expenses-by-category-table-container";
 export * from "./income-tables-container";
 export * from "./totals";
 export * from "./last-updated";
@@ -12,3 +12,4 @@ export * from "./total-by-emotion";
 export * from "./total-by-satisfaction";
 export * from "./expenses-by-day-graph";
 export * from "./expense-totals-per-category";
+export * from "./expenses-by-day-table-container";

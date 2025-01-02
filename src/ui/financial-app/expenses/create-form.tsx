@@ -31,12 +31,14 @@ export type CreateExpenseFormProps = {
   closeModal: () => void;
   emotions: Emotion[];
   month: number;
+  year?: number;
 };
 
 export const CreateExpenseForm = ({
   closeModal,
   emotions,
   month,
+  year,
 }: CreateExpenseFormProps) => {
   const { dict, lang } = useTranslations();
 
@@ -51,7 +53,7 @@ export const CreateExpenseForm = ({
   const [state, formAction] = useFormState(createExpenseAction, initialState);
 
   const [categories, setCategories] = useState<ExpenseCategory[]>([]);
-  const currentYear = new Date().getFullYear();
+  const currentYear = year || new Date().getFullYear();
   const currentMonth = new Date().getMonth() + 1;
 
   const firstDayOfSelectedMonth = new Date(currentYear, month - 1, 1);

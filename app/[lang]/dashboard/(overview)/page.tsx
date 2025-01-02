@@ -2,17 +2,18 @@ import { fetchExpenses } from "@/src/data/expenses";
 import { auth } from "@/auth";
 import {
   ExpensesPieChart,
-  ExpensesTableContainer,
+  // ExpensesByCategoryTableContainer,
   DashboardTotals,
   LastUpdated,
   DashboardButtons,
   NoExpensesAdded,
-  IncomeTableContainer,
+  // IncomeTableContainer,
   SavingTableContainer,
   DashboardExpeneseByEmotion,
   DashboardExpeneseBySatisfaction,
   ExpensesByDayGraph,
   ExpenseTotalsPerCategory,
+  ExpensesByDayTableContainer,
 } from "@/src/ui/financial-app/dashboard";
 import { Suspense } from "react";
 import { fetchEarnings } from "@/src/data/earning";
@@ -20,7 +21,7 @@ import { getAllEmotions } from "@/src/data/emotion";
 import { fetchSavings } from "@/src/data/saving";
 import { getDBUser } from "@/src/data/user";
 import { AppProvider } from "@/src/app-wrappper/provider";
-import { Currency, SubscriptionPlanOption } from "@/src/types";
+import { Currency } from "@/src/types";
 import { endOfMonth } from "date-fns";
 import { getDictionary, AvailableLanguages } from "@/src/translations";
 import { IntlProvider } from "@/src/translations/provider";
@@ -109,8 +110,8 @@ export default async function Page({
   // Previous month start and end dates
   const startDatePrevious = new Date(
     Date.UTC(
-      startDateCurrent.getFullYear(),
-      startDateCurrent.getMonth() - 1,
+      startDateCurrent.getUTCFullYear(),
+      startDateCurrent.getUTCMonth() - 1,
       1,
       0,
       0,
@@ -121,8 +122,8 @@ export default async function Page({
     ? dayOfMonth <= endOfMonth(startDatePrevious).getDate()
       ? new Date(
           Date.UTC(
-            startDatePrevious.getFullYear(),
-            startDatePrevious.getMonth(),
+            startDatePrevious.getUTCFullYear(),
+            startDatePrevious.getUTCMonth(),
             dayOfMonth,
             23,
             59,
@@ -131,8 +132,8 @@ export default async function Page({
         ) // Up to the same day as today in the previous month at 23:59:59 UTC
       : new Date(
           Date.UTC(
-            startDatePrevious.getFullYear(),
-            startDatePrevious.getMonth() + 1,
+            startDatePrevious.getUTCFullYear(),
+            startDatePrevious.getUTCMonth() + 1,
             0,
             23,
             59,
@@ -141,8 +142,8 @@ export default async function Page({
         ) // Last day of the previous month if today’s day doesn’t exist in that month
     : new Date(
         Date.UTC(
-          startDatePrevious.getFullYear(),
-          startDatePrevious.getMonth() + 1,
+          startDatePrevious.getUTCFullYear(),
+          startDatePrevious.getUTCMonth() + 1,
           0,
           23,
           59,
@@ -248,6 +249,9 @@ export default async function Page({
                     emotions={emotions}
                     month={month}
                     dict={dict}
+                    year={
+                      searchParams.year ? Number(searchParams.year) : undefined
+                    }
                   />
                 </Suspense>
               </div>
@@ -310,18 +314,24 @@ export default async function Page({
                   <SavingTableContainer savings={savingsCurrent} dict={dict} />
                 </div>
               )}
-              {earningsCurrent.length > 0 && (
+              {/* {earningsCurrent.length > 0 && (
                 <div>
                   <IncomeTableContainer
                     earnings={earningsCurrent}
                     dict={dict}
                   />
                 </div>
-              )}
+              )} */}
               {expensesCurrent.length > 0 && (
                 <div>
-                  <ExpensesTableContainer
+                  {/* <ExpensesByCategoryTableContainer
                     expenses={expensesCurrent}
+                    dict={dict}
+                    isPremium={isPremium}
+                  /> */}
+                  <ExpensesByDayTableContainer
+                    expenses={expensesCurrent}
+                    earnings={earningsCurrent}
                     dict={dict}
                     isPremium={isPremium}
                   />
