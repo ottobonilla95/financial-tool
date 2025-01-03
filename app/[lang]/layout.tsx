@@ -54,6 +54,23 @@ export default async function RootLayout({
           href="/apple-touch-icon.png"
         />
 
+        {/* Google Analytics Script */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-KXGCHBETSN"
+        ></Script>
+        <Script
+          id="google-analytics"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-KXGCHBETSN');
+            `,
+          }}
+        />
+
         {/* Structured data JSON-LD script using translations */}
         <Script
           id="structured-data"
