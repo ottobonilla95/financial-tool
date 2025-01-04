@@ -36,7 +36,7 @@ export default async function AboutUsPage({
         <Header dict={dict} lang={lang} />
 
         <Container variant="narrow">
-          <h1 className="font-extrabold text-3xl lg:text-4xl md:-mb-4 flex flex-col gap-3 text-center mt-10">
+          <h1 className="font-extrabold text-3xl lg:text-5xl md:-mb-4 flex flex-col gap-3 text-center mt-10">
             <span className="relative ">{dict.pricingPage.title1}</span>
             {/* <span className="whitespace-nowrap relative text-center">
               <span className="relative whitespace-nowrap">
@@ -50,23 +50,27 @@ export default async function AboutUsPage({
               {dict.pricingPage.title3}
             </span> */}
           </h1>
-          <div className="flex justify-center">
+          <div className="flex justify-center mt-5">
             <p className="text-center mt-5 sm:max-w-2xl text-lg mb-5">
               {dict.pricingPage.heroText}
             </p>
           </div>
-          <Button
-            className="mt-4 !text-base group rounded-lg bg-lime-500 font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0 min-w-[300px] !font-bold"
-            iconPosition="left"
-            href="#pricing"
-          >
-            {dict.mainPage.takeControlToday}
-          </Button>
+          <div className="flex justify-center">
+            <Button
+              className="mt-4 max-w-[80px] !text-base group rounded-lg bg-lime-500 font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0 min-w-[300px] !font-bold"
+              iconPosition="left"
+              href="#pricing"
+            >
+              {dict.mainPage.takeControlToday}
+            </Button>
+          </div>
         </Container>
         <Container variant="full">
           <Testimonials dict={dict} />
         </Container>
+
         <Container variant="narrow">
+        
           {/* Introduction Section */}
 
           <h2 className="text-3xl sm:text-4xl font-bold mb-8 text-center">
@@ -104,13 +108,15 @@ export default async function AboutUsPage({
               ))}
             </div>
           </div>
-          <Button
-            className="mt-10 !text-base group rounded-lg bg-lime-500 font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0 min-w-[300px] !font-bold"
-            iconPosition="left"
-            href="#pricing"
-          >
-            {dict.mainPage.takeControlToday}
-          </Button>
+          <div className="flex justify-center mt-10 mb-20">
+            <Button
+              className="mt-4 max-w-[80px] !text-base group rounded-lg bg-lime-500 font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0 min-w-[300px] !font-bold"
+              iconPosition="left"
+              href="#pricing"
+            >
+              {dict.mainPage.takeControlToday}
+            </Button>
+          </div>
           {/* WhatWillYouGet Component */}
           <div className="mt-10" />
           <WhatWillYouGet dict={dict} />
