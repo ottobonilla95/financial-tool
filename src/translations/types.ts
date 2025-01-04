@@ -453,6 +453,7 @@ export type AppDictionary = {
     title3: string;
     heroText: string;
     chooseYourPlan: string;
+    warrenBuffetQuote: string;
     mostPopular: string;
     free: string;
     per: string;
