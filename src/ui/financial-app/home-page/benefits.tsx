@@ -18,7 +18,7 @@ export const Benefits = ({ dict }: BenefitsProps) => {
         <ul className="space-y-6">
           {dict.mainPage.benefits.items.map((benefit, index) => (
             <li key={index} className="flex items-start">
-              <p className="flex-1">
+              <p className="flex-1 sm:text-xl">
                 <strong className="text-lime-400">{benefit.title}:</strong>{" "}
                 {benefit.description}
               </p>

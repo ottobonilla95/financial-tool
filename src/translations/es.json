@@ -198,6 +198,7 @@
     "introMessage3": "rápida",
     "welcomeDescription": "Controla, gestiona y analiza tus gastos con una herramienta sencilla. Toma decisiones inteligentes sobre tu dinero y gana control en cada paso.",
     "takeControlToday": "Empieza hoy!",
+    "startNow": "¡Empieza ahora!",
     "visualBenefit": {
       "changeFrom": "Cambia de esto",
       "changeTo": "A esto"
@@ -217,6 +218,48 @@
         "title": "Gastos Basados en Emociones",
         "description": "Asocia emociones a tus gastos y obtén información sobre cómo tus sentimientos influyen en tus decisiones financieras."
       }
+    },
+
+    "introduction": {
+      "title1": "Rastrear tus finanzas puede",
+      "title2": "cambiar tu vida",
+      "title3": "- cambió la mía",
+      "sections": [
+        {
+          "content": [
+            "Si aún no nos conocemos, soy Otto 👋",
+            "Durante años, pensé que ganar más dinero resolvería todos mis problemas. Pero cuanto más ganaba, más gastaba.",
+            "Los aumentos de sueldo parecían desaparecer de la noche a la mañana, y seguía viviendo de cheque en cheque. No era imprudente, ni siquiera sabía a dónde se iba mi dinero, pero de alguna manera, siempre desaparecía.",
+            "En ese momento, no pensaba mucho en rastrear gastos. Supuse que no era necesario, ¿verdad? Pero la verdad era que no tenía idea de lo que realmente estaba pasando con mi dinero."
+          ]
+        },
+        {
+          "subtitle": "El Punto de Cambio:",
+          "content": [
+            "Un día, decidí que algo tenía que cambiar.",
+            "Tomé un libro de finanzas personales, pensando que solo me ayudaría a ahorrar más. Lo que aprendí cambió completamente mi perspectiva.",
+            "Me di cuenta de que no estaba manejando mi dinero; estaba dejando que él me manejara a mí. Comencé eliminando gastos innecesarios: suscripciones sin usar, compras impulsivas y hábitos que no agregaban un valor real a mi vida.",
+            "Pero el verdadero cambio vino cuando comencé a rastrear mis gastos. Por primera vez, pude ver exactamente a dónde iba mi dinero. Noté cómo mis hábitos de gasto cambiaban con mi estilo de vida: mudarme a un nuevo lugar, viajar o incluso estar en una relación hacía una gran diferencia.",
+            "Y luego estaban mis emociones. Estrés, emoción, aburrimiento: todas jugaban un papel en cómo gastaba mi dinero."
+          ]
+        },
+        {
+          "subtitle": "El Descubrimiento:",
+          "content": [
+            "El rastreo me dio claridad. Me ayudó a conectar los puntos entre mis ingresos, mis gastos y mis emociones. Finalmente vi los patrones que me estaban frenando y comencé a tomar mejores decisiones.",
+            "Con el tiempo, ahorré más, gasté menos impulsivamente y dejé de sentir que siempre estaba persiguiendo mi próximo cheque de pago.",
+            "Esto no se trataba solo de presupuestar, se trataba de entenderme a mí mismo. Esa claridad me dio control sobre mi dinero y mi vida.",
+            "Y sabía que no era el único que luchaba con esto. Por eso creé Trackmyspend."
+          ]
+        },
+        {
+          "subtitle": "La Solución:",
+          "content": [
+            "Esto no es solo un rastreador de gastos. Es una herramienta que te ayuda a ver cómo tus hábitos financieros están conectados con tus emociones y tu estilo de vida.",
+            "Con ella, obtendrás claridad, tomarás mejores decisiones y finalmente sentirás que tienes el control de tus finanzas, sin importar cuánto ganes."
+          ]
+        }
+      ]
     },
     "painPoints": {
       "title": "Desventajas de no tener una herramienta financiera",
@@ -289,6 +332,78 @@
         }
       ]
     },
+    "whatWillYouGet": {
+      "title1": "Lo que",
+      "title2": "obtendrás",
+      "title3": "al suscribirte",
+      "items": [
+        {
+          "title": "📊 Seguimiento completo de gastos",
+          "description": "Registra todos tus gastos en un solo lugar con desgloses detallados por categoría, subcategoría y día."
+        },
+        {
+          "title": "📅 Panel del mes actual",
+          "description": "Visualiza tus finanzas con gráficos circulares, listas de gastos diarios y totales que comparan los gastos por categoría y emoción."
+        },
+        {
+          "title": "📈 Información financiera a largo plazo",
+          "description": "Accede a resúmenes mensuales que muestran ingresos, gastos, ahorros y tendencias de gastos a lo largo del tiempo."
+        },
+        {
+          "title": "💡 Conciencia sobre gastos y emociones",
+          "description": "Descubre cómo tus emociones influyen en tus hábitos de gasto e identifica qué categorías se ven más afectadas por el estrés, la alegría o el aburrimiento."
+        },
+        {
+          "title": "🌍 Seguimiento del impacto del estilo de vida",
+          "description": "Descubre cómo los grandes cambios de vida, como mudarte, viajar o iniciar una relación, impactan tus finanzas y ajusta tus hábitos en consecuencia."
+        },
+        {
+          "title": "🔄 Comparaciones con meses anteriores",
+          "description": "Compara tendencias y totales de gastos mes a mes para comprender dónde estás mejorando y dónde enfocarte."
+        },
+        {
+          "title": "🔒 Datos seguros y privados",
+          "description": "Tus datos financieros y emocionales están completamente cifrados y almacenados de forma segura para garantizar tu privacidad y tranquilidad."
+        },
+        {
+          "title": "🤝 Soporte al cliente receptivo",
+          "description": "Obtén ayuda rápida y amigable siempre que necesites asistencia con la aplicación."
+        },
+        {
+          "title": "📋 Paneles fáciles de usar",
+          "description": "Gráficos y diagramas intuitivos que hacen que sea fácil comprender tus hábitos de gasto de un vistazo."
+        },
+        {
+          "title": "🧠 Información financiera personalizada",
+          "description": "Obtén ideas y recomendaciones prácticas adaptadas a tus hábitos, emociones y metas financieras únicas."
+        },
+        {
+          "title": "💰 Ahorra dinero y reduce el estrés",
+          "description": "Al rastrear tus gastos y emociones, reducirás los gastos innecesarios y te concentrarás en lo que realmente importa."
+        },
+        {
+          "title": "💪 Siéntete en control de tu dinero",
+          "description": "Finalmente entiende a dónde va tu dinero y toma decisiones financieras seguras todos los días."
+        },
+        {
+          "title": "📈 Haz crecer tus ahorros sin esfuerzo",
+          "description": "Con claridad sobre tus patrones de gasto, ahorrar dinero se vuelve más fácil y alcanzable."
+        },
+        {
+          "title": "🧘 Mejora el equilibrio emocional",
+          "description": "Toma conciencia de los desencadenantes emocionales relacionados con el gasto y desarrolla hábitos financieros más saludables."
+        },
+        {
+          "title": "🔄 Adáptate a los cambios de la vida",
+          "description": "Planea con anticipación los grandes momentos, como mudarte, un nuevo trabajo o una gran compra, con información clara sobre cómo afectarán tu presupuesto."
+        },
+        {
+          "title": "🚀 Motivación para mantenerte en el camino",
+          "description": "Mantente motivado viendo tu progreso a lo largo del tiempo y alcanzando las metas financieras que más te importan."
+        }
+      ]
+    },
+
     "howItWorks": {
       "title": "Cómo Funciona",
       "step1": {
@@ -504,6 +619,10 @@
     "step5": "Finalmente, explora cómo tus emociones impactan tus gastos. Consulta el módulo 'Psicología' para obtener información sobre emociones y satisfacción."
   },
   "pricingPage": {
+    "title1": "Descubre qué pasa con tu dinero.",
+    "title2": "Transforma",
+    "title3": "tus hábitos para siempre.",
+    "heroText": "El único rastreador de gastos que te ayuda a descubrir los desencadenantes emocionales detrás de tus hábitos de consumo. Obtén claridad, control y confianza con herramientas diseñadas para hacer que presupuestar sea sencillo y significativo.",
     "chooseYourPlan": "Elige tu plan",
     "mostPopular": "Más popular",
     "free": "Gratis",

@@ -8,3 +8,4 @@ export * from "./my-story";
 export * from "./pain-points";
 export * from "./start-here-form";
 export * from "./benefits";
+export * from "./what-will-you-get";

@@ -213,9 +213,6 @@ export async function completeUserCreation(
   // Prepare data for insertion into the database
   const { name, password, email, currencyId } = validatedFields.data;
 
-  console.log(validatedFields.data);
-  console.log(validatedFields.data);
-  console.log(validatedFields.data);
   let userCreatedId: string;
 
   try {

@@ -49,7 +49,7 @@ export const Testimonials = ({ dict, variant }: TestimonialsProps) => {
   return (
     <section className="py-16 px-4 sm:px-0 text-neutral-100 tracking-tight">
       <div className="container mx-auto text-center">
-        <h2 className="text-4xl sm:text-5xl font-bold mb-10">
+        <h2 className="text-3xl sm:text-4xl font-bold mb-10">
           {dict.mainPage.testimonials.title}
         </h2>
         <div className="grid md:grid-cols-3 gap-8">

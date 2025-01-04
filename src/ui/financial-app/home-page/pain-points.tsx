@@ -18,7 +18,7 @@ export const PainPoints = ({ dict }: PainPointsProps) => {
       <ul className="space-y-4 list-disc">
         {dict.mainPage.painPoints.items.map((point, index) => (
           <li key={index} className="flex items-start">
-            <p className="flex-1">
+            <p className="flex-1 sm:text-xl">
               {point.before}{" "}
               <span className="text-red-300">{point.highlight}</span>{" "}
               {point.after}

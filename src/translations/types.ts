@@ -198,9 +198,19 @@ export type AppDictionary = {
     introMessage3: string;
     welcomeDescription: string;
     takeControlToday: string;
+    startNow: string;
     visualBenefit: {
       changeFrom: string;
       changeTo: string;
+    };
+    introduction: {
+      title1: string;
+      title2: string;
+      title3: string;
+      sections: {
+        subtitle: string;
+        content: string[];
+      }[];
     };
     painPoints: {
       title: string;
@@ -213,6 +223,15 @@ export type AppDictionary = {
     };
     benefits: {
       title: string;
+      items: {
+        title: string;
+        description: string;
+      }[];
+    };
+    whatWillYouGet: {
+      title1: string;
+      title2: string;
+      title3: string;
       items: {
         title: string;
         description: string;
@@ -429,6 +448,10 @@ export type AppDictionary = {
     step5: string;
   };
   pricingPage: {
+    title1: string;
+    title2: string;
+    title3: string;
+    heroText: string;
     chooseYourPlan: string;
     mostPopular: string;
     free: string;

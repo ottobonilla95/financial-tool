@@ -155,7 +155,7 @@ export default async function RootLayout({
           />
         )}
       </head>
-      <body className={`${bricolageGrotesque.className} antialiased`}>
+      <body className={`${bricolageGrotesque.className} antialiased tracking-tight`}>
         {children}
         <ToastContainer />
         <div className="fixed bottom-2 right-2 text-sm text-gray-400">
