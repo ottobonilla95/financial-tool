@@ -469,7 +469,7 @@ export type AppDictionary = {
     lifeTimeDeal: string;
     allPremiumFeatures: string;
     oneTimePayment: string;
-    start14DayFreeTrial: string;
+    start7DayFreeTrial: string;
     monthly: string;
     yearly: string;
     year: string;
