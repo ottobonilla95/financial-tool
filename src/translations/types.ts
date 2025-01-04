@@ -468,6 +468,7 @@ export type AppDictionary = {
     prioritySupport: string;
     lifeTimeDeal: string;
     allPremiumFeatures: string;
+    save18Percent: string;
     oneTimePayment: string;
     start7DayFreeTrial: string;
     monthly: string;

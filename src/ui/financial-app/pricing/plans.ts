@@ -25,7 +25,7 @@ export const pricingPlans: PricingPlan[] = [
       "newFeaturesAndUpdatesRegularly",
     ],
     buttonLabel: "start7DayFreeTrial",
-    mostPopular: true,
+    mostPopular: false,
     period: "monthly",
     planName: "monthly",
     paymentLink: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PLAN_PAYMENT_LINK,
@@ -33,9 +33,9 @@ export const pricingPlans: PricingPlan[] = [
   {
     title: "yearly",
     price: "$49",
-    features: ["allPremiumFeatures"],
+    features: ["allPremiumFeatures", "save18Percent"],
     buttonLabel: "start7DayFreeTrial",
-    mostPopular: false,
+    mostPopular: true,
     period: "yearly",
     planName: "yearly",
     paymentLink:
