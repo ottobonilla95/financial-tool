@@ -50,18 +50,26 @@ export default async function AboutUsPage({
               {dict.pricingPage.title3}
             </span> */}
           </h1>
-          <div className="flex flex-col items-center mt-5 sm:max-w-2xl text-lg">
-            <p className="text-center mt-5 mb-5">{dict.pricingPage.heroText}</p>
+          <div className="flex justify-center mt-5 text-lg">
+            <div className="sm:max-w-2xl ">
+              <p className="text-center mt-5 mb-5">
+                {dict.pricingPage.heroText}
+              </p>
 
-            <img
-              src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1736020666/app%20images/hc7mghgyj3llbpn3830m.png"
-              className="w-[80px]"
-            />
-            <p className="mt-2 text-center">
-              {dict.pricingPage.warrenBuffetQuote}
-            </p>
+              <div className="flex justify-center">
+                <img
+                  src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1736020666/app%20images/hc7mghgyj3llbpn3830m.png"
+                  className="w-[80px]"
+                />
+              </div>
+              <p className="mt-2 text-center">
+                {dict.pricingPage.warrenBuffetQuote}
+              </p>
 
-            <p className="italic text-lime-500">- Warren buffet</p>
+              <p className="italic text-lime-500 text-center">
+                - Warren buffet
+              </p>
+            </div>
           </div>
           <div className="flex justify-center">
             <Button
