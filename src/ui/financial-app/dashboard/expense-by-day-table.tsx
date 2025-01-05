@@ -176,10 +176,7 @@ export const ExpenseByDayTable = ({
               {isXs ? (
                 abbreviateCurrency(record.amount, currency.symbol)
               ) : (
-                <>
-                  <Price amount={record.amount} />
-                  {record.date.toISOString()}
-                </>
+                <Price amount={record.amount} />
               )}
             </div>
             <div className="flex justify-end gap-2">
