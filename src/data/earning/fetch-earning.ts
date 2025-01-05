@@ -1,6 +1,5 @@
 import { PrismaClient, Prisma } from "@prisma/client";
 import { Earning } from "@/src/types";
-import { format } from "date-fns";
 
 const prisma = new PrismaClient();
 

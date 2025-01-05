@@ -25,7 +25,7 @@ export function getMonthlyTotals(
   } = {};
 
   expenses.forEach((expense) => {
-    const monthYear = getMonthYear(expense.date.toISOString());
+    const monthYear = getMonthYear(expense.date?.toISOString() || "");
 
     if (!monthlyTotals[monthYear]) {
       monthlyTotals[monthYear] = { expenses: 0, earnings: 0, savings: 0 };
@@ -70,11 +70,11 @@ export function getAllUniqueMonths(expenses: Expense[]) {
   const uniqueMonths = new Set<string>();
 
   expenses.forEach((expense) => {
-    const monthYear = expense.date.toLocaleDateString("en-US", {
+    const monthYear = expense.date?.toLocaleDateString("en-US", {
       year: "numeric",
       month: "long",
     });
-    uniqueMonths.add(monthYear);
+    uniqueMonths.add(monthYear || "");
   });
 
   return Array.from(uniqueMonths).sort(); // Sort to ensure consistent order

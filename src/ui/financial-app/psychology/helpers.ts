@@ -5,11 +5,11 @@ export function getAllUniqueMonths(expenses: Expense[]) {
   const uniqueMonths = new Set<string>();
 
   expenses.forEach((expense) => {
-    const monthYear = expense.date.toLocaleDateString("en-US", {
+    const monthYear = expense.date?.toLocaleDateString("en-US", {
       year: "numeric",
       month: "long",
     });
-    uniqueMonths.add(monthYear);
+    uniqueMonths.add(monthYear || "");
   });
 
   return Array.from(uniqueMonths).sort((a, b) => {
@@ -18,7 +18,6 @@ export function getAllUniqueMonths(expenses: Expense[]) {
     return dateA.getTime() - dateB.getTime();
   });
 }
-
 
 export function groupExpensesByEmotionWithPercentages(
   expenses: Expense[],
@@ -70,7 +69,6 @@ export function groupExpensesByEmotionWithPercentages(
 
   return groupedByEmotion;
 }
-
 
 export const emotionColors = {
   sadness: "#6b7280", // Gray for Sadness
