@@ -436,6 +436,7 @@ export const UpdateExpenseForm = ({
                         calendarClassName="z-[1000000]"
                         className="peer block w-full rounded-md border border-gray-200 py-2 text-base outline-2 placeholder:text-gray-500 z-[100001]"
                       />
+                      {startDate?.toISOString()}
                       <input
                         type="hidden"
                         name="date"
