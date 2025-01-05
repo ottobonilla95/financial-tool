@@ -20,7 +20,7 @@ export const getDailyTotalsByCategory = (expenses: Expense[]) => {
   const totalsByDay: { [key: string]: number } = {};
 
   expenses.forEach((expense) => {
-    const day = expense.date.toISOString().split("T")[0]; // Get YYYY-MM-DD format
+    const day = expense.date?.toISOString().split("T")[0] || ""; // Get YYYY-MM-DD format
     const category = expense.category.name;
 
     if (!totalsByDayAndCategory[day]) {
