@@ -80,9 +80,11 @@ export async function fetchExpenses({ filters }: FetchExpensesProps) {
 export const mapExpense = (expense: Data): Expense => {
   const dateFromPrisma = new Date(expense.date?.toISOString() || "");
   const correctDate = new Date(
-    dateFromPrisma.getUTCFullYear(),
-    dateFromPrisma.getUTCMonth(),
-    dateFromPrisma.getUTCDate()
+    Date.UTC(
+      dateFromPrisma.getUTCFullYear(),
+      dateFromPrisma.getUTCMonth(),
+      dateFromPrisma.getUTCDate()
+    )
   );
 
   return {
