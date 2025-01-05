@@ -11,7 +11,7 @@ export type ExpensesByDayTableContainerProps = {
 
 const splitByDay = (records: FinancialRecord[]) => {
   return records.reduce((acc: Record<string, FinancialRecord[]>, record) => {
-    const day = record.date.toISOString().split("T")[0]; // Extract the date part (YYYY-MM-DD)
+    const day = record.date?.toISOString().split("T")[0] || ""; // Extract the date part (YYYY-MM-DD)
     if (!acc[day]) {
       acc[day] = [];
     }
