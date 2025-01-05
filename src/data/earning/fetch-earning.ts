@@ -63,9 +63,16 @@ export async function fetchEarnings({ filters }: FetchEarningProps) {
 }
 
 export const mapEarning = (earning: Data): Earning => {
+  const dateFromPrisma = new Date(earning.date?.toISOString() || "");
+  const correctDate = new Date(
+    dateFromPrisma.getUTCFullYear(),
+    dateFromPrisma.getUTCMonth(),
+    dateFromPrisma.getUTCDate()
+  );
+
   return {
     id: earning.id,
-    date: new Date(earning.date || ""),
+    date: correctDate,
     description: earning.description || "",
     amount: earning.amount,
     category: {
@@ -77,6 +84,8 @@ export const mapEarning = (earning: Data): Earning => {
       id: earning.earning_subcategory?.id || "",
       name: earning.earning_subcategory?.name || "",
     },
-    formattedDate: format(new Date(earning.date || ""), "EEE dd"),
+    formattedDate: `${earning.date?.toUTCString().split(",")[0]} ${String(
+      earning.date?.getUTCDate()
+    ).padStart(2, "0")}`,
   };
 };

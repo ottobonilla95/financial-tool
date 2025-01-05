@@ -378,6 +378,10 @@ export type AppDictionary = {
         error: string;
         success: string;
       };
+      update: {
+        error: string;
+        success: string;
+      };
       delete: {
         error: string;
         success: string;
@@ -385,6 +389,10 @@ export type AppDictionary = {
     };
     income: {
       create: {
+        error: string;
+        success: string;
+      };
+      update: {
         error: string;
         success: string;
       };

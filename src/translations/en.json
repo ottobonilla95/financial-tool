@@ -544,6 +544,10 @@
       "delete": {
         "error": "Failed to delete expense.",
         "success": "Expense successfully deleted."
+      },
+      "update": {
+        "error": "Failed to update expense.",
+        "success": "Expense successfully updated."
       }
     },
     "income": {
@@ -554,6 +558,10 @@
       "delete": {
         "error": "Failed to delete income entry.",
         "success": "Income successfully deleted."
+      },
+      "update": {
+        "error": "Failed to update income entry.",
+        "success": "Income successfully updated."
       }
     },
     "savings": {

@@ -11,6 +11,7 @@ import {
   AvailableLanguages,
   getDictionary,
 } from "../translations";
+import { updateDbEarning } from "../data/earning/update-earning";
 
 export type IncomeFormState = {
   errors?: {
@@ -108,6 +109,69 @@ export async function createIncome(
   return {
     message: {
       text: dict.api.income.create.success,
+      type: "success",
+    },
+  };
+}
+export async function updateIncome(
+  earningId: string,
+  lang: AvailableLanguages,
+  prevState: IncomeFormState,
+  formData: FormData
+) {
+  const dict = await getDictionary(lang);
+
+  const session = await auth();
+  const userId = session?.user?.id as string;
+
+  const UpdateIncome = createSchema(dict).omit({ id: true });
+
+  // Validate form using Zod
+  const validatedFields = UpdateIncome.safeParse({
+    description: formData.get("description"),
+    date: formData.get("date"),
+    amount: formData.get("amount"),
+    categoryId: formData.get("categoryId"),
+    subCategoryId: formData.get("subCategoryId"),
+  });
+
+  // If form validation fails, return errors early. Otherwise, continue.
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  // Prepare data for insertion into the database
+  const { description, amount, date, categoryId, subCategoryId } =
+    validatedFields.data;
+
+  try {
+    await updateDbEarning({
+      id: earningId,
+      userId,
+      amount,
+      categoryId,
+      subCategoryId,
+      description,
+      date: new Date(date),
+    });
+    await updateLastUpdated({
+      userId,
+    });
+  } catch (error) {
+    return {
+      message: {
+        text: dict.api.income.update.error,
+        type: "error",
+      },
+    };
+  }
+  revalidatePath("/dashboard");
+
+  return {
+    message: {
+      text: dict.api.income.update.success,
       type: "success",
     },
   };

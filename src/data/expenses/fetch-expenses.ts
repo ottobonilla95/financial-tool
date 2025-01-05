@@ -1,6 +1,5 @@
 import { PrismaClient, Prisma } from "@prisma/client";
 import { Expense } from "@/src/types";
-import { format } from "date-fns";
 
 const prisma = new PrismaClient();
 
@@ -20,6 +19,7 @@ export type Data = {
   } | null;
   satisfaction: number | null;
   emotion: {
+    id: number;
     emotion_type: string;
     name: string;
     color: string | null;
@@ -54,6 +54,7 @@ export async function fetchExpenses({ filters }: FetchExpensesProps) {
         satisfaction: true,
         emotion: {
           select: {
+            id: true,
             emotion_type: true,
             name: true,
             color: true,
@@ -77,9 +78,16 @@ export async function fetchExpenses({ filters }: FetchExpensesProps) {
 }
 
 export const mapExpense = (expense: Data): Expense => {
+  const dateFromPrisma = new Date(expense.date?.toISOString() || "");
+  const correctDate = new Date(
+    dateFromPrisma.getUTCFullYear(),
+    dateFromPrisma.getUTCMonth(),
+    dateFromPrisma.getUTCDate()
+  );
+
   return {
     id: expense.id,
-    date: new Date(expense.date || ""),
+    date: correctDate,
     description: expense.description || "",
     amount: expense.amount,
     category: {
@@ -93,6 +101,7 @@ export const mapExpense = (expense: Data): Expense => {
     },
     satisfaction: expense.satisfaction || 0,
     emotion: {
+      id: expense.emotion?.id || 0,
       emotionType: expense.emotion?.emotion_type || "",
       name: expense.emotion?.name || "",
       color: expense.emotion?.color || "",

@@ -553,6 +553,10 @@
       "delete": {
         "error": "Error al eliminar el gasto.",
         "success": "Gasto eliminado con éxito."
+      },
+      "update": {
+        "error": "Error al actualizar el gasto.",
+        "success": "Gasto actualizado con éxito."
       }
     },
     "income": {
@@ -563,6 +567,10 @@
       "delete": {
         "error": "Error al eliminar la entrada de ingresos.",
         "success": "Ingreso eliminado con éxito."
+      },
+      "update": {
+        "error": "Error al actualizar la entrada de ingresos.",
+        "success": "Ingreso actualizado con éxito."
       }
     },
     "savings": {

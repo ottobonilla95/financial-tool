@@ -3,26 +3,19 @@
 import { Button } from "../../components/atoms";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { CreateExpenseForm } from "../expenses/create-form";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CreateIncomeForm } from "../income/create-form";
-import { Emotion } from "@/src/types";
 import { CreateSavingForm } from "../saving/create-form";
 import { AppDictionary } from "@/src/translations";
 import { DashboardDatePicker } from "./date-picker";
+import { DashboardContext } from "./provider";
 
 export type DashboardButtonsProps = {
-  emotions: Emotion[];
-  month: number;
   dict: AppDictionary;
-  year?: number;
 };
 
-export const DashboardButtons = async ({
-  emotions,
-  month,
-  dict,
-  year,
-}: DashboardButtonsProps) => {
+export const DashboardButtons = async ({ dict }: DashboardButtonsProps) => {
+  const { emotions, month, year } = useContext(DashboardContext);
   const [showCreateExpenseForm, setShowCreateExpenseForm] = useState(false);
   const [showCreateIncomeForm, setShowCreateIncomeForm] = useState(false);
   const [showCreateSavingForm, setShowCreateSavingForm] = useState(false);

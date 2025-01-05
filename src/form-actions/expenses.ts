@@ -4,16 +4,29 @@ import { z } from "zod";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { auth } from "@/auth";
 import { updateLastUpdated } from "../data/user";
-import { deleteDbExpense, createDbExpense } from "../data/expenses";
+import {
+  deleteDbExpense,
+  createDbExpense,
+  updateDbExpense,
+} from "../data/expenses";
 import { FormMessage } from "../types";
 import {
   AppDictionary,
   AvailableLanguages,
   getDictionary,
 } from "../translations";
-import { redirect } from "next/navigation";
 
 export type ExpenseFormState = {
+  errors?: {
+    description?: string[];
+    amount?: string[];
+    categoryId?: string[];
+    subCategoryId?: string[];
+    date?: string[];
+  };
+} & FormMessage;
+
+export type UpdateExpenseFormState = {
   errors?: {
     description?: string[];
     amount?: string[];
@@ -27,7 +40,7 @@ export type DeleteFormState = {
   errors?: {};
 } & FormMessage;
 
-const createFormSchema = (dict: AppDictionary) =>
+const expenseFormSchema = (dict: AppDictionary) =>
   z.object({
     id: z.string(),
     description: z
@@ -64,10 +77,7 @@ export async function createExpense(
   const session = await auth();
   const userId = session?.user?.id as string;
 
-  const CreateExpense = createFormSchema(dict).omit({ id: true });
-  console.log(formData)
-  console.log(formData)
-  console.log(formData)
+  const CreateExpense = expenseFormSchema(dict).omit({ id: true });
 
   // Validate form using Zod
   const validatedFields = CreateExpense.safeParse({
@@ -126,6 +136,81 @@ export async function createExpense(
   return {
     message: {
       text: dict.api.expenses.create.success,
+      type: "success",
+    },
+  };
+}
+export async function updateExpense(
+  expenseId: string,
+  lang: AvailableLanguages,
+  prevState: UpdateExpenseFormState,
+  formData: FormData
+) {
+  const dict = await getDictionary(lang);
+
+  const session = await auth();
+  const userId = session?.user?.id as string;
+
+  const UpdateExpense = expenseFormSchema(dict).omit({ id: true });
+
+  // Validate form using Zod
+  const validatedFields = UpdateExpense.safeParse({
+    description: formData.get("description"),
+    date: formData.get("date"),
+    amount: formData.get("amount"),
+    categoryId: formData.get("categoryId"),
+    subCategoryId: formData.get("subCategoryId"),
+    satisfaction: formData.get("satisfaction"),
+    emotionId: formData.get("emotionId"),
+  });
+
+  // If form validation fails, return errors early. Otherwise, continue.
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  // Prepare data for insertion into the database
+  const {
+    description,
+    amount,
+    date,
+    categoryId,
+    subCategoryId,
+    satisfaction,
+    emotionId,
+  } = validatedFields.data;
+
+  try {
+    await updateDbExpense({
+      id: expenseId,
+      userId,
+      amount,
+      categoryId,
+      subCategoryId,
+      description,
+      date: new Date(date),
+      satisfaction: Number(satisfaction),
+      emotionId: Number(emotionId),
+    });
+
+    await updateLastUpdated({
+      userId,
+    });
+  } catch (error) {
+    return {
+      message: {
+        text: dict.api.expenses.update.error,
+        type: "error",
+      },
+    };
+  }
+  revalidatePath("/en/dashboard?month=5&year=2024");
+
+  return {
+    message: {
+      text: dict.api.expenses.update.success,
       type: "success",
     },
   };

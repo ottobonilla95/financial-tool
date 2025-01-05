@@ -14,6 +14,7 @@ import {
   ExpensesByDayGraph,
   ExpenseTotalsPerCategory,
   ExpensesByDayTableContainer,
+  DashboardProvider,
 } from "@/src/ui/financial-app/dashboard";
 import { Suspense } from "react";
 import { fetchEarnings } from "@/src/data/earning";
@@ -235,86 +236,90 @@ export default async function Page({
       }}
     >
       <IntlProvider dict={dict} lang={lang}>
-        <TourProvider>
-          <main>
-            {!tourFinished && <TourInitiator />}
-            <Suspense fallback={<div>loading...</div>}>
-              <LastUpdated dict={dict} />
-            </Suspense>
-            <div className="h-5" />
-            <div className="px-6 md:px-12 pb-12">
-              <div className="tour-step-0">
-                <Suspense fallback={<Spinner className="w-5" />}>
-                  <DashboardButtons
-                    emotions={emotions}
-                    month={month}
-                    dict={dict}
-                    year={
-                      searchParams.year ? Number(searchParams.year) : undefined
-                    }
-                  />
-                </Suspense>
-              </div>
+        <DashboardProvider
+          emotions={emotions}
+          month={month}
+          year={searchParams.year ? Number(searchParams.year) : undefined}
+        >
+          <TourProvider>
+            <main>
+              {!tourFinished && <TourInitiator />}
+              <Suspense fallback={<div>loading...</div>}>
+                <LastUpdated dict={dict} />
+              </Suspense>
+              <div className="h-5" />
+              <div className="px-6 md:px-12 pb-12">
+                <div className="tour-step-0">
+                  <Suspense fallback={<Spinner className="w-5" />}>
+                    <DashboardButtons dict={dict} />
+                  </Suspense>
+                </div>
 
-              <DashboardTotals
-                expenses={expensesCurrent}
-                earnings={earningsCurrent}
-                earningsPrevious={earningsPrevious}
-                savings={savingsCurrent}
-                savingsPrevious={savingsPrevious}
-                dict={dict}
-                expensesPrevious={expensesPrevious}
-              />
+                <DashboardTotals
+                  expenses={expensesCurrent}
+                  earnings={earningsCurrent}
+                  earningsPrevious={earningsPrevious}
+                  savings={savingsCurrent}
+                  savingsPrevious={savingsPrevious}
+                  dict={dict}
+                  expensesPrevious={expensesPrevious}
+                />
 
-              {expensesCurrent.length > 0 && (
-                <div className="flex gap-4 flex-col lg:flex-row">
-                  {isPremium && (
+                {expensesCurrent.length > 0 && (
+                  <div className="flex gap-4 flex-col lg:flex-row">
+                    {isPremium && (
+                      <div className="flex-1">
+                        <DashboardExpeneseByEmotion
+                          expenses={expensesCurrent}
+                          dict={dict}
+                        />
+                        <DashboardExpeneseBySatisfaction
+                          expenses={expensesCurrent}
+                          dict={dict}
+                        />
+                      </div>
+                    )}
+
                     <div className="flex-1">
-                      <DashboardExpeneseByEmotion
-                        expenses={expensesCurrent}
-                        dict={dict}
-                      />
-                      <DashboardExpeneseBySatisfaction
-                        expenses={expensesCurrent}
-                        dict={dict}
-                      />
-                    </div>
-                  )}
-
-                  <div className="flex-1">
-                    <div className="w-full ">
-                      <ExpensesPieChart
-                        expenses={expensesCurrent}
-                        currency={currency as Currency}
-                      />
+                      <div className="w-full ">
+                        <ExpensesPieChart
+                          expenses={expensesCurrent}
+                          currency={currency as Currency}
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {expensesCurrent.length > 0 && isPremium && (
-                <>
-                  <div className="h-5" />
-                  <ExpenseTotalsPerCategory
-                    expenses={expensesCurrent}
-                    expensesPrevious={expensesPrevious}
-                    dict={dict}
-                  />
-                </>
-              )}
+                {expensesCurrent.length > 0 && isPremium && (
+                  <>
+                    <div className="h-5" />
+                    <ExpenseTotalsPerCategory
+                      expenses={expensesCurrent}
+                      expensesPrevious={expensesPrevious}
+                      dict={dict}
+                    />
+                  </>
+                )}
 
-              {expensesCurrent.length > 0 && (
-                <div className="py-5">
-                  <ExpensesByDayGraph expenses={expensesCurrent} dict={dict} />
-                </div>
-              )}
+                {expensesCurrent.length > 0 && (
+                  <div className="py-5">
+                    <ExpensesByDayGraph
+                      expenses={expensesCurrent}
+                      dict={dict}
+                    />
+                  </div>
+                )}
 
-              {savingsCurrent.length > 0 && (
-                <div>
-                  <SavingTableContainer savings={savingsCurrent} dict={dict} />
-                </div>
-              )}
-              {/* {earningsCurrent.length > 0 && (
+                {savingsCurrent.length > 0 && (
+                  <div>
+                    <SavingTableContainer
+                      savings={savingsCurrent}
+                      dict={dict}
+                    />
+                  </div>
+                )}
+                {/* {earningsCurrent.length > 0 && (
                 <div>
                   <IncomeTableContainer
                     earnings={earningsCurrent}
@@ -322,28 +327,30 @@ export default async function Page({
                   />
                 </div>
               )} */}
-              {expensesCurrent.length > 0 && (
-                <div>
-                  {/* <ExpensesByCategoryTableContainer
+                {expensesCurrent.length > 0 && (
+                  <div>
+                    {/* <ExpensesByCategoryTableContainer
                     expenses={expensesCurrent}
                     dict={dict}
                     isPremium={isPremium}
                   /> */}
-                  <ExpensesByDayTableContainer
-                    expenses={expensesCurrent}
-                    earnings={earningsCurrent}
-                    dict={dict}
-                    isPremium={isPremium}
-                  />
-                </div>
-              )}
+                    <ExpensesByDayTableContainer
+                      expenses={expensesCurrent}
+                      earnings={earningsCurrent}
+                      dict={dict}
+                      isPremium={isPremium}
+                    />
+                  </div>
+                )}
 
-              {expensesCurrent.length === 0 && earningsCurrent.length === 0 && (
-                <NoExpensesAdded dict={dict} />
-              )}
-            </div>
-          </main>
-        </TourProvider>
+                {expensesCurrent.length === 0 &&
+                  earningsCurrent.length === 0 && (
+                    <NoExpensesAdded dict={dict} />
+                  )}
+              </div>
+            </main>
+          </TourProvider>
+        </DashboardProvider>
       </IntlProvider>
     </AppProvider>
   );
