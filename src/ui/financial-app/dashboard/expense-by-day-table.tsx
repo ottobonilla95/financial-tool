@@ -30,7 +30,7 @@ export const ExpenseByDayTable = ({
   dict,
   isPremium,
 }: ExpenseByDayTableProps) => {
-  console.log('records', records)
+  console.log("records", records);
   const { emotions, month, year } = useContext(DashboardContext);
 
   const { currency } = useContext(AppContext);
@@ -176,7 +176,10 @@ export const ExpenseByDayTable = ({
               {isXs ? (
                 abbreviateCurrency(record.amount, currency.symbol)
               ) : (
-                <Price amount={record.amount} />
+                <>
+                  <Price amount={record.amount} />
+                  {record.date.toISOString()}
+                </>
               )}
             </div>
             <div className="flex justify-end gap-2">
