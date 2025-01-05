@@ -63,7 +63,7 @@ export const ExpenseTable = ({
               <div key={expense.id} className="grid grid-cols-4 py-2 px-4">
                 <div className="font-medium">{expense.description}</div>
                 <div className="col-span-2 text-center">
-                  {format(expense.date, "EEE dd")}
+                  {format(expense.date || "", "EEE dd")}
                 </div>
                 <div className="flex justify-end"> {expense.amount}</div>
               </div>
