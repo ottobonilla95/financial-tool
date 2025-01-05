@@ -64,9 +64,11 @@ export async function fetchEarnings({ filters }: FetchEarningProps) {
 export const mapEarning = (earning: Data): Earning => {
   const dateFromPrisma = new Date(earning.date?.toISOString() || "");
   const correctDate = new Date(
-    dateFromPrisma.getUTCFullYear(),
-    dateFromPrisma.getUTCMonth(),
-    dateFromPrisma.getUTCDate()
+    Date.UTC(
+      dateFromPrisma.getUTCFullYear(),
+      dateFromPrisma.getUTCMonth(),
+      dateFromPrisma.getUTCDate()
+    )
   );
 
   return {

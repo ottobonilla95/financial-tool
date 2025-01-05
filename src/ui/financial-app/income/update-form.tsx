@@ -48,7 +48,7 @@ export const UpdateIncomeForm = ({
   const lastDayOfSelectedMonth = new Date(currentYear, month, 0); // Last day of the month
   const maxDate = isCurrentMonth ? new Date() : lastDayOfSelectedMonth;
 
-  const [startDate, setStartDate] = useState<Date | undefined>(earning.date);
+  const [startDate, setStartDate] = useState<Date>(earning.date);
 
   const [subCategories, setSubCategories] = useState<
     { name: string; id: string }[]
@@ -327,7 +327,13 @@ export const UpdateIncomeForm = ({
                   <div className="relative mt-2 rounded-md">
                     <div className="relative">
                       <DatePicker
-                        selected={startDate}
+                        selected={
+                          new Date(
+                            startDate.getUTCFullYear(),
+                            startDate.getUTCMonth(),
+                            startDate.getUTCDate()
+                          )
+                        }
                         onChange={(date) => setStartDate(date as Date)}
                         maxDate={maxDate}
                         minDate={firstDayOfSelectedMonth}
