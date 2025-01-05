@@ -164,6 +164,11 @@ export const UpdateExpenseForm = ({
     }
   };
 
+  const utdDate = new Date(
+    startDate.getUTCFullYear(),
+    startDate.getUTCMonth(),
+    startDate.getUTCDate()
+  );
   if (!renderForm) {
     return null;
   }
@@ -426,13 +431,7 @@ export const UpdateExpenseForm = ({
                   <div className="relative mt-2 rounded-md">
                     <div className="relative">
                       <DatePicker
-                        selected={
-                          new Date(
-                            startDate.getUTCFullYear(),
-                            startDate.getUTCMonth(),
-                            startDate.getUTCDate()
-                          )
-                        }
+                        selected={utdDate}
                         onChange={(date) => setStartDate(date as Date)}
                         maxDate={maxDate}
                         minDate={firstDayOfSelectedMonth}
@@ -446,7 +445,7 @@ export const UpdateExpenseForm = ({
                       <input
                         type="hidden"
                         name="date"
-                        value={startDate ? formatDateToLocal(startDate) : ""}
+                        value={formatDateToLocal(utdDate)}
                         disabled={loading}
                       />
                     </div>
