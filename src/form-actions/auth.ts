@@ -228,11 +228,6 @@ export async function createUser(
       },
     });
 
-    console.log("aca5555555555555555");
-    console.log("aca5555555555555555");
-    console.log("aca5555555555555555");
-    console.log("aca5555555555555555");
-
     if (user) {
       if (user.fullySignedUp) {
         redirect(`/login?email=${email}`);
@@ -245,24 +240,8 @@ export async function createUser(
       lang,
     });
 
-    console.log("aca66666666666666666666666666");
-    console.log("aca66666666666666666666666666");
-    console.log("aca66666666666666666666666666");
-    console.log("aca66666666666666666666666666");
-    console.log("aca66666666666666666666666666");
-    console.log("aca66666666666666666666666666");
-
     redirect(`/pricing?email=${email}`);
   } catch (error) {
-    console.log("errorerrorerrorerrorerrorerrorerrorerrorerrorerrorerror");
-    console.log("errorerrorerrorerrorerrorerrorerrorerrorerrorerrorerror");
-    console.log("errorerrorerrorerrorerrorerrorerrorerrorerrorerrorerror");
-    console.log("errorerrorerrorerrorerrorerrorerrorerrorerrorerrorerror");
-    console.log("errorerrorerrorerrorerrorerrorerrorerrorerrorerrorerror");
-    console.log(error);
-    console.log(error);
-    console.log(error);
-    console.log(error);
     throw error;
   }
 }
