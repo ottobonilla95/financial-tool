@@ -228,36 +228,29 @@
         {
           "subtitle": "",
           "content": [
-            "Si aún no nos conocemos, soy Otto 👋",
-            "Durante años, pensé que ganar más dinero resolvería todos mis problemas. Pero cuanto más ganaba, más gastaba.",
-            "Los aumentos de sueldo parecían desaparecer de la noche a la mañana, y seguía viviendo de cheque en cheque. No era imprudente, ni siquiera sabía a dónde se iba mi dinero, pero de alguna manera, siempre desaparecía.",
-            "En ese momento, no pensaba mucho en rastrear gastos. Supuse que no era necesario, ¿verdad? Pero la verdad era que no tenía idea de lo que realmente estaba pasando con mi dinero."
+            "Hola, soy Otto 👋",
+            "Por años pensé que ganar más dinero resolvería mis problemas, pero cuanto más ganaba, más gastaba. Vivía de cheque en cheque sin saber a dónde se iba mi dinero.",
+            "Nunca pensé en rastrear mis gastos, pero la verdad era que no tenía idea de lo que ocurría con mi dinero."
           ]
         },
         {
           "subtitle": "El Punto de Cambio:",
           "content": [
-            "Un día, decidí que algo tenía que cambiar.",
-            "Tomé un libro de finanzas personales, pensando que solo me ayudaría a ahorrar más. Lo que aprendí cambió completamente mi perspectiva.",
-            "Me di cuenta de que no estaba manejando mi dinero; estaba dejando que él me manejara a mí. Comencé eliminando gastos innecesarios: suscripciones sin usar, compras impulsivas y hábitos que no agregaban un valor real a mi vida.",
-            "Pero el verdadero cambio vino cuando comencé a rastrear mis gastos. Por primera vez, pude ver exactamente a dónde iba mi dinero. Noté cómo mis hábitos de gasto cambiaban con mi estilo de vida: mudarme a un nuevo lugar, viajar o incluso estar en una relación hacía una gran diferencia.",
-            "Y luego estaban mis emociones. Estrés, emoción, aburrimiento: todas jugaban un papel en cómo gastaba mi dinero."
+            "Un día decidí cambiar. Al leer sobre finanzas personales, entendí que no manejaba mi dinero; él me manejaba a mí.",
+            "Eliminé gastos innecesarios y comencé a rastrear mis gastos. Esto me mostró cómo mi estilo de vida y emociones como el estrés o el aburrimiento influían en mis hábitos de consumo."
           ]
         },
         {
           "subtitle": "El Descubrimiento:",
           "content": [
-            "El rastreo me dio claridad. Me ayudó a conectar los puntos entre mis ingresos, mis gastos y mis emociones. Finalmente vi los patrones que me estaban frenando y comencé a tomar mejores decisiones.",
-            "Con el tiempo, ahorré más, gasté menos impulsivamente y dejé de sentir que siempre estaba persiguiendo mi próximo cheque de pago.",
-            "Esto no se trataba solo de presupuestar, se trataba de entenderme a mí mismo. Esa claridad me dio control sobre mi dinero y mi vida.",
-            "Y sabía que no era el único que luchaba con esto. Por eso creé Trackmyspend."
+            "Rastrear mis gastos me dio claridad para entender mis ingresos, gastos y emociones. Descubrí patrones, tomé mejores decisiones y recuperé el control de mi dinero y mi vida.",
+            "Ahorré más, gasté menos impulsivamente y dejé de vivir persiguiendo el próximo cheque. Por eso creé esta herramienta."
           ]
         },
         {
           "subtitle": "La Solución:",
           "content": [
-            "Esto no es solo un rastreador de gastos. Es una herramienta que te ayuda a ver cómo tus hábitos financieros están conectados con tus emociones y tu estilo de vida.",
-            "Con ella, obtendrás claridad, tomarás mejores decisiones y finalmente sentirás que tienes el control de tus finanzas, sin importar cuánto ganes."
+            "Esta herramienta va más allá de rastrear gastos: conecta tus hábitos financieros con tus emociones y estilo de vida, dándote claridad y control sobre tus finanzas."
           ]
         }
       ]
@@ -633,7 +626,7 @@
     "title1": "Descubre qué pasa con tu dinero.",
     "title2": "Transforma",
     "title3": "tus hábitos para siempre.",
-    "heroText": "El único rastreador de gastos que te ayuda a descubrir los desencadenantes emocionales detrás de tus hábitos de consumo. Obtén claridad, control y confianza con herramientas diseñadas para hacer que presupuestar sea sencillo y significativo.",
+    "heroText": "La única herramienta que revela los desencadenantes emocionales de tus gastos.",
     "chooseYourPlan": "Elige tu plan",
     "mostPopular": "Más popular",
     "warrenBuffetQuote": "No ahorres lo que te queda después de gastar, gasta lo que te queda después de ahorrar.",

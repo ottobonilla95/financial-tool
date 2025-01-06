@@ -212,36 +212,28 @@
         {
           "subtitle": "",
           "content": [
-            "If we haven’t met yet, I’m Otto 👋",
-            "For years, I thought earning more money would solve all my problems. But the more I earned, the more I spent.",
-            "Pay raises felt like they disappeared overnight, and I was still living paycheck to paycheck. I wasn’t reckless—I wasn’t even sure where my money was going—but somehow, it was always gone.",
-            "At the time, I didn’t think much about tracking expenses. I assumed it wasn’t necessary—I wasn’t overspending, right? But the truth was, I had no idea what was really happening with my money."
+            "Hi, I’m Otto 👋",
+            "For years, I thought earning more would fix everything, but the more I earned, the more I spent. Pay raises vanished quickly, and I was still living paycheck to paycheck without knowing where my money was going."
           ]
         },
         {
           "subtitle": "The Turning Point:",
           "content": [
-            "One day, I decided something had to change.",
-            "I picked up a personal finance book, thinking it would just help me save more. What I learned completely changed my perspective.",
-            "I realized I wasn’t managing my money—I was letting it manage me. I started by cutting unnecessary expenses: unused subscriptions, impulse purchases, and habits that didn’t add real value to my life.",
-            "But the real shift came when I began tracking my expenses. For the first time, I could see exactly where my money was going. I noticed how my spending habits changed with my lifestyle—moving to a new place, traveling, or even being in a relationship all made a big difference.",
-            "And then there were my emotions. Stress, excitement, boredom—they all played a role in how I spent my money."
+            "One day, I realized I had to change. A personal finance book shifted my perspective completely.",
+            "I cut unnecessary expenses like unused subscriptions and impulse buys. The big change came when I started tracking my expenses, noticing how lifestyle changes and emotions like stress or excitement impacted my spending."
           ]
         },
         {
           "subtitle": "The Breakthrough:",
           "content": [
-            "Tracking gave me clarity. It helped me connect the dots between my income, my spending, and my emotions. I finally saw the patterns that were holding me back, and I started making better decisions.",
-            "Over time, I saved more, spent less impulsively, and stopped feeling like I was always chasing my next paycheck.",
-            "This wasn’t just about budgeting—it was about understanding myself. That clarity gave me control over my money and my life.",
-            "And I knew I wasn’t the only one struggling with this. That’s why I created Trackmyspend."
+            "Tracking brought clarity. I connected my income, spending, and emotions, identified patterns holding me back, and made better decisions.",
+            "I saved more, spent less impulsively, and regained control of my finances and life. That’s why I created this tool to help others facing similar struggles."
           ]
         },
         {
           "subtitle": "The Solution:",
           "content": [
-            "This isn’t just an expense tracker. It’s a tool that helps you see how your money habits are connected to your emotions and your lifestyle.",
-            "With it, you’ll gain clarity, make better decisions, and finally feel in control of your finances—no matter how much you earn."
+            "This isn’t just a tracker. It’s a tool to understand how your money habits link to your emotions and lifestyle, helping you gain clarity and control—no matter your income."
           ]
         }
       ]
@@ -625,7 +617,7 @@
     "title1": "Discover What’s Happening with Your Money.",
     "title2": "Transform",
     "title3": "Your Habits Forever.",
-    "heroText": "The only expense tracker that helps you uncover the emotional triggers behind your spending habits. Gain clarity, control, and confidence with tools designed to make budgeting effortless and meaningful.",
+    "heroText": "The only expense tracker that helps you uncover the emotional triggers behind your spending habits.",
     "chooseYourPlan": "Choose Your Plan",
     "mostPopular": "Most Popular",
     "warrenBuffetQuote": "Do not save what is left after spending, but spend what is left after saving.",

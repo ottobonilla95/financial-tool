@@ -50,11 +50,9 @@ export default async function AboutUsPage({
               {dict.pricingPage.title3}
             </span> */}
           </h1>
-          <div className="flex justify-center mt-5 text-lg">
+          <div className="flex justify-center mt-5 text-lg mb-2">
             <div className="sm:max-w-2xl ">
-              <p className="text-center mt-5 mb-5">
-                {dict.pricingPage.heroText}
-              </p>
+              <p className="text-center mb-5">{dict.pricingPage.heroText}</p>
 
               <div className="flex justify-center">
                 <img
@@ -81,10 +79,17 @@ export default async function AboutUsPage({
             </Button>
           </div>
         </Container>
+
         <Container variant="full">
           <Testimonials dict={dict} />
         </Container>
 
+        <Container className="mb-20 sm:mb-20">
+          <h2 className="text-4xl font-bold sm:pb-12 text-center pt-4 xl:pt-8">
+            {dict.pricingPage.chooseYourPlan}
+          </h2>
+          <Pricing dict={dict} lang={lang} email={email} offer={offer as any} />
+        </Container>
         <Container variant="narrow">
           {/* Introduction Section */}
 
