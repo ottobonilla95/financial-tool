@@ -506,6 +506,8 @@
     "lifetime": "De por vida",
     "premium": "Premium",
     "free": "Gratuíto",
+    "monthly": "Mensual",
+    "yearly": "Anual",
     "noPlanFallback": "No tienes un plan activo."
   },
   "privacyPolicyPage": {

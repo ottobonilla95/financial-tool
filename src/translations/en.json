@@ -497,6 +497,8 @@
     "premium": "Premium",
     "lifetime": "Lifetime",
     "free": "Free",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
     "noPlanFallback": " You don't have a plan"
   },
   "privacyPolicyPage": {

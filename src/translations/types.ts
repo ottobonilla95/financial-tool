@@ -334,6 +334,8 @@ export type AppDictionary = {
     lifetime: string;
     premium: string;
     free: string;
+    monthly: string;
+    yearly: string;
     noPlanFallback: string;
   };
   privacyPolicyPage: {
