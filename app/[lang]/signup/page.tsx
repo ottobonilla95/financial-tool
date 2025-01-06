@@ -27,7 +27,7 @@ export default async function SignupPage({
             currencies={currencies}
             plan={plan as SubscriptionPlan}
             email={email}
-            offer={offer}
+            offer={offer as any}
           />
         </Container>
       </div>
