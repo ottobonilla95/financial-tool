@@ -41,7 +41,6 @@ model users {
   subscription_id        String?
   subscription_cancel_at Int?               @default(0)
   stripeId               String?            @unique
-  systemeio_id           String?
   earning                earning[]
   earning_category       earning_category[]
   expense_category       expense_category[]
