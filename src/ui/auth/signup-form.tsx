@@ -2,7 +2,6 @@
 
 import { lusitana } from "@/src/styles/fonts";
 import {
-  AtSymbolIcon,
   KeyIcon,
   ExclamationCircleIcon,
   UserIcon,
@@ -14,7 +13,7 @@ import {
   ComleteUserCreationUserFormState,
   completeUserCreation,
 } from "@/src/form-actions/auth";
-import { Currency } from "@/src/types";
+import { Currency, OfferType } from "@/src/types";
 import { useTranslations } from "@/src/translations/use-translations";
 import { SubscriptionPlan, pricingPlans } from "../financial-app/pricing";
 import { IntlContext } from "@/src/translations/provider";
@@ -26,17 +25,27 @@ export type SignupFormPropd = {
   currencies: Currency[];
   plan: SubscriptionPlan;
   email: string;
+  offer?: OfferType;
 };
 
-export const SignupForm = ({ currencies, plan, email }: SignupFormPropd) => {
+export const SignupForm = ({
+  currencies,
+  plan,
+  email,
+  offer,
+}: SignupFormPropd) => {
   const { dict } = useContext(IntlContext);
   const initialState: ComleteUserCreationUserFormState = {
     message: {},
     errors: {},
   };
-  const paymentLink = pricingPlans.find(
+  const pricingPlansToUse =
+    pricingPlans[offer || "default"] || pricingPlans["default"];
+
+  const paymentLink = pricingPlansToUse.find(
     (p) => p.planName === plan
   )?.paymentLink;
+
   const { lang } = useTranslations();
   const createUserAction = completeUserCreation.bind(null, lang, paymentLink);
   const { pending: isPending } = useFormStatus();

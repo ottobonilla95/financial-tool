@@ -5,7 +5,7 @@ import clsx from "clsx";
 import { Button } from "../../components";
 import { useRouter } from "next/navigation";
 import { pricingPlans, SubscriptionPlan } from "./plans";
-import { User } from "@/src/types";
+import { OfferType, User } from "@/src/types";
 import { AppDictionary } from "@/src/translations";
 import { BanknotesIcon, CheckIcon } from "@heroicons/react/24/solid";
 
@@ -15,6 +15,7 @@ export type PricingProps = {
   lang: string;
   dict: AppDictionary;
   email?: string;
+  offer?: OfferType;
 };
 export const Pricing = ({
   currenSubscriptionPlan,
@@ -22,7 +23,11 @@ export const Pricing = ({
   lang,
   dict,
   email,
+  offer,
 }: PricingProps) => {
+  const pricingPlansToUse =
+    pricingPlans[offer || "default"] || pricingPlans["default"];
+
   const router = useRouter();
 
   const onButtonClick = (plan: string) => {
@@ -31,9 +36,12 @@ export const Pricing = ({
       if (email) {
         url += `&email=${email}`;
       }
+      if (offer) {
+        url += `&offer=${offer}`;
+      }
       router.push(url);
     } else {
-      const selectedPlan = pricingPlans.find((p) => p.planName === plan);
+      const selectedPlan = pricingPlansToUse.find((p) => p.planName === plan);
 
       const paymentUrl = `${selectedPlan?.paymentLink}?client_reference_id=${user.id}&prefilled_email=${user.email}&locale=${lang}`;
 
@@ -43,7 +51,7 @@ export const Pricing = ({
 
   return (
     <div className="flex flex-col sm:flex-row sm:justify-center gap-4 sm:px-0">
-      {pricingPlans.map((plan, index) => {
+      {pricingPlansToUse.map((plan, index) => {
         const alreadySelected = plan.planName === currenSubscriptionPlan;
         return (
           <div

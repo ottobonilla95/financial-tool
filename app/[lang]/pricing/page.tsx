@@ -22,11 +22,11 @@ export async function generateMetadata({
 
 export type AboutUsPageProps = {
   params: { lang: AvailableLanguages };
-  searchParams: { email: string };
+  searchParams: { email: string; offer: string };
 };
 export default async function AboutUsPage({
   params: { lang },
-  searchParams: { email },
+  searchParams: { email, offer },
 }: AboutUsPageProps) {
   const dict = await getDictionary(lang);
 
@@ -141,7 +141,7 @@ export default async function AboutUsPage({
           <h2 className="text-4xl font-bold pb-8 sm:pb-12 text-center pt-4 xl:pt-8">
             {dict.pricingPage.chooseYourPlan}
           </h2>
-          <Pricing dict={dict} lang={lang} email={email} />
+          <Pricing dict={dict} lang={lang} email={email} offer={offer as any} />
 
           <div className="h-10" />
         </Container>

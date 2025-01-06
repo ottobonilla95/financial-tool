@@ -5,6 +5,7 @@ export * from "./shared";
 export * from "./earning";
 export * from "./emotion";
 export * from "./currency";
+export * from "./offer";
 export * from "./saving";
 export * from "./contact";
 export * from "./pricing";
