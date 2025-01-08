@@ -25,6 +25,7 @@ async function getUser(email: string): Promise<User | undefined> {
           },
         },
         tour_finished: true,
+        fully_signed_up: true,
       },
     });
 
@@ -53,6 +54,9 @@ export const { auth, signIn, signOut } = NextAuth({
           const user = await getUser(email);
 
           if (!user) return null;
+
+          if (!user.fullySignedUp) return null;
+
           const passwordsMatch = await bcrypt.compare(
             password,
             user.password as string

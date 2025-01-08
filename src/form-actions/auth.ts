@@ -316,11 +316,11 @@ export async function completeUserCreation(
 
     userCreatedId = (user as User).id as string;
 
-    await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
+    // await signIn("credentials", {
+    //   email,
+    //   password,
+    //   redirect: false,
+    // });
   } catch (error) {
     throw error;
   }
