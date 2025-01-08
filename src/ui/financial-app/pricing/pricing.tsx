@@ -81,20 +81,30 @@ export const Pricing = ({
                     {dict.pricingPage.free}
                   </p>
                 ) : (
-                  <>
-                    <p className="text-4xl font-bold mb-4">
-                      {plan.price === "free" ? "Free" : `US ${plan.price}`}
-                    </p>
+                  <div>
+                    {plan.isDiscount && (
+                      <div className="flex relative">
+                        <p className="text-xl font-bold mb-4">
+                          <span className="line-through opacity-70 mr-2">{`US ${plan.originalPrice}`}</span>
+                        </p>
+                      </div>
+                    )}
 
-                    <div className="flex flex-col opacity-80 text-xs leading-[18px] pl-1">
-                      <span className="">{dict.pricingPage.per}</span>
-                      <span className="">
-                        {plan.planName === "monthly"
-                          ? dict.pricingPage.month
-                          : dict.pricingPage.year}
-                      </span>
+                    <div className="flex">
+                      <p className="text-4xl font-bold mb-4">
+                        {plan.price === "free" ? "Free" : `US ${plan.price}`}
+                      </p>
+
+                      <div className="flex flex-col opacity-80 text-xs leading-[18px] pl-1">
+                        <span className="">{dict.pricingPage.per}</span>
+                        <span className="">
+                          {plan.planName === "monthly"
+                            ? dict.pricingPage.month
+                            : dict.pricingPage.year}
+                        </span>
+                      </div>
                     </div>
-                  </>
+                  </div>
                 )}
               </div>
 

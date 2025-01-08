@@ -9,6 +9,8 @@ export type PricingPlan = {
   period: string;
   planName: SubscriptionPlan;
   paymentLink?: string;
+  isDiscount?: boolean;
+  originalPrice?: string;
 };
 
 export const pricingPlans: {
@@ -65,6 +67,8 @@ export const pricingPlans: {
       planName: "monthly",
       paymentLink:
         process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PLAN_PAYMENT_LINK_20_PERCENT,
+      isDiscount: true,
+      originalPrice: "$4.99",
     },
     {
       title: "yearly",
@@ -77,6 +81,8 @@ export const pricingPlans: {
       paymentLink:
         process.env
           .NEXT_PUBLIC_STRIPE_YEARLY_PREMIUM_PLAN_PAYMENT_LINK_20_PERCENT,
+      isDiscount: true,
+      originalPrice: "$49",
     },
   ],
 };
