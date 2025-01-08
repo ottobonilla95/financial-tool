@@ -16,14 +16,6 @@ export type StartFormProps = {
 };
 
 export const StartForm = ({ dict, lang, offer }: StartFormProps) => {
-
-  console.log(offer)
-  console.log(offer)
-  console.log(offer)
-  console.log(offer)
-  console.log(offer)
-  console.log(offer)
-  console.log(offer)
   const initialState: CreateUserFormState = { message: {}, errors: {} };
 
   const createUserAction = createUser.bind(null, lang, offer);
