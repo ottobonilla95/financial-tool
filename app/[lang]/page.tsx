@@ -13,12 +13,17 @@ import {
   StartForm,
 } from "@/src/ui/financial-app/home-page";
 import FAQs from "@/src/ui/faqs/faqs";
+import { OfferType } from "@/src/types";
 
 export type MainPageProps = {
   params: { lang: AvailableLanguages };
+  searchParams: { offer: OfferType };
 };
 
-export default async function MainPage({ params: { lang } }: MainPageProps) {
+export default async function MainPage({
+  params: { lang },
+  searchParams: { offer },
+}: MainPageProps) {
   const dict = await getDictionary(lang);
 
   return (
@@ -70,7 +75,7 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
 
                 <div className="xl:flex">
                   <div className="flex items-center flex-col">
-                    <StartForm dict={dict} lang={lang} />
+                    <StartForm dict={dict} lang={lang} offer={offer} />
                   </div>
                 </div>
               </div>
@@ -129,7 +134,7 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
                     />
                   </div>
 
-                  <StartForm dict={dict} lang={lang} />
+                  <StartForm dict={dict} lang={lang} offer={offer} />
 
                   <div>
                     <img
@@ -163,7 +168,7 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
               </div>
 
               <div className="flex mt-4 sm:mt-8 mb-4 justify-center sm:justify-start w-full sm:w-auto">
-                <StartForm dict={dict} lang={lang} />
+                <StartForm dict={dict} lang={lang} offer={offer} />
               </div>
               <div>
                 <img

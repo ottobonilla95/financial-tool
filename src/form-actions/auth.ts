@@ -233,14 +233,12 @@ export async function createUser(
       },
     });
 
+    let pricingUrl = `/pricing?email=${email}`;
+    if (offer) {
+      pricingUrl += `&offer=${offer}`;
+    }
+
     if (user) {
-      if (user.fullySignedUp) {
-        redirect(`/login?email=${email}`);
-      }
-      let pricingUrl = `/pricing?email=${email}`;
-      if (offer) {
-        pricingUrl += `&offer=${offer}`;
-      }
       redirect(pricingUrl);
     }
 
@@ -249,7 +247,7 @@ export async function createUser(
       lang,
     });
 
-    redirect(`/pricing?email=${email}`);
+    redirect(pricingUrl);
   } catch (error) {
     throw error;
   }
