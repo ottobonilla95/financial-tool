@@ -2,7 +2,7 @@
 
 import { auth, signIn } from "@/auth";
 import { AuthError } from "next-auth";
-import { FormMessage, User } from "../types";
+import { FormMessage, OfferType, User } from "../types";
 import { z } from "zod";
 import { createDbUser, getDBUser, updateDBUser } from "../data/user";
 import bcrypt from "bcrypt";
@@ -136,6 +136,7 @@ export async function authenticate(
 
 export async function createUser(
   lang: AvailableLanguages,
+  offer: OfferType | undefined,
   prevState: CreateUserFormState,
   formData: FormData
 ) {
@@ -236,7 +237,11 @@ export async function createUser(
       if (user.fullySignedUp) {
         redirect(`/login?email=${email}`);
       }
-      redirect(`/pricing?email=${email}`);
+      let pricingUrl = `/pricing?email=${email}`;
+      if (offer) {
+        pricingUrl += `&offer=${offer}`;
+      }
+      redirect(pricingUrl);
     }
 
     await createDbUser({

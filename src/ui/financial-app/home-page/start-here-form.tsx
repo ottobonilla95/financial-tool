@@ -7,16 +7,18 @@ import { useFormState, useFormStatus } from "react-dom";
 import { SubmitButton } from "../../forms";
 import { AtSymbolIcon } from "@heroicons/react/24/outline";
 import { FireIcon } from "@heroicons/react/24/solid";
+import { OfferType } from "@/src/types";
 
 export type StartFormProps = {
   dict: AppDictionary;
   lang: AvailableLanguages;
+  offer?: OfferType;
 };
 
-export const StartForm = ({ dict, lang }: StartFormProps) => {
+export const StartForm = ({ dict, lang, offer }: StartFormProps) => {
   const initialState: CreateUserFormState = { message: {}, errors: {} };
 
-  const createUserAction = createUser.bind(null, lang);
+  const createUserAction = createUser.bind(null, lang, offer);
 
   const { pending: isPending } = useFormStatus();
   const [state, formAction] = useFormState(createUserAction, initialState);
