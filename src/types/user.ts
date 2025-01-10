@@ -13,4 +13,5 @@ export type User = {
   stripeId?: string;
   subscriptionId?: string;
   fullySignedUp: boolean;
+  pricingGroup: string;
 };

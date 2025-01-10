@@ -41,6 +41,7 @@ model users {
   subscription_id        String?
   subscription_cancel_at Int?               @default(0)
   stripeId               String?            @unique
+  pricing_group          String?            
   earning                earning[]
   earning_category       earning_category[]
   expense_category       expense_category[]
@@ -148,4 +149,18 @@ model contacts {
   created_at DateTime @default(now()) @db.Timestamp(6)
   user_id    String?  @db.Uuid
   users      users?   @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model pricing_option {
+  id                  String               @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  title               String?              @db.VarChar(255)
+  price               Float?               
+  most_popular        Boolean?             @default(false)
+  paymentLink         String?              @db.VarChar(255)
+  period              String?              @db.VarChar(255)
+  pricing_group       String?              @db.VarChar(255)
+  is_discount         Boolean?             @default(false)
+  original_price      Float?               
+
+  created_at          DateTime?            @default(now()) @db.Timestamp(6)
 }

@@ -4,8 +4,8 @@ import React from "react";
 import clsx from "clsx";
 import { Button } from "../../components";
 import { useRouter } from "next/navigation";
-import { pricingPlans, SubscriptionPlan } from "./plans";
-import { OfferType, User } from "@/src/types";
+import { PricingPlan, pricingPlans, SubscriptionPlan } from "./plans";
+import { OfferType, PricingOption, User } from "@/src/types";
 import { AppDictionary } from "@/src/translations";
 import { BanknotesIcon, CheckIcon } from "@heroicons/react/24/solid";
 
@@ -16,6 +16,40 @@ export type PricingProps = {
   dict: AppDictionary;
   email?: string;
   offer?: OfferType;
+  pricingOptions: PricingOption[];
+};
+
+const buildPricingPlans = (
+  pricingOptions: PricingOption[],
+  pricingPlans: {
+    monthly: PricingPlan;
+    yearly: PricingPlan;
+  }
+) => {
+  const monthlyPricingOption = pricingOptions?.find(
+    (pricingOption) => pricingOption.period === "monthly"
+  );
+  const yearlyPricingOption = pricingOptions?.find(
+    (pricingOption) => pricingOption.period === "yearly"
+  );
+
+  const monthlyPricingPlan = pricingPlans.monthly;
+  const monthlyPlan: PricingPlan = {
+    ...monthlyPricingPlan,
+    price: `$${monthlyPricingOption?.price}`,
+    paymentLink: monthlyPricingOption?.paymentLink,
+    pricingGroup: monthlyPricingOption?.pricingGroup,
+  };
+
+  const yearlyPricingPlan = pricingPlans.yearly;
+  const yearlyPlan: PricingPlan = {
+    ...yearlyPricingPlan,
+    price: `$${yearlyPricingOption?.price}`,
+    paymentLink: yearlyPricingOption?.paymentLink,
+    pricingGroup: yearlyPricingOption?.pricingGroup,
+  };
+
+  return [monthlyPlan, yearlyPlan];
 };
 export const Pricing = ({
   currenSubscriptionPlan,
@@ -24,15 +58,17 @@ export const Pricing = ({
   dict,
   email,
   offer,
+  pricingOptions,
 }: PricingProps) => {
-  const pricingPlansToUse =
-    pricingPlans[offer || "default"] || pricingPlans["default"];
+  const pricingPlansToUse = buildPricingPlans(pricingOptions, pricingPlans);
 
   const router = useRouter();
 
-  const onButtonClick = (plan: string) => {
+  const onButtonClick = (period: string) => {
+    const selectedPlan = pricingPlansToUse.find((p) => p.period === period);
+
     if (!user) {
-      let url = `/signup?plan=${plan}`;
+      let url = `/signup?`;
       if (email) {
         url += `&email=${email}`;
       }
@@ -40,9 +76,9 @@ export const Pricing = ({
         url += `&offer=${offer}`;
       }
       router.push(url);
-    } else {
-      const selectedPlan = pricingPlansToUse.find((p) => p.planName === plan);
 
+      sessionStorage.setItem("selectedPlan", JSON.stringify(selectedPlan));
+    } else {
       const paymentUrl = `${selectedPlan?.paymentLink}?client_reference_id=${user.id}&prefilled_email=${user.email}&locale=${lang}`;
 
       router.push(paymentUrl);
@@ -122,7 +158,7 @@ export const Pricing = ({
             ) : (
               <Button
                 className="bg-lime-500 text-black text-lg font-medium group border-0"
-                onClick={() => onButtonClick(plan.planName)}
+                onClick={() => onButtonClick(plan.period)}
                 icon={
                   <BanknotesIcon className=" w-6 h-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-200 ease-in-out" />
                 }

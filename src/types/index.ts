@@ -10,3 +10,4 @@ export * from "./saving";
 export * from "./contact";
 export * from "./pricing";
 export * from "./subscription-details";
+export * from "./Pricing-option";

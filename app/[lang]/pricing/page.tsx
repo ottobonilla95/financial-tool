@@ -1,3 +1,6 @@
+import { getPricingOptions } from "@/src/data/pricing_option";
+import { getDBUser } from "@/src/data/user";
+import { getRandomPricingGroup } from "@/src/helpers/get-random-pricing-group";
 import { AvailableLanguages, getDictionary } from "@/src/translations";
 import { Button, Container, Footer, Header } from "@/src/ui/components";
 import {
@@ -29,6 +32,12 @@ export default async function AboutUsPage({
   searchParams: { email, offer },
 }: AboutUsPageProps) {
   const dict = await getDictionary(lang);
+
+  const pricingOptions = await getPricingOptions({
+    filters: {
+      pricing_group: offer || getRandomPricingGroup(),
+    },
+  });
 
   return (
     <>
@@ -88,7 +97,13 @@ export default async function AboutUsPage({
           <h2 className="text-4xl font-bold sm:pb-12 text-center pt-4 xl:pt-8">
             {dict.pricingPage.chooseYourPlan}
           </h2>
-          <Pricing dict={dict} lang={lang} email={email} offer={offer as any} />
+          <Pricing
+            dict={dict}
+            lang={lang}
+            email={email}
+            offer={offer as any}
+            pricingOptions={pricingOptions}
+          />
         </Container>
         <Container variant="narrow">
           {/* Introduction Section */}
@@ -146,7 +161,13 @@ export default async function AboutUsPage({
           <h2 className="text-4xl font-bold pb-8 sm:pb-12 text-center pt-4 xl:pt-8">
             {dict.pricingPage.chooseYourPlan}
           </h2>
-          <Pricing dict={dict} lang={lang} email={email} offer={offer as any} />
+          <Pricing
+            dict={dict}
+            lang={lang}
+            email={email}
+            offer={offer as any}
+            pricingOptions={pricingOptions}
+          />
 
           <div className="h-10" />
         </Container>

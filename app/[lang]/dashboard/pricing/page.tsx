@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { getPricingOptions } from "@/src/data/pricing_option";
 import { getDBUser } from "@/src/data/user";
 import { AvailableLanguages, getDictionary } from "@/src/translations";
 import { User } from "@/src/types";
@@ -24,8 +25,15 @@ export default async function AccountPage({
       id: true,
       email: true,
       subscription_plan: true,
+      pricing_group: true,
     },
   })) as User;
+
+  const pricingOptions = await getPricingOptions({
+    filters: {
+      pricing_group: user.pricingGroup || "",
+    },
+  });
 
   return (
     <div className="p-2 md:p-5">
@@ -39,6 +47,7 @@ export default async function AccountPage({
           user={user}
           lang={lang}
           dict={dict}
+          pricingOptions={pricingOptions}
         />
       </div>
     </div>

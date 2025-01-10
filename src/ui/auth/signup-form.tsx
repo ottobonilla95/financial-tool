@@ -13,41 +13,31 @@ import {
   ComleteUserCreationUserFormState,
   completeUserCreation,
 } from "@/src/form-actions/auth";
-import { Currency, OfferType } from "@/src/types";
+import { Currency } from "@/src/types";
 import { useTranslations } from "@/src/translations/use-translations";
-import { SubscriptionPlan, pricingPlans } from "../financial-app/pricing";
 import { IntlContext } from "@/src/translations/provider";
 import { useFormState, useFormStatus } from "react-dom";
 import { SubmitButton } from "../forms";
 import clsx from "clsx";
+import { PricingPlan } from "../financial-app/pricing";
 
 export type SignupFormPropd = {
   currencies: Currency[];
-  plan: SubscriptionPlan;
   email: string;
-  offer?: OfferType;
 };
 
-export const SignupForm = ({
-  currencies,
-  plan,
-  email,
-  offer,
-}: SignupFormPropd) => {
+export const SignupForm = ({ currencies, email }: SignupFormPropd) => {
   const { dict } = useContext(IntlContext);
   const initialState: ComleteUserCreationUserFormState = {
     message: {},
     errors: {},
   };
-  const pricingPlansToUse =
-    pricingPlans[offer || "default"] || pricingPlans["default"];
-
-  const paymentLink = pricingPlansToUse.find(
-    (p) => p.planName === plan
-  )?.paymentLink;
+  const paymentPlan: PricingPlan = JSON.parse(
+    sessionStorage.getItem("paymentUrl") as string
+  );
 
   const { lang } = useTranslations();
-  const createUserAction = completeUserCreation.bind(null, lang, paymentLink);
+  const createUserAction = completeUserCreation.bind(null, lang, paymentPlan);
   const { pending: isPending } = useFormStatus();
   const [state, formAction] = useFormState(createUserAction, initialState);
   const [selectedCurrency, setSelectedCurrency] = useState<string>();

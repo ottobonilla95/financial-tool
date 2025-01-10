@@ -13,6 +13,7 @@ import {
   getDictionary,
 } from "../translations";
 import axios from "axios";
+import { PricingPlan } from "../ui/financial-app/pricing";
 
 export type AuthFormState = {
   errors?: {
@@ -254,7 +255,7 @@ export async function createUser(
 }
 export async function completeUserCreation(
   lang: AvailableLanguages,
-  paymentLink: string | undefined,
+  pricingPlan: PricingPlan,
   prevState: ComleteUserCreationUserFormState,
   formData: FormData
 ) {
@@ -311,6 +312,7 @@ export async function completeUserCreation(
         name,
         fully_signed_up: true,
         currency_id: Number(currencyId),
+        pricing_group: pricingPlan.pricingGroup,
       },
     });
 
@@ -325,7 +327,7 @@ export async function completeUserCreation(
     throw error;
   }
 
-  const paymentUrl = `${paymentLink}?client_reference_id=${userCreatedId}&prefilled_email=${email}&locale=${lang}`;
+  const paymentUrl = `${pricingPlan.paymentLink}?client_reference_id=${userCreatedId}&prefilled_email=${email}&locale=${lang}`;
 
   redirect(paymentUrl);
 }
