@@ -35,6 +35,7 @@ export async function POST(request: Request) {
           subscription_plan: newPlan,
           subscription_id: subscriptionId,
           stripeId,
+          subscription_cancel_at: null,
         },
         filters: {
           id: clientId as string,

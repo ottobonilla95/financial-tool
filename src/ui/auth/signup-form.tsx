@@ -33,7 +33,7 @@ export const SignupForm = ({ currencies, email }: SignupFormPropd) => {
     errors: {},
   };
   const paymentPlan: PricingPlan = JSON.parse(
-    sessionStorage.getItem("paymentUrl") as string
+    sessionStorage.getItem("selectedPlan") as string
   );
 
   const { lang } = useTranslations();
