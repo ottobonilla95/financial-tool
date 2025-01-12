@@ -1,5 +1,5 @@
 import { getPricingOptions } from "@/src/data/pricing_option";
-import { getDBUser } from "@/src/data/user";
+import { updateDBUser } from "@/src/data/user";
 import { getRandomPricingGroup } from "@/src/helpers/get-random-pricing-group";
 import { AvailableLanguages, getDictionary } from "@/src/translations";
 import { Button, Container, Footer, Header } from "@/src/ui/components";
@@ -33,9 +33,20 @@ export default async function AboutUsPage({
 }: AboutUsPageProps) {
   const dict = await getDictionary(lang);
 
+  const randomPricingGroup = getRandomPricingGroup();
+
   const pricingOptions = await getPricingOptions({
     filters: {
-      pricing_group: offer || getRandomPricingGroup(),
+      pricing_group: offer || randomPricingGroup,
+    },
+  });
+
+  await updateDBUser({
+    filters: {
+      email: email,
+    },
+    data: {
+      pricing_group: randomPricingGroup,
     },
   });
 
