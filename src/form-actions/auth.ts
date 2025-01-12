@@ -303,13 +303,6 @@ export async function completeUserCreation(
     }
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    console.log(pricingPlan)
-    console.log(pricingPlan)
-    console.log(pricingPlan)
-    console.log(pricingPlan)
-    console.log(pricingPlan)
-    console.log(pricingPlan)
-
     await updateDBUser({
       filters: {
         id: (user as User).id,
