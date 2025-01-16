@@ -240,6 +240,9 @@ export async function createUser(
     }
 
     if (user) {
+      if (user.fullySignedUp) {
+        redirect(`/login?email=${email}`);
+      }
       redirect(pricingUrl);
     }
 
@@ -310,7 +313,6 @@ export async function completeUserCreation(
       data: {
         password: hashedPassword,
         name,
-        fully_signed_up: true,
         currency_id: Number(currencyId),
         pricing_group: pricingPlan.pricingGroup,
       },
