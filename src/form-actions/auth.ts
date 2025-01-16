@@ -165,6 +165,24 @@ export async function createUser(
   // 1. see if user exists on system io
 
   try {
+    const user = await getDBUser({
+      filters: {
+        email,
+      },
+    });
+
+    let pricingUrl = `/pricing?email=${email}`;
+    if (offer) {
+      pricingUrl += `&offer=${offer}`;
+    }
+
+    if (user) {
+      if (user.fullySignedUp) {
+        redirect(`/login?email=${email}`);
+      }
+      redirect(pricingUrl);
+    }
+
     const getUserByEmailOptions = {
       method: "GET",
       url: `https://api.systeme.io/api/contacts?email=${email}`,
@@ -223,28 +241,6 @@ export async function createUser(
     };
 
     await axios.request(add2TagOptions);
-  } catch (ex) {
-    console.log(ex);
-  }
-
-  try {
-    const user = await getDBUser({
-      filters: {
-        email,
-      },
-    });
-
-    let pricingUrl = `/pricing?email=${email}`;
-    if (offer) {
-      pricingUrl += `&offer=${offer}`;
-    }
-
-    if (user) {
-      if (user.fullySignedUp) {
-        redirect(`/login?email=${email}`);
-      }
-      redirect(pricingUrl);
-    }
 
     await createDbUser({
       email,
