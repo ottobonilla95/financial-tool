@@ -55,7 +55,7 @@ export default async function MainPage({
                   </span>
                 </h1>
 
-                {lang === "es" && (
+                {/* {lang === "es" && (
                   <div className="flex items-center justify-center sm:hidden mt-6">
                     <div className="w-full max-w-4xl aspect-video">
                       <iframe
@@ -67,7 +67,7 @@ export default async function MainPage({
                       ></iframe>
                     </div>
                   </div>
-                )}
+                )} */}
 
                 <p className="text-lg opacity-80 leading-relaxed mt-4 sm:mt-8 text-center sm:text-left">
                   {dict.mainPage.welcomeDescription}
@@ -112,7 +112,7 @@ export default async function MainPage({
         </div>
 
         <Container>
-          {lang === "es" && (
+          {/* {lang === "es" && (
             <div className="hidden sm:block">
               <div className="flex items-center justify-center">
                 <div className="w-full max-w-3xl aspect-video">
@@ -145,7 +145,7 @@ export default async function MainPage({
                 </div>
               </div>
             </div>
-          )}
+          )} */}
 
           <VisualBenefit dict={dict} />
         </Container>
