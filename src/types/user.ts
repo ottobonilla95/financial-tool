@@ -14,4 +14,5 @@ export type User = {
   subscriptionId?: string;
   fullySignedUp: boolean;
   pricingGroup: string;
+  lang: string;
 };

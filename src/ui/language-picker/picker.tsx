@@ -1,7 +1,6 @@
 "use client";
 import { setCookie } from "cookies-next";
-
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 export const LanguagePicker = ({
@@ -11,19 +10,27 @@ export const LanguagePicker = ({
 }) => {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams(); // Access current query parameters
   const [locale, setLocale] = useState(currentLocale);
 
   const handleLocaleChange = (newLocale: string) => {
     // Update the URL to reflect the chosen language
     const currentPath = pathname;
     const newPath = currentPath.replace(`/${locale}`, `/${newLocale}`);
+
+    console.log("currentPath", currentPath);
+    console.log("newPath", newPath);
     setLocale(newLocale);
 
     // Save the selected language in cookies
     setCookie("preferredLocale", newLocale);
 
-    // Redirect to the new locale URL
-    router.push(newPath);
+    // Convert query params to a string
+    const queryString = searchParams.toString();
+    const updatedUrl = queryString ? `${newPath}?${queryString}` : newPath;
+
+    // Redirect to the new locale URL with query parameters
+    router.push(updatedUrl);
   };
 
   return (
@@ -37,7 +44,7 @@ export const LanguagePicker = ({
         <img
           src="/images/lang/en.png" // Replace this with the path to your English flag image
           alt="English"
-          className="w-6 "
+          className="w-6"
         />
       </button>
       <button

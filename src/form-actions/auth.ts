@@ -233,6 +233,13 @@ export async function createUser(
 
       await axios.request(addTagOptions);
 
+      let tagId;
+      if (lang === "es") {
+        tagId = process.env.SYSTEME_TRACKMYSPEND_NOT_SUBSCRIBED_SPANISH_TAG_ID;
+      } else {
+        tagId = process.env.SYSTEME_TRACKMYSPEND_NOT_SUBSCRIBED_ENGLISH_TAG_ID;
+      }
+
       const add2TagOptions = {
         method: "POST",
         url: `https://api.systeme.io/api/contacts/${contactId}/tags`,
@@ -241,7 +248,7 @@ export async function createUser(
           "X-API-Key": process.env.SYSTEME_API_KEY,
         },
         data: {
-          tagId: Number(process.env.SYSTEME_TRACKMYSPEND_NOT_SUBSCRIBED_TAG_ID),
+          tagId: Number(tagId),
         },
       };
 

@@ -36,13 +36,13 @@ export default async function MainPage({
           <Container>
             <div className="mt-4 sm:mt-10 flex grow gap-6 xl:gap-0 flex-col lg:flex-row">
               <div className="w-full">
-                <div className="flex flex-col justify-center gap-6 text-neutral-100 lg:max-w-[600px]">
-                  <h1 className="font-extrabold  text-center sm:text-left text-3xl lg:text-6xl tracking-tight md:-mb-4 flex flex-col gap-3 items-center sm:items-start">
+                <div className="flex flex-col justify-center gap-6 text-neutral-100 lg:max-w-[700px]">
+                  <h1 className="font-extrabold  text-center sm:text-left text-3xl lg:text-5xl tracking-tight md:-mb-4 flex flex-col gap-3 items-center sm:items-start">
                     <span className="relative">
                       {dict.mainPage.introMessage1}
-                      <span className="inline md:hidden">
-                        {` ${dict.mainPage.introMessage2}`}
-                      </span>
+
+                      {` ${dict.mainPage.introMessage2}`}
+
                       <span className="relative whitespace-nowrap mr-4 ml-3">
                         <span className="absolute bg-gray-100 -left-2 -top-1 -bottom-1 -right-2 md:-left-3 md:-top-0 md:-bottom-0 md:-right-3 -rotate-1"></span>
                         <span className="relative text-neutral-900">
@@ -151,9 +151,10 @@ export default async function MainPage({
 
         {/* <PainPoints dict={dict} /> */}
 
-        <Container>
+        <Container variant="narrow">
           <WhatWillYouGet dict={dict} />
-
+        </Container>
+        <Container>
           {/* <Benefits dict={dict} /> */}
           {/* <KeyFeatures dict={dict} /> */}
 

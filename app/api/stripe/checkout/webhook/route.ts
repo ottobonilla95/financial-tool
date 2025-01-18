@@ -81,9 +81,18 @@ export async function POST(request: Request) {
 
         await axios.request(addPremiumTagOptions);
 
+        let tagId;
+        if (user?.lang === "es") {
+          tagId =
+            process.env.SYSTEME_TRACKMYSPEND_NOT_SUBSCRIBED_SPANISH_TAG_ID;
+        } else {
+          tagId =
+            process.env.SYSTEME_TRACKMYSPEND_NOT_SUBSCRIBED_ENGLISH_TAG_ID;
+        }
+
         const removeNotSubscribedTagOptions = {
           method: "DELETE",
-          url: `https://api.systeme.io/api/contacts/${contactId}/tags/${process.env.SYSTEME_TRACKMYSPEND_NOT_SUBSCRIBED_TAG_ID}`,
+          url: `https://api.systeme.io/api/contacts/${contactId}/tags/${tagId}`,
           headers: { "X-API-Key": process.env.SYSTEME_API_KEY },
         };
 
