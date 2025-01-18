@@ -39,6 +39,9 @@ const buildPricingPlans = (
     price: `$${monthlyPricingOption?.price}`,
     paymentLink: monthlyPricingOption?.paymentLink,
     pricingGroup: monthlyPricingOption?.pricingGroup,
+    isDiscount: monthlyPricingOption?.isDiscount,
+    originalPrice: `${monthlyPricingOption?.originalPrice}`,
+    mostPopular: monthlyPricingOption?.mostPopular,
   };
 
   const yearlyPricingPlan = pricingPlans.yearly;
@@ -47,6 +50,9 @@ const buildPricingPlans = (
     price: `$${yearlyPricingOption?.price}`,
     paymentLink: yearlyPricingOption?.paymentLink,
     pricingGroup: yearlyPricingOption?.pricingGroup,
+    isDiscount: yearlyPricingOption?.isDiscount,
+    originalPrice: `${yearlyPricingOption?.originalPrice}`,
+    mostPopular: yearlyPricingOption?.mostPopular,
   };
 
   return [monthlyPlan, yearlyPlan];
@@ -86,16 +92,16 @@ export const Pricing = ({
   };
 
   return (
-    <div className="flex flex-col sm:flex-row sm:justify-center gap-4 sm:px-0">
+    <div className="flex flex-col sm:flex-row sm:justify-center gap-8 sm:px-0">
       {pricingPlansToUse.map((plan, index) => {
         const alreadySelected = plan.planName === currenSubscriptionPlan;
         return (
           <div
             key={index}
             className={clsx(
-              "p-8 rounded-lg w-full sm:w-[420px] flex flex-col",
+              "sm:p-8 rounded-lg w-full sm:w-[420px] flex flex-col",
               {
-                "border border-lime-500 border-solid ": plan.mostPopular,
+                "border border-lime-500 border-solid p-4": plan.mostPopular,
               }
             )}
           >
@@ -120,7 +126,7 @@ export const Pricing = ({
                   <div>
                     {plan.isDiscount && (
                       <div className="flex relative">
-                        <p className="text-xl font-bold mb-4">
+                        <p className="text-3xl font-bold mb-1">
                           <span className="line-through opacity-70 mr-2">{`US ${plan.originalPrice}`}</span>
                         </p>
                       </div>
@@ -157,7 +163,7 @@ export const Pricing = ({
               <div>{dict.pricingPage.currentPlan}</div>
             ) : (
               <Button
-                className="bg-lime-500 text-black text-lg font-medium group border-0"
+                className="bg-lime-500 text-black !text-base font-bold group border-0 py-[25px]"
                 onClick={() => onButtonClick(plan.period)}
                 icon={
                   <BanknotesIcon className=" w-6 h-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-200 ease-in-out" />

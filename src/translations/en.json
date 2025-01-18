@@ -194,10 +194,11 @@
     "privacyPolicy": "Privacy Policy"
   },
   "mainPage": {
-    "introMessage1": "Take control of your",
-    "introMessage2": "spending,",
-    "introMessage3": "effortlessly",
-    "welcomeDescription": "Track, manage, and analyze your expenses in one simple tool. Make informed decisions about your money and feel empowered every step of the way.",
+    "introMessage1": "Take Control",
+    "introMessage2": "of Your Money and",
+    "introMessage3": "Build",
+    "introMessage4": "the Life You've Always Dreamed Of",
+    "welcomeDescription": "Organize your finances, eliminate unnecessary expenses, and achieve your financial goals with a tool that does the work for you in minutes.",
     "takeControlToday": "Take control today!",
     "startNow": "Start now",
     "visualBenefit": {
@@ -408,7 +409,7 @@
       }
     },
     "screenShots": {
-      "title": "Explore the TrackMySpend App",
+      "title": "Explore the App",
       "description": "Take a look at the interface and features that help you manage your finances effortlessly.",
 
       "screenshot1": {
@@ -474,8 +475,14 @@
   },
   "faqs": {
     "title": "Frequently Asked Questions (FAQs)",
-    "question1": "How can I contact technical support?",
-    "answer1": "You can contact our support team by sending us an email at"
+    "question1": "What do I need to succeed with TrackMySpend?",
+    "answer1": "Just discipline and 10 minutes a day to take control of your finances effortlessly.",
+    "question2": "Are my data secure?",
+    "answer2": "Absolutely. We use advanced encryption technology to protect all your information.",
+    "question3": "What sets TrackMySpend apart from other tools?",
+    "answer3": "TrackMySpend outperforms templates, which are cumbersome on phones and lack updates, and traditional apps, by offering a multi-platform experience, full automation, advanced analysis (including emotions and financial projections), and continuous improvements to ensure a constantly updated and practical solution.",
+    "question4": "How can I contact technical support?",
+    "answer4": "You can contact our support team by sending us an email at"
   },
   "accountPage": {
     "title": "Account",

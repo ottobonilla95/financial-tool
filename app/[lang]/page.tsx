@@ -11,6 +11,7 @@ import {
   PainPoints,
   Benefits,
   StartForm,
+  WhatWillYouGet,
 } from "@/src/ui/financial-app/home-page";
 import FAQs from "@/src/ui/faqs/faqs";
 import { OfferType } from "@/src/types";
@@ -33,29 +34,26 @@ export default async function MainPage({
           <div />
           <Header lang={lang} dict={dict} />
           <Container>
-            <div className="mt-4 sm:mt-10 flex grow gap-6 xl:gap-0 flex-col xl:flex-row">
-              <div className="flex flex-col justify-center gap-6 text-neutral-100">
-                <h1 className="font-extrabold  text-center sm:text-left text-4xl lg:text-6xl tracking-tight md:-mb-4 flex flex-col gap-3 items-center sm:items-start">
-                  <span className="relative">
-                    {dict.mainPage.introMessage1}
-                    <span className="inline md:hidden">
-                      {` ${dict.mainPage.introMessage2}`}
-                    </span>
-                  </span>
-                  <span className="whitespace-nowrap relative">
-                    <span className="mr-3 sm:mr-4 md:mr-5 hidden md:inline">
-                      {dict.mainPage.introMessage2}
-                    </span>
-                    <span className="relative whitespace-nowrap">
-                      <span className="absolute bg-gray-100 -left-2 -top-1 -bottom-1 -right-2 md:-left-3 md:-top-0 md:-bottom-0 md:-right-3 -rotate-1"></span>
-                      <span className="relative text-neutral-900">
-                        {dict.mainPage.introMessage3}
+            <div className="mt-4 sm:mt-10 flex grow gap-6 xl:gap-0 flex-col lg:flex-row">
+              <div className="w-full">
+                <div className="flex flex-col justify-center gap-6 text-neutral-100 lg:max-w-[600px]">
+                  <h1 className="font-extrabold  text-center sm:text-left text-3xl lg:text-6xl tracking-tight md:-mb-4 flex flex-col gap-3 items-center sm:items-start">
+                    <span className="relative">
+                      {dict.mainPage.introMessage1}
+                      <span className="inline md:hidden">
+                        {` ${dict.mainPage.introMessage2}`}
                       </span>
+                      <span className="relative whitespace-nowrap mr-4 ml-3">
+                        <span className="absolute bg-gray-100 -left-2 -top-1 -bottom-1 -right-2 md:-left-3 md:-top-0 md:-bottom-0 md:-right-3 -rotate-1"></span>
+                        <span className="relative text-neutral-900">
+                          {dict.mainPage.introMessage3}
+                        </span>
+                      </span>
+                      <span>{dict.mainPage.introMessage4}</span>
                     </span>
-                  </span>
-                </h1>
+                  </h1>
 
-                {/* {lang === "es" && (
+                  {/* {lang === "es" && (
                   <div className="flex items-center justify-center sm:hidden mt-6">
                     <div className="w-full max-w-4xl aspect-video">
                       <iframe
@@ -69,13 +67,14 @@ export default async function MainPage({
                   </div>
                 )} */}
 
-                <p className="text-lg opacity-80 leading-relaxed mt-4 sm:mt-8 text-center sm:text-left">
-                  {dict.mainPage.welcomeDescription}
-                </p>
+                  <p className="text-base opacity-80 leading-relaxed sm:text-lg sm:mt-4 text-center sm:text-left">
+                    {dict.mainPage.welcomeDescription}
+                  </p>
 
-                <div className="xl:flex">
-                  <div className="flex items-center flex-col">
-                    <StartForm dict={dict} lang={lang} offer={offer} />
+                  <div className="xl:flex">
+                    <div className="flex items-center flex-col">
+                      <StartForm dict={dict} lang={lang} offer={offer} />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -84,14 +83,14 @@ export default async function MainPage({
                   src={`/images/home-page/${lang}/hero-desktop.png`}
                   width={1000}
                   height={760}
-                  className="hidden xl:block"
+                  className="hidden lg:block"
                   alt="Screenshots of the dashboard project showing desktop version"
                 />
                 <Image
                   src={`/images/home-page/${lang}/hero-mobile.png`}
                   width={400}
                   height={620}
-                  className="block xl:hidden"
+                  className="block lg:hidden"
                   alt="Screenshot of the dashboard project showing mobile version"
                 />
               </div>
@@ -147,16 +146,20 @@ export default async function MainPage({
             </div>
           )} */}
 
-          <VisualBenefit dict={dict} />
+          {/* <VisualBenefit dict={dict} /> */}
         </Container>
-        <PainPoints dict={dict} />
+
+        {/* <PainPoints dict={dict} /> */}
 
         <Container>
-          <Benefits dict={dict} />
-          <KeyFeatures dict={dict} />
+          <WhatWillYouGet dict={dict} />
 
-          <MyStory dict={dict} />
+          {/* <Benefits dict={dict} /> */}
+          {/* <KeyFeatures dict={dict} /> */}
+
           <HowItWorks dict={dict} />
+          <Testimonials dict={dict} />
+
           <AppScreenshots dict={dict} lang={lang} />
           <div className="mt-12">
             <div className="flex items-center flex-col">
@@ -178,7 +181,7 @@ export default async function MainPage({
               </div>
             </div>
           </div>
-          <Testimonials dict={dict} />
+
           {/* <div className="py-10 text-neutral-100 tracking-tight">
             <h2 className="text-5xl font-bold sm:mb-10 xl:mb-12 text-center">
               {dict.shared.pricing}

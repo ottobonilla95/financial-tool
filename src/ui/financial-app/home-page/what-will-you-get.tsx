@@ -23,7 +23,7 @@ export const WhatWillYouGet = ({ dict }: WhatWillYouGetProps) => {
         <ul className="space-y-6">
           {dict.mainPage.whatWillYouGet.items.map((item, index) => (
             <li key={index} className="flex items-start">
-              <p className="flex-1 text-lg sm:text-2xl">
+              <p className="flex-1 text-base sm:text-2xl">
                 <strong className="font-extrabold">{item.title}:</strong>{" "}
                 {item.description}
               </p>

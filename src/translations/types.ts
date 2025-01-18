@@ -196,6 +196,7 @@ export type AppDictionary = {
     introMessage1: string;
     introMessage2: string;
     introMessage3: string;
+    introMessage4: string;
     welcomeDescription: string;
     takeControlToday: string;
     startNow: string;
@@ -321,6 +322,12 @@ export type AppDictionary = {
     title: string;
     question1: string;
     answer1: string;
+    question2: string;
+    answer2: string;
+    question3: string;
+    answer3: string;
+    question4: string;
+    answer4: string;
   };
   accountPage: {
     title: string;

@@ -33,16 +33,16 @@ export const VisualBenefit = ({ dict }: VisualBenefitProps) => {
         />
       </div>
       <div className="flex items-center flex-col space-y-6">
-        <div className="hidden md:flex text-3xl md:text-4xl font-bold">
+        <div className=" text-3xl md:text-4xl font-bold">
           {dict.mainPage.visualBenefit.changeTo}
         </div>
         <img
           src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1731014294/app%20images/vdyxz7rwrkxacl0etv43.gif"
           className="w-[500px] rounded-md"
         />
-        <div className="flex md:hidden text-3xl md:text-4xl font-bold">
+        {/* <div className="flex md:hidden text-3xl md:text-4xl font-bold">
           {dict.mainPage.visualBenefit.changeTo}
-        </div>
+        </div> */}
       </div>
     </section>
   );

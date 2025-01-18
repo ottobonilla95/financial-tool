@@ -25,12 +25,29 @@ export default async function FAQs({ dict }: SupportPageProps) {
               </p>
             </div> */}
           {/* FAQ 2 */}
+
           <div className="mb-4">
-            <h3 className="text-xl font-medium ">
-              {dict.faqs.question1}
-            </h3>
-            <p className="mt-2 text-lg opacity-80">
+            <h3 className="text-xl font-medium ">{dict.faqs.question1}</h3>
+            <div className="mt-2 text-lg opacity-80">
               {`${dict.faqs.answer1} `}
+            </div>
+          </div>
+          <div className="mb-4">
+            <h3 className="text-xl font-medium ">{dict.faqs.question2}</h3>
+            <div className="mt-2 text-lg opacity-80">
+              {`${dict.faqs.answer2} `}
+            </div>
+          </div>
+          <div className="mb-4">
+            <h3 className="text-xl font-medium ">{dict.faqs.question3}</h3>
+            <div className="mt-2 text-lg opacity-80">
+              {`${dict.faqs.answer3} `}
+            </div>
+          </div>
+          <div className="mb-4">
+            <h3 className="text-xl font-medium ">{dict.faqs.question4}</h3>
+            <div className="mt-2 text-lg opacity-80">
+              {`${dict.faqs.answer4} `}
               <a
                 href="mailto:support@trackmyspend.co"
                 className="text-blue-500 hover:text-blue-600"
@@ -38,7 +55,7 @@ export default async function FAQs({ dict }: SupportPageProps) {
                 support@trackmyspend.co
               </a>
               .
-            </p>
+            </div>
           </div>
         </div>
       </div>

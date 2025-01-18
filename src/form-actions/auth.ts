@@ -201,46 +201,52 @@ export async function createUser(
     if (userFound) {
       contactId = userFoundResponse.data.items[0].id;
     } else {
-      const createUserOptions = {
+      try {
+        const createUserOptions = {
+          method: "POST",
+          url: "https://api.systeme.io/api/contacts",
+          headers: {
+            accept: "application/json",
+            "content-type": "application/json",
+            "X-API-Key": process.env.SYSTEME_API_KEY,
+          },
+          data: { email },
+        };
+
+        const response = await axios.request(createUserOptions);
+        contactId = response.data.id;
+      } catch (error) {
+        console.log;
+      }
+    }
+
+    if (contactId) {
+      const addTagOptions = {
         method: "POST",
-        url: "https://api.systeme.io/api/contacts",
+        url: `https://api.systeme.io/api/contacts/${contactId}/tags`,
         headers: {
-          accept: "application/json",
           "content-type": "application/json",
           "X-API-Key": process.env.SYSTEME_API_KEY,
         },
-        data: { email },
+        data: { tagId: Number(process.env.SYSTEME_TRACKMYSPEND_TAG_ID) },
       };
 
-      const response = await axios.request(createUserOptions);
-      contactId = response.data.id;
+      await axios.request(addTagOptions);
+
+      const add2TagOptions = {
+        method: "POST",
+        url: `https://api.systeme.io/api/contacts/${contactId}/tags`,
+        headers: {
+          "content-type": "application/json",
+          "X-API-Key": process.env.SYSTEME_API_KEY,
+        },
+        data: {
+          tagId: Number(process.env.SYSTEME_TRACKMYSPEND_NOT_SUBSCRIBED_TAG_ID),
+        },
+      };
+
+      await axios.request(add2TagOptions);
     }
-
-    const addTagOptions = {
-      method: "POST",
-      url: `https://api.systeme.io/api/contacts/${contactId}/tags`,
-      headers: {
-        "content-type": "application/json",
-        "X-API-Key": process.env.SYSTEME_API_KEY,
-      },
-      data: { tagId: Number(process.env.SYSTEME_TRACKMYSPEND_TAG_ID) },
-    };
-
-    await axios.request(addTagOptions);
-
-    const add2TagOptions = {
-      method: "POST",
-      url: `https://api.systeme.io/api/contacts/${contactId}/tags`,
-      headers: {
-        "content-type": "application/json",
-        "X-API-Key": process.env.SYSTEME_API_KEY,
-      },
-      data: {
-        tagId: Number(process.env.SYSTEME_TRACKMYSPEND_NOT_SUBSCRIBED_TAG_ID),
-      },
-    };
-
-    await axios.request(add2TagOptions);
 
     await createDbUser({
       email,

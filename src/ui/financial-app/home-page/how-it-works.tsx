@@ -30,12 +30,12 @@ export const HowItWorks = ({ dict }: HowItWorksProps) => {
   ];
 
   return (
-    <section className="py-16 sm:py-24 px-4 sm:px-0 text-neutral-100">
+    <section className="pb-10 sm:py-24 px-4 sm:px-0 text-neutral-100">
       <div className="container mx-auto text-center">
-        <h2 className="text-4xl sm:text-5xl font-bold mb-10">
+        <h2 className="text-3xl sm:text-5xl font-bold mb-2">
           {dict.mainPage.howItWorks.title}
         </h2>
-        <div className="grid md:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-4">
           {steps.map((step, index) => (
             <div key={index} className="p-6 sm:p-8">
               <span className="text-6xl font-bold mb-4 block text-lime-500">

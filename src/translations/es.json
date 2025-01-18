@@ -192,11 +192,13 @@
     "acceptPrivacyPolicy": "Acepto la política de privacidad",
     "privacyPolicy": "Política de privacidad"
   },
+
   "mainPage": {
-    "introMessage1": "Controla tu dinero",
-    "introMessage2": "de forma fácil y",
-    "introMessage3": "rápida",
-    "welcomeDescription": "Controla, gestiona y analiza tus gastos con una herramienta sencilla. Toma decisiones inteligentes sobre tu dinero y gana control en cada paso.",
+    "introMessage1": "Toma el Control",
+    "introMessage2": "de tu Dinero y ",
+    "introMessage3": "Construye",
+    "introMessage4": "la Vida que Siempre Soñaste",
+    "welcomeDescription": "Organiza tus finanzas, elimina gastos innecesarios y alcanza tus metas financieras con una herramienta que hace el trabajo por ti, en minutos.",
     "takeControlToday": "Empieza hoy!",
     "startNow": "¡Empieza ahora!",
     "visualBenefit": {
@@ -327,69 +329,34 @@
       ]
     },
     "whatWillYouGet": {
-      "title1": "Lo que",
-      "title2": "obtendrás",
-      "title3": "al suscribirte",
+      "title1": "¿Qué",
+      "title2": "Lograrás?",
+      "title3": "",
       "items": [
         {
-          "title": "📊 Seguimiento completo de gastos",
-          "description": "Registra todos tus gastos en un solo lugar con desgloses detallados por categoría, subcategoría y día."
+          "title": "💰 Domina tus Finanzas",
+          "description": "Registra ingresos, gastos, ahorros y deudas para tener una visión completa de tu situación financiera."
         },
         {
-          "title": "📅 Panel del mes actual",
-          "description": "Visualiza tus finanzas con gráficos circulares, listas de gastos diarios y totales que comparan los gastos por categoría y emoción."
+          "title": "🏦 Ahorra para tus Sueños",
+          "description": "Planifica metas de ahorro personalizadas y calcula cuánto tiempo necesitas para lograrlas."
         },
         {
-          "title": "📈 Información financiera a largo plazo",
-          "description": "Accede a resúmenes mensuales que muestran ingresos, gastos, ahorros y tendencias de gastos a lo largo del tiempo."
+          "title": "🧾 Elimina Deudas Rápidamente",
+          "description": "Aplica el método Bola de Nieve para saldar tus deudas estratégicamente y recuperar tu libertad financiera."
         },
         {
-          "title": "💡 Conciencia sobre gastos y emociones",
-          "description": "Descubre cómo tus emociones influyen en tus hábitos de gasto e identifica qué categorías se ven más afectadas por el estrés, la alegría o el aburrimiento."
+          "title": "🧠 Conexión Emoción-Dinero",
+          "description": "Comprende cómo tus emociones influyen en tus gastos y toma decisiones más conscientes para mejorar tu relación con el dinero."
         },
         {
-          "title": "🌍 Seguimiento del impacto del estilo de vida",
-          "description": "Descubre cómo los grandes cambios de vida, como mudarte, viajar o iniciar una relación, impactan tus finanzas y ajusta tus hábitos en consecuencia."
+          "title": "✅ Análisis Visual Poderoso",
+          "description": "Descubre cómo gastas tu dinero con gráficos automáticos que te muestran dónde puedes mejorar."
         },
+
         {
-          "title": "🔄 Comparaciones con meses anteriores",
-          "description": "Compara tendencias y totales de gastos mes a mes para comprender dónde estás mejorando y dónde enfocarte."
-        },
-        {
-          "title": "🔒 Datos seguros y privados",
-          "description": "Tus datos financieros y emocionales están completamente cifrados y almacenados de forma segura para garantizar tu privacidad y tranquilidad."
-        },
-        {
-          "title": "🤝 Soporte al cliente receptivo",
-          "description": "Obtén ayuda rápida y amigable siempre que necesites asistencia con la aplicación."
-        },
-        {
-          "title": "📋 Paneles fáciles de usar",
-          "description": "Gráficos y diagramas intuitivos que hacen que sea fácil comprender tus hábitos de gasto de un vistazo."
-        },
-        {
-          "title": "🧠 Información financiera personalizada",
-          "description": "Obtén ideas y recomendaciones prácticas adaptadas a tus hábitos, emociones y metas financieras únicas."
-        },
-        {
-          "title": "💰 Ahorra dinero y reduce el estrés",
-          "description": "Al rastrear tus gastos y emociones, reducirás los gastos innecesarios y te concentrarás en lo que realmente importa."
-        },
-        {
-          "title": "💪 Siéntete en control de tu dinero",
-          "description": "Finalmente entiende a dónde va tu dinero y toma decisiones financieras seguras todos los días."
-        },
-        {
-          "title": "📈 Haz crecer tus ahorros sin esfuerzo",
-          "description": "Con claridad sobre tus patrones de gasto, ahorrar dinero se vuelve más fácil y alcanzable."
-        },
-        {
-          "title": "🧘 Mejora el equilibrio emocional",
-          "description": "Toma conciencia de los desencadenantes emocionales relacionados con el gasto y desarrolla hábitos financieros más saludables."
-        },
-        {
-          "title": "🔄 Adáptate a los cambios de la vida",
-          "description": "Planea con anticipación los grandes momentos, como mudarte, un nuevo trabajo o una gran compra, con información clara sobre cómo afectarán tu presupuesto."
+          "title": "📊 Resumen Mensual Claro y Accionable",
+          "description": "Visualiza cómo se distribuye tu dinero cada mes y ajusta según tus objetivos financieros."
         },
         {
           "title": "🚀 Motivación para mantenerte en el camino",
@@ -418,7 +385,7 @@
       }
     },
     "screenShots": {
-      "title": "Explora la Aplicación TrackMySpend",
+      "title": "Explora la Aplicación",
       "description": "Echa un vistazo a la interfaz y las características que te ayudan a gestionar tus finanzas sin esfuerzo.",
 
       "screenshot1": {
@@ -443,7 +410,7 @@
         "description": "Gráficos de gastos totales por emoción y nivel de satisfacción"
       },
       "screenshot8": {
-        "description": "Tabla de gastos totales por emoción y categoría (por ejemplo, tristeza: Comida, Ropa)"
+        "description": "Tabla de gastos totales por emoción y categoría"
       }
     },
     "testimonials": {
@@ -484,8 +451,14 @@
   },
   "faqs": {
     "title": "Preguntas frecuentes (FAQs)",
-    "question1": "¿Cómo puedo contactar al soporte técnico?",
-    "answer1": "Puedes contactar a nuestro equipo de soporte enviándonos un correo electrónico a"
+    "question1": "¿Qué necesito para tener éxito con TrackMySpend?",
+    "answer1": "Solo disciplina y 10 minutos al día para tomar el control de tus finanzas sin esfuerzo.",
+    "question2": "¿Mis datos están seguros?",
+    "answer2": "Absolutamente. Usamos tecnología de cifrado avanzada para proteger toda tu información.",
+    "question3": "¿Qué diferencia a TrackMySpend de otras herramientas?",
+    "answer3": "TrackMySpend supera a las plantillas, que son incómodas en teléfonos y carecen de actualizaciones, y a las apps tradicionales, ofreciendo una experiencia multiplataforma, automatización completa, análisis avanzado (como emociones y proyecciones financieras), y mejoras continuas que garantizan una solución siempre actualizada y práctica.",
+    "question4": "¿Cómo puedo contactar al soporte técnico?",
+    "answer4": "Puedes contactar a nuestro equipo de soporte enviándonos un correo electrónico a"
   },
   "accountPage": {
     "title": "Tu cuenta",

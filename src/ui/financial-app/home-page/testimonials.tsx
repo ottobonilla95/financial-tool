@@ -47,20 +47,20 @@ export const Testimonials = ({ dict, variant }: TestimonialsProps) => {
   ];
 
   return (
-    <section className="py-16 px-4 sm:px-0 text-neutral-100 tracking-tight">
+    <section className="pb-10 px-4 sm:px-0 text-neutral-100 tracking-tight">
       <div className="container mx-auto text-center">
         <h2 className="text-3xl sm:text-4xl font-bold mb-10">
           {dict.mainPage.testimonials.title}
         </h2>
         <div className="grid md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="p-8">
+            <div key={index} className="p-4">
               <img
                 src={testimonial.image}
                 alt={testimonial.name}
                 className="w-[120px] h-[120px] rounded-full mx-auto mb-4 object-cover"
               />
-              <p className="text-lg opacity-80 mb-4">
+              <p className="text-base opacity-80 mb-4">
                 "{testimonial.feedback}"
               </p>
               <h4 className="text-xl font-semibold">{testimonial.name}</h4>
