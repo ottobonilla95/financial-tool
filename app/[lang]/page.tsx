@@ -110,8 +110,8 @@ export default async function MainPage({
           </Container>
         </div>
 
-        <Container>
-          {/* {lang === "es" && (
+        {/* <Container> */}
+        {/* {lang === "es" && (
             <div className="hidden sm:block">
               <div className="flex items-center justify-center">
                 <div className="w-full max-w-3xl aspect-video">
@@ -146,8 +146,8 @@ export default async function MainPage({
             </div>
           )} */}
 
-          {/* <VisualBenefit dict={dict} /> */}
-        </Container>
+        {/* <VisualBenefit dict={dict} /> */}
+        {/* </Container> */}
 
         {/* <PainPoints dict={dict} /> */}
 
