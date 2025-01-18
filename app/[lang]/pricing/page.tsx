@@ -118,7 +118,7 @@ export default async function AboutUsPage({
             pricingOptions={pricingOptions}
           />
         </Container>
-        <Container variant="narrow">
+        {/* <Container variant="narrow"> */}
           {/* Introduction Section */}
 
           {/* <h2 className="text-3xl sm:text-4xl font-bold mb-8 text-center">
@@ -183,7 +183,7 @@ export default async function AboutUsPage({
           /> */}
 
           {/* <div className="h-10" /> */}
-        </Container>
+        {/* </Container> */}
       </main>
 
       <Footer dict={dict} />
