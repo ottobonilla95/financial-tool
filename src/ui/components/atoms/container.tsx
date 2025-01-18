@@ -17,7 +17,7 @@ export const Container = ({
         className={clsx(className, {
           "max-w-[1440px] w-full px-8": variant === "standard",
           "w-full": variant === "full",
-          "max-w-[900px]": variant === "narrow",
+          "px-8 max-w-[900px]": variant === "narrow",
         })}
       >
         {children}
