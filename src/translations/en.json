@@ -195,11 +195,11 @@
   },
   "mainPage": {
     "introMessage1": "Take Control",
-    "introMessage2": "of Your Money and",
+    "introMessage2": "of Your Money.",
     "introMessage3": "Build",
-    "introMessage4": "the Life You've Always Dreamed Of",
+    "introMessage4": "the Life You’ve Always Dreamed Of in Just Minutes.",
     "welcomeDescription": "Organize your finances, eliminate unnecessary expenses, and achieve your financial goals with a tool that does the work for you in minutes.",
-    "takeControlToday": "Take control today!",
+    "takeControlToday": "Get Started Free Today!",
     "startNow": "Start now",
     "visualBenefit": {
       "changeFrom": "Move from this",
@@ -304,72 +304,37 @@
     },
     "whatWillYouGet": {
       "title1": "What",
-      "title2": "You’ll Get",
-      "title3": "When You Subscribe",
+      "title2": "Will You ",
+      "title3": "Achieve?",
+
       "items": [
         {
-          "title": "📊 Complete Expense Tracking",
-          "description": "Track all your expenses in one place with detailed breakdowns by category, subcategory, and day."
+          "title": "💰 Master Your Finances",
+          "description": "Track income, expenses, savings, and debts to get a complete view of your financial situation."
         },
         {
-          "title": "📅 Current Month Dashboard",
-          "description": "Visualize your finances with pie charts, daily expense lists, and totals that compare spending by category and emotion."
+          "title": "🏦 Save for Your Dreams",
+          "description": "Plan personalized savings goals and calculate how long it will take to achieve them."
         },
         {
-          "title": "📈 Long-Term Financial Insights",
-          "description": "Access monthly summaries showing income, expenses, savings, and spending trends over time."
+          "title": "🧾 Pay Off Debts Quickly",
+          "description": "Use the Snowball Method to strategically pay off your debts and regain financial freedom."
         },
         {
-          "title": "💡 Emotion-Based Spending Awareness",
-          "description": "Discover how your emotions influence your spending habits and identify which categories are most affected by stress, joy, or boredom."
+          "title": "🧠 Emotion-Money Connection",
+          "description": "Understand how your emotions influence your spending and make more conscious decisions to improve your relationship with money."
         },
         {
-          "title": "🌍 Lifestyle Impact Tracking",
-          "description": "See how major life changes like moving, traveling, or entering a relationship impact your finances and adjust accordingly."
+          "title": "✅ Powerful Visual Analysis",
+          "description": "Discover how you spend your money with automatic charts that show you where you can improve."
         },
         {
-          "title": "🔄 Comparison to Previous Months",
-          "description": "Compare spending trends and totals from month to month, helping you understand where you're improving and where to focus."
-        },
-        {
-          "title": "🔒 Secure and Private Data",
-          "description": "Your financial and emotional data is fully encrypted and stored securely to ensure your privacy and peace of mind."
-        },
-        {
-          "title": "🤝 Responsive Customer Support",
-          "description": "Get fast, friendly help whenever you need assistance with the app."
-        },
-        {
-          "title": "📋 User-Friendly Dashboards",
-          "description": "Intuitive charts and graphs make it easy to understand your spending habits at a glance."
-        },
-        {
-          "title": "🧠 Personalized Financial Insights",
-          "description": "Get actionable insights tailored to your unique habits, emotions, and financial goals."
-        },
-        {
-          "title": "💰 Save Money and Reduce Stress",
-          "description": "By tracking your expenses and emotions, you’ll cut unnecessary spending and focus on what truly matters."
-        },
-        {
-          "title": "💪 Feel in Control of Your Money",
-          "description": "Finally understand where your money goes and make confident financial decisions every day."
-        },
-        {
-          "title": "📈 Grow Your Savings Effortlessly",
-          "description": "With clarity about your spending patterns, saving money becomes easier and more achievable."
-        },
-        {
-          "title": "🧘 Improve Emotional Balance",
-          "description": "Gain awareness of emotional spending triggers and develop healthier financial habits."
-        },
-        {
-          "title": "🔄 Adapt to Life Changes",
-          "description": "Plan ahead for big moments—like a move, a new job, or a big purchase—with clear insights into how they’ll impact your budget."
+          "title": "📊 Clear and Actionable Monthly Summary",
+          "description": "See how your money is distributed each month and adjust according to your financial goals."
         },
         {
           "title": "🚀 Motivation to Stay on Track",
-          "description": "Stay motivated by seeing your progress over time and achieving the financial goals that matter most to you."
+          "description": "Stay motivated by tracking your progress over time and reaching the financial goals that matter most to you."
         }
       ]
     },
@@ -434,7 +399,7 @@
         "description": "Graphs showing total expenses by emotion and satisfaction level"
       },
       "screenshot8": {
-        "description": "Table of total expenses per emotion by category (e.g., sadness: Food, Clothes)"
+        "description": "Table of total expenses per emotion by category"
       }
     },
     "testimonials": {

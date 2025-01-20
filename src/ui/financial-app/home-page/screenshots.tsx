@@ -1,5 +1,8 @@
+"use client";
+import { useBreakpoint } from "@/src/hooks";
 import { AppDictionary, AvailableLanguages } from "@/src/translations";
 import React from "react";
+import { Carousel } from "react-responsive-carousel";
 
 export type AppScreenshotsProps = {
   dict: AppDictionary;
@@ -7,6 +10,7 @@ export type AppScreenshotsProps = {
 };
 
 export const AppScreenshots = ({ dict, lang }: AppScreenshotsProps) => {
+  const { isMd } = useBreakpoint("md");
   const es = [
     "https://res.cloudinary.com/dav4ntxrq/image/upload/v1730452215/screenshots/es/reaezau4feyn0udxufzd.png",
     "https://res.cloudinary.com/dav4ntxrq/image/upload/v1730452215/screenshots/es/swrgmjnbqj81waaflltp.png",
@@ -18,7 +22,7 @@ export const AppScreenshots = ({ dict, lang }: AppScreenshotsProps) => {
     "https://res.cloudinary.com/dav4ntxrq/image/upload/v1730452215/screenshots/es/yd42hzxgttflpbyho5uc.png",
   ];
 
-  const en = [
+  const enDesktop = [
     "https://res.cloudinary.com/dav4ntxrq/image/upload/v1730452186/screenshots/en/oawrxwrkg4gv48iaexfp.png",
     "https://res.cloudinary.com/dav4ntxrq/image/upload/v1730452186/screenshots/en/uj97sv0gywdxc19vjs7s.png",
     "https://res.cloudinary.com/dav4ntxrq/image/upload/v1730452187/screenshots/en/fhwjybzfrihnqw6khzmi.png",
@@ -29,44 +33,56 @@ export const AppScreenshots = ({ dict, lang }: AppScreenshotsProps) => {
     "https://res.cloudinary.com/dav4ntxrq/image/upload/v1730452186/screenshots/en/ni170ukmninydkcgvnjt.png",
   ];
 
+  const en = [
+    "https://res.cloudinary.com/dav4ntxrq/image/upload/v1737345367/1_d34f0p.png",
+    // "https://res.cloudinary.com/dav4ntxrq/image/upload/v1737345367/2_sxlenb.png",
+    "https://res.cloudinary.com/dav4ntxrq/image/upload/v1737345367/3_l31frw.png",
+    "https://res.cloudinary.com/dav4ntxrq/image/upload/v1737345367/4_mwl7n9.png",
+    "https://res.cloudinary.com/dav4ntxrq/image/upload/v1737345368/5_gdl37s.png",
+    "https://res.cloudinary.com/dav4ntxrq/image/upload/v1737345370/6_x8tu9z.png",
+    "https://res.cloudinary.com/dav4ntxrq/image/upload/v1737345369/7_aarao4.png",
+    "https://res.cloudinary.com/dav4ntxrq/image/upload/v1737345369/8_ynai2z.png",
+    "https://res.cloudinary.com/dav4ntxrq/image/upload/v1737345368/9_dhmbfe.png",
+  ];
+
   const screenshots = [
     {
-      image: lang === "es" ? es[0] : en[0],
+      image: lang === "es" ? es[0] : isMd ? enDesktop[0] : en[0],
       alt: dict.mainPage.screenShots.screenshot1.description,
       caption: dict.mainPage.screenShots.screenshot1.description,
     },
     {
-      image: lang === "es" ? es[1] : en[1],
+      image: lang === "es" ? es[1] : isMd ? enDesktop[1] : en[1],
       alt: dict.mainPage.screenShots.screenshot2.description,
       caption: dict.mainPage.screenShots.screenshot2.description,
     },
     {
-      image: lang === "es" ? es[2] : en[2],
+      image: lang === "es" ? es[2] : isMd ? enDesktop[2] : en[2],
       alt: dict.mainPage.screenShots.screenshot3.description,
       caption: dict.mainPage.screenShots.screenshot3.description,
     },
     {
-      image: lang === "es" ? es[3] : en[3],
+      image: lang === "es" ? es[3] : isMd ? enDesktop[3] : en[3],
       alt: dict.mainPage.screenShots.screenshot4.description,
       caption: dict.mainPage.screenShots.screenshot4.description,
     },
     {
-      image: lang === "es" ? es[4] : en[4],
+      image: lang === "es" ? es[4] : isMd ? enDesktop[4] : en[4],
       alt: dict.mainPage.screenShots.screenshot5.description,
       caption: dict.mainPage.screenShots.screenshot5.description,
     },
     {
-      image: lang === "es" ? es[5] : en[5],
+      image: lang === "es" ? es[5] : isMd ? enDesktop[5] : en[5],
       alt: dict.mainPage.screenShots.screenshot6.description,
       caption: dict.mainPage.screenShots.screenshot6.description,
     },
     {
-      image: lang === "es" ? es[6] : en[6],
+      image: lang === "es" ? es[6] : isMd ? enDesktop[6] : en[6],
       alt: dict.mainPage.screenShots.screenshot7.description,
       caption: dict.mainPage.screenShots.screenshot7.description,
     },
     {
-      image: lang === "es" ? es[7] : en[7],
+      image: lang === "es" ? es[7] : isMd ? enDesktop[7] : en[7],
       alt: dict.mainPage.screenShots.screenshot8.description,
       caption: dict.mainPage.screenShots.screenshot8.description,
     },
@@ -75,26 +91,50 @@ export const AppScreenshots = ({ dict, lang }: AppScreenshotsProps) => {
   return (
     <section className="sm:py-16 px-4 sm:px-0 text-neutral-100 tracking-tight">
       <div className="container mx-auto text-center">
-        <h2 className="text-3xl sm:text-5xl font-bold mb-10">
+        <h2 className="text-3xl sm:text-5xl font-bold mb-2">
           {dict.mainPage.screenShots.title}
         </h2>
         <p className="mb-6 text-lg opacity-80">
           {dict.mainPage.screenShots.description}
         </p>
-        <div className="flex gap-2 justify-center items-center flex-col sm:flex-row flex-wrap">
-          {screenshots.map((screenshot, index) => (
-            <div
-              key={index}
-              className="bg-white p-4 rounded-lg w-full max-w-[400px]"
-            >
-              <img
-                src={screenshot.image}
-                alt={screenshot.alt}
-                className="w-full h-auto rounded-sm mb-4"
-              />
-              <p className="text-gray-600 text-lg font-bold">{screenshot.caption}</p>
-            </div>
-          ))}
+
+        <div className="md:hidden">
+          <Carousel
+            showIndicators={false}
+            showThumbs={false}
+            showStatus={false}
+          >
+            {screenshots.map((screenshot, index) => (
+              <div key={index}>
+                <img
+                  src={screenshot.image}
+                  alt={screenshot.alt}
+                  className="w-full h-auto rounded-sm mb-4"
+                />
+                <p className="text-lg font-bold">{screenshot.caption}</p>
+              </div>
+            ))}
+          </Carousel>
+        </div>
+
+        <div className="hidden md:block">
+          <div className="flex gap-2 justify-center items-center flex-col sm:flex-row flex-wrap">
+            {screenshots.map((screenshot, index) => (
+              <div
+                key={index}
+                className="bg-white p-4 rounded-lg w-full max-w-[400px]"
+              >
+                <img
+                  src={screenshot.image}
+                  alt={screenshot.alt}
+                  className="w-full h-auto rounded-sm mb-4"
+                />
+                <p className="text-gray-600 text-lg font-bold">
+                  {screenshot.caption}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

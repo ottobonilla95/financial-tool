@@ -6,6 +6,7 @@ import { AvailableLanguages, getDictionary } from "@/src/translations";
 import { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import FacebookPixel from "@/src/facebook-pixel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 export async function generateMetadata({
   params,
@@ -155,7 +156,9 @@ export default async function RootLayout({
           />
         )}
       </head>
-      <body className={`${bricolageGrotesque.className} antialiased tracking-tight`}>
+      <body
+        className={`${bricolageGrotesque.className} antialiased tracking-tight`}
+      >
         {children}
         <ToastContainer />
         <div className="fixed bottom-2 right-2 text-sm text-gray-400">
