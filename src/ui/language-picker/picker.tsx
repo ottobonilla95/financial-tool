@@ -1,7 +1,8 @@
 "use client";
-import { setCookie } from "cookies-next";
+import { setCookie, getCookie } from "cookies-next";
+import { get } from "http";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const LanguagePicker = ({
   currentLocale,
@@ -18,8 +19,6 @@ export const LanguagePicker = ({
     const currentPath = pathname;
     const newPath = currentPath.replace(`/${locale}`, `/${newLocale}`);
 
-    console.log("currentPath", currentPath);
-    console.log("newPath", newPath);
     setLocale(newLocale);
 
     // Save the selected language in cookies
@@ -33,6 +32,11 @@ export const LanguagePicker = ({
     router.push(updatedUrl);
   };
 
+  useEffect(() => {
+    if (!getCookie("preferredLocale")) {
+      setCookie("preferredLocale", currentLocale);
+    }
+  }, []);
   return (
     <div className="flex items-center space-x-2">
       <button
