@@ -47,42 +47,50 @@ export const AppScreenshots = ({ dict, lang }: AppScreenshotsProps) => {
 
   const screenshots = [
     {
-      image: lang === "es" ? es[0] : isMd ? enDesktop[0] : en[0],
+      image:
+        lang === "es" ? (isMd ? es[0] : en[0]) : isMd ? enDesktop[0] : en[0],
       alt: dict.mainPage.screenShots.screenshot1.description,
       caption: dict.mainPage.screenShots.screenshot1.description,
     },
     {
-      image: lang === "es" ? es[1] : isMd ? enDesktop[1] : en[1],
+      image:
+        lang === "es" ? (isMd ? es[1] : en[1]) : isMd ? enDesktop[1] : en[1],
       alt: dict.mainPage.screenShots.screenshot2.description,
       caption: dict.mainPage.screenShots.screenshot2.description,
     },
     {
-      image: lang === "es" ? es[2] : isMd ? enDesktop[2] : en[2],
+      image:
+        lang === "es" ? (isMd ? es[2] : en[2]) : isMd ? enDesktop[2] : en[2],
       alt: dict.mainPage.screenShots.screenshot3.description,
       caption: dict.mainPage.screenShots.screenshot3.description,
     },
     {
-      image: lang === "es" ? es[3] : isMd ? enDesktop[3] : en[3],
+      image:
+        lang === "es" ? (isMd ? es[3] : en[3]) : isMd ? enDesktop[3] : en[3],
       alt: dict.mainPage.screenShots.screenshot4.description,
       caption: dict.mainPage.screenShots.screenshot4.description,
     },
     {
-      image: lang === "es" ? es[4] : isMd ? enDesktop[4] : en[4],
+      image:
+        lang === "es" ? (isMd ? es[4] : en[4]) : isMd ? enDesktop[4] : en[4],
       alt: dict.mainPage.screenShots.screenshot5.description,
       caption: dict.mainPage.screenShots.screenshot5.description,
     },
     {
-      image: lang === "es" ? es[5] : isMd ? enDesktop[5] : en[5],
+      image:
+        lang === "es" ? (isMd ? es[5] : en[5]) : isMd ? enDesktop[5] : en[5],
       alt: dict.mainPage.screenShots.screenshot6.description,
       caption: dict.mainPage.screenShots.screenshot6.description,
     },
     {
-      image: lang === "es" ? es[6] : isMd ? enDesktop[6] : en[6],
+      image:
+        lang === "es" ? (isMd ? es[6] : en[6]) : isMd ? enDesktop[6] : en[6],
       alt: dict.mainPage.screenShots.screenshot7.description,
       caption: dict.mainPage.screenShots.screenshot7.description,
     },
     {
-      image: lang === "es" ? es[7] : isMd ? enDesktop[7] : en[7],
+      image:
+        lang === "es" ? (isMd ? es[7] : en[7]) : isMd ? enDesktop[7] : en[7],
       alt: dict.mainPage.screenShots.screenshot8.description,
       caption: dict.mainPage.screenShots.screenshot8.description,
     },
