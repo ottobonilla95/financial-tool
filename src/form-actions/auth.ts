@@ -171,7 +171,7 @@ export async function createUser(
       },
     });
 
-    let pricingUrl = `/pricing?email=${email}`;
+    let pricingUrl = `/${lang}/pricing?email=${email}`;
     if (offer) {
       pricingUrl += `&offer=${offer}`;
     }
