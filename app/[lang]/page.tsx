@@ -83,16 +83,16 @@ export default async function MainPage({
                   src={`/images/home-page/${lang}/hero-desktop.png`}
                   width={1000}
                   height={760}
-                  className="hidden lg:block"
+                  // className="hidden lg:block"
                   alt="Screenshots of the dashboard project showing desktop version"
                 />
-                <Image
+                {/* <Image
                   src={`/images/home-page/${lang}/hero-mobile.png`}
                   width={400}
                   height={620}
                   className="block lg:hidden"
                   alt="Screenshot of the dashboard project showing mobile version"
-                />
+                /> */}
               </div>
             </div>
 
