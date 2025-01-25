@@ -77,11 +77,11 @@ export const Header = ({ lang, dict }: HeaderProps) => {
         {/* Mobile Dropdown Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden mt-2 space-y-2">
-            <Link href="/pricing">
+            {/* <Link href="/pricing">
               <span className="block text-white font-medium hover:underline">
                 {dict.shared.pricing}
               </span>
-            </Link>
+            </Link> */}
             <Link href="/login">
               <span className="block text-white font-medium hover:underline">
                 {dict.authPages.login}
