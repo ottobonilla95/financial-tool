@@ -4,7 +4,7 @@ import { Expense } from "@/src/types";
 import { AppDictionary } from "@/src/translations";
 import { AgChartProps, AgCharts } from "ag-charts-react";
 import { abbreviateCurrency } from "@/src/helpers/abbreviate-currency";
-import { useContext, useMemo, useState } from "react";
+import { useContext, useMemo } from "react";
 import { AppContext } from "@/src/app-wrappper/provider";
 import { Button } from "../../components";
 import clsx from "clsx";
@@ -19,8 +19,20 @@ export const getDailyTotalsByCategory = (expenses: Expense[]) => {
     {};
   const totalsByDay: { [key: string]: number } = {};
 
+  // Find the earliest and latest date in expenses
+  const dates = expenses.map((expense) => new Date(expense.date));
+  const startDate = new Date(Math.min(...dates.map((d) => d.getTime())));
+  const endDate = new Date(Math.max(...dates.map((d) => d.getTime())));
+
+  // Generate all dates within the range
+  const allDays: string[] = [];
+  for (let d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
+    allDays.push(d.toISOString().split("T")[0]); // Format YYYY-MM-DD
+  }
+
+  // Populate totals for existing expenses
   expenses.forEach((expense) => {
-    const day = expense.date?.toISOString().split("T")[0] || ""; // Get YYYY-MM-DD format
+    const day = expense.date?.toISOString().split("T")[0] || "";
     const category = expense.category.name;
 
     if (!totalsByDayAndCategory[day]) {
@@ -33,18 +45,38 @@ export const getDailyTotalsByCategory = (expenses: Expense[]) => {
 
     totalsByDayAndCategory[day][category] += expense.amount;
 
-    // Calculate the total expenses per day
     if (!totalsByDay[day]) {
       totalsByDay[day] = 0;
     }
     totalsByDay[day] += expense.amount;
   });
 
+  // Fill missing days with zeroes
+  const uniqueCategories = [
+    ...new Set(expenses.map((expense) => expense.category.name)),
+  ];
+
+  allDays.forEach((day) => {
+    if (!totalsByDayAndCategory[day]) {
+      totalsByDayAndCategory[day] = {};
+    }
+
+    uniqueCategories.forEach((category) => {
+      if (!totalsByDayAndCategory[day][category]) {
+        totalsByDayAndCategory[day][category] = 0;
+      }
+    });
+
+    if (!totalsByDay[day]) {
+      totalsByDay[day] = 0;
+    }
+  });
+
   // Format the result into an array of objects
-  return Object.keys(totalsByDayAndCategory).map((day) => ({
+  return allDays.map((day) => ({
     day,
     ...totalsByDayAndCategory[day],
-    total: totalsByDay[day], // Add the total per day
+    total: totalsByDay[day],
   }));
 };
 
