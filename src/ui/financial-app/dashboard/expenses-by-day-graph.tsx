@@ -8,7 +8,7 @@ import { useContext, useMemo } from "react";
 import { AppContext } from "@/src/app-wrappper/provider";
 import { Button } from "../../components";
 import clsx from "clsx";
-
+import { format } from "date-fns";
 export type ExpensesByDayGraphProps = {
   expenses: Expense[];
   dict: AppDictionary;
@@ -74,7 +74,8 @@ export const getDailyTotalsByCategory = (expenses: Expense[]) => {
 
   // Format the result into an array of objects
   return allDays.map((day) => ({
-    day,
+    // day,
+    day: format(new Date(day + "T00:00:00"), "EEE dd"), //
     ...totalsByDayAndCategory[day],
     total: totalsByDay[day],
   }));
