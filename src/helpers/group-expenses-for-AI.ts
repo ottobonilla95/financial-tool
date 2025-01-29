@@ -16,7 +16,7 @@ export const groupExpensesForAI = (
         {
           total: number;
           emotions: Record<string, number>;
-          satisfaction: number[];
+          satisfaction: number | null; // Changed from array to single number
         }
       >;
     }
@@ -70,7 +70,7 @@ export const groupExpensesForAI = (
       categoryTotals[categoryName].subcategories[subcategoryName] = {
         total: 0,
         emotions: {},
-        satisfaction: [],
+        satisfaction: null, // Ensure it's not an array
       };
     }
 
@@ -93,12 +93,18 @@ export const groupExpensesForAI = (
     ] += amount;
 
     // Store satisfaction level for subcategory
-    categoryTotals[categoryName].subcategories[
-      subcategoryName
-    ].satisfaction.push(satisfactionLevel);
+    const subcategory =
+      categoryTotals[categoryName].subcategories[subcategoryName];
+
+    if (subcategory.satisfaction === null) {
+      subcategory.satisfaction = satisfactionLevel;
+    } else {
+      subcategory.satisfaction =
+        (subcategory.satisfaction + satisfactionLevel) / 2;
+    }
   });
 
-  // Calculate emotion percentages & average satisfaction per subcategory
+  // Convert emotions to percentages
   Object.keys(categoryTotals).forEach((category) => {
     Object.keys(categoryTotals[category].subcategories).forEach(
       (subcategory) => {
@@ -112,13 +118,8 @@ export const groupExpensesForAI = (
           );
         });
 
-        // Calculate average satisfaction level
-        if (subcatData.satisfaction.length > 0) {
-          const avgSatisfaction =
-            subcatData.satisfaction.reduce((a, b) => a + b, 0) /
-            subcatData.satisfaction.length;
-          subcatData.satisfaction = Number(avgSatisfaction.toFixed(1));
-        } else {
+        // If no satisfaction data exists, set it to null
+        if (subcatData.satisfaction === null) {
           subcatData.satisfaction = null;
         }
       }

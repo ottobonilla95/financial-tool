@@ -128,7 +128,7 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ tips });
-  } catch (error) {
+  } catch (error: any) {
     console.error("AI Financial Advisor Error:", error);
     return NextResponse.json(
       { error: error.message || "Internal Server Error" },
