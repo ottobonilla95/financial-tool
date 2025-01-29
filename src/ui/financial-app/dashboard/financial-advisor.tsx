@@ -1,39 +1,64 @@
 "use client";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import { Sparkles, Loader2 } from "lucide-react";
 import { Button } from "../../components";
 import { useTranslations } from "@/src/translations/use-translations";
+import { Earning, Expense, Saving } from "@/src/types";
+import { groupExpensesForAI } from "@/src/helpers/group-expenses-for-AI";
 
+export type FinancialAdvisorProps = {
+  expenses: Expense[];
+  expensesPrevious: Expense[];
+  earnings: Earning[];
+  earningsPrevious: Earning[];
+  savings: Saving[];
+  savingsPrevious: Saving[];
+  userName: string;
+};
 export const FinancialAdvisor = ({
-  userSpendingData,
-  username,
-  lang,
-}: {
-  userSpendingData: any;
-  username: string;
-  lang: string;
-}) => {
-  const { dict } = useTranslations();
+  expenses,
+  expensesPrevious,
+  earnings,
+  earningsPrevious,
+  savings,
+  savingsPrevious,
+  userName,
+}: FinancialAdvisorProps) => {
+  if (expenses.length === 0 && earnings.length === 0 && savings.length === 0) {
+    return null;
+  }
+
+  const currentMonthFinancesSummary = groupExpensesForAI(
+    expenses,
+    earnings,
+    savings
+  );
+
+  const previusMonthFinancesSummary = groupExpensesForAI(
+    expensesPrevious,
+    earningsPrevious,
+    savingsPrevious
+  );
+
+  const { lang, dict } = useTranslations();
   const [advice, setAdvice] = useState<{ title: string; advice: string }[]>([]);
   const [loading, setLoading] = useState(false);
-  const [talking, setTalking] = useState(false);
-  const [showMessage, setShowMessage] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShowMessage(false), 5000);
-    return () => clearTimeout(timer);
-  }, []);
 
   const getAdvice = async () => {
     setLoading(true);
-    setTalking(true);
 
     try {
       const res = await fetch("/api/advisor/get-advise", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userSpendingData, lang }),
+        body: JSON.stringify({
+          userSpendingData: {
+            currentMonthFinancesSummary,
+            previusMonthFinancesSummary,
+          },
+          lang,
+        }),
       });
 
       const data = await res.json();
@@ -43,7 +68,6 @@ export const FinancialAdvisor = ({
     }
 
     setLoading(false);
-    setTimeout(() => setTalking(false), 2000);
   };
 
   return (
@@ -71,7 +95,7 @@ export const FinancialAdvisor = ({
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1, delay: 0.3 }}
       >
-        Hola {username}! Soy tu asesor financiero! 💰
+        Hola {userName}! Soy tu asesor financiero! 💰
       </motion.h2>
 
       {/* AI Call to Action */}

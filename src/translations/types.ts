@@ -100,6 +100,7 @@ export type AppDictionary = {
     satisfaction: string;
     emotion: string;
     noExpensesAdded: string;
+    startTrackingToday: string;
     expenses: string;
     savings: string;
     income: string;

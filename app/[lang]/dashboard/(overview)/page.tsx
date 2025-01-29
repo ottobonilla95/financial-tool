@@ -229,18 +229,6 @@ export default async function Page({
     redirect("/dashboard/pricing");
   }
 
-  const currentMonthFinancesSummary = groupExpensesForAI(
-    expensesCurrent,
-    earningsCurrent,
-    savingsCurrent
-  );
-
-  const previusMonthFinancesSummary = groupExpensesForAI(
-    expensesPrevious,
-    earningsPrevious,
-    savingsPrevious
-  );
-
   return (
     <AppProvider
       currency={currency as Currency}
@@ -270,12 +258,13 @@ export default async function Page({
                   </Suspense>
                 </div>
                 <FinancialAdvisor
-                  userSpendingData={{
-                    currentMonthFinancesSummary,
-                    previusMonthFinancesSummary,
-                  }}
-                  lang={lang}
-                  username={user.name}
+                  userName={user.name}
+                  expenses={expensesCurrent}
+                  earnings={earningsCurrent}
+                  savings={savingsCurrent}
+                  expensesPrevious={expensesPrevious}
+                  earningsPrevious={earningsPrevious}
+                  savingsPrevious={savingsPrevious}
                 />
                 <DashboardTotals
                   expenses={expensesCurrent}
