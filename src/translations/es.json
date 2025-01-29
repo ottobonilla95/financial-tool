@@ -19,7 +19,9 @@
   "ai": {
     "aiFinancialAdvisor": "Asesor Financiero de IA",
     "getFinancialAdvise": "Obtén asesoramiento financiero",
-    "analyzing": "Analizando"
+    "analyzing": "Analizando",
+    "hi": "Hola",
+    "imYourFinancialAdvisor": "Soy tu asesor financiero"
   },
   "forms": {
     "expense": {

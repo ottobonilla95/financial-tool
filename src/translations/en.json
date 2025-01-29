@@ -19,7 +19,9 @@
   "ai": {
     "aiFinancialAdvisor": "AI Financial Advisor",
     "getFinancialAdvise": "Get financial advice",
-    "analyzing": "Analyzing"
+    "analyzing": "Analyzing",
+    "hi": "Hi",
+    "imYourFinancialAdvisor": "I'm your financial advisor"
   },
   "forms": {
     "expense": {

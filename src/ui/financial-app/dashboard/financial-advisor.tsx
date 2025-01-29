@@ -75,7 +75,7 @@ export const FinancialAdvisor = ({
       className="p-4 bg-white shadow-sm rounded-sm flex flex-col items-center mb-5 relative"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
     >
       {/* AI Avatar with Bounce & Glow Animation */}
       <motion.div
@@ -93,9 +93,9 @@ export const FinancialAdvisor = ({
         className="text-xl font-bold mt-2 text-center"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1, delay: 0.3 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
       >
-        Hola {userName}! Soy tu asesor financiero! 💰
+        {`${dict.ai?.hi} ${userName}! ${dict.ai?.imYourFinancialAdvisor}`} 💰
       </motion.h2>
 
       {/* AI Call to Action */}

@@ -20,6 +20,8 @@ export type AppDictionary = {
     aiFinancialAdvisor: string;
     getFinancialAdvise: string;
     analyzing: string;
+    hi: string;
+    imYourFinancialAdvisor: string;
   };
   forms: {
     expense: {
