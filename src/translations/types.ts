@@ -16,6 +16,11 @@ export type AppDictionary = {
     samePeriodLastMonth: string;
     totalFinancialRecords: string;
   };
+  ai: {
+    aiFinancialAdvisor: string;
+    getFinancialAdvise: string;
+    analyzing: string;
+  };
   forms: {
     expense: {
       create: {

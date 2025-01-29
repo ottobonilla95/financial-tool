@@ -16,6 +16,11 @@
     "samePeriodLastMonth": "Mismo período del mes pasado",
     "totalFinancialRecords": "Total de registros financieros"
   },
+  "ai": {
+    "aiFinancialAdvisor": "Asesor Financiero de IA",
+    "getFinancialAdvise": "Obtén asesoramiento financiero",
+    "analyzing": "Analizando"
+  },
   "forms": {
     "expense": {
       "create": {

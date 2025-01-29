@@ -30,7 +30,6 @@ export const ExpenseByDayTable = ({
   dict,
   isPremium,
 }: ExpenseByDayTableProps) => {
-  console.log("records", records);
   const { emotions, month, year } = useContext(DashboardContext);
 
   const { currency } = useContext(AppContext);

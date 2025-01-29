@@ -14,3 +14,4 @@ export * from "./expenses-by-day-graph";
 export * from "./expense-totals-per-category";
 export * from "./expenses-by-day-table-container";
 export * from "./provider";
+export * from "./financial-advisor";

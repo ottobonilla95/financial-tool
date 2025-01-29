@@ -15,6 +15,7 @@ import {
   ExpenseTotalsPerCategory,
   ExpensesByDayTableContainer,
   DashboardProvider,
+  FinancialAdvisor,
 } from "@/src/ui/financial-app/dashboard";
 import { Suspense } from "react";
 import { fetchEarnings } from "@/src/data/earning";
@@ -30,6 +31,7 @@ import { Spinner } from "@/src/ui/components";
 import TourProvider from "@/src/ui/financial-app/tour/provider";
 import TourInitiator from "@/src/ui/financial-app/tour/tour-initiator";
 import { redirect } from "next/navigation";
+import { groupExpensesForAI } from "@/src/helpers/group-expenses-for-AI";
 
 export type DashboardPageProps = {
   searchParams: {
@@ -55,6 +57,7 @@ export default async function Page({
     select: {
       subscription_plan: true,
       email: true,
+      name: true,
       stripeId: true,
       currency: {
         select: {
@@ -226,6 +229,18 @@ export default async function Page({
     redirect("/dashboard/pricing");
   }
 
+  const currentMonthFinancesSummary = groupExpensesForAI(
+    expensesCurrent,
+    earningsCurrent,
+    savingsCurrent
+  );
+
+  const previusMonthFinancesSummary = groupExpensesForAI(
+    expensesPrevious,
+    earningsPrevious,
+    savingsPrevious
+  );
+
   return (
     <AppProvider
       currency={currency as Currency}
@@ -254,7 +269,14 @@ export default async function Page({
                     <DashboardButtons dict={dict} />
                   </Suspense>
                 </div>
-
+                <FinancialAdvisor
+                  userSpendingData={{
+                    currentMonthFinancesSummary,
+                    previusMonthFinancesSummary,
+                  }}
+                  lang={lang}
+                  username={user.name}
+                />
                 <DashboardTotals
                   expenses={expensesCurrent}
                   earnings={earningsCurrent}

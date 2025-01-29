@@ -7,7 +7,6 @@ import {
   ArrowTrendingDownIcon,
 } from "@heroicons/react/24/solid";
 import { CSSProperties, useContext } from "react";
-import { AppContext } from "@/src/app-wrappper/provider";
 import { IntlContext } from "@/src/translations/provider";
 
 function calculatePercentageChange(

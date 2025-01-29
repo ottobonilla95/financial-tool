@@ -16,6 +16,11 @@
     "samePeriodLastMonth": "Same period last month",
     "totalFinancialRecords": "Total financial records"
   },
+  "ai": {
+    "aiFinancialAdvisor": "AI Financial Advisor",
+    "getFinancialAdvise": "Get financial advice",
+    "analyzing": "Analyzing"
+  },
   "forms": {
     "expense": {
       "create": {
