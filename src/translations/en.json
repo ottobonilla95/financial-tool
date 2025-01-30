@@ -199,7 +199,9 @@
     "enterYourPasswordConfirmation": "Enter your password confirmation",
     "enterYourName": "Enter your name",
     "acceptPrivacyPolicy": "I accept the Privacy Policy",
-    "privacyPolicy": "Privacy Policy"
+    "privacyPolicy": "Privacy Policy",
+    "accountSuccessfulyCreated": "Your account has been successfully created!",
+    "youAreAllSetPleaseSignin": "You're all set—please sign in to continue."
   },
   "mainPage": {
     "introMessage1": "Take Control",

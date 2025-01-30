@@ -198,7 +198,9 @@
     "enterYourPasswordConfirmation": "Ingresa tu confirmación de contraseña",
     "enterYourName": "Ingresa tu nombre",
     "acceptPrivacyPolicy": "Acepto la política de privacidad",
-    "privacyPolicy": "Política de privacidad"
+    "privacyPolicy": "Política de privacidad",
+    "accountSuccessfulyCreated": "¡Tu cuenta ha sido creada exitosamente!",
+    "youAreAllSetPleaseSignin": "¡Estás listo! Por favor, inicia sesión para continuar."
   },
 
   "mainPage": {

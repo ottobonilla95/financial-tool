@@ -5,21 +5,23 @@ import { Container, Header } from "@/src/ui/components";
 
 export type LoginPageProps = {
   params: { lang: AvailableLanguages };
-  searchParams: { email?: string };
+  searchParams: { email?: string; variant: string };
 };
 
 export default async function LoginPage({
   params: { lang },
-  searchParams: { email },
+  searchParams: { email, variant },
 }: LoginPageProps) {
   const dict = await getDictionary(lang);
 
+  const isSignupFinished = variant === "signup_finished";
   return (
     <IntlProvider lang={lang} dict={dict}>
       <div className="min-h-screen bg-neutral-800">
         <Header lang={lang} dict={dict} />
+
         <Container className="flex justify-center pt-20">
-          <LoginForm email={email} />
+          <LoginForm email={email} isSignupFinished={isSignupFinished} />
         </Container>
       </div>
     </IntlProvider>

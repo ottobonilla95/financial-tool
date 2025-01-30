@@ -199,6 +199,8 @@ export type AppDictionary = {
     enterYourName: string;
     acceptPrivacyPolicy: string;
     privacyPolicy: string;
+    accountSuccessfulyCreated: string;
+    youAreAllSetPleaseSignin: string;
   };
   mainPage: {
     introMessage1: string;
