@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Sparkles, Loader2 } from "lucide-react";
 import { Button } from "../../components";
@@ -16,6 +16,7 @@ export type FinancialAdvisorProps = {
   savingsPrevious: Saving[];
   userName: string;
 };
+
 export const FinancialAdvisor = ({
   expenses,
   expensesPrevious,
@@ -44,9 +45,29 @@ export const FinancialAdvisor = ({
   const { lang, dict } = useTranslations();
   const [advice, setAdvice] = useState<{ title: string; advice: string }[]>([]);
   const [loading, setLoading] = useState(false);
+  const [lastAdviceDate, setLastAdviceDate] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // Load last advice date from localStorage
+  useEffect(() => {
+    const storedDate = localStorage.getItem("lastAdviceDate");
+    if (storedDate) {
+      setLastAdviceDate(storedDate);
+    }
+  }, []);
 
   const getAdvice = async () => {
+    const today = new Date().toISOString().split("T")[0]; // Get only the date (YYYY-MM-DD)
+
+    if (lastAdviceDate === today) {
+      setErrorMessage(
+        "You've already received financial advice today. Come back tomorrow!"
+      );
+      return;
+    }
+
     setLoading(true);
+    setErrorMessage(null);
 
     try {
       const res = await fetch("/api/advisor/get-advise", {
@@ -63,8 +84,13 @@ export const FinancialAdvisor = ({
 
       const data = await res.json();
       setAdvice(data.tips);
+      setLastAdviceDate(today);
+      localStorage.setItem("lastAdviceDate", today); // Store last request date
     } catch (error) {
       console.error("Error fetching advice:", error);
+      setErrorMessage(
+        "An error occurred while fetching advice. Please try again."
+      );
     }
 
     setLoading(false);
@@ -72,51 +98,71 @@ export const FinancialAdvisor = ({
 
   return (
     <motion.div
-      className="p-4 bg-white shadow-sm rounded-sm flex flex-col items-center mb-5 relative"
+      className="p-4 bg-white shadow-sm rounded-sm mb-5 relative"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      {/* AI Avatar with Bounce & Glow Animation */}
-      <motion.div
-        className="relative w-16 h-16 bg-lime-500 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-md"
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: [0.8, 1.1, 1], opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        whileHover={{ scale: 1.1, boxShadow: "0px 0px 12px rgba(0,255,0,0.6)" }}
-      >
-        🤖
-      </motion.div>
+      <div className="flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          {/* AI Avatar */}
+          <motion.div
+            className="relative w-10 cursor-pointer h-10 bg-black rounded-full flex items-center justify-center text-white text-xl font-bold shadow-md"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: [0.8, 1.1, 1], opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            whileHover={{
+              scale: 1.1,
+              boxShadow: "0px 0px 12px rgba(0,0,0,0.6)",
+            }}
+          >
+            🤖
+          </motion.div>
 
-      {/* AI Greeting with Fade-In Effect */}
-      <motion.h2
-        className="text-xl font-bold mt-2 text-center"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-      >
-        {`${dict.ai?.hi} ${userName}! ${dict.ai?.imYourFinancialAdvisor}`} 💰
-      </motion.h2>
+          {/* AI Greeting */}
+          <motion.h2
+            className="text-lg font-bold mt-2 text-center"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            {`${dict.ai?.hi} ${userName}! ${dict.ai?.imYourFinancialAdvisor}`}{" "}
+            💰
+          </motion.h2>
+        </div>
 
-      {/* AI Call to Action */}
-      <div className="mt-4">
-        <Button
-          onClick={getAdvice}
-          className="bg-black text-white disabled:opacity-50 font-bold"
-          disabled={loading}
-          icon={
-            loading ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
-            ) : (
-              <Sparkles className="w-4 h-4" />
-            )
-          }
-        >
-          <span>
-            {loading ? `${dict.ai?.analyzing}...` : dict.ai?.getFinancialAdvise}
-          </span>
-        </Button>
+        {/* AI Call to Action */}
+        <div className="mt-4">
+          <Button
+            onClick={getAdvice}
+            className="bg-black text-white disabled:opacity-50 font-bold"
+            disabled={
+              loading ||
+              lastAdviceDate === new Date().toISOString().split("T")[0]
+            }
+            icon={
+              loading ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <Sparkles className="w-4 h-4" />
+              )
+            }
+          >
+            <span>
+              {loading
+                ? `${dict.ai?.analyzing}...`
+                : lastAdviceDate === new Date().toISOString().split("T")[0]
+                ? dict.ai?.comeBackTomorrow
+                : dict.ai?.getFinancialAdvise}
+            </span>
+          </Button>
+        </div>
       </div>
+
+      {/* Error Message Display */}
+      {errorMessage && (
+        <div className="mt-2 text-sm text-red-500">⚠ {errorMessage}</div>
+      )}
 
       {/* AI Advice Display */}
       {advice.length > 0 && (

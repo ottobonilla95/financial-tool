@@ -22,6 +22,7 @@ export type AppDictionary = {
     analyzing: string;
     hi: string;
     imYourFinancialAdvisor: string;
+    comeBackTomorrow: string;
   };
   forms: {
     expense: {

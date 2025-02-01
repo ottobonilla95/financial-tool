@@ -18,10 +18,11 @@
   },
   "ai": {
     "aiFinancialAdvisor": "AI Financial Advisor",
-    "getFinancialAdvise": "Get financial advice",
-    "analyzing": "Analyzing",
-    "hi": "Hi",
-    "imYourFinancialAdvisor": "I'm your financial advisor"
+    "getFinancialAdvise": "Get Financial Advice",
+    "analyzing": "Analyzing...",
+    "hi": "Hi,",
+    "imYourFinancialAdvisor": "I'm your AI financial advisor",
+    "comeBackTomorrow": "You've already received advice today. Come back tomorrow!"
   },
   "forms": {
     "expense": {

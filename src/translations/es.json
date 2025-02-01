@@ -17,11 +17,12 @@
     "totalFinancialRecords": "Total de registros financieros"
   },
   "ai": {
-    "aiFinancialAdvisor": "Asesor Financiero de IA",
-    "getFinancialAdvise": "Obtén asesoramiento financiero",
+    "aiFinancialAdvisor": "Asesor financiero con IA",
+    "getFinancialAdvise": "Obtén asesoría financiera",
     "analyzing": "Analizando",
-    "hi": "Hola",
-    "imYourFinancialAdvisor": "Soy tu asesor financiero"
+    "hi": "Hola,",
+    "imYourFinancialAdvisor": "Soy tu asesor financiero con IA",
+    "comeBackTomorrow": "Ya has recibido un consejo hoy. ¡Vuelve mañana para más asesoría!"
   },
   "forms": {
     "expense": {
