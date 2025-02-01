@@ -44,6 +44,20 @@ export default async function Page({
   searchParams,
   params: { lang },
 }: DashboardPageProps) {
+  const currentDate = new Date();
+
+  // Use month and year from searchParams if provided, otherwise use current month and year
+  const selectedMonth =
+    Number(searchParams.month) || currentDate.getMonth() + 1;
+
+  const selectedYear = Number(searchParams.year) || currentDate.getFullYear();
+  const missingParams = !searchParams.month || !searchParams.year;
+  // Check if parameters are missing
+
+  if (missingParams) {
+    redirect(`/dashboard?month=${selectedMonth}&year=${selectedYear}`);
+    return null;
+  }
   const dict = await getDictionary(lang);
 
   const session = await auth();
@@ -77,16 +91,7 @@ export default async function Page({
   const currency = user?.currency;
   const tourFinished = user?.tourFinished;
 
-  const currentDate = new Date();
-
   const dayOfMonth = currentDate.getDate();
-
-  const month = Number(searchParams.month) || currentDate.getMonth() + 1;
-
-  // Use month and year from searchParams if provided, otherwise use current month and year
-  const selectedMonth =
-    Number(searchParams.month) || currentDate.getMonth() + 1;
-  const selectedYear = Number(searchParams.year) || currentDate.getFullYear();
 
   // Check if the selected month and year are the current month and year
   const isCurrentMonth =
@@ -237,14 +242,10 @@ export default async function Page({
         isUserOnStripe,
       }}
     >
-      {startDateCurrent.toISOString()}
-      <div className="h-10" />
-      {endDateCurrent.toISOString()}
-
       <IntlProvider dict={dict} lang={lang}>
         <DashboardProvider
           emotions={emotions}
-          month={month}
+          month={selectedMonth}
           year={searchParams.year ? Number(searchParams.year) : undefined}
         >
           <TourProvider>
