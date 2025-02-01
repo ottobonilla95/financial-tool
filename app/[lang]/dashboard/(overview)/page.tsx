@@ -31,7 +31,6 @@ import { Spinner } from "@/src/ui/components";
 import TourProvider from "@/src/ui/financial-app/tour/provider";
 import TourInitiator from "@/src/ui/financial-app/tour/tour-initiator";
 import { redirect } from "next/navigation";
-import { groupExpensesForAI } from "@/src/helpers/group-expenses-for-AI";
 
 export type DashboardPageProps = {
   searchParams: {
@@ -238,6 +237,10 @@ export default async function Page({
         isUserOnStripe,
       }}
     >
+      {startDateCurrent.toISOString()}
+      <div className="h-10" />
+      {endDateCurrent.toISOString()}
+
       <IntlProvider dict={dict} lang={lang}>
         <DashboardProvider
           emotions={emotions}
