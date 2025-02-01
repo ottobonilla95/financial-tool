@@ -15,7 +15,7 @@ export const Container = ({
     <div className="flex justify-center">
       <div
         className={clsx(className, {
-          "max-w-[1440px] w-full px-8": variant === "standard",
+          "max-w-[1440px] w-full px-4": variant === "standard",
           "w-full": variant === "full",
           "px-8 max-w-[900px]": variant === "narrow",
         })}

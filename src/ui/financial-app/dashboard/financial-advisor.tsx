@@ -103,7 +103,7 @@ export const FinancialAdvisor = ({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col lg:flex-row justify-between items-center">
         <div className="flex items-center gap-2">
           {/* AI Avatar */}
           <motion.div
@@ -135,7 +135,7 @@ export const FinancialAdvisor = ({
         <div className="mt-4">
           <Button
             onClick={getAdvice}
-            className="bg-black text-white disabled:opacity-50 font-bold"
+            className="!py-8 lg:!py-0 bg-black text-white disabled:opacity-50 font-bold"
             disabled={
               loading ||
               lastAdviceDate === new Date().toISOString().split("T")[0]

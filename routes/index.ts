@@ -4,5 +4,6 @@ export const publicRoutes = [
   "/contact-us",
   "/about-us",
   "/pricing",
+  "/landing-page",
 ];
 export const DEFAULT_LOGIN_REDIRECT = "/dashboard";
