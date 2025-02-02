@@ -34,7 +34,7 @@ export default async function RootLayout({
   const dict = await getDictionary(params.lang);
 
   return (
-    <html lang={params.lang}>
+    <html lang={params.lang} className="scroll-smooth">
       <head>
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link

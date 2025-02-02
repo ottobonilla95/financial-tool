@@ -1,19 +1,10 @@
-import { AppDictionary } from "@/src/translations";
 import React from "react";
-import { Button } from "../../components";
-import { SparklesIcon } from "@heroicons/react/24/solid";
 
-export type AIAssistantProps = {
-  dict: AppDictionary;
-  lang: string;
-};
+export type AIAssistantProps = {};
 
-export const AIAssistant = ({ dict, lang }: AIAssistantProps) => {
+export const AIAssistant = ({}: AIAssistantProps) => {
   return (
-    <section
-      id="ai-assistant"
-      className="tracking-tight"
-    >
+    <section id="ai-assistant" className="tracking-tight">
       <h2 className="text-3xl font-bold mb-6 text-center">
         Tu asistente financiero con IA
       </h2>

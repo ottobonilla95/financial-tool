@@ -11,3 +11,7 @@ export * from "./benefits";
 export * from "./what-will-you-get";
 export * from "./your-relationwith-money-will-change";
 export * from "./ai-assistant";
+export * from "./how-to-use";
+export * from "./limited-offer";
+export * from "./pricing-offer";
+export * from "./guarantee";

@@ -426,23 +426,24 @@
     },
     "testimonials": {
       "title": "Lo Que Dicen Nuestros Usuarios",
+
       "testimonial1": {
-        "feedback": "¡TrackMySpend cambió la forma en que manejo mis finanzas! Ahora tengo control total sobre mis gastos y ahorros."
+        "feedback": "No me daba cuenta de la cantidad de dinero que gastaba en taxis. Al entender mis finanzas, me di cuenta de que comprar una scooter me salía más económico."
       },
       "testimonial2": {
-        "feedback": "¡TrackMySpend ha sido un cambio radical! Es intuitivo, fácil de usar y me da una visión clara de mi salud financiera."
+        "feedback": "Vivía llegando a fin de mes con mis ahorros y tomando dinero prestado del siguiente mes. Gracias a TrackMySpend, logré romper este ciclo y ahora llego a fin de mes sin problemas."
       },
       "testimonial3": {
-        "feedback": "Usar TrackMySpend ha simplificado mi proceso de presupuesto. Ahora me siento más segura al manejar mis finanzas."
+        "feedback": "Entendí que tiendo a comprar muchas cosas en línea cuando estoy ansiosa. Comprender cómo mis emociones afectan mis finanzas ha sido un paso vital para tomar el control."
       },
       "testimonial4": {
-        "feedback": "TrackMySpend me ayuda a mantenerme al tanto de mis hábitos de gasto. ¡Es una herramienta imprescindible para quienes toman en serio sus finanzas!"
+        "feedback": "Logré aumentar mis ahorros reduciendo los gastos en domicilios. ¡No sabía cuánto sumaba al mes! Ahora soy mucho más consciente de la forma en que me alimento."
       },
       "testimonial5": {
-        "feedback": "TrackMySpend ha transformado la manera en que manejo mi dinero. Es fácil de usar y ahora tengo una visión clara de mis gastos y ahorros."
+        "feedback": "Estos últimos dos meses, estando en casa, gasté más que cuando fui de vacaciones a República Dominicana. Es increíble cómo no somos conscientes de nuestros gastos hasta que los vemos en papel."
       },
       "testimonial6": {
-        "feedback": "Gracias a TrackMySpend, he tomado el control de mis finanzas. ¡Ahora rastrear mis gastos es rápido y sin complicaciones!"
+        "feedback": "Me gusta ver cómo mis finanzas cambian cuando ciertas situaciones en mi vida ocurren, como cuando me mudé o cuando terminé con mi ex pareja. Recomiendo TrackMySpend a todos mis amigos."
       }
     }
   },

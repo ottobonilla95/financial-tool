@@ -1,19 +1,13 @@
-import Image from "next/image";
-import { Button, Container, Footer, Header, XIcon } from "@/src/ui/components";
+import { Button, Container, Footer } from "@/src/ui/components";
 import { AvailableLanguages, getDictionary } from "@/src/translations";
 import {
-  KeyFeatures,
-  HowItWorks,
   Testimonials,
-  AppScreenshots,
-  MyStory,
-  VisualBenefit,
   PainPoints,
-  Benefits,
-  StartForm,
-  WhatWillYouGet,
   YourRelationWithMoneyWillChange,
   AIAssistant,
+  HowToUse,
+  GuaranteeSection,
+  PricingOfferSection,
 } from "@/src/ui/financial-app/home-page";
 import FAQs from "@/src/ui/faqs/faqs";
 import { OfferType } from "@/src/types";
@@ -64,7 +58,6 @@ export default async function MainPage({
                 <img
                   src={`/images/home-page/${lang}/hero-desktop.png`}
                   className="w-[100%] sm:w-[700px]"
-                  // className="hidden lg:block"
                   alt="Screenshots of the dashboard project showing desktop version"
                 />
               </div>
@@ -78,6 +71,7 @@ export default async function MainPage({
                     <FireIcon className="w-6 h-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-200 ease-in-out" />
                   }
                   iconPosition="left"
+                  href="#offer"
                 >
                   {dict.mainPage.takeControlToday}
                 </Button>
@@ -153,10 +147,10 @@ export default async function MainPage({
 
         <div>
           <Container variant="narrow">
-            <div className="pt-2">
+            <div className="pt-2 pb-10">
               <div className="text-[80px] text-center ">🔥</div>
 
-              <YourRelationWithMoneyWillChange dict={dict} lang={lang} />
+              <YourRelationWithMoneyWillChange />
             </div>
           </Container>
         </div>
@@ -165,48 +159,39 @@ export default async function MainPage({
           <Container variant="narrow">
             <div className="pt-2">
               <div className="text-[80px] text-center ">🤖</div>
-
-              <AIAssistant dict={dict} lang={lang} />
+              <AIAssistant />
             </div>
           </Container>
         </div>
-        <Container>
-          {/* <Benefits dict={dict} /> */}
-          {/* <KeyFeatures dict={dict} /> */}
 
-          <HowItWorks dict={dict} />
-          <Testimonials dict={dict} />
+        <div className="bg-neutral-100 pt-8 pb-10">
+          <Container variant="narrow">
+            <HowToUse />
+          </Container>
+        </div>
+        <div className="bg-neutral-900 pt-14 pb-8">
+          <Container variant="narrow">
+            <Testimonials dict={dict} />
+          </Container>
+        </div>
 
-          <AppScreenshots dict={dict} lang={lang} />
-          <div className="mt-12">
-            <div className="flex items-center flex-col">
-              <div>
-                <img
-                  src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1731070991/app%20images/arrows/yluhzruf6wmgukjzzuin.png"
-                  className="w-[120px] sm:w-[180px]"
-                />
-              </div>
+        <div className="bg-neutral-900 pt-14 pb-8" id="offer">
+          <Container variant="narrow">
+            <PricingOfferSection />
+          </Container>
+        </div>
 
-              <div className="flex mt-4 sm:mt-8 mb-4 justify-center sm:justify-start w-full sm:w-auto">
-                <StartForm dict={dict} lang={lang} offer={offer} />
-              </div>
-              <div>
-                <img
-                  src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1731070991/app%20images/arrows/yluhzruf6wmgukjzzuin.png"
-                  className="w-[120px] sm:w-[180px] rotate-180"
-                />
-              </div>
-            </div>
-          </div>
+        <div className="bg-neutral-100 pt-14 pb-8">
+          <Container variant="narrow">
+            <GuaranteeSection />
+          </Container>
+        </div>
 
-          {/* <div className="py-10 text-neutral-100 tracking-tight">
-            <h2 className="text-5xl font-bold sm:mb-10 xl:mb-12 text-center">
-              {dict.shared.pricing}
-            </h2>
-            <Pricing dict={dict} lang={lang} />
-          </div> */}
-          <FAQs dict={dict} />
-        </Container>
+        <div className="bg-neutral-900 pt-14 pb-8">
+          <Container variant="narrow">
+            <FAQs dict={dict} />
+          </Container>
+        </div>
       </main>
       <Footer dict={dict} />
     </>
