@@ -1,15 +1,17 @@
 import React from "react";
 import { ShieldCheckIcon } from "@heroicons/react/24/solid";
-import Image from "next/image";
 
 export const GuaranteeSection = () => {
   return (
     <section id="guarantee" className="tracking-tight text-center bg-gray-100">
-      <img
-        src={`/images/guarantee/7-days-guarantee.png`}
-        alt="Garantía de 7 días"
-        className="w-full mb-6"
-      />
+      <div className="flex justify-center">
+        <img
+          src={`/images/guarantee/7-days-guarantee.png`}
+          alt="Garantía de 7 días"
+          className="w-full mb-6 sm:max-w-[300px]"
+        />
+      </div>
+
       <h2 className="text-3xl font-bold mb-6">Garantía de Satisfacción</h2>
       <p className="text-lg mb-6">
         Estamos seguros de que TrackMySpend{" "}

@@ -15,3 +15,4 @@ export * from "./how-to-use";
 export * from "./limited-offer";
 export * from "./pricing-offer";
 export * from "./guarantee";
+export * from "./intro";

@@ -8,6 +8,7 @@ import {
   HowToUse,
   GuaranteeSection,
   PricingOfferSection,
+  Intro,
 } from "@/src/ui/financial-app/home-page";
 import FAQs from "@/src/ui/faqs/faqs";
 import { OfferType } from "@/src/types";
@@ -27,68 +28,10 @@ export default async function MainPage({
   return (
     <>
       <main className="flex flex-col">
-        <div className="bg-neutral-900 h-5" />
-        <div className="sm:min-h-screen bg-neutral-100 pt-5 pb-20">
+        {/* <div className="bg-neutral-900 h-5" /> */}
+        <div className="sm:min-h-screen bg-neutral-900 pt-5 pb-20">
           <Container>
-            <div className="mt-4 sm:mt-10 mb-2 sm:mb-10">
-              <div className="w-full flex justify-center">
-                <div className="text-center lg:max-w-[800px] flex flex-col gap-6 mb-6">
-                  <h1 className="font-extrabold text-center text-3xl lg:text-6xl tracking-tight md:-mb-4 flex flex-col gap-3 items-center sm:items-start">
-                    <span className="relative">
-                      {dict.mainPage.introMessage1}
-
-                      {` ${dict.mainPage.introMessage2}`}
-
-                      <span className="relative whitespace-nowrap mr-4 ml-3">
-                        <span className="absolute bg-neutral-900 -left-2 -top-1 -bottom-1 -right-2 md:-left-3 md:-top-0 md:-bottom-0 md:-right-3 -rotate-1"></span>
-                        <span className="relative text-white">
-                          {dict.mainPage.introMessage3}
-                        </span>
-                      </span>
-                      <span>{dict.mainPage.introMessage4}</span>
-                    </span>
-                  </h1>
-
-                  <p className="text-base opacity-80 leading-relaxed sm:text-xl sm:mt-4 text-center">
-                    {dict.mainPage.welcomeDescription}
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center justify-center">
-                <img
-                  src={`/images/home-page/${lang}/hero-desktop.png`}
-                  className="w-[100%] sm:w-[700px]"
-                  alt="Screenshots of the dashboard project showing desktop version"
-                />
-              </div>
-            </div>
-
-            <div className="flex justify-center">
-              <div className="sm:max-w-[400px]">
-                <Button
-                  className="!font-bold mt-4 !text-xl group rounded-lg bg-lime-500 font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0 min-w-[300px] !py-8"
-                  icon={
-                    <FireIcon className="w-6 h-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-200 ease-in-out" />
-                  }
-                  iconPosition="left"
-                  href="#offer"
-                >
-                  {dict.mainPage.takeControlToday}
-                </Button>
-              </div>
-            </div>
-
-            {/* <section className="flex flex-wrap items-center justify-center mt-6 mb-12 xl:py-5">
-              <span className="text-xs opacity-50 mr-2">Featured on</span>
-              <a
-                href="https://x.com/ottobonilla95/status/1843986969715691806"
-                target="_blank"
-                rel="noreferrer"
-                title="Featured on X.com"
-              >
-                <XIcon className="w-8 md:w-9" />
-              </a>
-            </section> */}
+            <Intro dict={dict} />
           </Container>
         </div>
 
@@ -157,10 +100,7 @@ export default async function MainPage({
 
         <div className="bg-neutral-100">
           <Container variant="narrow">
-            <div className="pt-2">
-              <div className="text-[80px] text-center ">🤖</div>
-              <AIAssistant />
-            </div>
+            <AIAssistant />
           </Container>
         </div>
 
@@ -176,7 +116,7 @@ export default async function MainPage({
         </div>
 
         <div className="bg-neutral-900 pt-14 pb-8" id="offer">
-          <Container variant="narrow">
+          <Container variant="standard">
             <PricingOfferSection />
           </Container>
         </div>

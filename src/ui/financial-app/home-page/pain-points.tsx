@@ -74,7 +74,7 @@ export const PainPoints = ({ lang, dict }: PainPointsProps) => {
               <span className="text-white font-bold">
                 Intentas organizarte,
               </span>{" "}
-              pero terminas improvisando improvisando y gastando más de la
+              pero terminas improvisando y gastando más de la
               cuenta.
             </div>
           </li>

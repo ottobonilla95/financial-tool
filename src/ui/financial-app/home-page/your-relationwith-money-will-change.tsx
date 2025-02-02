@@ -7,48 +7,49 @@ export const YourRelationWithMoneyWillChange =
   ({}: YourRelationWithMoneyWillChangeProps) => {
     return (
       <section id="key-features" className="tracking-tight">
-        <h2 className="text-3xl font-bold mb-6 text-center">
-          Tu relación con el dinero está a punto de cambiar
+        <h2 className="text-2xl font-bold mb-6 text-center">
+          ¿Y si te dijera que hay una forma fácil de tomar el control de tu
+          dinero en minutos?
         </h2>
         <p className="text-lg mb-6">
-          Has intentado presupuestar, ahorrar, seguir consejos financieros… pero
-          nada parece funcionar.
-          <strong>
-            {" "}
-            ¿Y si te dijera que hay un método simple que puede transformar por
-            completo tu vida financiera?
-          </strong>
-        </p>
-        <p className="text-lg mb-6">
-          Con <strong>TrackMySpend</strong>, por fin tendrás el control total de
-          tu dinero. <br />
-          <span className="text-lime-600 font-semibold">
-            Sin estrés, sin complicaciones, sin suposiciones.
-          </span>
+          <strong>TrackMySpend</strong> te da la claridad financiera que siempre
+          necesitaste.
         </p>
         <ul className="text-lg mb-6 space-y-4 text-left inline-block">
           <li>
-            📊 <strong>Verás con claridad</strong> a dónde va cada peso.
+            ✅ <strong>Sabrás exactamente</strong> en qué gastas tu dinero.
           </li>
           <li>
-            💡 <strong>Descubrirás oportunidades de ahorro</strong> sin
+            ✅ <strong>Descubrirás oportunidades de ahorro</strong> sin
             esfuerzo.
           </li>
           <li>
-            😌 <strong>Eliminarás la ansiedad</strong> de no saber en qué
-            gastas.
+            ✅ <strong>Eliminarás el estrés</strong> de no saber si te alcanza
+            hasta fin de mes.
           </li>
           <li>
-            🎯 <strong>Avanzarás con seguridad</strong> hacia tus metas
-            financieras.
+            ✅ <strong>Podrás ver patrones de gasto</strong> y mejorar tus
+            decisiones financieras.
+          </li>
+          <li>
+            ✅ <strong>Un asistente de IA</strong> analizará tus hábitos y te
+            dará consejos personalizados.
           </li>
         </ul>
-        <p className="text-lg mb-6 font-semibold text-red-600">
-          🔥 Esta es la solución que necesitas. No más excusas, no más
-          improvisación.
+        <h3 className="text-xl font-semibold mb-4 text-center">
+          💡 Imagina esto:
+        </h3>
+        <p className="text-lg mb-6">
+          ❌ <strong>Antes:</strong> Revisando tu cuenta bancaria sin idea de
+          dónde se fue tu dinero.
         </p>
-        <p className="text-lg mb-8">
-          Es hora de tomar las riendas de tu dinero y transformar tu futuro.
+        <p className="text-lg mb-6">
+          ✅ <strong>Después:</strong> Sabiendo cada peso que gastaste,
+          ahorrando más y sin preocupaciones.
+        </p>
+        <p className="text-lg mb-6 font-semibold text-red-600 text-center">
+          📌 Es hora de tomar el control de tus finanzas y transformar tu
+          futuro.
         </p>
         <Button
           className="!py-10 !font-bold mt-4 !text-xl group rounded-lg bg-lime-500 font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0 min-w-[300px]"

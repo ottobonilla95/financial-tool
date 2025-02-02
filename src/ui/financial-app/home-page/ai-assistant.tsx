@@ -5,6 +5,14 @@ export type AIAssistantProps = {};
 export const AIAssistant = ({}: AIAssistantProps) => {
   return (
     <section id="ai-assistant" className="tracking-tight">
+      <div className="flex justify-center py-5">
+        <img
+          src={`/images/ai-robot.png`}
+          className="w-[150px] sm:max-w-[500px]"
+          alt="Screenshots of the dashboard project showing desktop version"
+        />
+      </div>
+
       <h2 className="text-3xl font-bold mb-6 text-center">
         Tu asistente financiero con IA
       </h2>
@@ -20,16 +28,20 @@ export const AIAssistant = ({}: AIAssistantProps) => {
       </p>
       <ul className="text-lg mb-6 space-y-4 text-left inline-block">
         <li>
-          🤖 <strong>Te alerta sobre gastos excesivos</strong> antes de que se
-          conviertan en un problema.
+          🤖 <strong>Analiza tu historial financiero</strong> para detectar
+          patrones y ayudarte a entender mejor tu dinero.
         </li>
         <li>
-          💰 <strong>Identifica oportunidades de ahorro</strong> sin que cambies
-          drásticamente tu estilo de vida.
+          💰 <strong>Te da recomendaciones de ahorro personalizadas</strong>{" "}
+          basadas en tus gastos y hábitos financieros.
         </li>
         <li>
-          📈 <strong>Predice patrones de gasto</strong> para ayudarte a
-          planificar mejor tu futuro financiero.
+          🎯 <strong>Destaca tus logros financieros</strong> y te motiva a
+          seguir mejorando tu economía.
+        </li>
+        <li>
+          📌 <strong>Te ofrece tips accionables</strong> sobre cómo optimizar
+          tus gastos mes a mes.
         </li>
       </ul>
       <p className="text-lg mb-6 font-semibold text-green-600">
