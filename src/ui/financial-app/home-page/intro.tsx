@@ -17,7 +17,7 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
           <div className="text-center lg:max-w-[800px] flex flex-col mb-6">
             <h1
               className={clsx(
-                "mb-3 font-extrabold text-center text-2xl lg:text-5xl tracking-tight flex flex-col gap-3 items-center sm:items-start",
+                "mb-3 font-extrabold text-center text-[26px] lg:text-5xl tracking-tight flex flex-col gap-3 items-center sm:items-start",
                 {
                   "text-neutral-100": variant === "dark",
                 }
@@ -48,7 +48,7 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
 
             <p
               className={clsx(
-                "text-base opacity-80 leading-relaxed sm:text-xl text-center",
+                "text-lg opacity-80 leading-relaxed sm:text-xl text-center",
                 {
                   "text-neutral-100": variant === "dark",
                 }
