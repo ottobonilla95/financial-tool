@@ -10,8 +10,8 @@ export type PainPointsProps = {
 export const PainPoints = ({ lang, dict }: PainPointsProps) => {
   if (lang === "es") {
     return (
-      <section id="key-features" className="tracking-tight bg-neutral-900">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-2 text-center text-white">
+      <section id="key-features" className="tracking-tight bg-neutral-800">
+        <h2 className="text-2xl sm:text-4xl font-bold text-center mb-2 text-center text-white">
           SEAMOS HONESTOS
         </h2>
         <div className="mb-4 text-lg leading-7 text-neutral-400">
@@ -74,8 +74,7 @@ export const PainPoints = ({ lang, dict }: PainPointsProps) => {
               <span className="text-white font-bold">
                 Intentas organizarte,
               </span>{" "}
-              pero terminas improvisando y gastando más de la
-              cuenta.
+              pero terminas improvisando y gastando más de la cuenta.
             </div>
           </li>
         </ul>

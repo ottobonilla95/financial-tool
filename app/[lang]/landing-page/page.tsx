@@ -1,4 +1,4 @@
-import { Button, Container, Footer } from "@/src/ui/components";
+import { Container, Footer } from "@/src/ui/components";
 import { AvailableLanguages, getDictionary } from "@/src/translations";
 import {
   Testimonials,
@@ -12,7 +12,6 @@ import {
 } from "@/src/ui/financial-app/home-page";
 import FAQs from "@/src/ui/faqs/faqs";
 import { OfferType } from "@/src/types";
-import { FireIcon } from "@heroicons/react/24/solid";
 
 export type MainPageProps = {
   params: { lang: AvailableLanguages };
@@ -76,9 +75,9 @@ export default async function MainPage({
 
         {/* <PainPoints dict={dict} /> */}
 
-        <div className="bg-neutral-900">
+        <div className="bg-neutral-800">
           <Container variant="narrow">
-            <div className="text-[80px] text-center -mt-16">🛑</div>
+            <div className="text-[70px] text-center -mt-12">🛑</div>
             {/* <div className="text-[80px] text-center -mt-16">🔥</div> */}
 
             <div className="pt-2">

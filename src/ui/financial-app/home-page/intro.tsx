@@ -12,12 +12,12 @@ export type IntroProps = {
 export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
   return (
     <div>
-      <div className="mt-4 sm:mt-10 mb-2 sm:mb-10">
+      <div className="mt-10 sm:mt-10 mb-2 sm:mb-10">
         <div className="w-full flex justify-center">
           <div className="text-center lg:max-w-[800px] flex flex-col mb-6">
             <h1
               className={clsx(
-                "mb-3 font-extrabold text-center text-3xl lg:text-6xl tracking-tight flex flex-col gap-3 items-center sm:items-start",
+                "mb-3 font-extrabold text-center text-2xl lg:text-5xl tracking-tight flex flex-col gap-3 items-center sm:items-start",
                 {
                   "text-neutral-100": variant === "dark",
                 }
@@ -48,7 +48,7 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
 
             <p
               className={clsx(
-                "text-lg opacity-80 leading-relaxed sm:text-xl text-center",
+                "text-base opacity-80 leading-relaxed sm:text-xl text-center",
                 {
                   "text-neutral-100": variant === "dark",
                 }
@@ -62,7 +62,7 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
         <div className="flex items-center justify-center">
           <img
             src={`/images/vslgif.gif`}
-            className="w-[80%] sm:max-w-[500px]"
+            className="w-[250px] sm:max-w-[500px]"
             alt="Screenshots of the dashboard project showing desktop version"
           />
         </div>
