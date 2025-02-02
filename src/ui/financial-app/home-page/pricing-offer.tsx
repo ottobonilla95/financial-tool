@@ -11,12 +11,12 @@ export const PricingOfferSection = () => {
       <h2 className="text-3xl font-bold mb-6 text-center">
         🚀 Accede a TrackMySpend de por vida
       </h2>
-      <p className="text-lg mb-6">
+      <p className="text-lg mb-6 sm:text-center">
         Un solo pago.<span className="font-bold"> Sin suscripciones.</span>{" "}
         Control total de tus finanzas para siempre.
       </p>
 
-      <h3 className="text-xl font-semibold mb-4">
+      <h3 className="text-xl font-semibold mb-4 sm:text-center">
         Esto es todo lo que recibirás 👇 
       </h3>
 

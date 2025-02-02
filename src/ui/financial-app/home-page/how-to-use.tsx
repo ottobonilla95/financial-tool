@@ -7,7 +7,7 @@ export const HowToUse = ({}: HowToUseProps) => {
   useEffect(() => {
     const script = document.createElement("script");
     script.src =
-      "https://scripts.converteai.net/769d0a20-d707-4621-8a28-39232bb67a07/players/679e8ea7a67e5439a43c901d/player.js";
+      "https://scripts.converteai.net/769d0a20-d707-4621-8a28-39232bb67a07/players/679ed702bb356461e60cd1f2/player.js";
     script.async = true;
     document.head.appendChild(script);
   }, []);
@@ -22,12 +22,12 @@ export const HowToUse = ({}: HowToUseProps) => {
         TrackMySpend. Mira este video para ver cómo funciona.
       </p>
       <div
-        id="vid_679e8ea7a67e5439a43c901d"
+        id="vid_679ed702bb356461e60cd1f2"
         style={{ position: "relative", width: "100%", paddingTop: "64.98%" }}
       >
         <img
-          id="thumb_679e8ea7a67e5439a43c901d"
-          src="https://images.converteai.net/769d0a20-d707-4621-8a28-39232bb67a07/players/679e8ea7a67e5439a43c901d/thumbnail.jpg"
+          id="thumb_679ed702bb356461e60cd1f2"
+          src="https://images.converteai.net/769d0a20-d707-4621-8a28-39232bb67a07/players/679ed702bb356461e60cd1f2/thumbnail.jpg"
           style={{
             position: "absolute",
             top: 0,
@@ -40,7 +40,7 @@ export const HowToUse = ({}: HowToUseProps) => {
           alt="thumbnail"
         />
         <div
-          id="backdrop_679e8ea7a67e5439a43c901d"
+          id="backdrop_679ed702bb356461e60cd1f2"
           style={{
             WebkitBackdropFilter: "blur(5px)",
             backdropFilter: "blur(5px)",

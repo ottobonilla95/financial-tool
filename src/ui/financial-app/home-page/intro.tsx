@@ -62,7 +62,7 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
         <div className="flex items-center justify-center">
           <img
             src={`/images/vslgif.gif`}
-            className="w-[250px] sm:max-w-[500px]"
+            className="w-[250px] sm:w-[400px]"
             alt="Screenshots of the dashboard project showing desktop version"
           />
         </div>
