@@ -11,43 +11,37 @@ export const Testimonials = ({ dict, variant }: TestimonialsProps) => {
     {
       name: "Kevin Gonzales",
       feedback: dict.mainPage.testimonials.testimonial4.feedback,
-      image:
-        "https://res.cloudinary.com/dav4ntxrq/image/upload/v1730813558/reviews/yhhtpzonmvlwlgyvthyg.png",
+      image: "/images/reviews/4410s08633_n.png",
       rate: 5,
     },
     {
       name: "Marion Bonilla",
       feedback: dict.mainPage.testimonials.testimonial1.feedback,
-      image:
-        "https://res.cloudinary.com/dav4ntxrq/image/upload/v1727798049/1688637869155_ls44og.jpg",
+      image: "/images/reviews/Snapinst1080.jpg",
       rate: 5,
     },
     {
       name: "Diego Goicoechea",
       feedback: dict.mainPage.testimonials.testimonial2.feedback,
-      image:
-        "https://res.cloudinary.com/dav4ntxrq/image/upload/v1727954734/reviews/go2xix2zet4kd6xzr3xx.jpg",
+      image: "/images/reviews/4410086233_n.png",
       rate: 4,
     },
     {
       name: "Cindy Clement",
       feedback: dict.mainPage.testimonials.testimonial3.feedback,
-      image:
-        "https://res.cloudinary.com/dav4ntxrq/image/upload/v1730743359/reviews/pejpz4ovgtfkscxgodlc.png",
+      image: "/images/reviews/4410208633_n.png",
       rate: 4,
     },
     {
       name: "Juan David Guerrero",
       feedback: dict.mainPage.testimonials.testimonial5.feedback,
-      image:
-        "https://res.cloudinary.com/dav4ntxrq/image/upload/v1735280475/470478532_2362152754127240_6448902300653081500_n_iimxrg.jpg",
+      image: "/images/reviews/441008633_n.jpg",
       rate: 5,
     },
     {
       name: "Shaquille Britton",
       feedback: dict.mainPage.testimonials.testimonial6.feedback,
-      image:
-        "https://res.cloudinary.com/dav4ntxrq/image/upload/v1735281303/reviews/gpunffdotd4xeohkzdve.png",
+      image: "/images/reviews/44100811633_n.png",
       rate: 4,
     },
   ];

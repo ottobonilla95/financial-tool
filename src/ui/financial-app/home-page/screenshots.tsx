@@ -34,15 +34,14 @@ export const AppScreenshots = ({ dict, lang }: AppScreenshotsProps) => {
   ];
 
   const en = [
-    "https://res.cloudinary.com/dav4ntxrq/image/upload/v1737345367/1_d34f0p.png",
-    // "https://res.cloudinary.com/dav4ntxrq/image/upload/v1737345367/2_sxlenb.png",
-    "https://res.cloudinary.com/dav4ntxrq/image/upload/v1737345367/3_l31frw.png",
-    "https://res.cloudinary.com/dav4ntxrq/image/upload/v1737345367/4_mwl7n9.png",
-    "https://res.cloudinary.com/dav4ntxrq/image/upload/v1737345368/5_gdl37s.png",
-    "https://res.cloudinary.com/dav4ntxrq/image/upload/v1737345370/6_x8tu9z.png",
-    "https://res.cloudinary.com/dav4ntxrq/image/upload/v1737345369/7_aarao4.png",
-    "https://res.cloudinary.com/dav4ntxrq/image/upload/v1737345369/8_ynai2z.png",
-    "https://res.cloudinary.com/dav4ntxrq/image/upload/v1737345368/9_dhmbfe.png",
+    "/images/app-usage/1.png",
+    "/images/app-usage/3.png",
+    "/images/app-usage/4.png",
+    "/images/app-usage/5.png",
+    "/images/app-usage/6.png",
+    "/images/app-usage/7.png",
+    "/images/app-usage/8.png",
+    "/images/app-usage/9.png",
   ];
 
   const screenshots = [
