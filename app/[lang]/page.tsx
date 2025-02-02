@@ -166,7 +166,7 @@ export default async function MainPage({
             <div className="flex items-center flex-col">
               <div>
                 <img
-                  src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1731070991/app%20images/arrows/yluhzruf6wmgukjzzuin.png"
+                  src="/images/arrows.png"
                   className="w-[120px] sm:w-[180px]"
                 />
               </div>
@@ -176,7 +176,7 @@ export default async function MainPage({
               </div>
               <div>
                 <img
-                  src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1731070991/app%20images/arrows/yluhzruf6wmgukjzzuin.png"
+                  src="/images/arrows.png"
                   className="w-[120px] sm:w-[180px] rotate-180"
                 />
               </div>
