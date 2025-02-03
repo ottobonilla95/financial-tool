@@ -3,6 +3,7 @@ import { Button } from "../../components";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 
 export const PricingOfferSection = () => {
+  const hotmartCheckoutUrl = process.env.HOTMART_CHECKOUT_URL;
   return (
     <section
       id="pricing-offer"
@@ -79,7 +80,10 @@ export const PricingOfferSection = () => {
         transforma tus finanzas para siempre!
       </p>
 
-      <Button className="!py-10 !text-lg bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-lg text-lg transition mt-6">
+      <Button
+        className="!py-10 !text-lg bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-lg text-lg transition mt-6"
+        href={hotmartCheckoutUrl}
+      >
         🔥 Acceder Ahora – Solo $37 USD (Antes $148)
       </Button>
     </section>
