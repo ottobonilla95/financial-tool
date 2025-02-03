@@ -67,6 +67,13 @@ export async function POST(request: Request) {
       if (userFound) {
         const contactId = userFoundResponse.data.items[0].id;
 
+        let premiumTagId;
+        if (user?.lang === "es") {
+          premiumTagId = process.env.SYSTEME_TRACKMYSPEND_PREMIUM_ES_TAG_ID;
+        } else {
+          premiumTagId = process.env.SYSTEME_TRACKMYSPEND_PREMIUM_EN_TAG_ID;
+        }
+
         const addPremiumTagOptions = {
           method: "POST",
           url: `https://api.systeme.io/api/contacts/${contactId}/tags`,
@@ -75,7 +82,7 @@ export async function POST(request: Request) {
             "X-API-Key": process.env.SYSTEME_API_KEY,
           },
           data: {
-            tagId: Number(process.env.SYSTEME_TRACKMYSPEND_PREMIUM_TAG_ID),
+            tagId: Number(premiumTagId),
           },
         };
 

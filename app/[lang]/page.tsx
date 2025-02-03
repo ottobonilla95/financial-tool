@@ -2,14 +2,9 @@ import Image from "next/image";
 import { Container, Footer, Header, XIcon } from "@/src/ui/components";
 import { AvailableLanguages, getDictionary } from "@/src/translations";
 import {
-  KeyFeatures,
   HowItWorks,
   Testimonials,
   AppScreenshots,
-  MyStory,
-  VisualBenefit,
-  PainPoints,
-  Benefits,
   StartForm,
   WhatWillYouGet,
 } from "@/src/ui/financial-app/home-page";

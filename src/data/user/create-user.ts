@@ -5,17 +5,30 @@ const prisma = new PrismaClient();
 export type UserToCreate = {
   email: string;
   lang: string;
+  password?: string;
+  name?: string;
+  pricing_Group?: string;
+  fullySignedUp?: boolean;
 };
 
-export async function createDbUser({ email, lang }: UserToCreate) {
+export async function createDbUser({
+  email,
+  lang,
+  name,
+  password,
+  pricing_Group,
+  fullySignedUp,
+}: UserToCreate) {
   try {
     const user = await prisma.users.create({
       data: {
         email,
         created_at: new Date(),
         lang,
-        name: "",
-        password: "",
+        name: name || "",
+        password: password || "",
+        pricing_group: pricing_Group,
+        fully_signed_up: fullySignedUp || false,
       },
     });
     return user;
