@@ -87,6 +87,7 @@ export async function POST(req: Request) {
       name,
       pricing_Group: "one_time_purchase",
       fullySignedUp: true,
+      subscriptionPlan: "lifetime",
     });
   } catch (error) {
     throw error;
