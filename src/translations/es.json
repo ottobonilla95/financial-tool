@@ -456,7 +456,8 @@
     "yourPsychology": "Tu Psicología",
     "support": "Soporte",
     "account": "Cuenta",
-    "logOut": "Cerrar sesión"
+    "logOut": "Cerrar sesión",
+    "tutorial": "Tutorial"
   },
   "supportPage": {
     "title": "Soporte",
@@ -464,6 +465,13 @@
     "getInContact": "Ponte en contacto",
     "getInContactDescription": "Si no encontraste la respuesta a tu pregunta en nuestras preguntas frecuentes (FAQs), puedes ponerte en contacto con nosotros a través de cualquiera de los siguientes canales."
   },
+
+  "videoTutorialPage": {
+    "mainHeading": "Mira nuestro tutorial paso a paso",
+    "title": "Cómo empezar con nuestra plataforma",
+    "description": "Aprende a comenzar y a sacarle el máximo provecho a nuestra plataforma con esta guía en video detallada."
+  },
+
   "faqs": {
     "title": "Preguntas frecuentes (FAQs)",
     "question1": "¿Qué necesito para tener éxito con TrackMySpend?",
@@ -608,7 +616,10 @@
     "step2": "A continuación, agrega tus ingresos. Haz clic en el botón 'Agregar Ingreso' para registrar tus ingresos.",
     "step3": "Ahora, agrega tus gastos. Haz clic en el botón 'Agregar Gasto' para registrar tus transacciones.",
     "step4": "Para ver análisis más avanzados, dirígete a la sección 'Resumen' en el menú del tablero.",
-    "step5": "Finalmente, explora cómo tus emociones impactan tus gastos. Consulta el módulo 'Psicología' para obtener información sobre emociones y satisfacción."
+    "step5": "Finalmente, explora cómo tus emociones impactan tus gastos. Consulta el módulo 'Psicología' para obtener información sobre emociones y satisfacción.",
+    "step6": "¿Necesitas ayuda para comenzar? Mira nuestro tutorial paso a paso en la sección 'Tutorial'.",
+    "step7": "Si necesitas más ayuda, visita nuestra página de 'Soporte' para consultar preguntas frecuentes y servicio al cliente.",
+    "step8": "Por último, configura los detalles de tu cuenta, incluyendo tu contraseña y preferencias, en la página 'Cuenta'."
   },
   "pricingPage": {
     "title1": "Descubre qué pasa con tu dinero.",

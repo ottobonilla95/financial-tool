@@ -444,13 +444,19 @@
     "yourPsychology": "Your Psychology",
     "support": "Support",
     "account": "Account",
-    "logOut": "Log out"
+    "logOut": "Log out",
+    "tutorial": "Tutorial"
   },
   "supportPage": {
     "title": "Support",
     "description": "Find answers to your questions or get in touch with our support team.",
     "getInContact": "Get in contact",
     "getInContactDescription": "If you didn't find the answer to your question in our FAQs, you can contact us through any of the following channels."
+  },
+  "videoTutorialPage": {
+    "mainHeading": "Watch Our Step-by-Step Tutorial",
+    "title": "Getting Started with Our Platform",
+    "description": "Learn how to get started and make the most out of our platform with this detailed video guide."
   },
   "faqs": {
     "title": "Frequently Asked Questions (FAQs)",
@@ -597,7 +603,10 @@
     "step2": "Next, add your income. Click the 'Add Income' button to log your earnings.",
     "step3": "Now, add your expenses. Click the 'Add Expense' button to record your transactions.",
     "step4": "For more advanced insights, head over to the 'Summary' section from the dashboard menu.",
-    "step5": "Finally, explore how your emotions impact your spending. Check out the 'Psychology' module for emotional and satisfaction insights."
+    "step5": "Finally, explore how your emotions impact your spending. Check out the 'Psychology' module for emotional and satisfaction insights.",
+    "step6": "Need help getting started? Watch our step-by-step tutorial in the 'Tutorial' section.",
+    "step7": "If you need further assistance, visit our 'Support' page for FAQs and customer service.",
+    "step8": "Lastly, set up your account details, including your password and preferences, in the 'Account' page."
   },
   "pricingPage": {
     "title1": "Discover What’s Happening with Your Money.",

@@ -325,6 +325,7 @@ export type AppDictionary = {
     support: string;
     account: string;
     logOut: string;
+    tutorial: string;
   };
   supportPage: {
     title: string;
@@ -332,6 +333,13 @@ export type AppDictionary = {
     getInContact: string;
     getInContactDescription: string;
   };
+
+  videoTutorialPage: {
+    mainHeading: string;
+    title: string;
+    description: string;
+  };
+
   faqs: {
     title: string;
     question1: string;
@@ -477,6 +485,9 @@ export type AppDictionary = {
     step3: string;
     step4: string;
     step5: string;
+    step6: string;
+    step7: string;
+    step8: string;
   };
   pricingPage: {
     title1: string;

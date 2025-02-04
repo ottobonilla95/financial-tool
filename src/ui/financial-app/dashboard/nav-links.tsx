@@ -5,6 +5,7 @@ import {
   PresentationChartLineIcon,
   UserGroupIcon,
   UserIcon,
+  BookOpenIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { usePathname, useParams } from "next/navigation";
@@ -45,11 +46,23 @@ export default function NavLinks({ dict }: NavLinksProps) {
       className: "tour-step-5",
     },
     {
+      name: dict.sideMenu.tutorial,
+      href: "/dashboard/tutorial",
+      icon: BookOpenIcon,
+      className: "tour-step-6",
+    },
+    {
       name: dict.sideMenu.support,
       href: "/dashboard/support",
       icon: UserGroupIcon,
+      className: "tour-step-7",
     },
-    { name: dict.sideMenu.account, href: "/dashboard/account", icon: UserIcon },
+    {
+      name: dict.sideMenu.account,
+      href: "/dashboard/account",
+      icon: UserIcon,
+      className: "tour-step-8",
+    },
   ];
 
   return (
