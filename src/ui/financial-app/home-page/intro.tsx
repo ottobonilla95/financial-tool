@@ -48,7 +48,7 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
 
             <p
               className={clsx(
-                "text-lg opacity-80 leading-relaxed sm:text-xl text-center",
+                "text-lg opacity-80 leading-relaxed sm:text-xl text-center font-medium",
                 {
                   "text-neutral-100": variant === "dark",
                 }
@@ -61,8 +61,8 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
 
         <div className="flex items-center justify-center">
           <img
-            src={`/images/vslgif.gif`}
-            className="w-[250px] sm:w-[400px]"
+            src={`/images/vslgif2.gif`}
+            className="w-full sm:w-[500px]"
             alt="Screenshots of the dashboard project showing desktop version"
           />
         </div>

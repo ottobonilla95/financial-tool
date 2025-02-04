@@ -80,7 +80,7 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
 
         <div className="bg-neutral-800">
           <Container variant="narrow">
-            <div className="text-[70px] text-center -mt-12">🛑</div>
+            <div className="text-[70px] text-center -mt-12">❌</div>
             {/* <div className="text-[80px] text-center -mt-16">🔥</div> */}
 
             <div className="pt-2">
