@@ -12,24 +12,27 @@ import {
 } from "@/src/ui/financial-app/home-page";
 import FAQs from "@/src/ui/faqs/faqs";
 import { OfferType } from "@/src/types";
+import AppLogo from "@/src/ui/app-logo";
 
 export type MainPageProps = {
   params: { lang: AvailableLanguages };
-  searchParams: { offer: OfferType };
 };
 
-export default async function MainPage({
-  params: { lang },
-  searchParams: { offer },
-}: MainPageProps) {
+export default async function MainPage({ params: { lang } }: MainPageProps) {
   const dict = await getDictionary(lang);
 
   return (
     <>
       <main className="flex flex-col">
         {/* <div className="bg-neutral-900 h-5" /> */}
+
         <div className="sm:min-h-screen bg-neutral-900 pt-5 pb-20">
           <Container>
+            <div className="flex justify-center mt-5">
+              <AppLogo variant="small"/>
+            </div>
+            <div className="h-5" />
+
             <Intro dict={dict} />
           </Container>
         </div>

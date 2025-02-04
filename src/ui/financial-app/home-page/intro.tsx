@@ -12,7 +12,7 @@ export type IntroProps = {
 export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
   return (
     <div>
-      <div className="mt-10 sm:mt-10 mb-2 sm:mb-10">
+      <div className="mb-2 sm:mb-10">
         <div className="w-full flex justify-center">
           <div className="text-center lg:max-w-[800px] flex flex-col mb-6">
             <h1

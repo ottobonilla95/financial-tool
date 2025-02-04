@@ -79,13 +79,16 @@ export const PricingOfferSection = () => {
         ❗ Esta oferta especial desaparecerá pronto. ¡Aprovecha ahora y
         transforma tus finanzas para siempre!
       </p>
-
-      <Button
-        className="!py-10 !text-lg bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-lg text-lg transition mt-6"
-        href={hotmartCheckoutUrl}
-      >
-        🔥 Acceder Ahora – Solo $37 USD (Antes $148)
-      </Button>
+      <div className="flex justify-center">
+        <div className="sm:max-w-[500px] ">
+          <Button
+            className="!py-10 text-center !text-lg bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-lg text-lg transition mt-6"
+            href={hotmartCheckoutUrl}
+          >
+            🔥 Acceder Ahora – Solo $37 USD (Antes $148)
+          </Button>
+        </div>
+      </div>
     </section>
   );
 };
