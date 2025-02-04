@@ -14,7 +14,9 @@
     "totalExpensesPerDayByCategory": "Total expenses per day by category",
     "totalExpensesPerCategory": "Total expenses per category",
     "samePeriodLastMonth": "Same period last month",
-    "totalFinancialRecords": "Total financial records"
+    "totalFinancialRecords": "Total financial records",
+    "selectCurrencyTitle": "Select your currency",
+    "selectCurrencyMessage": "Select the currency of your preference."
   },
   "ai": {
     "aiFinancialAdvisor": "AI Financial Advisor",
@@ -167,7 +169,8 @@
     },
     "next": "Next",
     "previous": "Previous",
-    "back": "Back"
+    "back": "Back",
+    "save": "Save"
   },
   "insights": {
     "totalIncomeExpensesSavings": "Total income, expenses, and savings",

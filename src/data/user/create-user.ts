@@ -9,6 +9,7 @@ export type UserToCreate = {
   name?: string;
   pricing_Group?: string;
   fullySignedUp?: boolean;
+  subscriptionPlan?: string;
 };
 
 export async function createDbUser({
@@ -18,6 +19,7 @@ export async function createDbUser({
   password,
   pricing_Group,
   fullySignedUp,
+  subscriptionPlan,
 }: UserToCreate) {
   try {
     const user = await prisma.users.create({
@@ -29,6 +31,7 @@ export async function createDbUser({
         password: password || "",
         pricing_group: pricing_Group,
         fully_signed_up: fullySignedUp || false,
+        subscription_plan: subscriptionPlan,
       },
     });
     return user;

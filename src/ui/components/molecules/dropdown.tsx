@@ -13,6 +13,7 @@ export type DropdownProps = {
   onEditClick?: (value: string) => void;
   showEditButton?: boolean;
   defaultValue?: { label: string; value: string };
+  maxMenuHeight?: number;
 };
 
 export const Dropdown = ({
@@ -24,6 +25,7 @@ export const Dropdown = ({
   onEditClick,
   showEditButton,
   defaultValue,
+  maxMenuHeight,
 }: DropdownProps) => {
   const { dict } = useTranslations();
   const NoOptionsMessage = ({ children, ...props }: NoticeProps) => {
@@ -114,6 +116,7 @@ export const Dropdown = ({
       isDisabled={disabled}
       className="text-neutral-800"
       defaultValue={defaultValue}
+      maxMenuHeight={maxMenuHeight}
     />
   );
 };

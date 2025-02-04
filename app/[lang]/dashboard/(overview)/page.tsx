@@ -17,7 +17,7 @@ import {
   DashboardProvider,
   FinancialAdvisor,
 } from "@/src/ui/financial-app/dashboard";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { fetchEarnings } from "@/src/data/earning";
 import { getAllEmotions } from "@/src/data/emotion";
 import { fetchSavings } from "@/src/data/saving";
@@ -31,6 +31,7 @@ import { Spinner } from "@/src/ui/components";
 import TourProvider from "@/src/ui/financial-app/tour/provider";
 import TourInitiator from "@/src/ui/financial-app/tour/tour-initiator";
 import { redirect } from "next/navigation";
+import { CurrencyPicker } from "@/src/ui/financial-app/currency/currency-picker";
 
 export type DashboardPageProps = {
   searchParams: {
@@ -251,6 +252,11 @@ export default async function Page({
           <TourProvider>
             <main>
               {!tourFinished && <TourInitiator />}
+
+              {tourFinished && user.currency === null && (
+                <CurrencyPicker dict={dict} />
+              )}
+
               <Suspense fallback={<div>loading...</div>}>
                 <LastUpdated dict={dict} />
               </Suspense>
