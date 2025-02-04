@@ -2,6 +2,7 @@
 
 import { auth } from "@/auth";
 import { updateDBUser } from "../data/user";
+import { revalidatePath } from "next/cache";
 
 export async function setTourFinished() {
   const session = await auth();
@@ -19,6 +20,7 @@ export async function setTourFinished() {
   } catch (error) {
     return "error";
   }
+  revalidatePath("/dashboard");
 
   return "success";
 }

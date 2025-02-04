@@ -36,11 +36,11 @@ export default function TourProvider({ children }: DashboardPageProps) {
     },
     {
       selector: ".tour-step-7",
-      content: dict.tour?.step6 || "",
+      content: dict.tour?.step7 || "",
     },
     {
       selector: ".tour-step-8",
-      content: dict.tour?.step6 || "",
+      content: dict.tour?.step8 || "",
     },
   ];
 

@@ -2,12 +2,10 @@ import { fetchExpenses } from "@/src/data/expenses";
 import { auth } from "@/auth";
 import {
   ExpensesPieChart,
-  // ExpensesByCategoryTableContainer,
   DashboardTotals,
   LastUpdated,
   DashboardButtons,
   NoExpensesAdded,
-  // IncomeTableContainer,
   SavingTableContainer,
   DashboardExpeneseByEmotion,
   DashboardExpeneseBySatisfaction,
@@ -17,7 +15,7 @@ import {
   DashboardProvider,
   FinancialAdvisor,
 } from "@/src/ui/financial-app/dashboard";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import { fetchEarnings } from "@/src/data/earning";
 import { getAllEmotions } from "@/src/data/emotion";
 import { fetchSavings } from "@/src/data/saving";
