@@ -47,7 +47,7 @@ export const Testimonials = ({ dict, variant }: TestimonialsProps) => {
   ];
 
   return (
-    <section className="pb-10 text-neutral-100 tracking-tight">
+    <section className="pb-10 text-neutral-300 tracking-tight">
       <div className="container mx-auto text-center">
         <h2 className="text-2xl sm:text-4xl font-bold mb-10">
           {dict.mainPage.testimonials.title}
@@ -60,7 +60,7 @@ export const Testimonials = ({ dict, variant }: TestimonialsProps) => {
                   <div>⭐</div>
                 ))}
               </div>
-              <p className="text-base opacity-80 mb-4">
+              <p className="text-lg opacity-80 mb-4">
                 "{testimonial.feedback}"
               </p>
               <div className="flex items-center justify-center gap-2">

@@ -1,8 +1,11 @@
+"use client";
+
 import { AppDictionary } from "@/src/translations";
 import React from "react";
 import { Button } from "../../components";
 import { FireIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
+import { motion } from "framer-motion";
 
 export type IntroProps = {
   dict: AppDictionary;
@@ -11,15 +14,29 @@ export type IntroProps = {
 
 export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
   return (
-    <div>
-      <div className="mb-2 sm:mb-10">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
+    >
+      <motion.div
+        className="mb-2 sm:mb-10"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
         <div className="w-full flex justify-center">
-          <div className="text-center lg:max-w-[800px] flex flex-col mb-6">
+          <motion.div
+            className="text-center lg:max-w-[900px] flex flex-col mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+          >
             <h1
               className={clsx(
                 "mb-3 font-extrabold text-center text-[26px] lg:text-5xl tracking-tight flex flex-col gap-3 items-center sm:items-start",
                 {
-                  "text-neutral-100": variant === "dark",
+                  "text-neutral-300": variant === "dark",
                 }
               )}
             >
@@ -30,7 +47,7 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
                     className={clsx(
                       "absolute bg-neutral-900 -left-2 -top-1 -bottom-1 -right-2 md:-left-3 md:-top-0 md:-bottom-0 md:-right-3 -rotate-1",
                       {
-                        "!bg-neutral-100": variant === "dark",
+                        "!bg-neutral-300": variant === "dark",
                       }
                     )}
                   ></span>
@@ -46,29 +63,42 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
               </span>
             </h1>
 
-            <p
+            <motion.p
               className={clsx(
                 "text-lg opacity-80 leading-relaxed sm:text-xl text-center font-medium",
                 {
-                  "text-neutral-100": variant === "dark",
+                  "text-neutral-300": variant === "dark",
                 }
               )}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
             >
               {dict.mainPage.welcomeDescription}
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
         </div>
 
-        <div className="flex items-center justify-center">
+        <motion.div
+          className="flex items-center justify-center"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+        >
           <img
-            src={`/images/vslgif2.gif`}
+            src={`/images/vslgif3.gif`}
             className="w-full sm:w-[500px]"
             alt="Screenshots of the dashboard project showing desktop version"
           />
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
-      <div className="flex justify-center">
+      <motion.div
+        className="flex justify-center"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 0.8 }}
+      >
         <div className="sm:max-w-[400px]">
           <Button
             className="!font-bold mt-4 !text-xl group rounded-lg bg-lime-500 font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0 min-w-[300px] !py-8"
@@ -81,19 +111,7 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
             {dict.mainPage.takeControlToday}
           </Button>
         </div>
-      </div>
-
-      {/* <section className="flex flex-wrap items-center justify-center mt-6 mb-12 xl:py-5">
-              <span className="text-xs opacity-50 mr-2">Featured on</span>
-              <a
-                href="https://x.com/ottobonilla95/status/1843986969715691806"
-                target="_blank"
-                rel="noreferrer"
-                title="Featured on X.com"
-              >
-                <XIcon className="w-8 md:w-9" />
-              </a>
-            </section> */}
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };

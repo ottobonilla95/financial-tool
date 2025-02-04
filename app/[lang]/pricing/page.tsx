@@ -1,13 +1,9 @@
 import { getPricingOptions } from "@/src/data/pricing_option";
-import { getDBUser, updateDBUser } from "@/src/data/user";
+import { updateDBUser } from "@/src/data/user";
 import { getRandomPricingGroup } from "@/src/helpers/get-random-pricing-group";
 import { AvailableLanguages, getDictionary } from "@/src/translations";
-import { Button, Container, Footer, Header } from "@/src/ui/components";
-import {
-  Pricing,
-  Testimonials,
-  WhatWillYouGet,
-} from "@/src/ui/financial-app/home-page";
+import { Container, Footer, Header } from "@/src/ui/components";
+import { Pricing } from "@/src/ui/financial-app/home-page";
 import { Metadata } from "next";
 
 export async function generateMetadata({
@@ -119,9 +115,9 @@ export default async function AboutUsPage({
           />
         </Container>
         {/* <Container variant="narrow"> */}
-          {/* Introduction Section */}
+        {/* Introduction Section */}
 
-          {/* <h2 className="text-3xl sm:text-4xl font-bold mb-8 text-center">
+        {/* <h2 className="text-3xl sm:text-4xl font-bold mb-8 text-center">
             <span> {dict.mainPage.introduction.title1}</span>{" "}
             <span className="relative">
               {dict.mainPage.introduction.title2}
@@ -129,7 +125,7 @@ export default async function AboutUsPage({
             </span>{" "}
             <span> {dict.mainPage.introduction.title3}</span>
           </h2> */}
-          {/* <div className="flex justify-center">
+        {/* <div className="flex justify-center">
             <div className="max-w-[500px]">
               <img
                 src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1736017674/app%20images/arn7wrrvxxiuixzgm2md.png"
@@ -137,7 +133,7 @@ export default async function AboutUsPage({
               />
             </div>
           </div> */}
-          {/* 
+        {/* 
           <div className="flex justify-center">
             <div className="mt-12 text-lg sm:text-2xl flex flex-col gap-4">
               {dict.mainPage.introduction.sections.map((section, index) => (
@@ -156,7 +152,7 @@ export default async function AboutUsPage({
               ))}
             </div>
           </div> */}
-          {/* <div className="flex justify-center mt-10 mb-20">
+        {/* <div className="flex justify-center mt-10 mb-20">
             <Button
               className="mt-4 max-w-[80px] !text-base group rounded-lg bg-lime-500 font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0 min-w-[300px] !font-bold"
               iconPosition="left"
@@ -165,12 +161,12 @@ export default async function AboutUsPage({
               {dict.mainPage.takeControlToday}
             </Button>
           </div> */}
-          {/* WhatWillYouGet Component */}
-          {/* <div className="mt-10" /> */}
-          {/* <WhatWillYouGet dict={dict} /> */}
+        {/* WhatWillYouGet Component */}
+        {/* <div className="mt-10" /> */}
+        {/* <WhatWillYouGet dict={dict} /> */}
 
-          {/* Pricing Section */}
-          {/* <div id="pricing" />
+        {/* Pricing Section */}
+        {/* <div id="pricing" />
           <h2 className="text-4xl font-bold pb-8 sm:pb-12 text-center pt-4 xl:pt-8">
             {dict.pricingPage.chooseYourPlan}
           </h2>
@@ -182,7 +178,7 @@ export default async function AboutUsPage({
             pricingOptions={pricingOptions}
           /> */}
 
-          {/* <div className="h-10" /> */}
+        {/* <div className="h-10" /> */}
         {/* </Container> */}
       </main>
 

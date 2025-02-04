@@ -1,4 +1,4 @@
-import { Container, Footer } from "@/src/ui/components";
+import { Container, Footer, QuoteIcon } from "@/src/ui/components";
 import { AvailableLanguages, getDictionary } from "@/src/translations";
 import {
   Testimonials,
@@ -11,7 +11,6 @@ import {
   Intro,
 } from "@/src/ui/financial-app/home-page";
 import FAQs from "@/src/ui/faqs/faqs";
-import { OfferType } from "@/src/types";
 import AppLogo from "@/src/ui/app-logo";
 
 export type MainPageProps = {
@@ -26,13 +25,12 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
       <main className="flex flex-col">
         {/* <div className="bg-neutral-900 h-5" /> */}
 
-        <div className="sm:min-h-screen bg-neutral-900 pt-5 pb-20">
+        <div className="sm:min-h-screen bg-neutral-800 pt-5 pb-20">
           <Container>
             <div className="flex justify-center mt-5">
-              <AppLogo variant="small"/>
+              <AppLogo variant="small" />
             </div>
             <div className="h-5" />
-
             <Intro dict={dict} />
           </Container>
         </div>
@@ -73,18 +71,11 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
             </div>
           )} */}
 
-        {/* <VisualBenefit dict={dict} /> */}
-        {/* </Container> */}
-
-        {/* <PainPoints dict={dict} /> */}
-
-        <div className="bg-neutral-800">
+        <div className="bg-neutral-900">
           <Container variant="narrow">
             <div className="text-[70px] text-center -mt-12">❌</div>
-            {/* <div className="text-[80px] text-center -mt-16">🔥</div> */}
 
             <div className="pt-2">
-              {/* <WhatWillYouGet dict={dict} /> */}
               <PainPoints lang={lang} dict={dict} />
             </div>
           </Container>
