@@ -53,6 +53,7 @@
     "swr": "^2.2.5",
     "tailwindcss": "3.4.4",
     "use-debounce": "^10.0.1",
+    "uuid": "^11.0.5",
     "zod": "^3.23.8"
   },
   "devDependencies": {

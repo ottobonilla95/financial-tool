@@ -2,11 +2,10 @@
 
 export const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID;
 
-export const pageview = () => {
-  window?.fbq?.("track", "PageView");
+export const pageview = (eventID: string) => {
+  window?.fbq?.("track", "PageView", {}, { eventID }); // Pass event ID for deduplication
 };
 
-// https://developers.facebook.com/docs/facebook-pixel/advanced/
-export const event = (name, options = {}) => {
-  window?.fbq?.("track", name, options);
+export const event = (name: string, options = {}, eventID?: string) => {
+  window?.fbq?.("track", name, options, eventID ? { eventID } : {});
 };
