@@ -17,7 +17,7 @@ export const NoExpensesAdded = ({ dict }: NoExpensesAddedProps) => {
     >
       {/* Animated Avatar */}
       <motion.div
-        className="w-16 h-16 bg-lime-500 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-md"
+        className="w-16 h-16 bg-[#1cde98] rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-md"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: [0.8, 1.1, 1], opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}

@@ -101,14 +101,14 @@ export const Pricing = ({
             className={clsx(
               "sm:p-8 rounded-lg w-full sm:w-[420px] flex flex-col",
               {
-                "border border-lime-500 border-solid p-4": plan.mostPopular,
+                "border border-[#1cde98] border-solid p-4": plan.mostPopular,
               }
             )}
           >
             <div className="flex-1">
               <div className="mb-3 flex h-[20px]">
                 {plan.mostPopular && (
-                  <div className="bg-lime-500 flex items-center text-black px-[6px] h-[20px] rounded-md text-xs font-medium">
+                  <div className="bg-[#1cde98] flex items-center text-black px-[6px] h-[20px] rounded-md text-xs font-medium">
                     {dict.pricingPage.mostPopular}
                   </div>
                 )}
@@ -163,7 +163,7 @@ export const Pricing = ({
               <div>{dict.pricingPage.currentPlan}</div>
             ) : (
               <Button
-                className="bg-lime-500 text-black !text-base font-bold group border-0 py-[25px]"
+                className="bg-[#1cde98] text-black !text-base font-bold group border-0 py-[25px]"
                 onClick={() => onButtonClick(plan.period)}
                 icon={
                   <BanknotesIcon className=" w-6 h-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-200 ease-in-out" />

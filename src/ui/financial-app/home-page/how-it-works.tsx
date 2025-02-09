@@ -38,7 +38,7 @@ export const HowItWorks = ({ dict }: HowItWorksProps) => {
         <div className="grid md:grid-cols-4">
           {steps.map((step, index) => (
             <div key={index} className="p-6 sm:p-8">
-              <span className="text-6xl font-bold mb-4 block text-lime-500">
+              <span className="text-6xl font-bold mb-4 block text-[#1cde98]">
                 {step.number}
               </span>
               <h3 className="text-2xl font-semibold mb-4">{step.title}</h3>

@@ -180,11 +180,11 @@ export const SignupForm = ({ currencies, email }: SignupFormPropd) => {
             id="terms"
             checked={isChecked}
             onChange={handleCheckboxChange}
-            className="h-4 w-4 text-lime-500 border-neutral-300 rounded focus:ring-indigo-500"
+            className="h-4 w-4 text-[#1cde98] border-neutral-300 rounded focus:ring-indigo-500"
           />
           <label htmlFor="terms" className="ml-2 text-sm">
             {dict.authPages?.acceptPrivacyPolicy}{" "}
-            <a href="/privacy-policy" className="underline text-lime-500">
+            <a href="/privacy-policy" className="underline text-[#1cde98]">
               {dict.authPages?.privacyPolicy}
             </a>
           </label>
@@ -204,7 +204,7 @@ export const SignupForm = ({ currencies, email }: SignupFormPropd) => {
 
           {step < 4 && (
             <Button
-              className="rounded-lg bg-lime-500 font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0"
+              className="rounded-lg bg-[#1cde98] font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0"
               onClick={nextStep}
               type="button"
             >
@@ -215,7 +215,7 @@ export const SignupForm = ({ currencies, email }: SignupFormPropd) => {
 
           {step === 4 && (
             <SubmitButton
-              className="rounded-lg bg-lime-500 font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0"
+              className="rounded-lg bg-[#1cde98] font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0"
               icon={<ArrowRightIcon className="h-5 w-5 hidden sm:inline" />}
               iconPosition="right"
               loading={isPending}

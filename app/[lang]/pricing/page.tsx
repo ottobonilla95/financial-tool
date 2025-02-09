@@ -80,7 +80,7 @@ export default async function AboutUsPage({
                 {dict.pricingPage.warrenBuffetQuote}
               </p>
 
-              <p className="italic text-lime-500 text-center">
+              <p className="italic text-[#1cde98] text-center">
                 - Warren buffet
               </p>
             </div>
@@ -88,7 +88,7 @@ export default async function AboutUsPage({
           <div className="h-10" />
           {/* <div className="flex justify-center">
             <Button
-              className="mt-4 max-w-[80px] !text-base group rounded-lg bg-lime-500 font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0 min-w-[300px] !font-bold"
+              className="mt-4 max-w-[80px] !text-base group rounded-lg bg-[#1cde98] font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0 min-w-[300px] !font-bold"
               iconPosition="left"
               href="#pricing"
             >
@@ -154,7 +154,7 @@ export default async function AboutUsPage({
           </div> */}
         {/* <div className="flex justify-center mt-10 mb-20">
             <Button
-              className="mt-4 max-w-[80px] !text-base group rounded-lg bg-lime-500 font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0 min-w-[300px] !font-bold"
+              className="mt-4 max-w-[80px] !text-base group rounded-lg bg-[#1cde98] font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0 min-w-[300px] !font-bold"
               iconPosition="left"
               href="#pricing"
             >

@@ -99,7 +99,7 @@ export const LoginForm = ({ email, isSignupFinished }: LoginFormProps) => {
           </div>
 
           <SubmitButton
-            className="mt-4 rounded-lg bg-lime-500 font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0"
+            className="mt-4 rounded-lg bg-[#1cde98] font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0"
             aria-disabled={isPending}
             icon={<ArrowRightIcon className="h-5 w-5" />}
             iconPosition="right"

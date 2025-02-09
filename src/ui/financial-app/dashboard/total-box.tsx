@@ -127,7 +127,7 @@ export const DashboardTotalBox = ({
           <div className="mb-1">
             <div
               className={clsx("flex gap-2 mb-1 text-red-500", {
-                "!text-lime-500": renderGreen(),
+                "!text-[#1cde98]": renderGreen(),
               })}
             >
               <div

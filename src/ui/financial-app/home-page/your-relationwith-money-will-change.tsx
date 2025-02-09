@@ -52,7 +52,7 @@ export const YourRelationWithMoneyWillChange =
           futuro.
         </p>
         <Button
-          className="!py-10 !font-bold mt-4 !text-xl group rounded-lg bg-lime-500 font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0 min-w-[300px]"
+          className="!py-10 !font-bold mt-4 !text-xl group rounded-lg bg-[#1cde98] font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0 min-w-[300px]"
           iconPosition="left"
           href="#offer"
         >

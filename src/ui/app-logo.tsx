@@ -11,7 +11,7 @@ export default function PageLogo({ variant = "default" }: PageLogoProps) {
       className={`${bricolageGrotesque.className} flex flex-row leading-none text-white gap-3 items-center jusfity-center`}
     >
       <WalletIcon
-        className={clsx("h-8 w-8 rotate-[35deg] text-lime-500", {
+        className={clsx("h-8 w-8 rotate-[35deg] text-[#1cde98]", {
           "!h-6 !w-6": variant === "small",
         })}
       />

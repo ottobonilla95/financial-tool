@@ -100,7 +100,7 @@ export const ExpenseByDayTable = ({
             {records[0].formattedDate}
           </h2>
           <div className="flex gap-4">
-            <div className="font-bold text-lime-500">
+            <div className="font-bold text-[#1cde98]">
               <Price
                 amount={calculateTotal(
                   records.filter((record) => record.type === "earning")
@@ -168,7 +168,7 @@ export const ExpenseByDayTable = ({
               </>
             )}
             <div
-              className={clsx("text-center text-lime-500", {
+              className={clsx("text-center text-[#1cde98]", {
                 "text-red-500": record.type === "expense",
               })}
             >
