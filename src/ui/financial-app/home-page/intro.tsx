@@ -41,9 +41,8 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
               )}
             >
               <span className="relative">
-                 La única app de finanzas con IA que{" "}
+                 Toma el control de tu dinero, {" "}
 
-                {/* Controla Tu Dinero en Minutos y{" "} */}
                 <span className="relative whitespace-nowrap mr-4 ml-3">
                   <span
                     className={clsx(
@@ -59,11 +58,11 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
                     })}
                   >
                     {/* Construye */}
-                    Entiende
+                    Ahorra 
+                
                   </span>
                 </span>{" "}
-                <span>   tus emociones y te ayuda a gastar mejor 
-                   {/* la Vida que Siempre Soñaste */}
+                <span>  más y elimina gastos innecesarios con IA.
                    </span>
               </span>
             </h1>
