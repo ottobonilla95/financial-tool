@@ -17,24 +17,20 @@ export const YourRelationWithMoneyWillChange =
         </p>
         <ul className="text-lg mb-6 space-y-4 text-left inline-block">
           <li>
-            ✅ <strong>Sabrás exactamente</strong> en qué gastas tu dinero.
-          </li>
-          <li>
-            ✅ <strong>Descubrirás oportunidades de ahorro</strong> sin
-            esfuerzo.
+            ✅  <span><strong>Descubre en qué gastas tu dinero</strong> y encuentra oportunidades de ahorro.</span>
           </li>
           <li>
             ✅ <strong>Eliminarás el estrés</strong> de no saber si te alcanza
             hasta fin de mes.
           </li>
           <li>
-            ✅ <strong>Podrás ver patrones de gasto</strong> y mejorar tus
-            decisiones financieras.
+            ✅  <span><strong>Recibe consejos personalizados de IA</strong> basados en tus hábitos y emociones.</span>
           </li>
+       
           <li>
-            ✅ <strong>Un asistente de IA</strong> analizará tus hábitos y te
-            dará consejos personalizados.
+            ✅ <span><strong>Identifica patrones ocultos</strong> en tus finanzas y toma mejores decisiones.</span>
           </li>
+  
         </ul>
         <h3 className="text-xl font-semibold mb-4 text-center">
           💡 Imagina esto:
@@ -44,8 +40,7 @@ export const YourRelationWithMoneyWillChange =
           dónde se fue tu dinero.
         </p>
         <p className="text-lg mb-6">
-          ✅ <strong>Después:</strong> Sabiendo cada peso que gastaste,
-          ahorrando más y sin preocupaciones.
+          ✅ <strong>Después:</strong> Teniendo total claridad sobre tus finanzas, ahorrando más y sin preocupaciones.
         </p>
         <p className="text-lg mb-6 font-semibold text-red-600 text-center">
           📌 Es hora de tomar el control de tus finanzas y transformar tu

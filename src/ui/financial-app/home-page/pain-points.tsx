@@ -11,10 +11,11 @@ export const PainPoints = ({ lang, dict }: PainPointsProps) => {
   if (lang === "es") {
     return (
       <section id="key-features" className="tracking-tight">
-        <h2 className="text-2xl sm:text-4xl font-bold text-center mb-2 text-center text-neutral-300">
-          Seamos honestos
+        <h2 className="text-2xl sm:text-4xl font-bold text-center mb-5 text-center text-neutral-300">
+          {/* Seamos honestos */}
+          Te identificas con alguna de estas situaciones?
         </h2>
-        <div className="mb-4 text-lg sm:text-xl leading-7 text-neutral-400">
+        {/* <div className="mb-4 text-lg sm:text-xl leading-7 text-neutral-400">
           Llevar tus finanzas sin una herramienta adecuada es un caos.{" "}
           <span className="text-neutral-300 font-bold">
             Ganas dinero, pero al final del mes no sabes en qué se fue.
@@ -24,7 +25,7 @@ export const PainPoints = ({ lang, dict }: PainPointsProps) => {
             {" "}
             Quieres mejorar tus finanzas, pero sientes que nunca avanzas.
           </span>
-        </div>
+        </div> */}
         <ul className="space-y-4 list-none text-neutral-400 text-lg">
           <li className="">
             <div className="">
@@ -37,12 +38,13 @@ export const PainPoints = ({ lang, dict }: PainPointsProps) => {
           </li>
           <li className="">
             <div className="">
-              <span className="mr-1">❌ </span> Intentas presupuestar,{" "}
+              <span className="mr-1">❌ </span> Sientes que{" "}
               <span className="text-neutral-300 font-bold">
-                pero es un dolor de cabeza y nunca lo sigues.
+                deberías estar ahorrando más, pero no sabes cómo.
               </span>
             </div>
           </li>
+
           <li className="">
             <div className="">
               <span className="mr-1">❌ </span> Lees consejos financieros,{" "}
@@ -51,14 +53,7 @@ export const PainPoints = ({ lang, dict }: PainPointsProps) => {
               </span>
             </div>
           </li>
-          <li className="">
-            <div className="">
-              <span className="mr-1">❌ </span> Sientes que{" "}
-              <span className="text-neutral-300 font-bold">
-                deberías estar ahorrando más, pero no sabes cómo.
-              </span>
-            </div>
-          </li>
+
           <li className="">
             <div className="">
               <span className="mr-1">❌ </span>{" "}
@@ -70,11 +65,10 @@ export const PainPoints = ({ lang, dict }: PainPointsProps) => {
           </li>
           <li className="">
             <div className="">
-              <span className="mr-1">❌ </span>{" "}
+              <span className="mr-1">❌ </span> Intentas presupuestar,{" "}
               <span className="text-neutral-300 font-bold">
-                Intentas organizarte,
-              </span>{" "}
-              pero terminas improvisando y gastando más de la cuenta.
+                pero es un dolor de cabeza y nunca lo sigues.
+              </span>
             </div>
           </li>
         </ul>

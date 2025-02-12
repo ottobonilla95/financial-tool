@@ -41,7 +41,9 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
               )}
             >
               <span className="relative">
-                Controla Tu Dinero en Minutos y{" "}
+                 La única app de finanzas con IA que{" "}
+
+                {/* Controla Tu Dinero en Minutos y{" "} */}
                 <span className="relative whitespace-nowrap mr-4 ml-3">
                   <span
                     className={clsx(
@@ -56,10 +58,13 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
                       "!text-neutral-900": variant === "dark",
                     })}
                   >
-                    Construye
+                    {/* Construye */}
+                    Entiende
                   </span>
                 </span>{" "}
-                <span> la Vida que Siempre Soñaste</span>
+                <span>   tus emociones y te ayuda a gastar mejor 
+                   {/* la Vida que Siempre Soñaste */}
+                   </span>
               </span>
             </h1>
 
@@ -74,7 +79,8 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
             >
-              {dict.mainPage.welcomeDescription}
+              {/* {dict.mainPage.welcomeDescription} */}
+              Descubre cómo tus emociones influyen en tus finanzas y ahorra más con la ayuda de la inteligencia artificial.
             </motion.p>
           </motion.div>
         </div>

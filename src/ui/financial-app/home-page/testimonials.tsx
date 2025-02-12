@@ -8,12 +8,7 @@ export type TestimonialsProps = {
 
 export const Testimonials = ({ dict, variant }: TestimonialsProps) => {
   const testimonials = [
-    {
-      name: "Kevin Gonzales",
-      feedback: dict.mainPage.testimonials.testimonial4.feedback,
-      image: "/images/reviews/4410s08633_n.png",
-      rate: 5,
-    },
+ 
     {
       name: "Marion Bonilla",
       feedback: dict.mainPage.testimonials.testimonial1.feedback,

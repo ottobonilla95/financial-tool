@@ -25,7 +25,7 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
       <main className="flex flex-col">
         {/* <div className="bg-neutral-900 h-5" /> */}
 
-        <div className="sm:min-h-screen bg-neutral-800 pt-5 pb-20">
+        <div className="sm:min-h-screen bg-neutral-800 pt-5 pb-10">
           <Container>
             <div className="flex justify-center mt-5">
               <AppLogo variant="small" />
@@ -70,6 +70,29 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
               </div>
             </div>
           )} */}
+
+        <div className="bg-neutral-800 pb-20 text-neutral-300 text-center">
+          <Container>
+            <div className="flex justify-center">
+              <QuoteIcon className="w-12 h-12" color="#ffffff" />
+            </div>
+
+            <div className="p-4">
+              <div className="flex justify-center mb-1">⭐ ⭐ ⭐ ⭐ ⭐</div>
+              <p className="text-lg opacity-80 mb-4">
+                {dict.mainPage.testimonials.testimonial4.feedback}
+              </p>
+              <div className="flex items-center justify-center gap-2">
+                <img
+                  src="/images/reviews/4410s08633_n.png"
+                  alt="Kevin Gonzales"
+                  className="w-[40px] h-[40px] rounded-full object-cover"
+                />
+                <h4 className="text-lg font-semibold">Kevin Gonzales</h4>
+              </div>
+            </div>
+          </Container>
+        </div>
 
         <div className="bg-neutral-900">
           <Container variant="narrow">
