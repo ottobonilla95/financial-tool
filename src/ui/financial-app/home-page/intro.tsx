@@ -1,7 +1,7 @@
 "use client";
 
 import { AppDictionary } from "@/src/translations";
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "../../components";
 import { FireIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
@@ -13,6 +13,14 @@ export type IntroProps = {
 };
 
 export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src =
+      "https://scripts.converteai.net/769d0a20-d707-4621-8a28-39232bb67a07/players/67afb44fe1d8edb57b7ffbd1/player.js";
+    script.async = true;
+    document.head.appendChild(script);
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -41,8 +49,7 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
               )}
             >
               <span className="relative">
-                 Toma el control de tu dinero, {" "}
-
+                Toma el control de tu dinero,{" "}
                 <span className="relative whitespace-nowrap mr-4 ml-3">
                   <span
                     className={clsx(
@@ -58,12 +65,10 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
                     })}
                   >
                     {/* Construye */}
-                    Ahorra 
-                
+                    Ahorra
                   </span>
                 </span>{" "}
-                <span>  más y elimina gastos innecesarios con IA.
-                   </span>
+                <span> más y elimina gastos innecesarios con IA.</span>
               </span>
             </h1>
 
@@ -79,7 +84,8 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
               transition={{ delay: 0.3, duration: 0.8 }}
             >
               {/* {dict.mainPage.welcomeDescription} */}
-              Descubre cómo tus emociones influyen en tus finanzas y ahorra más con la ayuda de la inteligencia artificial.
+              Descubre cómo tus emociones influyen en tus finanzas y ahorra más
+              con la ayuda de la inteligencia artificial.
             </motion.p>
           </motion.div>
         </div>
@@ -90,11 +96,46 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4, duration: 0.8 }}
         >
-          <img
+          {/* <img
             src={`/images/vslgif3.gif`}
             className="w-full sm:w-[500px]"
             alt="Screenshots of the dashboard project showing desktop version"
-          />
+          /> */}
+
+          <div
+            id="vid_67afb44fe1d8edb57b7ffbd1"
+            style={{
+              position: "relative",
+              width: "100%",
+              paddingTop: "64.98%",
+            }}
+          >
+            <img
+              id="thumb_67afb44fe1d8edb57b7ffbd1"
+              src="https://images.converteai.net/769d0a20-d707-4621-8a28-39232bb67a07/players/67afb44fe1d8edb57b7ffbd1/thumbnail.jpg"
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                display: "block",
+              }}
+              alt="thumbnail"
+            />
+            <div
+              id="backdrop_67afb44fe1d8edb57b7ffbd1"
+              style={{
+                WebkitBackdropFilter: "blur(5px)",
+                backdropFilter: "blur(5px)",
+                position: "absolute",
+                top: 0,
+                height: "100%",
+                width: "100%",
+              }}
+            ></div>
+          </div>
         </motion.div>
       </motion.div>
 
