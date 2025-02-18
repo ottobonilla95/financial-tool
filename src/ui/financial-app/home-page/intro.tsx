@@ -16,7 +16,7 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
   useEffect(() => {
     const script = document.createElement("script");
     script.src =
-      "https://scripts.converteai.net/769d0a20-d707-4621-8a28-39232bb67a07/players/67afb44fe1d8edb57b7ffbd1/player.js";
+      "https://scripts.converteai.net/769d0a20-d707-4621-8a28-39232bb67a07/players/67b3fdcc5ebfb6f44fd717c9/player.js";
     script.async = true;
     document.head.appendChild(script);
   }, []);
@@ -103,7 +103,7 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
           /> */}
 
           <div
-            id="vid_67afb44fe1d8edb57b7ffbd1"
+            id="vid_67b3fdcc5ebfb6f44fd717c9"
             style={{
               position: "relative",
               width: "100%",
@@ -111,8 +111,8 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
             }}
           >
             <img
-              id="thumb_67afb44fe1d8edb57b7ffbd1"
-              src="https://images.converteai.net/769d0a20-d707-4621-8a28-39232bb67a07/players/67afb44fe1d8edb57b7ffbd1/thumbnail.jpg"
+              id="thumb_67b3fdcc5ebfb6f44fd717c9"
+              src="https://images.converteai.net/769d0a20-d707-4621-8a28-39232bb67a07/players/67b3fdcc5ebfb6f44fd717c9/thumbnail.jpg"
               style={{
                 position: "absolute",
                 top: 0,
@@ -125,7 +125,7 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
               alt="thumbnail"
             />
             <div
-              id="backdrop_67afb44fe1d8edb57b7ffbd1"
+              id="backdrop_67b3fdcc5ebfb6f44fd717c9"
               style={{
                 WebkitBackdropFilter: "blur(5px)",
                 backdropFilter: "blur(5px)",
