@@ -6,7 +6,7 @@ export const GuaranteeSection = () => {
     <section id="guarantee" className="tracking-tight text-center bg-gray-100">
       <div className="flex justify-center">
         <img
-          src={`/images/guarantee/7-days-guarantee.png`}
+          src={`/images/guarantee/30-days-guarantee.png`}
           alt="Garantía de 7 días"
           className="w-full mb-6 sm:max-w-[300px]"
         />
@@ -18,7 +18,7 @@ export const GuaranteeSection = () => {
         <span className="font-bold">
           transformará tu manera de manejar el dinero
         </span>
-        . Por eso, garantizamos que si en 7 días no ves el valor que esperabas,
+        . Por eso, garantizamos que si en 30 días no ves el valor que esperabas,
         te devolveremos <span className="font-bold">cada centavo</span>, sin
         preguntas ni trámites innecesarios.
       </p>

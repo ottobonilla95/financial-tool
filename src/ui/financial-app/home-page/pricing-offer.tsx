@@ -25,7 +25,7 @@ export const PricingOfferSection = () => {
         <li className="flex">
           <CheckCircleIcon className="w-6 h-6 text-green-500 mr-2" />
           <div className="flex-1">
-            Registro detallado de gastos, ingresos y ahorros.
+            Software de registro detallado de gastos, ingresos y ahorros.
           </div>
         </li>
         <li className="flex">
@@ -50,14 +50,19 @@ export const PricingOfferSection = () => {
         <li className="flex">
           <CheckCircleIcon className="w-6 h-6 text-green-500 mr-2" />
           <div className="flex-1">
-            Relación entre tus gastos, emociones y nivel de satisfacción.
+            Modulo de psicologia, relación entre tus gastos, emociones y nivel
+            de satisfacción.
+            <span className="line-through text-red-600">$50 USD</span>{" "}
+            <span className="text-green-600 font-bold">Gratis</span>
           </div>
         </li>
         <li className="flex">
           <CheckCircleIcon className="w-6 h-6 text-green-500 mr-2" />
           <div className="flex-1">
             Asistente de IA que analiza tus finanzas y te da consejos
-            personalizados.
+            personalizados{" "}
+            <span className="line-through text-red-600">$61 USD</span>{" "}
+            <span className="text-green-600 font-bold">Gratis</span>
           </div>
         </li>
       </ul>
