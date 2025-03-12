@@ -16,10 +16,16 @@ import TestimonialSection from "@/src/ui/financial-app/home-page/initial-review"
 
 export type MainPageProps = {
   params: { lang: AvailableLanguages };
+  searchParams: {};
 };
 
-export default async function MainPage({ params: { lang } }: MainPageProps) {
+export default async function MainPage({
+  params: { lang },
+  searchParams,
+}: MainPageProps) {
   const dict = await getDictionary(lang);
+
+  const campaign = (searchParams as any)?.utm_campaign;
 
   return (
     <>
@@ -117,7 +123,7 @@ export default async function MainPage({ params: { lang } }: MainPageProps) {
 
         <div className="bg-neutral-900 pt-14 pb-8" id="offer">
           <Container variant="standard">
-            <PricingOfferSection />
+            <PricingOfferSection campaign={campaign} />
           </Container>
         </div>
 

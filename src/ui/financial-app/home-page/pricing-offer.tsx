@@ -2,8 +2,16 @@ import React from "react";
 import { Button } from "../../components";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 
-export const PricingOfferSection = () => {
-  const hotmartCheckoutUrl = process.env.HOTMART_CHECKOUT_URL;
+export type PricingOfferSectionProps = {
+  campaign?: string;
+};
+export const PricingOfferSection = ({ campaign }: PricingOfferSectionProps) => {
+  let hotmartCheckoutUrl = process.env.HOTMART_CHECKOUT_URL;
+
+  if (campaign) {
+    hotmartCheckoutUrl = `${hotmartCheckoutUrl}&sck=${campaign}`;
+  }
+
   return (
     <section
       id="pricing-offer"
