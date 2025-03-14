@@ -1,6 +1,7 @@
 import { getDBUser, updateDBUser } from "@/src/data/user";
 import { headers } from "next/headers";
 import stripe from "stripe";
+import axios from "axios";
 
 const endpointSecret = process.env.STRIPE_SUBSCRIPTION_WEBHOOK_SECRET as string;
 
@@ -30,6 +31,41 @@ export async function POST(request: Request) {
       });
 
       if (user) {
+        /// remove premiun tag options from systeme io
+        const getUserByEmailOptions = {
+          method: "GET",
+          url: `https://api.systeme.io/api/contacts?email=${user.email}`,
+          headers: {
+            accept: "application/json",
+            "X-API-Key": process.env.SYSTEME_API_KEY,
+          },
+        };
+
+        const userFoundResponse = await axios.request(getUserByEmailOptions);
+
+        const userFound = userFoundResponse.data.items.length > 0;
+
+        if (userFound) {
+          let contactId = userFoundResponse.data.items[0].id;
+
+          if (contactId) {
+            let premiumTagId;
+            if (user?.lang === "es") {
+              premiumTagId = process.env.SYSTEME_TRACKMYSPEND_PREMIUM_ES_TAG_ID;
+            } else {
+              premiumTagId = process.env.SYSTEME_TRACKMYSPEND_PREMIUM_EN_TAG_ID;
+            }
+
+            const removeNotSubscribedTagOptions = {
+              method: "DELETE",
+              url: `https://api.systeme.io/api/contacts/${contactId}/tags/${premiumTagId}`,
+              headers: { "X-API-Key": process.env.SYSTEME_API_KEY },
+            };
+
+            await axios.request(removeNotSubscribedTagOptions);
+          }
+        }
+
         await updateDBUser({
           data: {
             subscription_plan: null,
