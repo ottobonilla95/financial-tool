@@ -10,6 +10,7 @@ import {
 } from "@/src/ui/financial-app/home-page";
 import FAQs from "@/src/ui/faqs/faqs";
 import { OfferType } from "@/src/types";
+import { redirect } from "next/navigation";
 
 export type MainPageProps = {
   params: { lang: AvailableLanguages };
@@ -21,6 +22,11 @@ export default async function MainPage({
   searchParams: { offer },
 }: MainPageProps) {
   const dict = await getDictionary(lang);
+
+
+  if (lang === "es") {
+    return redirect("/es/landing-page");
+  }
 
   return (
     <>
