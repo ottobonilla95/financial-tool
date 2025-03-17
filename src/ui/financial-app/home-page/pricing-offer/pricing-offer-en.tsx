@@ -9,7 +9,7 @@ export type PricingOfferSectionProps = {
 export const PricingOfferSectionEn = ({
   campaign,
 }: PricingOfferSectionProps) => {
-  let hotmartCheckoutUrl = process.env.HOTMART_CHECKOUT_URL;
+  let hotmartCheckoutUrl = process.env.HOTMART_CHECKOUT_URL_EN;
 
   if (campaign) {
     hotmartCheckoutUrl = `${hotmartCheckoutUrl}&sck=${campaign}`;
