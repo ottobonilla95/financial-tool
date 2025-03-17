@@ -1,8 +1,6 @@
 import React from "react";
 
-export type HowToUseProps = {};
-
-export const HowToUse = ({}: HowToUseProps) => {
+export const HowToUseEs = () => {
   return (
     <section id="how-to-use" className="tracking-tight">
       <h2 className="text-3xl font-bold mb-6 text-center">

@@ -1,4 +1,4 @@
-import { Container, Footer, QuoteIcon } from "@/src/ui/components";
+import { Container, Footer } from "@/src/ui/components";
 import { AvailableLanguages, getDictionary } from "@/src/translations";
 import {
   Testimonials,
@@ -38,45 +38,9 @@ export default async function MainPage({
               <AppLogo variant="small" />
             </div>
             <div className="h-5" />
-            <Intro dict={dict} />
+            <Intro dict={dict} lang={lang} />
           </Container>
         </div>
-
-        {/* <Container> */}
-        {/* {lang === "es" && (
-            <div className="hidden sm:block">
-              <div className="flex items-center justify-center">
-                <div className="w-full max-w-3xl aspect-video">
-                  <iframe
-                    className="w-full h-full rounded-lg"
-                    src="https://www.youtube.com/embed/pF_FUhNY--E?autoplay=1&mute=1"
-                    title="YouTube video"
-                    allow="autoplay; encrypted-media"
-                    allowFullScreen
-                  ></iframe>
-                </div>
-              </div>
-              <div className="mt-12">
-                <div className="flex items-center flex-col">
-                  <div>
-                    <img
-                      src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1731070991/app%20images/arrows/yluhzruf6wmgukjzzuin.png"
-                      className="w-[120px] sm:w-[180px]"
-                    />
-                  </div>
-
-                  <StartForm dict={dict} lang={lang} offer={offer} />
-
-                  <div>
-                    <img
-                      src="https://res.cloudinary.com/dav4ntxrq/image/upload/v1731070991/app%20images/arrows/yluhzruf6wmgukjzzuin.png"
-                      className="w-[120px] sm:w-[180px] rotate-180 mb-12"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          )} */}
 
         <div className="bg-neutral-800 pb-20 text-neutral-300 text-center">
           <Container>
@@ -99,20 +63,20 @@ export default async function MainPage({
             <div className="pt-2 pb-10">
               <div className="text-[80px] text-center ">🔥</div>
 
-              <YourRelationWithMoneyWillChange />
+              <YourRelationWithMoneyWillChange lang={lang} />
             </div>
           </Container>
         </div>
 
         <div className="bg-neutral-100">
           <Container variant="narrow">
-            <AIAssistant />
+            <AIAssistant lang={lang} />
           </Container>
         </div>
 
         <div className="bg-neutral-100 pt-8 pb-10">
           <Container variant="narrow">
-            <HowToUse />
+            <HowToUse lang={lang} />
           </Container>
         </div>
         <div className="bg-neutral-900 pt-14 pb-8">
@@ -123,13 +87,13 @@ export default async function MainPage({
 
         <div className="bg-neutral-900 pt-14 pb-8" id="offer">
           <Container variant="standard">
-            <PricingOfferSection campaign={campaign} />
+            <PricingOfferSection campaign={campaign} lang={lang} />
           </Container>
         </div>
 
         <div className="bg-neutral-100 pt-14 pb-8">
           <Container variant="narrow">
-            <GuaranteeSection />
+            <GuaranteeSection lang={lang} />
           </Container>
         </div>
 

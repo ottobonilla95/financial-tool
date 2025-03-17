@@ -213,7 +213,7 @@
     "introMessage3": "Build",
     "introMessage4": "the Life You’ve Always Dreamed Of in Just Minutes.",
     "welcomeDescription": "Organize your finances, eliminate unnecessary expenses, and achieve your financial goals with a tool that does the work for you in minutes.",
-    "takeControlToday": "Get Started Free Today!",
+    "takeControlToday": "Get Started Today!",
     "startNow": "Start now",
     "visualBenefit": {
       "changeFrom": "Move from this",
@@ -419,22 +419,22 @@
     "testimonials": {
       "title": "What Our Users Say",
       "testimonial1": {
-        "feedback": "TrackMySpend changed the way I handle my finances! I now have full control over my expenses and savings."
+        "feedback": "I didn't realize how much money I was spending on taxis. After understanding my finances, I realized that buying a scooter was a more economical option."
       },
       "testimonial2": {
-        "feedback": "TrackMySpend has been a game-changer! It's intuitive, easy to use, and gives me a clear picture of my financial health."
+        "feedback": "I used to reach the end of the month with just my savings and had to borrow money from the next month. Thanks to TrackMySpend, I broke this cycle and now make it to the end of the month without issues."
       },
       "testimonial3": {
-        "feedback": "Using TrackMySpend has simplified my budgeting process. I feel more confident in managing my finances now."
+        "feedback": "I realized that I tend to buy a lot of things online when I'm anxious. Understanding how my emotions affect my finances has been a vital step in taking control."
       },
       "testimonial4": {
-        "feedback": "TrackMySpend helps me stay on top of my spending habits. It's a must-have tool for anyone serious about their finances!"
+        "feedback": "I managed to increase my savings by reducing my spending on food delivery. I had no idea how much it added up each month! Now I'm much more conscious of how I eat."
       },
       "testimonial5": {
-        "feedback": "TrackMySpend has transformed how I manage my money. It's easy to use, and now I have a clear understanding of my expenses and savings."
+        "feedback": "These past two months, while staying at home, I spent more than I did when I went on vacation to the Dominican Republic. It's amazing how unaware we are of our spending until we see it on paper."
       },
       "testimonial6": {
-        "feedback": "Thanks to TrackMySpend, I’ve taken control of my finances. Tracking my expenses is now quick and hassle-free!"
+        "feedback": "I like seeing how my finances change when certain events happen in my life, like when I moved or when I broke up with my ex. I recommend TrackMySpend to all my friends."
       }
     }
   },

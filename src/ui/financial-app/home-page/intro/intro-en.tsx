@@ -2,21 +2,21 @@
 
 import { AppDictionary } from "@/src/translations";
 import React, { useEffect } from "react";
-import { Button } from "../../components";
+import { Button } from "../../../components";
 import { FireIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
 import { motion } from "framer-motion";
 
-export type IntroProps = {
+export type IntroEnProps = {
   dict: AppDictionary;
   variant?: "dark" | "light";
 };
 
-export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
+export const IntroEN = ({ dict, variant = "dark" }: IntroEnProps) => {
   useEffect(() => {
     const script = document.createElement("script");
     script.src =
-      "https://scripts.converteai.net/769d0a20-d707-4621-8a28-39232bb67a07/players/67b3fdcc5ebfb6f44fd717c9/player.js";
+      "https://scripts.converteai.net/769d0a20-d707-4621-8a28-39232bb67a07/players/67d78f622d23925346d56b81/player.js";
     script.async = true;
     document.head.appendChild(script);
   }, []);
@@ -49,7 +49,7 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
               )}
             >
               <span className="relative">
-                Toma el control de tu dinero,{" "}
+                Take control of your money,{" "}
                 <span className="relative whitespace-nowrap mr-4 ml-3">
                   <span
                     className={clsx(
@@ -64,11 +64,10 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
                       "!text-neutral-900": variant === "dark",
                     })}
                   >
-                    {/* Construye */}
-                    Ahorra
+                    Save
                   </span>
                 </span>{" "}
-                <span> más y elimina gastos innecesarios con IA.</span>
+                <span> more and eliminate unnecessary expenses with AI.</span>
               </span>
             </h1>
 
@@ -83,9 +82,8 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
             >
-              {/* {dict.mainPage.welcomeDescription} */}
-              Descubre cómo tus emociones influyen en tus finanzas y ahorra más
-              con la ayuda de la inteligencia artificial.
+              Discover how your emotions influence your finances and save more
+              with the help of artificial intelligence.
             </motion.p>
           </motion.div>
         </div>
@@ -96,14 +94,8 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4, duration: 0.8 }}
         >
-          {/* <img
-            src={`/images/vslgif3.gif`}
-            className="w-full sm:w-[500px]"
-            alt="Screenshots of the dashboard project showing desktop version"
-          /> */}
-
           <div
-            id="vid_67b3fdcc5ebfb6f44fd717c9"
+            id="vid_67d78f622d23925346d56b81"
             style={{
               position: "relative",
               width: "100%",
@@ -111,8 +103,8 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
             }}
           >
             <img
-              id="thumb_67b3fdcc5ebfb6f44fd717c9"
-              src="https://images.converteai.net/769d0a20-d707-4621-8a28-39232bb67a07/players/67b3fdcc5ebfb6f44fd717c9/thumbnail.jpg"
+              id="thumb_67d78f622d23925346d56b81"
+              src="https://images.converteai.net/769d0a20-d707-4621-8a28-39232bb67a07/players/67d78f622d23925346d56b81/thumbnail.jpg"
               style={{
                 position: "absolute",
                 top: 0,
@@ -125,7 +117,7 @@ export const Intro = ({ dict, variant = "dark" }: IntroProps) => {
               alt="thumbnail"
             />
             <div
-              id="backdrop_67b3fdcc5ebfb6f44fd717c9"
+              id="backdrop_67d78f622d23925346d56b81"
               style={{
                 WebkitBackdropFilter: "blur(5px)",
                 backdropFilter: "blur(5px)",

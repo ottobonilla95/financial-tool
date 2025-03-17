@@ -1,11 +1,13 @@
 import React from "react";
-import { Button } from "../../components";
+import { Button } from "../../../components";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 
 export type PricingOfferSectionProps = {
   campaign?: string;
 };
-export const PricingOfferSection = ({ campaign }: PricingOfferSectionProps) => {
+export const PricingOfferSectionEs = ({
+  campaign,
+}: PricingOfferSectionProps) => {
   let hotmartCheckoutUrl = process.env.HOTMART_CHECKOUT_URL;
 
   if (campaign) {

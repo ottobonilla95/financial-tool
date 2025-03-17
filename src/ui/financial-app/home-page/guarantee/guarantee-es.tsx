@@ -1,12 +1,12 @@
 import React from "react";
 import { ShieldCheckIcon } from "@heroicons/react/24/solid";
 
-export const GuaranteeSection = () => {
+export const GuaranteeSectionEs = () => {
   return (
     <section id="guarantee" className="tracking-tight text-center bg-gray-100">
       <div className="flex justify-center">
         <img
-          src={`/images/guarantee/30-days-guarantee.png`}
+          src={`/images/guarantee/30-days-guarantee-es.png`}
           alt="Garantía de 7 días"
           className="w-full mb-6 sm:max-w-[300px]"
         />

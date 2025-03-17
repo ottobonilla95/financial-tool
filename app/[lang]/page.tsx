@@ -31,6 +31,7 @@ export default async function MainPage({
   return (
     <>
       <main className="flex flex-col bg-neutral-800">
+        
         <div className="min-h-screen">
           <div />
           <Header lang={lang} dict={dict} />

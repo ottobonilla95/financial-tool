@@ -1,8 +1,6 @@
 import React from "react";
 
-export type AIAssistantProps = {};
-
-export const AIAssistant = ({}: AIAssistantProps) => {
+export const AIAssistantEs = () => {
   return (
     <section id="ai-assistant" className="tracking-tight">
       <div className="flex justify-center py-5">
