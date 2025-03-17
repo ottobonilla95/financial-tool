@@ -298,21 +298,27 @@ export type AppDictionary = {
     testimonials: {
       title: string;
       testimonial1: {
+        name: string;
         feedback: string;
       };
       testimonial2: {
+        name: string;
         feedback: string;
       };
       testimonial3: {
+        name: string;
         feedback: string;
       };
       testimonial4: {
+        name: string;
         feedback: string;
       };
       testimonial5: {
+        name: string;
         feedback: string;
       };
       testimonial6: {
+        name: string;
         feedback: string;
       };
     };

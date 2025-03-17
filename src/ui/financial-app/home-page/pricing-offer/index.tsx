@@ -11,12 +11,6 @@ export const PricingOfferSection = ({
   lang,
   campaign,
 }: PricingOfferSectionProps) => {
-  let hotmartCheckoutUrl = process.env.HOTMART_CHECKOUT_URL_ES;
-
-  if (campaign) {
-    hotmartCheckoutUrl = `${hotmartCheckoutUrl}&sck=${campaign}`;
-  }
-
   if (lang === "es") {
     return <PricingOfferSectionEs campaign={campaign} />;
   }

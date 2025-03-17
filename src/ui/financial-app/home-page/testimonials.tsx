@@ -8,33 +8,32 @@ export type TestimonialsProps = {
 
 export const Testimonials = ({ dict, variant }: TestimonialsProps) => {
   const testimonials = [
- 
     {
-      name: "Marion Bonilla",
+      name: dict.mainPage.testimonials.testimonial1.name,
       feedback: dict.mainPage.testimonials.testimonial1.feedback,
       image: "/images/reviews/Snapinst1080.jpg",
       rate: 5,
     },
     {
-      name: "Diego Goicoechea",
+      name: dict.mainPage.testimonials.testimonial2.name,
       feedback: dict.mainPage.testimonials.testimonial2.feedback,
       image: "/images/reviews/4410086233_n.png",
       rate: 4,
     },
     {
-      name: "Cindy Clement",
+      name: dict.mainPage.testimonials.testimonial3.name,
       feedback: dict.mainPage.testimonials.testimonial3.feedback,
       image: "/images/reviews/4410208633_n.png",
       rate: 4,
     },
     {
-      name: "Juan David Guerrero",
+      name: dict.mainPage.testimonials.testimonial5.name,
       feedback: dict.mainPage.testimonials.testimonial5.feedback,
       image: "/images/reviews/441008633_n.jpg",
       rate: 5,
     },
     {
-      name: "Shaquille Britton",
+      name: dict.mainPage.testimonials.testimonial6.name,
       feedback: dict.mainPage.testimonials.testimonial6.feedback,
       image: "/images/reviews/44100811633_n.png",
       rate: 4,

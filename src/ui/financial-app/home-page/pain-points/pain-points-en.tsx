@@ -9,8 +9,8 @@ export type PainPointsEnProps = {
 export const PainPointsEn = ({ dict }: PainPointsEnProps) => {
   return (
     <section id="key-features" className="tracking-tight">
-      <h2 className="text-2xl sm:text-4xl font-bold text-center mb-5 text-center text-neutral-300">
-        Do you relate to any of these situations?
+      <h2 className="text-2xl sm:text-4xl font-bold text-center mb-5 text-neutral-300">
+        Ever found yourself in one of these situations?
       </h2>
 
       <ul className="space-y-4 list-none text-neutral-400 text-lg">
@@ -18,25 +18,26 @@ export const PainPointsEn = ({ dict }: PainPointsEnProps) => {
           <div>
             <span className="mr-1">❌ </span>{" "}
             <span className="text-neutral-300 font-bold">
-              Your money disappears without you realizing it,
+              Your money keeps disappearing,
             </span>{" "}
-            and you don’t know why.
+            and you have no idea where it’s going.
           </div>
         </li>
         <li>
           <div>
-            <span className="mr-1">❌ </span> You feel like{" "}
+            <span className="mr-1">❌ </span> You know{" "}
             <span className="text-neutral-300 font-bold">
-              you should be saving more, but you don’t know how.
-            </span>
+              you should be saving more,
+            </span>{" "}
+            but you’re not sure where to start.
           </div>
         </li>
 
         <li>
           <div>
-            <span className="mr-1">❌ </span> You read financial advice,{" "}
+            <span className="mr-1">❌ </span> You read financial tips,{" "}
             <span className="text-neutral-300 font-bold">
-              but you can't apply it to your reality.
+              but they never seem to fit your real life.
             </span>
           </div>
         </li>
@@ -45,16 +46,16 @@ export const PainPointsEn = ({ dict }: PainPointsEnProps) => {
           <div>
             <span className="mr-1">❌ </span>{" "}
             <span className="text-neutral-300 font-bold">
-              Money stress is constant,
+              Money feels like a constant source of stress,
             </span>{" "}
-            and you don’t have real control over it.
+            and you never feel in control.
           </div>
         </li>
         <li>
           <div>
-            <span className="mr-1">❌ </span> You try to budget,{" "}
+            <span className="mr-1">❌ </span> You’ve tried budgeting,{" "}
             <span className="text-neutral-300 font-bold">
-              but it’s a headache, and you never stick to it.
+              but it always feels like too much work.
             </span>
           </div>
         </li>

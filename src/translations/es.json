@@ -431,21 +431,27 @@
       "title": "Lo Que Dicen Nuestros Usuarios",
 
       "testimonial1": {
+        "name": "Marion Bonilla",
         "feedback": "No me daba cuenta de la cantidad de dinero que gastaba en taxis. Al entender mis finanzas, me di cuenta de que comprar una scooter me salía más económico."
       },
       "testimonial2": {
+        "name": "Diego Goicochea",
         "feedback": "Vivía llegando a fin de mes con mis ahorros y tomando dinero prestado del siguiente mes. Gracias a TrackMySpend, logré romper este ciclo y ahora llego a fin de mes sin problemas."
       },
       "testimonial3": {
+        "name": "Cindy García",
         "feedback": "Entendí que tiendo a comprar muchas cosas en línea cuando estoy ansiosa. Comprender cómo mis emociones afectan mis finanzas ha sido un paso vital para tomar el control."
       },
       "testimonial4": {
+        "name": "Kevin Gonzalez",
         "feedback": "Logré aumentar mis ahorros reduciendo los gastos en domicilios. ¡No sabía cuánto sumaba al mes! Ahora soy mucho más consciente de la forma en que me alimento."
       },
       "testimonial5": {
+        "name": "Juan David Guerrero",
         "feedback": "Estos últimos dos meses, estando en casa, gasté más que cuando fui de vacaciones a República Dominicana. Es increíble cómo no somos conscientes de nuestros gastos hasta que los vemos en papel."
       },
       "testimonial6": {
+        "name": "Jesús Ortegon",
         "feedback": "Me gusta ver cómo mis finanzas cambian cuando ciertas situaciones en mi vida ocurren, como cuando me mudé o cuando terminé con mi ex pareja. Recomiendo TrackMySpend a todos mis amigos."
       }
     }
