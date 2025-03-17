@@ -60,7 +60,7 @@ export async function POST(req: Request) {
 
       await axios.request(addTagOptions);
 
-      const premiumTagId = process.env.SYSTEME_TRACKMYSPEND_PREMIUM_EN_TAG_ID;
+      const premiumTagId = process.env.SYSTEME_TRACKMYSPEND_PREMIUM_ES_TAG_ID;
 
       const add2TagOptions = {
         method: "POST",
@@ -82,7 +82,7 @@ export async function POST(req: Request) {
 
     await createDbUser({
       email,
-      lang: "en",
+      lang: "es",
       password: hashedPassword,
       name,
       pricing_Group: "one_time_purchase",
