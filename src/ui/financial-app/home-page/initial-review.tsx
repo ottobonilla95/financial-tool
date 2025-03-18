@@ -30,10 +30,12 @@ export default function TestimonialSection({ dict }: TestimonialSectionProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 0.6 }}
       >
-        <div className="flex justify-center mb-1">⭐ ⭐ ⭐ ⭐ ⭐</div>
-        <p className="text-lg opacity-80 mb-4">
-          {dict.mainPage.testimonials.testimonial4.feedback}
-        </p>
+        <div className="flex justify-center mb-2">⭐ ⭐ ⭐ ⭐ ⭐</div>
+        <div className="flex justify-center">
+          <p className="text-lg opacity-80 mb-6 sm:max-w-[500px]">
+            {dict.mainPage.testimonials.testimonial4.feedback}
+          </p>
+        </div>
         <motion.div
           className="flex items-center justify-center gap-2"
           initial={{ opacity: 0, y: 10 }}
@@ -45,7 +47,9 @@ export default function TestimonialSection({ dict }: TestimonialSectionProps) {
             alt="Kevin Gonzales"
             className="w-[40px] h-[40px] rounded-full object-cover"
           />
-          <h4 className="text-lg font-semibold">Kevin Gonzales</h4>
+          <h4 className="text-lg font-semibold">
+            {dict.mainPage.testimonials.testimonial4.name}
+          </h4>
         </motion.div>
       </motion.div>
     </motion.div>

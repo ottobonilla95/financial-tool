@@ -30,8 +30,6 @@ export default async function MainPage({
   return (
     <>
       <main className="flex flex-col">
-        {/* <div className="bg-neutral-900 h-5" /> */}
-
         <div className="sm:min-h-screen bg-neutral-800 pt-5 pb-10">
           <Container>
             <div className="flex justify-center mt-5">

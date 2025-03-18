@@ -45,9 +45,9 @@ export const Header = ({ lang, dict }: HeaderProps) => {
           </div>
 
           {/* Language Picker */}
-          <div className="hidden md:block">
+          {/* <div className="hidden md:block">
             <LanguagePicker currentLocale={lang} />
-          </div>
+          </div> */}
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
@@ -87,7 +87,7 @@ export const Header = ({ lang, dict }: HeaderProps) => {
                 {dict.authPages.login}
               </span>
             </Link>
-            <LanguagePicker currentLocale={lang} />
+            {/* <LanguagePicker currentLocale={lang} /> */}
           </div>
         )}
       </Container>

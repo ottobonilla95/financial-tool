@@ -1,31 +1,100 @@
-import Image from "next/image";
-import { Container, Footer, Header, XIcon } from "@/src/ui/components";
+import { Container, Footer, Header } from "@/src/ui/components";
 import { AvailableLanguages, getDictionary } from "@/src/translations";
 import {
-  HowItWorks,
   Testimonials,
-  AppScreenshots,
-  StartForm,
-  WhatWillYouGet,
+  Intro,
+  HowToUse,
+  PricingOfferSection,
+  GuaranteeSection,
+  YourRelationWithMoneyWillChange,
+  AIAssistant,
+  PainPoints,
 } from "@/src/ui/financial-app/home-page";
 import FAQs from "@/src/ui/faqs/faqs";
 import { OfferType } from "@/src/types";
+import TestimonialSection from "@/src/ui/financial-app/home-page/initial-review";
 
 export type MainPageProps = {
   params: { lang: AvailableLanguages };
-  searchParams: { offer: OfferType };
+  searchParams: { offer: OfferType; utm_campaign: string };
 };
 
 export default async function MainPage({
   params: { lang },
-  searchParams: { offer },
+  searchParams: { offer, utm_campaign },
 }: MainPageProps) {
   const dict = await getDictionary(lang);
+  const campaign = utm_campaign;
 
   return (
     <>
-      <main className="flex flex-col bg-neutral-800">
-        <div className="min-h-screen">
+      <main className="flex flex-col">
+        <Header lang={lang} dict={dict} />
+        <div className="sm:min-h-screen bg-neutral-800 pt-5 pb-10">
+          <Container>
+            <div className="h-5" />
+            <Intro dict={dict} lang={lang} />
+          </Container>
+        </div>
+        <div className="bg-neutral-800 pb-20 text-neutral-300 text-center">
+          <Container>
+            <TestimonialSection dict={dict} />
+          </Container>
+        </div>
+
+        <div className="bg-neutral-900">
+          <Container variant="narrow">
+            <div className="text-[70px] text-center -mt-12">❌</div>
+            <div className="pt-2">
+              <PainPoints lang={lang} dict={dict} />
+            </div>
+          </Container>
+        </div>
+
+        <div>
+          <Container variant="narrow">
+            <div className="pt-2 pb-10">
+              <div className="text-[80px] text-center ">🔥</div>
+              <YourRelationWithMoneyWillChange lang={lang} />
+            </div>
+          </Container>
+        </div>
+
+        <div className="bg-neutral-100">
+          <Container variant="narrow">
+            <AIAssistant lang={lang} />
+          </Container>
+        </div>
+
+        <div className="bg-neutral-100 pt-8 pb-10">
+          <Container variant="narrow">
+            <HowToUse lang={lang} />
+          </Container>
+        </div>
+        <div className="bg-neutral-900 pt-14 pb-8">
+          <Container variant="narrow">
+            <Testimonials dict={dict} />
+          </Container>
+        </div>
+
+        <div className="bg-neutral-900 pt-14 pb-8" id="offer">
+          <Container variant="standard">
+            <PricingOfferSection campaign={campaign} lang={lang} />
+          </Container>
+        </div>
+
+        <div className="bg-neutral-100 pt-14 pb-8">
+          <Container variant="narrow">
+            <GuaranteeSection lang={lang} />
+          </Container>
+        </div>
+
+        <div className="bg-neutral-900 pt-14 pb-8">
+          <Container variant="narrow">
+            <FAQs dict={dict} />
+          </Container>
+        </div>
+        {/* <div className="min-h-screen">
           <div />
           <Header lang={lang} dict={dict} />
           <Container>
@@ -48,20 +117,6 @@ export default async function MainPage({
                     </span>
                   </h1>
 
-                  {/* {lang === "es" && (
-                  <div className="flex items-center justify-center sm:hidden mt-6">
-                    <div className="w-full max-w-4xl aspect-video">
-                      <iframe
-                        className="w-full h-full rounded-lg"
-                        src="https://www.youtube.com/embed/pF_FUhNY--E?autoplay=1&mute=1"
-                        title="YouTube video"
-                        allow="autoplay; encrypted-media"
-                        allowFullScreen
-                      ></iframe>
-                    </div>
-                  </div>
-                )} */}
-
                   <p className="text-base opacity-80 leading-relaxed sm:text-lg sm:mt-4 text-center sm:text-left">
                     {dict.mainPage.welcomeDescription}
                   </p>
@@ -78,16 +133,8 @@ export default async function MainPage({
                   src={`/images/home-page/${lang}/hero-desktop.png`}
                   width={1000}
                   height={760}
-                  // className="hidden lg:block"
                   alt="Screenshots of the dashboard project showing desktop version"
                 />
-                {/* <Image
-                  src={`/images/home-page/${lang}/hero-mobile.png`}
-                  width={400}
-                  height={620}
-                  className="block lg:hidden"
-                  alt="Screenshot of the dashboard project showing mobile version"
-                /> */}
               </div>
             </div>
 
@@ -103,7 +150,7 @@ export default async function MainPage({
               </a>
             </section>
           </Container>
-        </div>
+        </div> */}
 
         {/* <Container> */}
         {/* {lang === "es" && (
@@ -144,48 +191,9 @@ export default async function MainPage({
         {/* <VisualBenefit dict={dict} /> */}
         {/* </Container> */}
 
-        {/* <PainPoints dict={dict} /> */}
-
-        <Container variant="narrow">
+        {/* <Container variant="narrow">
           <WhatWillYouGet dict={dict} />
-        </Container>
-        <Container>
-          {/* <Benefits dict={dict} /> */}
-          {/* <KeyFeatures dict={dict} /> */}
-
-          <HowItWorks dict={dict} />
-          <Testimonials dict={dict} />
-
-          <AppScreenshots dict={dict} lang={lang} />
-          <div className="mt-12">
-            <div className="flex items-center flex-col">
-              <div>
-                <img
-                  src="/images/arrows.png"
-                  className="w-[120px] sm:w-[180px]"
-                />
-              </div>
-
-              <div className="flex mt-4 sm:mt-8 mb-4 justify-center sm:justify-start w-full sm:w-auto">
-                <StartForm dict={dict} lang={lang} offer={offer} />
-              </div>
-              <div>
-                <img
-                  src="/images/arrows.png"
-                  className="w-[120px] sm:w-[180px] rotate-180"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* <div className="py-10 text-neutral-100 tracking-tight">
-            <h2 className="text-5xl font-bold sm:mb-10 xl:mb-12 text-center">
-              {dict.shared.pricing}
-            </h2>
-            <Pricing dict={dict} lang={lang} />
-          </div> */}
-          <FAQs dict={dict} />
-        </Container>
+        </Container> */}
       </main>
       <Footer dict={dict} />
     </>
