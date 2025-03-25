@@ -169,7 +169,8 @@
     "next": "Siguiente",
     "previous": "Anterior",
     "back": "Atrás",
-    "save": "Guardar"
+    "save": "Guardar",
+    "category": "Categoría"
   },
   "insights": {
     "totalIncomeExpensesSavings": "Ingresos, gastos y ahorros totales",

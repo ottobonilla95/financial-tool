@@ -119,13 +119,14 @@ export const ExpenseByDayTable = ({
 
         <div
           className={clsx(
-            "grid grid-cols-2 sm:grid-cols-3 py-2 px-4 text-gray-600 font-bold",
+            "grid grid-cols-3 sm:grid-cols-4 py-2 px-4 text-gray-600 font-bold",
             {
-              "!grid-cols-4 sm:!grid-cols-5": isPremium,
+              "!grid-cols-5 sm:!grid-cols-6": isPremium,
             }
           )}
         >
           <div>{dict.shared.name}</div>
+          <div>{dict.shared.category}</div>
           {isPremium && (
             <>
               <div className="text-center">{dict.shared.satisfaction}</div>
@@ -135,7 +136,6 @@ export const ExpenseByDayTable = ({
             </>
           )}
           <div className="text-center">{dict.shared.price}</div>
-
           <div />
         </div>
 
@@ -143,14 +143,14 @@ export const ExpenseByDayTable = ({
           <div
             key={record.id}
             className={clsx(
-              "grid grid-cols-2 sm:grid-cols-3 py-2 px-4 text-gray-500",
+              "grid grid-cols-3 sm:grid-cols-4 py-2 px-4 text-gray-500",
               {
-                "!grid-cols-4 sm:!grid-cols-5": isPremium,
+                "!grid-cols-5 sm:!grid-cols-6": isPremium,
               }
             )}
           >
             <div className="truncate">{record.description}</div>
-
+            <div className="truncate">{record.category.name}</div>
             {isPremium && (
               <>
                 <div className="text-center">

@@ -170,6 +170,7 @@ export type AppDictionary = {
     previous: string;
     back: string;
     save: string;
+    category: string;
   };
   insights: {
     totalIncomeExpensesSavings: string;

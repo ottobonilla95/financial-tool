@@ -170,7 +170,8 @@
     "next": "Next",
     "previous": "Previous",
     "back": "Back",
-    "save": "Save"
+    "save": "Save",
+    "category": "Category"
   },
   "insights": {
     "totalIncomeExpensesSavings": "Total income, expenses, and savings",
