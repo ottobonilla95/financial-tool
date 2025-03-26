@@ -17,6 +17,13 @@ export type AppDictionary = {
     totalFinancialRecords: string;
     selectCurrencyTitle: string;
     selectCurrencyMessage: string;
+    noSelectedCategories: string;
+    selectCategoryToViewRecords: string;
+    noRecordsForSelectedCategories: string;
+    trySelectingDifferentCategories: string;
+    filterByCategory: string;
+    selectAll: string;
+    deselectAll: string;
   };
   ai: {
     aiFinancialAdvisor: string;
@@ -171,6 +178,8 @@ export type AppDictionary = {
     back: string;
     save: string;
     category: string;
+    selectAll: string;
+    deselectAll: string;
   };
   insights: {
     totalIncomeExpensesSavings: string;

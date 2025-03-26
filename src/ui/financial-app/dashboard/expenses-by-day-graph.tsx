@@ -6,9 +6,11 @@ import { AgChartProps, AgCharts } from "ag-charts-react";
 import { abbreviateCurrency } from "@/src/helpers/abbreviate-currency";
 import { useContext, useMemo } from "react";
 import { AppContext } from "@/src/app-wrappper/provider";
+import { DashboardContext } from "./provider";
 import { Button } from "../../components";
 import clsx from "clsx";
 import { format } from "date-fns";
+
 export type ExpensesByDayGraphProps = {
   expenses: Expense[];
   dict: AppDictionary;
@@ -86,20 +88,27 @@ export const ExpensesByDayGraph = ({
   dict,
 }: ExpensesByDayGraphProps) => {
   const { currency, subscriptionDetails } = useContext(AppContext);
+  const { selectedCategories } = useContext(DashboardContext);
 
   const isPremium = subscriptionDetails?.isPremium;
 
-  const data = getDailyTotalsByCategory(expenses);
+  // Filter expenses based on selected categories
+  const filteredExpenses = expenses.filter(expense => 
+    selectedCategories.includes(expense.category.id)
+  );
 
+  const data = getDailyTotalsByCategory(filteredExpenses);
+
+  // Use filtered expenses for category details
   const categoryDetails = Array.from(
-    new Set(expenses.map((expense) => expense.category.name))
+    new Set(filteredExpenses.map((expense) => expense.category.name))
   ).map((categoryName) => {
-    const categoryExpense = expenses.find(
+    const categoryExpense = filteredExpenses.find(
       (e) => e.category.name === categoryName
     );
     return {
       name: categoryName,
-      color: categoryExpense?.category.color || "#000000", // Fallback to black if no color
+      color: categoryExpense?.category.color || "#000000",
     };
   });
   const series: AgChartProps["options"]["series"] = categoryDetails.map(
@@ -136,10 +145,10 @@ export const ExpensesByDayGraph = ({
     return {
       options: {
         data,
-        series, // Correctly typed series array with the total added
+        series,
         axes: [
           {
-            type: "number", // Numerical values on the y-axis
+            type: "number",
             position: "left",
             label: {
               formatter: ({ value }) =>
@@ -148,7 +157,7 @@ export const ExpensesByDayGraph = ({
             min: 0,
           },
           {
-            type: "category", // Categorical values (days) on the x-axis
+            type: "category",
             position: "bottom",
           },
         ],
@@ -159,7 +168,35 @@ export const ExpensesByDayGraph = ({
         },
       },
     };
-  }, [data, series, currency]);
+  }, [data, series, currency, selectedCategories]);
+
+  // Add empty state for when no categories are selected
+  if (selectedCategories.length === 0) {
+    return (
+      <div className="text-center py-8 bg-white rounded-sm shadow-sm">
+        <p className="text-gray-500 mb-2">
+          {dict.dashboard.noSelectedCategories}
+        </p>
+        <p className="text-sm text-gray-400">
+          {dict.dashboard.selectCategoryToViewRecords}
+        </p>
+      </div>
+    );
+  }
+
+  // Add empty state for when there are no records for selected categories
+  if (filteredExpenses.length === 0) {
+    return (
+      <div className="text-center py-8 bg-white rounded-sm shadow-sm">
+        <p className="text-gray-500 mb-2">
+          {dict.dashboard.noRecordsForSelectedCategories}
+        </p>
+        <p className="text-sm text-gray-400">
+          {dict.dashboard.trySelectingDifferentCategories}
+        </p>
+      </div>
+    );
+  }
 
   return (
     <>

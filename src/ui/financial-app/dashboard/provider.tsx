@@ -1,18 +1,21 @@
 "use client";
 
-import { Emotion } from "@/src/types";
-import { createContext } from "react";
+import { Emotion, ExpenseCategory } from "@/src/types";
+import { createContext, useState } from "react";
 
-export type DashboardContextProps = {
+type DashboardContextType = {
   emotions: Emotion[];
   month: number;
   year?: number;
+  selectedCategories: string[];
+  setSelectedCategories: (categories: string[]) => void;
 };
 
-export const DashboardContext = createContext<DashboardContextProps>({
+export const DashboardContext = createContext<DashboardContextType>({
   emotions: [],
-  month: 0,
-  year: 0,
+  month: new Date().getMonth() + 1,
+  selectedCategories: [],
+  setSelectedCategories: () => {},
 });
 
 export type DashboardProviderProps = {
@@ -20,17 +23,31 @@ export type DashboardProviderProps = {
   emotions: Emotion[];
   month: number;
   year?: number;
+  categories: ExpenseCategory[];
 };
 
-export function DashboardProvider({
+export const DashboardProvider = ({
   children,
   emotions,
   month,
   year,
-}: DashboardProviderProps) {
+  categories,
+}: DashboardProviderProps) => {
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(
+    categories.map(cat => cat.id)
+  );
+
   return (
-    <DashboardContext.Provider value={{ emotions, month, year }}>
+    <DashboardContext.Provider
+      value={{
+        emotions,
+        month,
+        year,
+        selectedCategories,
+        setSelectedCategories,
+      }}
+    >
       {children}
     </DashboardContext.Provider>
   );
-}
+};

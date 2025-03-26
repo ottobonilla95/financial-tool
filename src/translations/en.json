@@ -16,7 +16,14 @@
     "samePeriodLastMonth": "Same period last month",
     "totalFinancialRecords": "Total financial records",
     "selectCurrencyTitle": "Select your currency",
-    "selectCurrencyMessage": "Select the currency of your preference."
+    "selectCurrencyMessage": "Select the currency of your preference.",
+    "noSelectedCategories": "No categories selected",
+    "selectCategoryToViewRecords": "Please select at least one category to view your records",
+    "noRecordsForSelectedCategories": "No records found for selected categories",
+    "trySelectingDifferentCategories": "Try selecting different categories to see more records",
+    "filterByCategory": "Filter by category",
+    "selectAll": "Select all",
+    "deselectAll": "Deselect all"
   },
   "ai": {
     "aiFinancialAdvisor": "AI Financial Advisor",
@@ -119,8 +126,8 @@
     "manageSubscription": "Manage Subscription",
     "changeSubsCription": "Change Subscription",
     "subscriptionMessages": {
-      "youHaveReaachedYourCategoryLimitTitle": "You’ve Reached Your Category Limit!",
-      "youHaveReaachedYourCategoryLimit": "You’ve used all available categories for the free plan. Upgrade to Premium to unlock unlimited categories and gain deeper insights into your spending.",
+      "youHaveReaachedYourCategoryLimitTitle": "You've Reached Your Category Limit!",
+      "youHaveReaachedYourCategoryLimit": "You've used all available categories for the free plan. Upgrade to Premium to unlock unlimited categories and gain deeper insights into your spending.",
       "addEmotionsAndLevelOfSatisfactionTitle": "Add emotions and satisfaction to your expenses!",
       "addEmotionsAndLevelOfSatisfactionMessage": "Upgrade to Premium to track how each expense makes you feel and your level of satisfaction for deeper insights into your spending.",
       "seeExpensesPerMonthByCategoryTitle": "See expenses per month by category!",
@@ -171,7 +178,9 @@
     "previous": "Previous",
     "back": "Back",
     "save": "Save",
-    "category": "Category"
+    "category": "Category",
+    "selectAll": "Select all",
+    "deselectAll": "Deselect all"
   },
   "insights": {
     "totalIncomeExpensesSavings": "Total income, expenses, and savings",
@@ -212,7 +221,7 @@
     "introMessage1": "Take Control",
     "introMessage2": "of Your Money.",
     "introMessage3": "Build",
-    "introMessage4": "the Life You’ve Always Dreamed Of in Just Minutes.",
+    "introMessage4": "the Life You've Always Dreamed Of in Just Minutes.",
     "welcomeDescription": "Organize your finances, eliminate unnecessary expenses, and achieve your financial goals with a tool that does the work for you in minutes.",
     "takeControlToday": "Get Started Today!",
     "startNow": "Start now",
@@ -228,7 +237,7 @@
         {
           "subtitle": "",
           "content": [
-            "Hi, I’m Otto 👋",
+            "Hi, I'm Otto 👋",
             "For years, I thought earning more would fix everything, but the more I earned, the more I spent. Pay raises vanished quickly, and I was still living paycheck to paycheck without knowing where my money was going."
           ]
         },
@@ -243,13 +252,13 @@
           "subtitle": "The Breakthrough:",
           "content": [
             "Tracking brought clarity. I connected my income, spending, and emotions, identified patterns holding me back, and made better decisions.",
-            "I saved more, spent less impulsively, and regained control of my finances and life. That’s why I created this tool to help others facing similar struggles."
+            "I saved more, spent less impulsively, and regained control of my finances and life. That's why I created this tool to help others facing similar struggles."
           ]
         },
         {
           "subtitle": "The Solution:",
           "content": [
-            "This isn’t just a tracker. It’s a tool to understand how your money habits link to your emotions and lifestyle, helping you gain clarity and control—no matter your income."
+            "This isn't just a tracker. It's a tool to understand how your money habits link to your emotions and lifestyle, helping you gain clarity and control—no matter your income."
           ]
         }
       ]
@@ -290,7 +299,7 @@
         },
         { "before": "", "highlight": "Lack", "after": "of financial growth" }
       ],
-      "betterWayText": "There’s a better way"
+      "betterWayText": "There's a better way"
     },
     "benefits": {
       "title": "Benefits of Managing Your Money Like an Expert!",
@@ -358,7 +367,7 @@
       "description": "TrackMySpend provides you with the tools to manage your money effortlessly and gain deep insights into your spending habits.",
       "feature1": {
         "title": "Track Your Expenses, Income, and Savings",
-        "description": "Easily log and categorize your expenses, track income sources, and see how much you’re saving each month."
+        "description": "Easily log and categorize your expenses, track income sources, and see how much you're saving each month."
       },
       "feature2": {
         "title": "Visual Financial Insights",
@@ -381,7 +390,7 @@
       },
       "step3": {
         "title": "Track and Analyze",
-        "description": "Get detailed reports on where your money is going, how much you’re saving, and more."
+        "description": "Get detailed reports on where your money is going, how much you're saving, and more."
       },
       "step4": {
         "title": "Reach Your Goals",
@@ -393,7 +402,7 @@
       "description": "Take a look at the interface and features that help you manage your finances effortlessly.",
 
       "screenshot1": {
-        "description": "Overview of current month’s expenses"
+        "description": "Overview of current month's expenses"
       },
       "screenshot2": {
         "description": "View totals per category"
@@ -604,8 +613,8 @@
     "start": "Start Tour",
     "welcomeTitle": "Welcome to TrackMySpend!",
     "endTitle": "You're all set!",
-    "endMessage": "You’re ready to start managing your money with TrackMySpend. If you need help, don’t hesitate to reach out to us.",
-    "step0": "Let’s take a quick tour to get you familiar with the features.",
+    "endMessage": "You're ready to start managing your money with TrackMySpend. If you need help, don't hesitate to reach out to us.",
+    "step0": "Let's take a quick tour to get you familiar with the features.",
     "step1": "First, let's start by adding a saving. Click the 'Add Saving' button to track your savings goals.",
     "step2": "Next, add your income. Click the 'Add Income' button to log your earnings.",
     "step3": "Now, add your expenses. Click the 'Add Expense' button to record your transactions.",
@@ -616,7 +625,7 @@
     "step8": "Lastly, set up your account details, including your password and preferences, in the 'Account' page."
   },
   "pricingPage": {
-    "title1": "Discover What’s Happening with Your Money.",
+    "title1": "Discover What's Happening with Your Money.",
     "title2": "Transform",
     "title3": "Your Habits Forever.",
     "heroText": "The only expense tracker that helps you uncover the emotional triggers behind your spending habits.",

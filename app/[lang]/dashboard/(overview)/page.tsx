@@ -30,6 +30,7 @@ import TourProvider from "@/src/ui/financial-app/tour/provider";
 import TourInitiator from "@/src/ui/financial-app/tour/tour-initiator";
 import { redirect } from "next/navigation";
 import { CurrencyPicker } from "@/src/ui/financial-app/currency/currency-picker";
+import { CategoryFilterContainer } from "@/src/ui/financial-app/dashboard/category-filter-container";
 
 export type DashboardPageProps = {
   searchParams: {
@@ -146,7 +147,7 @@ export default async function Page({
             59,
             59
           )
-        ) // Last day of the previous month if today’s day doesn’t exist in that month
+        ) // Last day of the previous month if today's day doesn't exist in that month
     : new Date(
         Date.UTC(
           startDatePrevious.getUTCFullYear(),
@@ -232,6 +233,16 @@ export default async function Page({
     redirect("/dashboard/pricing");
   }
 
+  // Get unique categories from expenses and earnings
+  const allCategories = Array.from(
+    new Map(
+      [
+        ...expensesCurrent.map((e) => e.category),
+        ...earningsCurrent.map((e) => e.category),
+      ].map((category) => [category.id, category])
+    ).values()
+  );
+
   return (
     <AppProvider
       currency={currency as Currency}
@@ -246,6 +257,7 @@ export default async function Page({
           emotions={emotions}
           month={selectedMonth}
           year={searchParams.year ? Number(searchParams.year) : undefined}
+          categories={allCategories}
         >
           <TourProvider>
             <main>
@@ -321,6 +333,10 @@ export default async function Page({
                   </>
                 )}
 
+                <CategoryFilterContainer
+                  categories={allCategories}
+                  dict={dict}
+                />
                 {expensesCurrent.length > 0 && (
                   <div className="py-5">
                     <ExpensesByDayGraph
@@ -338,21 +354,9 @@ export default async function Page({
                     />
                   </div>
                 )}
-                {/* {earningsCurrent.length > 0 && (
-                <div>
-                  <IncomeTableContainer
-                    earnings={earningsCurrent}
-                    dict={dict}
-                  />
-                </div>
-              )} */}
+
                 {expensesCurrent.length > 0 && (
                   <div>
-                    {/* <ExpensesByCategoryTableContainer
-                    expenses={expensesCurrent}
-                    dict={dict}
-                    isPremium={isPremium}
-                  /> */}
                     <ExpensesByDayTableContainer
                       expenses={expensesCurrent}
                       earnings={earningsCurrent}

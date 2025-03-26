@@ -16,7 +16,14 @@
     "samePeriodLastMonth": "Mismo período del mes pasado",
     "totalFinancialRecords": "Total de registros financieros",
     "selectCurrencyTitle": "Selecciona tu moneda",
-    "selectCurrencyMessage": "Selecciona la moneda de tu preferencia."
+    "selectCurrencyMessage": "Selecciona la moneda de tu preferencia.",
+    "noSelectedCategories": "No hay categorías seleccionadas",
+    "selectCategoryToViewRecords": "Por favor, selecciona al menos una categoría para ver tus registros",
+    "noRecordsForSelectedCategories": "No se encontraron registros para las categorías seleccionadas",
+    "trySelectingDifferentCategories": "Intenta seleccionar diferentes categorías para ver más registros",
+    "filterByCategory": "Filtrar por categoría",
+    "selectAll": "Seleccionar todo",
+    "deselectAll": "Deseleccionar todo"
   },
   "ai": {
     "aiFinancialAdvisor": "Asesor financiero con IA",
@@ -170,7 +177,9 @@
     "previous": "Anterior",
     "back": "Atrás",
     "save": "Guardar",
-    "category": "Categoría"
+    "category": "Categoría",
+    "selectAll": "Seleccionar todo",
+    "deselectAll": "Deseleccionar todo"
   },
   "insights": {
     "totalIncomeExpensesSavings": "Ingresos, gastos y ahorros totales",
