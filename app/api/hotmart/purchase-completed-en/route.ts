@@ -1,4 +1,4 @@
-import { createDbUser } from "@/src/data/user";
+import { createDbUser, getDBUser, updateDBUser } from "@/src/data/user";
 import axios from "axios";
 import bcrypt from "bcrypt";
 
@@ -8,8 +8,15 @@ export async function POST(req: Request) {
   const email = body.data.buyer.email;
   const name = body.data.buyer.name;
 
-  // 1. see if user exists on system io
   try {
+    // First check if user exists in our database
+    const existingUser = await getDBUser({
+      filters: {
+        email,
+      },
+    });
+
+    // Handle Systeme.io operations
     const getUserByEmailOptions = {
       method: "GET",
       url: `https://api.systeme.io/api/contacts?email=${email}`,
@@ -20,9 +27,7 @@ export async function POST(req: Request) {
     };
 
     const userFoundResponse = await axios.request(getUserByEmailOptions);
-
     const userFound = userFoundResponse.data.items.length > 0;
-
     let contactId;
 
     if (userFound) {
@@ -43,11 +48,12 @@ export async function POST(req: Request) {
         const response = await axios.request(createUserOptions);
         contactId = response.data.id;
       } catch (error) {
-        console.log;
+        console.log(error);
       }
     }
 
     if (contactId) {
+      // Add tags to Systeme.io user
       const addTagOptions = {
         method: "POST",
         url: `https://api.systeme.io/api/contacts/${contactId}/tags`,
@@ -77,21 +83,38 @@ export async function POST(req: Request) {
       await axios.request(add2TagOptions);
     }
 
-    const defaultPassword = "Trackmyspend.24!";
-    const hashedPassword = await bcrypt.hash(defaultPassword, 10);
+    if (existingUser) {
+      // Update existing user
+      await updateDBUser({
+        filters: {
+          email,
+        },
+        data: {
+          subscription_plan: "lifetime",
+        },
+      });
+    } else {
+      // Create new user
+      const defaultPassword = "Trackmyspend.24!";
+      const hashedPassword = await bcrypt.hash(defaultPassword, 10);
 
-    await createDbUser({
-      email,
-      lang: "es",
-      password: hashedPassword,
-      name,
-      pricing_Group: "one_time_purchase",
-      fullySignedUp: true,
-      subscriptionPlan: "lifetime",
-    });
+      await createDbUser({
+        email,
+        lang: "en", // Note: This is "en" for the English version
+        password: hashedPassword,
+        name,
+        pricing_Group: "one_time_purchase",
+        fullySignedUp: true,
+        subscriptionPlan: "lifetime",
+      });
+    }
+
+    return Response.json({ success: true });
   } catch (error) {
-    throw error;
+    console.error("Error in purchase-completed-en:", error);
+    return Response.json(
+      { success: false, error: "Internal server error" },
+      { status: 500 }
+    );
   }
-
-  return Response.json({ success: true });
 }

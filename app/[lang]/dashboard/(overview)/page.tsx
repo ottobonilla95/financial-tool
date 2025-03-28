@@ -333,10 +333,12 @@ export default async function Page({
                   </>
                 )}
 
-                <CategoryFilterContainer
-                  categories={allCategories}
-                  dict={dict}
-                />
+                {expensesCurrent.length > 0 && (
+                  <CategoryFilterContainer
+                    categories={allCategories}
+                    dict={dict}
+                  />
+                )}
                 {expensesCurrent.length > 0 && (
                   <div className="py-5">
                     <ExpensesByDayGraph
