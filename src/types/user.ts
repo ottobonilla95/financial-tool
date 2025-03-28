@@ -15,4 +15,5 @@ export type User = {
   fullySignedUp: boolean;
   pricingGroup: string;
   lang: string;
+  createdAt: string;
 };

@@ -536,7 +536,8 @@
       "somethingWentWrong": "Something went wrong. Please try again."
     },
     "auth": {
-      "invalidCredentials": "Invalid credentials. Please check your email and password."
+      "invalidCredentials": "Invalid credentials. Please check your email and password.",
+      "trialExpired": "Your trial period has expired. Please upgrade to continue using the service."
     },
     "expenses": {
       "create": {

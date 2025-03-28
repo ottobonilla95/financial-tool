@@ -550,7 +550,8 @@
       "somethingWentWrong": "Algo salió mal. Por favor, inténtalo de nuevo."
     },
     "auth": {
-      "invalidCredentials": "Credenciales inválidas. Verifica tu correo electrónico y contraseña."
+      "invalidCredentials": "Credenciales inválidas. Por favor, verifica tu correo electrónico y contraseña.",
+      "trialExpired": "Tu período de prueba ha expirado. Por favor, actualiza tu plan para continuar usando el servicio."
     },
     "expenses": {
       "create": {

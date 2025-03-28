@@ -18,6 +18,7 @@ export type Data = {
   fully_signed_up?: boolean;
   pricing_group?: string;
   lang: string;
+  created_at: Date;
 };
 
 type GetUserDataProps = {
@@ -58,5 +59,6 @@ export const mapUser = (user: Data): User => {
     fullySignedUp: user.fully_signed_up || false,
     pricingGroup: user.pricing_group || "",
     lang: user.lang,
+    createdAt: user.created_at?.toISOString(),
   };
 };

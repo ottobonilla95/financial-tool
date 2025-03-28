@@ -419,6 +419,7 @@ export type AppDictionary = {
     };
     auth: {
       invalidCredentials: string;
+      trialExpired: string;
     };
     expenses: {
       create: {
