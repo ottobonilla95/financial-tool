@@ -2,6 +2,7 @@ import { AppDictionary } from "@/src/translations";
 import { FinancialRecord } from "./expense-by-day-table";
 import { Earning, Expense } from "@/src/types";
 import { ExpensesByDayTableClient } from "./expenses-by-day-table-client";
+import { useMemo } from "react";
 
 export type ExpensesByDayTableContainerProps = {
   expenses: Expense[];
@@ -28,10 +29,13 @@ export const ExpensesByDayTableContainer = ({
   isPremium,
 }: ExpensesByDayTableContainerProps) => {
   // Merge expenses and earnings
-  const allRecords: FinancialRecord[] = [
-    ...expenses.map((expense) => ({ ...expense, type: "expense" })),
-    ...earnings.map((earning) => ({ ...earning, type: "earning" })),
-  ];
+  const allRecords: FinancialRecord[] = useMemo(
+    () => [
+      ...expenses.map((expense) => ({ ...expense, type: "expense" })),
+      ...earnings.map((earning) => ({ ...earning, type: "earning" })),
+    ],
+    [expenses, earnings]
+  );
 
   const recordsByDay = splitByDay(allRecords);
 

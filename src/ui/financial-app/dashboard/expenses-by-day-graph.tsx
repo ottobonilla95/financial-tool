@@ -93,8 +93,12 @@ export const ExpensesByDayGraph = ({
   const isPremium = subscriptionDetails?.isPremium;
 
   // Filter expenses based on selected categories
-  const filteredExpenses = expenses.filter(expense => 
-    selectedCategories.includes(expense.category.id)
+  const filteredExpenses = useMemo(
+    () =>
+      expenses.filter((expense) =>
+        selectedCategories.includes(expense.category.id)
+      ),
+    [expenses, selectedCategories]
   );
 
   const data = getDailyTotalsByCategory(filteredExpenses);
