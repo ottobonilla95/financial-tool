@@ -38,7 +38,7 @@ export const DashboardDatePicker = () => {
     return createUrl(newDate);
   };
 
-  const isNextDisabled = isAfter(addMonths(currentDate, 1), new Date());
+  // const isNextDisabled = isAfter(addMonths(currentDate, 1), new Date());
 
   return (
     <div className="flex justify-center items-center">
@@ -52,7 +52,11 @@ export const DashboardDatePicker = () => {
       </div>
 
       <div className="w-10">
-        <Button href={handleNextMonth()} isDisabled={isNextDisabled} className="bg-white">
+        <Button
+          href={handleNextMonth()}
+          // isDisabled={isNextDisabled}
+          className="bg-white"
+        >
           <ArrowRightIcon className="w-4" />
         </Button>
       </div>

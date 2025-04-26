@@ -1,7 +1,7 @@
 "use client";
 
 import { Emotion, ExpenseCategory } from "@/src/types";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 type DashboardContextType = {
   emotions: Emotion[];
@@ -34,8 +34,12 @@ export const DashboardProvider = ({
   categories,
 }: DashboardProviderProps) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>(
-    categories.map(cat => cat.id)
+    categories.map((cat) => cat.id)
   );
+
+  useEffect(() => {
+    setSelectedCategories(categories.map((cat) => cat.id));
+  }, []);
 
   return (
     <DashboardContext.Provider

@@ -59,7 +59,7 @@ export const CreateExpenseForm = ({
   const firstDayOfSelectedMonth = new Date(currentYear, month - 1, 1);
   const isCurrentMonth = month === currentMonth;
   const lastDayOfSelectedMonth = new Date(currentYear, month, 0); // Last day of the month
-  const maxDate = isCurrentMonth ? new Date() : lastDayOfSelectedMonth;
+  // const maxDate = isCurrentMonth ? new Date() : lastDayOfSelectedMonth;
 
   const [startDate, setStartDate] = useState<Date | undefined>(
     month === currentMonth ? new Date() : new Date(currentYear, month - 1)
@@ -437,7 +437,7 @@ export const CreateExpenseForm = ({
                       <DatePicker
                         selected={startDate}
                         onChange={(date) => setStartDate(date as Date)}
-                        maxDate={maxDate}
+                        // maxDate={maxDate}
                         minDate={firstDayOfSelectedMonth}
                         aria-describedby="date-error"
                         dateFormat={"dd MMM yyyy"}

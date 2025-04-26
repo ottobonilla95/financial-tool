@@ -2,7 +2,6 @@
 
 import { AppDictionary } from "@/src/translations";
 import { ExpenseCategory } from "@/src/types";
-import clsx from "clsx";
 
 type CategoryFilterProps = {
   categories: ExpenseCategory[];
@@ -61,16 +60,16 @@ export const CategoryFilter = ({
                   className="w-4 h-4 border rounded 
                   focus:ring-2 focus:ring-offset-2 transition-colors duration-200"
                   style={{
-                    backgroundColor: selectedCategories.includes(category.id) 
-                      ? category.color 
-                      : 'white',
+                    backgroundColor: selectedCategories.includes(category.id)
+                      ? category.color
+                      : "white",
                     borderColor: category.color,
                   }}
                 />
                 {selectedCategories.includes(category.id) && (
                   <svg
                     className="absolute w-3 h-3 text-white pointer-events-none"
-                    style={{ left: '2px', top: '2px' }}
+                    style={{ left: "2px", top: "2px" }}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -84,9 +83,7 @@ export const CategoryFilter = ({
                   </svg>
                 )}
               </div>
-              <span className="text-sm text-gray-900">
-                {category.name}
-              </span>
+              <span className="text-sm text-gray-900">{category.name}</span>
             </label>
           ))}
         </div>
