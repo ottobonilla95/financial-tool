@@ -192,7 +192,7 @@ export const CreateExpenseForm = ({
     setSelectedCurrency(currencyId);
 
     // Find the currency code for the selected currency
-    const fromCurrencyCode = allCurrencies.find(
+    const fromCurrencyCode = (allCurrencies || []).find(
       (c) => c.id.toString() === currencyId
     )?.currencyCode;
 
@@ -430,7 +430,7 @@ export const CreateExpenseForm = ({
                     </div>
                     <div className="relative ml-2 w-[120px]">
                       <Dropdown
-                        options={allCurrencies.map((c) => ({
+                        options={(allCurrencies || []).map((c) => ({
                           value: c.id.toString(),
                           label: `${c.symbol} ${c.currencyCode}`,
                         }))}

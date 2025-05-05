@@ -19,9 +19,9 @@ import { DeleteIncomeForm } from "../income/delete-form";
 
 export type FinancialRecord = (Expense | Earning) & {
   type: string;
-  originalAmount: number;
-  exchangeRate: number;
-  currency: Currency;
+  originalAmount?: number;
+  exchangeRate?: number;
+  currency?: Currency;
 };
 
 export type ExpenseByDayTableProps = {
@@ -58,10 +58,12 @@ export const ExpenseByDayTable = ({
   // Check if a record was originally entered in a different currency
   const isMultiCurrency = (record: FinancialRecord) => {
     return (
-      record.currency &&
+      record.currency !== undefined &&
       currency.id !== record.currency.id &&
-      record.originalAmount &&
-      record.exchangeRate
+      record.originalAmount !== undefined &&
+      record.originalAmount > 0 &&
+      record.exchangeRate !== undefined &&
+      record.exchangeRate > 0
     );
   };
 
@@ -172,7 +174,7 @@ export const ExpenseByDayTable = ({
                 ) : (
                   <Price amount={record.amount} />
                 )}
-                {isMultiCurrency(record) && (
+                {isMultiCurrency(record) && record.currency && (
                   <div
                     className="text-xs text-gray-500 mt-1"
                     data-tooltip-id="my-tooltip"

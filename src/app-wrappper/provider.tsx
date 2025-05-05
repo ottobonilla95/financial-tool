@@ -5,7 +5,7 @@ import { Currency, SubscriptionDetails } from "../types";
 
 export type AppContextProps = {
   currency: Currency;
-  allCurrencies: Currency[];
+  allCurrencies?: Currency[];
   subscriptionDetails?: SubscriptionDetails;
 };
 
@@ -21,7 +21,7 @@ export const AppContext = createContext<AppContextProps>({
 
 export type AppProviderProps = {
   currency: Currency;
-  allCurrencies: Currency[];
+  allCurrencies?: Currency[];
   children: React.ReactNode;
   subscriptionDetails?: SubscriptionDetails;
 };

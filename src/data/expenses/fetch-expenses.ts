@@ -88,7 +88,23 @@ export async function fetchExpenses({ filters }: FetchExpensesProps) {
     });
 
     const expenses = data.map((expense) =>
-      mapExpense({ ...expense, amount: Number(expense.amount) })
+      mapExpense({
+        ...expense,
+        amount: Number(expense.amount),
+        original_amount: expense.original_amount
+          ? Number(expense.original_amount)
+          : null,
+        exchange_rate: expense.exchange_rate
+          ? Number(expense.exchange_rate)
+          : null,
+        currency: expense.currency
+          ? {
+              ...expense.currency,
+              id: String(expense.currency.id),
+              currencyCode: expense.currency.currencyCode || "",
+            }
+          : null,
+      })
     );
     return expenses;
   } catch (error) {
