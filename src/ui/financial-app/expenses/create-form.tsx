@@ -141,12 +141,13 @@ export const CreateExpenseForm = ({
       setSelectedEmotion(9); // Reset to initial value
       setAmount("");
       setDescription("");
-      setSelectedCurrency(undefined);
+      // Reset currency to default user currency
+      setSelectedCurrency(currency?.id.toString());
       setOriginalForeignAmount("");
       setExchangeRate(undefined);
       setConvertedAmount("");
     }
-  }, [state]);
+  }, [state, currency]);
 
   useEffect(() => {
     if (!showSubcategories) {
@@ -430,6 +431,7 @@ export const CreateExpenseForm = ({
                     </div>
                     <div className="relative ml-2 w-[120px]">
                       <Dropdown
+                        key={`currency-dropdown-${selectedCurrency}`}
                         options={(allCurrencies || []).map((c) => ({
                           value: c.id.toString(),
                           label: `${c.symbol} ${c.currencyCode}`,
@@ -438,7 +440,7 @@ export const CreateExpenseForm = ({
                           handleCurrencyChange(option?.value)
                         }
                         defaultValue={
-                          currency
+                          currency && selectedCurrency
                             ? {
                                 value: currency.id.toString(),
                                 label: `${currency.symbol} ${currency.currencyCode}`,
