@@ -1,6 +1,6 @@
 "use client";
 
-import { Earning, Expense } from "@/src/types";
+import { Currency, Earning, Expense } from "@/src/types";
 import clsx from "clsx";
 import { DeleteExpenseForm } from "../expenses/delete-expense-modal-form";
 import { TrashIcon, PencilIcon } from "@heroicons/react/24/outline";
@@ -17,7 +17,12 @@ import { DashboardContext } from "./provider";
 import { UpdateIncomeForm } from "../income/update-form";
 import { DeleteIncomeForm } from "../income/delete-form";
 
-export type FinancialRecord = (Expense | Earning) & { type: string };
+export type FinancialRecord = (Expense | Earning) & {
+  type: string;
+  originalAmount: number;
+  exchangeRate: number;
+  currency: Currency;
+};
 
 export type ExpenseByDayTableProps = {
   records: FinancialRecord[];
@@ -49,6 +54,16 @@ export const ExpenseByDayTable = ({
 
   const calculateTotal = (expenses: FinancialRecord[]) =>
     expenses.reduce((acc, expense) => acc + expense.amount, 0);
+
+  // Check if a record was originally entered in a different currency
+  const isMultiCurrency = (record: FinancialRecord) => {
+    return (
+      record.currency &&
+      currency.id !== record.currency.id &&
+      record.originalAmount &&
+      record.exchangeRate
+    );
+  };
 
   return (
     <>
@@ -119,113 +134,122 @@ export const ExpenseByDayTable = ({
 
         <div
           className={clsx(
-            "grid grid-cols-3 sm:grid-cols-4 py-2 px-4 text-gray-600 font-bold",
-            {
-              "!grid-cols-5 sm:!grid-cols-6": isPremium,
-            }
+            "grid grid-cols-3 !grid-cols-4 sm:!grid-cols-6 py-2 px-4 text-gray-600 font-bold"
           )}
         >
-          <div>{dict.shared.name}</div>
+          <div>{dict.forms.shared.amount}</div>
           <div>{dict.shared.category}</div>
-          {isPremium && (
-            <>
-              <div className="text-center">{dict.shared.satisfaction}</div>
-              <div className="text-center hidden sm:block">
-                {dict.shared.emotion}
-              </div>
-            </>
-          )}
-          <div className="text-center">{dict.shared.price}</div>
+
+          <div className="hidden sm:block">{dict.forms.shared.description}</div>
+
+          <div className="text-center">
+            <span className="hidden sm:inline">{dict.shared.satisfaction}</span>
+            <span className="sm:hidden">🙂</span>
+          </div>
+          <div className="text-center hidden sm:block">
+            {dict.shared.emotion}
+          </div>
+
           <div />
         </div>
 
-        {records.map((record) => (
-          <div
-            key={record.id}
-            className={clsx(
-              "grid grid-cols-3 sm:grid-cols-4 py-2 px-4 text-gray-500",
-              {
-                "!grid-cols-5 sm:!grid-cols-6": isPremium,
-              }
-            )}
-          >
-            <div className="truncate">{record.description}</div>
-            <div className="truncate">{record.category.name}</div>
-            {isPremium && (
-              <>
-                <div className="text-center">
-                  {record.type === "expense" && (
-                    <ExpenseSatisfactionIcon
-                      satisfaction={(record as Expense).satisfaction}
-                    />
-                  )}
-                </div>
-                <div className="text-center hidden sm:block">
-                  {record.type === "expense" && (
-                    <ExpenseEmotionIcon {...(record as Expense).emotion} />
-                  )}
-                </div>
-              </>
-            )}
+        {records
+          .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+          .map((record) => (
             <div
-              className={clsx("text-center text-[#1cde98]", {
-                "text-red-500": record.type === "expense",
-              })}
+              key={record.id}
+              className={clsx(
+                "grid grid-cols-3 !grid-cols-4 sm:!grid-cols-6 py-2 px-4 text-gray-500"
+              )}
             >
-              {isXs ? (
-                abbreviateCurrency(record.amount, currency.symbol)
-              ) : (
-                <Price amount={record.amount} />
-              )}
+              <div
+                className={clsx("text-[#1cde98]", {
+                  "text-red-500": record.type === "expense",
+                })}
+              >
+                {isXs ? (
+                  abbreviateCurrency(record.amount, currency.symbol)
+                ) : (
+                  <Price amount={record.amount} />
+                )}
+                {isMultiCurrency(record) && (
+                  <div
+                    className="text-xs text-gray-500 mt-1"
+                    data-tooltip-id="my-tooltip"
+                    data-tooltip-content={`${record.originalAmount} ${record.currency.symbol} • Rate: ${record.exchangeRate}`}
+                  >
+                    ({record.currency.symbol}
+                    {record.originalAmount})
+                  </div>
+                )}
+              </div>
+              <div className="truncate">{record.category.name}</div>
+
+              <div className="truncate hidden sm:block">
+                {record.description}
+              </div>
+
+              <div className="text-center">
+                {record.type === "expense" && (
+                  <ExpenseSatisfactionIcon
+                    satisfaction={(record as Expense).satisfaction}
+                  />
+                )}
+              </div>
+              <div className="text-center hidden sm:block">
+                {record.type === "expense" && (
+                  <ExpenseEmotionIcon {...(record as Expense).emotion} />
+                )}
+              </div>
+
+              <div className="flex justify-end gap-1 sm:gap-2">
+                {record.type === "earning" && (
+                  <>
+                    <Button
+                      onClick={() => {
+                        setIsEarningUpdateModalOpen(true);
+                        setEarningToUpdate(record as Earning);
+                      }}
+                      className="!w-9 sm:!w-10"
+                    >
+                      <PencilIcon className="w-4" />
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        setIsDeleteEarningModalOpen(true);
+                        setEarningIdToDelete(record.id);
+                      }}
+                      className="!w-9 sm:!w-10"
+                    >
+                      <TrashIcon className="w-4" />
+                    </Button>
+                  </>
+                )}
+                {record.type === "expense" && (
+                  <>
+                    <Button
+                      onClick={() => {
+                        setIsUpdateModalOpen(true);
+                        setExpenseToUpdate(record as Expense);
+                      }}
+                      className="!w-9 sm:!w-10"
+                    >
+                      <PencilIcon className="w-4" />
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        setIsDeleteExpenseModalOpen(true);
+                        setExpenseIdToDelete(record.id);
+                      }}
+                      className="!w-9 sm:!w-10"
+                    >
+                      <TrashIcon className="w-4" />
+                    </Button>
+                  </>
+                )}
+              </div>
             </div>
-            <div className="flex justify-end gap-2">
-              {record.type === "earning" && (
-                <>
-                  <Button
-                    onClick={() => {
-                      setIsEarningUpdateModalOpen(true);
-                      setEarningToUpdate(record as Earning);
-                    }}
-                    className="!w-10"
-                  >
-                    <PencilIcon className="w-4" />
-                  </Button>
-                  <Button
-                    onClick={() => {
-                      setIsDeleteEarningModalOpen(true);
-                      setEarningIdToDelete(record.id);
-                    }}
-                    className="!w-10"
-                  >
-                    <TrashIcon className="w-4" />
-                  </Button>
-                </>
-              )}
-              {record.type === "expense" && (
-                <>
-                  <Button
-                    onClick={() => {
-                      setIsUpdateModalOpen(true);
-                      setExpenseToUpdate(record as Expense);
-                    }}
-                    className="!w-10"
-                  >
-                    <PencilIcon className="w-4" />
-                  </Button>
-                  <Button
-                    onClick={() => {
-                      setIsDeleteExpenseModalOpen(true);
-                      setExpenseIdToDelete(record.id);
-                    }}
-                    className="!w-10"
-                  >
-                    <TrashIcon className="w-4" />
-                  </Button>
-                </>
-              )}
-            </div>
-          </div>
-        ))}
+          ))}
 
         <div className="px-4">
           <Divider className="border-neutral-200" />

@@ -74,6 +74,7 @@ export default async function Page({
       stripeId: true,
       currency: {
         select: {
+          id: true,
           name: true,
           symbol: true,
           currencyCode: true,
@@ -83,6 +84,11 @@ export default async function Page({
       tour_finished: true,
     },
   });
+
+  const currenciesData = await fetch(
+    `${process.env.NEXT_PUBLIC_APP_URL}/api/currency/get-all`
+  );
+  const currencies = await currenciesData.json();
 
   const isPremium = user?.subscriptionPlan !== null;
   const stripeCustomerPortalLink = `${process.env.STRIPE_CUSTOMER_PORTAL_URL}?prefilled_email=${user?.email}`;
@@ -246,6 +252,7 @@ export default async function Page({
   return (
     <AppProvider
       currency={currency as Currency}
+      allCurrencies={currencies}
       subscriptionDetails={{
         isPremium,
         stripeCustomerPortalLink,
@@ -278,7 +285,7 @@ export default async function Page({
                   </Suspense>
                 </div>
                 <FinancialAdvisor
-                  userName={user.name}
+                  userName={user?.name || ""}
                   expenses={expensesCurrent}
                   earnings={earningsCurrent}
                   savings={savingsCurrent}

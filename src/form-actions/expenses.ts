@@ -23,6 +23,7 @@ export type ExpenseFormState = {
     categoryId?: string[];
     subCategoryId?: string[];
     date?: string[];
+    currencyId?: string[];
   };
 } & FormMessage;
 
@@ -33,6 +34,9 @@ export type UpdateExpenseFormState = {
     categoryId?: string[];
     subCategoryId?: string[];
     date?: string[];
+    currencyId?: string[];
+    originalAmount?: string[];
+    exchangeRate?: string[];
   };
 } & FormMessage;
 
@@ -47,10 +51,7 @@ const expenseFormSchema = (dict: AppDictionary) =>
       .string({
         invalid_type_error: dict.api.shared.requiredField,
       })
-      .min(1, { message: dict.api.shared.requiredField })
-      .refine((value) => value.trim().length > 0, {
-        message: dict.api.shared.requiredField,
-      }),
+      .optional(),
     amount: z.coerce.number().gt(0, { message: dict.api.shared.requiredField }),
     date: z.string(),
     categoryId: z
@@ -63,6 +64,9 @@ const expenseFormSchema = (dict: AppDictionary) =>
         invalid_type_error: dict.api.shared.requiredField,
       })
       .optional(),
+    currencyId: z.string().optional(),
+    originalAmount: z.string().optional(),
+    exchangeRate: z.string().optional(),
     satisfaction: z.string(),
     emotionId: z.string(),
   });
@@ -86,8 +90,11 @@ export async function createExpense(
     amount: formData.get("amount"),
     categoryId: formData.get("categoryId"),
     subCategoryId: formData.get("subCategoryId"),
+    currencyId: formData.get("currencyId"),
+    originalAmount: formData.get("originalAmount"),
     satisfaction: formData.get("satisfaction"),
     emotionId: formData.get("emotionId"),
+    exchangeRate: formData.get("exchangeRate"),
   });
 
   // If form validation fails, return errors early. Otherwise, continue.
@@ -104,18 +111,30 @@ export async function createExpense(
     date,
     categoryId,
     subCategoryId,
+    currencyId,
+    originalAmount,
     satisfaction,
     emotionId,
+    exchangeRate,
   } = validatedFields.data;
+
+  // Get the converted amount if it exists (happens when user selects a different currency)
+  const convertedAmount = formData.get("convertedAmount");
+
+  // Use the converted amount if it exists, otherwise use the original amount
+  const finalAmount = convertedAmount ? Number(convertedAmount) : amount;
 
   try {
     await createDbExpense({
       userId,
-      amount,
+      amount: finalAmount,
       categoryId,
       subCategoryId,
-      description,
+      description: description || "",
       date: new Date(date),
+      currencyId: currencyId ? Number(currencyId) : undefined,
+      originalAmount: originalAmount ? Number(originalAmount) : undefined,
+      exchangeRate: exchangeRate ? Number(exchangeRate) : undefined,
       satisfaction: Number(satisfaction),
       emotionId: Number(emotionId),
     });
@@ -140,6 +159,7 @@ export async function createExpense(
     },
   };
 }
+
 export async function updateExpense(
   expenseId: string,
   lang: AvailableLanguages,
@@ -160,8 +180,11 @@ export async function updateExpense(
     amount: formData.get("amount"),
     categoryId: formData.get("categoryId"),
     subCategoryId: formData.get("subCategoryId"),
+    currencyId: formData.get("currencyId"),
+    originalAmount: formData.get("originalAmount"),
     satisfaction: formData.get("satisfaction"),
     emotionId: formData.get("emotionId"),
+    exchangeRate: formData.get("exchangeRate"),
   });
 
   // If form validation fails, return errors early. Otherwise, continue.
@@ -178,8 +201,11 @@ export async function updateExpense(
     date,
     categoryId,
     subCategoryId,
+    currencyId,
+    originalAmount,
     satisfaction,
     emotionId,
+    exchangeRate,
   } = validatedFields.data;
 
   try {
@@ -189,8 +215,11 @@ export async function updateExpense(
       amount,
       categoryId,
       subCategoryId,
-      description,
+      description: description || "",
       date: new Date(date),
+      currencyId: currencyId ? Number(currencyId) : undefined,
+      originalAmount: originalAmount ? Number(originalAmount) : undefined,
+      exchangeRate: exchangeRate ? Number(exchangeRate) : undefined,
       satisfaction: Number(satisfaction),
       emotionId: Number(emotionId),
     });

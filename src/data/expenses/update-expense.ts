@@ -12,6 +12,9 @@ export type ExpenseToUpdate = {
   date: Date;
   satisfaction: number;
   emotionId: number;
+  currencyId?: number;
+  originalAmount?: number;
+  exchangeRate?: number;
 };
 
 export async function updateDbExpense({
@@ -24,6 +27,9 @@ export async function updateDbExpense({
   date,
   satisfaction,
   emotionId,
+  currencyId,
+  originalAmount,
+  exchangeRate,
 }: ExpenseToUpdate) {
   try {
     await prisma.expenses.update({
@@ -36,6 +42,9 @@ export async function updateDbExpense({
         created_at: new Date(),
         satisfaction,
         emotion_id: emotionId,
+        currencyId,
+        exchange_rate: exchangeRate,
+        original_amount: originalAmount,
       },
       where: {
         id,
@@ -44,6 +53,6 @@ export async function updateDbExpense({
     });
   } catch (error) {
     console.error("Database Error:", error);
-    throw new Error("Failed to create expense.");
+    throw new Error("Failed to update expense.");
   }
 }

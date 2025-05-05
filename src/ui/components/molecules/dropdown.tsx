@@ -14,6 +14,7 @@ export type DropdownProps = {
   showEditButton?: boolean;
   defaultValue?: { label: string; value: string };
   maxMenuHeight?: number;
+  isClearable?: boolean;
 };
 
 export const Dropdown = ({
@@ -26,6 +27,7 @@ export const Dropdown = ({
   showEditButton,
   defaultValue,
   maxMenuHeight,
+  isClearable = true,
 }: DropdownProps) => {
   const { dict } = useTranslations();
   const NoOptionsMessage = ({ children, ...props }: NoticeProps) => {
@@ -91,7 +93,7 @@ export const Dropdown = ({
   return (
     <Select
       options={finalOptions}
-      isClearable
+      isClearable={isClearable}
       styles={{
         control: (baseStyles, state) => ({
           ...baseStyles,

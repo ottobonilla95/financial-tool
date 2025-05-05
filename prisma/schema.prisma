@@ -20,10 +20,13 @@ model expenses {
   emotion_id         Int?
   satisfaction       Int?
   currencyId         Int?
+  original_amount    Decimal?             @db.Decimal(10, 2)
+  exchange_rate      Decimal?             @db.Decimal(10, 6)
   expensecategory    expense_category?    @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   emotion            emotion?             @relation(fields: [emotion_id], references: [id], onUpdate: NoAction)
   expensesubcategory expense_subcategory? @relation(fields: [subcategory_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "expenses_sub_category_fkey")
   users              users?               @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  currency           currency?            @relation(fields: [currencyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model users {
@@ -37,11 +40,11 @@ model users {
   tour_finished          Boolean?           @default(false)
   fully_signed_up        Boolean?           @default(false)
   lang                   String?
-  subscription_plan      String?            
+  subscription_plan      String?
   subscription_id        String?
   subscription_cancel_at Int?               @default(0)
   stripeId               String?            @unique
-  pricing_group          String?            
+  pricing_group          String?
   earning                earning[]
   earning_category       earning_category[]
   expense_category       expense_category[]
@@ -108,22 +111,23 @@ model earning_subcategory {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model emotion {
-  id           Int     @id @default(autoincrement())
-  name         String  @db.VarChar(50)
+  id           Int        @id @default(autoincrement())
+  name         String     @db.VarChar(50)
   description  String?
-  emotion_type String  @db.VarChar(10)
-  color        String? @db.VarChar(7)
-  expenses expenses[]
+  emotion_type String     @db.VarChar(10)
+  color        String?    @db.VarChar(7)
+  expenses     expenses[]
 }
 
 model currency {
-  id           Int     @id @default(autoincrement())
-  name         String  @db.VarChar(50)
+  id           Int        @id @default(autoincrement())
+  name         String     @db.VarChar(50)
   symbol       String
   description  String?
-  countryCode  String? @db.VarChar(2)
-  currencyCode String? @db.VarChar(3)
+  countryCode  String?    @db.VarChar(2)
+  currencyCode String?    @db.VarChar(3)
   users        users[]
+  expenses     expenses[]
 }
 
 model saving {
@@ -152,15 +156,15 @@ model contacts {
 }
 
 model pricing_option {
-  id                  String               @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  title               String?              @db.VarChar(255)
-  price               Float?               
-  most_popular        Boolean?             @default(false)
-  paymentLink         String?              @db.VarChar(255)
-  period              String?              @db.VarChar(255)
-  pricing_group       String?              @db.VarChar(255)
-  is_discount         Boolean?             @default(false)
-  original_price      Float?               
+  id             String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  title          String?  @db.VarChar(255)
+  price          Float?
+  most_popular   Boolean? @default(false)
+  paymentLink    String?  @db.VarChar(255)
+  period         String?  @db.VarChar(255)
+  pricing_group  String?  @db.VarChar(255)
+  is_discount    Boolean? @default(false)
+  original_price Float?
 
-  created_at          DateTime?            @default(now()) @db.Timestamp(6)
+  created_at DateTime? @default(now()) @db.Timestamp(6)
 }

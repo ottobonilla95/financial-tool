@@ -11,6 +11,9 @@ export type ExpenseToCreate = {
   date: Date;
   satisfaction: number;
   emotionId: number;
+  currencyId?: number;
+  originalAmount?: number;
+  exchangeRate?: number;
 };
 
 export async function createDbExpense({
@@ -22,6 +25,9 @@ export async function createDbExpense({
   date,
   satisfaction,
   emotionId,
+  currencyId,
+  originalAmount,
+  exchangeRate,
 }: ExpenseToCreate) {
   try {
     await prisma.expenses.create({
@@ -35,6 +41,9 @@ export async function createDbExpense({
         created_at: new Date(),
         satisfaction,
         emotion_id: emotionId,
+        currencyId,
+        exchange_rate: exchangeRate,
+        original_amount: originalAmount,
       },
     });
   } catch (error) {

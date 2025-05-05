@@ -5,11 +5,13 @@ import { Currency, SubscriptionDetails } from "../types";
 
 export type AppContextProps = {
   currency: Currency;
+  allCurrencies: Currency[];
   subscriptionDetails?: SubscriptionDetails;
 };
 
 export const AppContext = createContext<AppContextProps>({
   currency: { id: 1, name: "USD", symbol: "$" },
+  allCurrencies: [],
   subscriptionDetails: {
     isPremium: false,
     isUserOnStripe: false,
@@ -19,17 +21,21 @@ export const AppContext = createContext<AppContextProps>({
 
 export type AppProviderProps = {
   currency: Currency;
+  allCurrencies: Currency[];
   children: React.ReactNode;
   subscriptionDetails?: SubscriptionDetails;
 };
 
 export function AppProvider({
   currency,
+  allCurrencies,
   children,
   subscriptionDetails,
 }: AppProviderProps) {
   return (
-    <AppContext.Provider value={{ currency, subscriptionDetails }}>
+    <AppContext.Provider
+      value={{ currency, subscriptionDetails, allCurrencies }}
+    >
       {children}
     </AppContext.Provider>
   );

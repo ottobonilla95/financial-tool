@@ -17,6 +17,7 @@ export type Data = {
     id: string;
     name: string;
   } | null;
+  created_at: Date | null;
 };
 
 type FetchEarningProps = {
@@ -44,6 +45,7 @@ export async function fetchEarnings({ filters }: FetchEarningProps) {
             name: true,
           },
         },
+        created_at: true,
       },
       where: filters,
       orderBy: {
@@ -88,5 +90,6 @@ export const mapEarning = (earning: Data): Earning => {
     formattedDate: `${earning.date?.toUTCString().split(",")[0]} ${String(
       earning.date?.getUTCDate()
     ).padStart(2, "0")}`,
+    createdAt: earning.created_at || new Date(),
   };
 };
