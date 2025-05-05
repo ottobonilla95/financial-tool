@@ -31,10 +31,7 @@ const createSchema = (dict: AppDictionary) =>
       .string({
         invalid_type_error: dict.api.shared.requiredField,
       })
-      .min(1, { message: dict.api.shared.requiredField })
-      .refine((value) => value.trim().length > 0, {
-        message: dict.api.shared.requiredField,
-      }),
+      .optional(),
     amount: z.coerce.number().gt(0, { message: dict.api.shared.requiredField }),
     date: z.string(),
   });
@@ -69,7 +66,7 @@ export async function createSaving(
     await createDbSaving({
       userId,
       amount,
-      description,
+      description: description || "",
       date: new Date(date),
     });
     await updateLastUpdated({

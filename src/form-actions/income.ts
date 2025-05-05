@@ -34,10 +34,7 @@ const createSchema = (dict: AppDictionary) =>
       .string({
         invalid_type_error: dict.api.shared.requiredField,
       })
-      .min(1, { message: dict.api.shared.requiredField })
-      .refine((value) => value.trim().length > 0, {
-        message: dict.api.shared.requiredField,
-      }),
+      .optional(),
     amount: z.coerce.number().gt(0, { message: dict.api.shared.requiredField }),
     date: z.string(),
     categoryId: z
@@ -90,7 +87,7 @@ export async function createIncome(
       amount,
       categoryId,
       subCategoryId,
-      description,
+      description: description || "",
       date: new Date(date),
     });
     await updateLastUpdated({
@@ -153,7 +150,7 @@ export async function updateIncome(
       amount,
       categoryId,
       subCategoryId,
-      description,
+      description: description || "",
       date: new Date(date),
     });
     await updateLastUpdated({
