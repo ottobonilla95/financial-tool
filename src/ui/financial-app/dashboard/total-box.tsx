@@ -5,6 +5,7 @@ import clsx from "clsx";
 import {
   ArrowTrendingUpIcon,
   ArrowTrendingDownIcon,
+  ArrowLongRightIcon,
 } from "@heroicons/react/24/solid";
 import { CSSProperties, useContext } from "react";
 import { IntlContext } from "@/src/translations/provider";
@@ -123,8 +124,9 @@ export const DashboardTotalBox = ({
             </div>
           )}
         </div>
-        {percentageChange > 0 ? (
-          <div className="mb-1">
+
+        <div className="mb-1">
+          {percentageChange > 0 ? (
             <div
               className={clsx("flex gap-2 mb-1 text-red-500", {
                 "!text-[#1cde98]": renderGreen(),
@@ -147,13 +149,22 @@ export const DashboardTotalBox = ({
 
               {`${percentageChange.toFixed(2)} %`}
             </div>
-            <div className="uppercase text-[10px] tracking-thight text-neutral-400">
-              {dict.dashboard?.samePeriodLastMonth}
+          ) : (
+            <div className={clsx("flex gap-1 mb-1 text-sky-500")}>
+              <div
+                className={clsx("px-1 rounded-md py-[1px] flex items-center bg-sky-100")}
+              >
+                <ArrowLongRightIcon className="w-4" />
+              </div>
+
+              {`0 %`}
             </div>
+          )}
+
+          <div className="uppercase text-[10px] tracking-thight text-neutral-400">
+            {dict.dashboard?.samePeriodLastMonth}
           </div>
-        ) : (
-          <div className="flex-1" />
-        )}
+        </div>
 
         <div>
           <Price amount={value} className="text-2xl text-gray-600 font-bold" />
