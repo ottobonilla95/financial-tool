@@ -34,6 +34,19 @@ export type CreateExpenseFormProps = {
   year?: number;
 };
 
+export const LoadingPlaceholder = () => {
+  const { pending } = useFormStatus();
+
+  if (pending) {
+    return (
+      <div className="absolute inset-0 bg-black z-50 opacity-70 flex items-center justify-center">
+        <Spinner className="h-10 w-10" />
+      </div>
+    );
+  }
+  return null;
+};
+
 export const CreateExpenseForm = ({
   closeModal,
   emotions,
@@ -141,12 +154,12 @@ export const CreateExpenseForm = ({
       setSelectedEmotion(9); // Reset to initial value
       setAmount("");
       setDescription("");
-      
+
       // Reset currency to default user currency
       if (currency) {
         setSelectedCurrency(currency.id.toString());
       }
-      
+
       setOriginalForeignAmount("");
       setExchangeRate(undefined);
       setConvertedAmount("");
@@ -353,8 +366,8 @@ export const CreateExpenseForm = ({
                 <Spinner className="h-10 w-10" />
               </div>
             )}
-
             <form action={formAction}>
+              <LoadingPlaceholder />
               <div className="rounded-md p-4 md:p-6 ">
                 {/* date */}
                 <div className="mb-4">
@@ -435,7 +448,11 @@ export const CreateExpenseForm = ({
                     </div>
                     <div className="relative ml-2 w-[120px]">
                       <Dropdown
-                        key={`currency-dropdown-${selectedCurrency || 'default'}-${state.message?.type === 'success' ? Date.now() : '0'}`}
+                        key={`currency-dropdown-${
+                          selectedCurrency || "default"
+                        }-${
+                          state.message?.type === "success" ? Date.now() : "0"
+                        }`}
                         options={(allCurrencies || []).map((c) => ({
                           value: c.id.toString(),
                           label: `${c.symbol} ${c.currencyCode}`,
@@ -447,7 +464,15 @@ export const CreateExpenseForm = ({
                           currency && selectedCurrency
                             ? {
                                 value: selectedCurrency,
-                                label: `${(allCurrencies || []).find(c => c.id.toString() === selectedCurrency)?.symbol || ''} ${(allCurrencies || []).find(c => c.id.toString() === selectedCurrency)?.currencyCode || ''}`,
+                                label: `${
+                                  (allCurrencies || []).find(
+                                    (c) => c.id.toString() === selectedCurrency
+                                  )?.symbol || ""
+                                } ${
+                                  (allCurrencies || []).find(
+                                    (c) => c.id.toString() === selectedCurrency
+                                  )?.currencyCode || ""
+                                }`,
                               }
                             : undefined
                         }

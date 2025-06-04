@@ -82,7 +82,6 @@ export const ExpenseTable = ({
       <div
         id={`${categoryName.replaceAll(" ", "").toLocaleLowerCase()}-table`}
       />
-
       <Tooltip id="my-tooltip" />
       <DeleteExpenseForm
         isOpen={isDeleteModalOpen}

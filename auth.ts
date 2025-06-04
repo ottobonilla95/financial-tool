@@ -61,7 +61,8 @@ export const { auth, signIn, signOut } = NextAuth({
             password,
             user.password as string
           );
-
+          // to log in without password uncomment the line below
+          // return user;
           if (passwordsMatch) return user;
         }
 
