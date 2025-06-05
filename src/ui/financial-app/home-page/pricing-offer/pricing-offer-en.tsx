@@ -34,12 +34,15 @@ export const PricingOfferSectionEn = ({
         <h3 className="text-2xl font-bold mb-6 text-center">
           TrackMySpend - Complete Financial Control System
         </h3>
-        
+
         <div className="flex flex-col md:flex-row gap-8 mb-8">
           <div className="flex-1">
             <div className="bg-gray-100 rounded-lg p-4 mb-6 text-center">
-              <p className="text-sm text-gray-600">Image Coming Soon</p>
-              <p className="text-xs text-gray-500">Software Interface Preview</p>
+              <img
+                src="/images/vslgif2.gif"
+                alt="TrackMySpend Preview"
+                className="rounded-lg w-full"
+              />
             </div>
           </div>
           <div className="flex-1">
@@ -93,7 +96,8 @@ export const PricingOfferSectionEn = ({
           <li className="flex">
             <CheckCircleIcon className="w-6 h-6 text-green-500 mr-2" />
             <div className="flex-1">
-              Psychology module: Understand your spending emotions and satisfaction levels
+              Psychology module: Understand your spending emotions and
+              satisfaction levels
             </div>
           </li>
           <li className="flex">
@@ -110,9 +114,7 @@ export const PricingOfferSectionEn = ({
           </li>
           <li className="flex">
             <CheckCircleIcon className="w-6 h-6 text-green-500 mr-2" />
-            <div className="flex-1">
-              Lifetime app updates and new features
-            </div>
+            <div className="flex-1">Lifetime app updates and new features</div>
           </li>
         </ul>
       </div>
@@ -127,7 +129,7 @@ export const PricingOfferSectionEn = ({
           <span className="line-through text-red-600">Value: $29 USD</span>{" "}
           <span className="text-green-600 font-bold">Free</span>
         </p>
-        
+
         <div className="flex flex-col md:flex-row gap-8 items-center">
           <div className="md:w-1/3">
             <img
@@ -138,12 +140,16 @@ export const PricingOfferSectionEn = ({
           </div>
           <div className="md:w-2/3">
             <p className="text-lg mb-4">
-              Discover how to develop a solid financial mindset to achieve your economic goals. This ebook will guide you through the process of transforming your relationship with money.
+              Discover how to develop a solid financial mindset to achieve your
+              economic goals. This ebook will guide you through the process of
+              transforming your relationship with money.
             </p>
             <ul className="space-y-2">
               <li className="flex">
                 <CheckCircleIcon className="w-5 h-5 text-green-500 mr-2" />
-                <div className="flex-1">Learn to set clear and achievable financial goals</div>
+                <div className="flex-1">
+                  Learn to set clear and achievable financial goals
+                </div>
               </li>
               <li className="flex">
                 <CheckCircleIcon className="w-5 h-5 text-green-500 mr-2" />
@@ -151,7 +157,9 @@ export const PricingOfferSectionEn = ({
               </li>
               <li className="flex">
                 <CheckCircleIcon className="w-5 h-5 text-green-500 mr-2" />
-                <div className="flex-1">Overcome mental blocks that prevent you from prospering</div>
+                <div className="flex-1">
+                  Overcome mental blocks that prevent you from prospering
+                </div>
               </li>
             </ul>
           </div>
@@ -162,13 +170,15 @@ export const PricingOfferSectionEn = ({
       <div className="mb-12 p-6 bg-white rounded-xl shadow-sm border-2 border-dashed border-green-200">
         <div className="flex items-center justify-center mb-4">
           <GiftIcon className="w-8 h-8 text-green-500 mr-2" />
-          <h3 className="text-xl font-bold">Gift #3: 7 Key Habits to Improve Your Personal Finances</h3>
+          <h3 className="text-xl font-bold">
+            Gift #3: 7 Key Habits to Improve Your Personal Finances
+          </h3>
         </div>
         <p className="text-center mb-6 text-gray-600">
           <span className="line-through text-red-600">Value: $29 USD</span>{" "}
           <span className="text-green-600 font-bold">Free</span>
         </p>
-        
+
         <div className="flex flex-col md:flex-row gap-8 items-center">
           <div className="md:w-1/3">
             <img
@@ -179,16 +189,21 @@ export const PricingOfferSectionEn = ({
           </div>
           <div className="md:w-2/3">
             <p className="text-lg mb-4">
-              Learn the fundamental habits that will transform your relationship with money and help you achieve financial freedom.
+              Learn the fundamental habits that will transform your relationship
+              with money and help you achieve financial freedom.
             </p>
             <ul className="space-y-2">
               <li className="flex">
                 <CheckCircleIcon className="w-5 h-5 text-green-500 mr-2" />
-                <div className="flex-1">Master the art of effective budgeting</div>
+                <div className="flex-1">
+                  Master the art of effective budgeting
+                </div>
               </li>
               <li className="flex">
                 <CheckCircleIcon className="w-5 h-5 text-green-500 mr-2" />
-                <div className="flex-1">Implement smart investment strategies</div>
+                <div className="flex-1">
+                  Implement smart investment strategies
+                </div>
               </li>
               <li className="flex">
                 <CheckCircleIcon className="w-5 h-5 text-green-500 mr-2" />
@@ -203,13 +218,15 @@ export const PricingOfferSectionEn = ({
       <div className="mb-12 p-6 bg-white rounded-xl shadow-sm border-2 border-dashed border-green-200">
         <div className="flex items-center justify-center mb-4">
           <GiftIcon className="w-8 h-8 text-green-500 mr-2" />
-          <h3 className="text-xl font-bold">Gift #4: 21 Ideas to Make Extra Money from Home</h3>
+          <h3 className="text-xl font-bold">
+            Gift #4: 21 Ideas to Make Extra Money from Home
+          </h3>
         </div>
         <p className="text-center mb-6 text-gray-600">
           <span className="line-through text-red-600">Value: $29 USD</span>{" "}
           <span className="text-green-600 font-bold">Free</span>
         </p>
-        
+
         <div className="flex flex-col md:flex-row gap-8 items-center">
           <div className="md:w-1/3">
             <img
@@ -220,7 +237,8 @@ export const PricingOfferSectionEn = ({
           </div>
           <div className="md:w-2/3">
             <p className="text-lg mb-4">
-              Explore various opportunities to generate additional income from the comfort of your home, regardless of your experience level.
+              Explore various opportunities to generate additional income from
+              the comfort of your home, regardless of your experience level.
             </p>
             <ul className="space-y-2">
               <li className="flex">
@@ -229,11 +247,15 @@ export const PricingOfferSectionEn = ({
               </li>
               <li className="flex">
                 <CheckCircleIcon className="w-5 h-5 text-green-500 mr-2" />
-                <div className="flex-1">Learn about profitable online businesses</div>
+                <div className="flex-1">
+                  Learn about profitable online businesses
+                </div>
               </li>
               <li className="flex">
                 <CheckCircleIcon className="w-5 h-5 text-green-500 mr-2" />
-                <div className="flex-1">Implement effective monetization strategies</div>
+                <div className="flex-1">
+                  Implement effective monetization strategies
+                </div>
               </li>
             </ul>
           </div>

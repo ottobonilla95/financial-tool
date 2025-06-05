@@ -18,7 +18,7 @@ export const GuaranteeSectionEn = () => {
         <span className="font-bold">
           will transform the way you manage money
         </span>
-        . That's why we guarantee that if, within 30 days, you don’t see the
+        . That's why we guarantee that if, within 15 days, you don’t see the
         value you expected, we will refund{" "}
         <span className="font-bold">every penny</span>, no questions asked and
         no unnecessary procedures.

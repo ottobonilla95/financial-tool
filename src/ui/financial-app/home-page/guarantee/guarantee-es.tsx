@@ -18,7 +18,7 @@ export const GuaranteeSectionEs = () => {
         <span className="font-bold">
           transformará tu manera de manejar el dinero
         </span>
-        . Por eso, garantizamos que si en 30 días no ves el valor que esperabas,
+        . Por eso, garantizamos que si en 15 días no ves el valor que esperabas,
         te devolveremos <span className="font-bold">cada centavo</span>, sin
         preguntas ni trámites innecesarios.
       </p>
