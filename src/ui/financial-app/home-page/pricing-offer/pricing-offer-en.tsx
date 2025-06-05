@@ -121,36 +121,37 @@ export const PricingOfferSectionEn = ({
       <div className="mb-12 p-6 bg-white rounded-xl shadow-sm border-2 border-dashed border-green-200">
         <div className="flex items-center justify-center mb-4">
           <GiftIcon className="w-8 h-8 text-green-500 mr-2" />
-          <h3 className="text-xl font-bold">Gift #2: [eBook 1 Title]</h3>
+          <h3 className="text-xl font-bold">Gift #2: Financial Mindset</h3>
         </div>
         <p className="text-center mb-6 text-gray-600">
-          <span className="line-through text-red-600">$29 USD Value</span>{" "}
+          <span className="line-through text-red-600">Value: $29 USD</span>{" "}
           <span className="text-green-600 font-bold">Free</span>
         </p>
         
         <div className="flex flex-col md:flex-row gap-8 items-center">
           <div className="md:w-1/3">
-            <div className="bg-gray-100 rounded-lg p-4 mb-4 aspect-[3/4]">
-              <p className="text-sm text-gray-600">eBook Cover</p>
-              <p className="text-xs text-gray-500">Coming Soon</p>
-            </div>
+            <img
+              src="/images/ebook/ebook1.png"
+              alt="Financial Mindset"
+              className="rounded-lg shadow-md w-full aspect-[3/4] object-cover"
+            />
           </div>
           <div className="md:w-2/3">
             <p className="text-lg mb-4">
-              [Brief description of eBook 1 and its benefits. What the reader will learn and how it will help them with their finances.]
+              Discover how to develop a solid financial mindset to achieve your economic goals. This ebook will guide you through the process of transforming your relationship with money.
             </p>
             <ul className="space-y-2">
               <li className="flex">
                 <CheckCircleIcon className="w-5 h-5 text-green-500 mr-2" />
-                <div className="flex-1">Key benefit 1</div>
+                <div className="flex-1">Learn to set clear and achievable financial goals</div>
               </li>
               <li className="flex">
                 <CheckCircleIcon className="w-5 h-5 text-green-500 mr-2" />
-                <div className="flex-1">Key benefit 2</div>
+                <div className="flex-1">Develop effective saving habits</div>
               </li>
               <li className="flex">
                 <CheckCircleIcon className="w-5 h-5 text-green-500 mr-2" />
-                <div className="flex-1">Key benefit 3</div>
+                <div className="flex-1">Overcome mental blocks that prevent you from prospering</div>
               </li>
             </ul>
           </div>
@@ -161,36 +162,37 @@ export const PricingOfferSectionEn = ({
       <div className="mb-12 p-6 bg-white rounded-xl shadow-sm border-2 border-dashed border-green-200">
         <div className="flex items-center justify-center mb-4">
           <GiftIcon className="w-8 h-8 text-green-500 mr-2" />
-          <h3 className="text-xl font-bold">Gift #3: [eBook 2 Title]</h3>
+          <h3 className="text-xl font-bold">Gift #3: 7 Key Habits to Improve Your Personal Finances</h3>
         </div>
         <p className="text-center mb-6 text-gray-600">
-          <span className="line-through text-red-600">$29 USD Value</span>{" "}
+          <span className="line-through text-red-600">Value: $29 USD</span>{" "}
           <span className="text-green-600 font-bold">Free</span>
         </p>
         
         <div className="flex flex-col md:flex-row gap-8 items-center">
           <div className="md:w-1/3">
-            <div className="bg-gray-100 rounded-lg p-4 mb-4 aspect-[3/4]">
-              <p className="text-sm text-gray-600">eBook Cover</p>
-              <p className="text-xs text-gray-500">Coming Soon</p>
-            </div>
+            <img
+              src="/images/ebook/ebook2.png"
+              alt="7 Key Habits to Improve Your Personal Finances"
+              className="rounded-lg shadow-md w-full aspect-[3/4] object-cover"
+            />
           </div>
           <div className="md:w-2/3">
             <p className="text-lg mb-4">
-              [Brief description of eBook 2 and its benefits. What the reader will learn and how it will help them with their finances.]
+              Learn the fundamental habits that will transform your relationship with money and help you achieve financial freedom.
             </p>
             <ul className="space-y-2">
               <li className="flex">
                 <CheckCircleIcon className="w-5 h-5 text-green-500 mr-2" />
-                <div className="flex-1">Key benefit 1</div>
+                <div className="flex-1">Master the art of effective budgeting</div>
               </li>
               <li className="flex">
                 <CheckCircleIcon className="w-5 h-5 text-green-500 mr-2" />
-                <div className="flex-1">Key benefit 2</div>
+                <div className="flex-1">Implement smart investment strategies</div>
               </li>
               <li className="flex">
                 <CheckCircleIcon className="w-5 h-5 text-green-500 mr-2" />
-                <div className="flex-1">Key benefit 3</div>
+                <div className="flex-1">Develop a personalized action plan</div>
               </li>
             </ul>
           </div>
@@ -201,36 +203,37 @@ export const PricingOfferSectionEn = ({
       <div className="mb-12 p-6 bg-white rounded-xl shadow-sm border-2 border-dashed border-green-200">
         <div className="flex items-center justify-center mb-4">
           <GiftIcon className="w-8 h-8 text-green-500 mr-2" />
-          <h3 className="text-xl font-bold">Gift #4: [eBook 3 Title]</h3>
+          <h3 className="text-xl font-bold">Gift #4: 21 Ideas to Make Extra Money from Home</h3>
         </div>
         <p className="text-center mb-6 text-gray-600">
-          <span className="line-through text-red-600">$29 USD Value</span>{" "}
+          <span className="line-through text-red-600">Value: $29 USD</span>{" "}
           <span className="text-green-600 font-bold">Free</span>
         </p>
         
         <div className="flex flex-col md:flex-row gap-8 items-center">
           <div className="md:w-1/3">
-            <div className="bg-gray-100 rounded-lg p-4 mb-4 aspect-[3/4]">
-              <p className="text-sm text-gray-600">eBook Cover</p>
-              <p className="text-xs text-gray-500">Coming Soon</p>
-            </div>
+            <img
+              src="/images/ebook/ebook3.png"
+              alt="21 Ideas to Make Extra Money from Home"
+              className="rounded-lg shadow-md w-full aspect-[3/4] object-cover"
+            />
           </div>
           <div className="md:w-2/3">
             <p className="text-lg mb-4">
-              [Brief description of eBook 3 and its benefits. What the reader will learn and how it will help them with their finances.]
+              Explore various opportunities to generate additional income from the comfort of your home, regardless of your experience level.
             </p>
             <ul className="space-y-2">
               <li className="flex">
                 <CheckCircleIcon className="w-5 h-5 text-green-500 mr-2" />
-                <div className="flex-1">Key benefit 1</div>
+                <div className="flex-1">Discover remote work opportunities</div>
               </li>
               <li className="flex">
                 <CheckCircleIcon className="w-5 h-5 text-green-500 mr-2" />
-                <div className="flex-1">Key benefit 2</div>
+                <div className="flex-1">Learn about profitable online businesses</div>
               </li>
               <li className="flex">
                 <CheckCircleIcon className="w-5 h-5 text-green-500 mr-2" />
-                <div className="flex-1">Key benefit 3</div>
+                <div className="flex-1">Implement effective monetization strategies</div>
               </li>
             </ul>
           </div>
