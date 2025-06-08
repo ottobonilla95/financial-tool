@@ -31,6 +31,7 @@ import TourInitiator from "@/src/ui/financial-app/tour/tour-initiator";
 import { redirect } from "next/navigation";
 import { CurrencyPicker } from "@/src/ui/financial-app/currency/currency-picker";
 import { CategoryFilterContainer } from "@/src/ui/financial-app/dashboard/category-filter-container";
+import { URLParamHandler } from "./url-param-handler";
 
 export type DashboardPageProps = {
   searchParams: {
@@ -51,15 +52,9 @@ export default async function Page({
     Number(searchParams.month) || currentDate.getMonth() + 1;
 
   const selectedYear = Number(searchParams.year) || currentDate.getFullYear();
-  const missingParams = !searchParams.month || !searchParams.year;
-  // Check if parameters are missing
 
-  if (missingParams) {
-    redirect(`/dashboard?month=${selectedMonth}&year=${selectedYear}`);
-    return null;
-  }
+  // Only get essential data on server side
   const dict = await getDictionary(lang);
-
   const session = await auth();
   const userId = session?.user?.id as string;
 
@@ -268,6 +263,8 @@ export default async function Page({
         >
           <TourProvider>
             <main>
+              <URLParamHandler />
+
               {!tourFinished && <TourInitiator />}
 
               {tourFinished && user.currency === null && (

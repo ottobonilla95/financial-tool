@@ -14,7 +14,7 @@ export type DashboardButtonsProps = {
   dict: AppDictionary;
 };
 
-export const DashboardButtons = async ({ dict }: DashboardButtonsProps) => {
+export const DashboardButtons = ({ dict }: DashboardButtonsProps) => {
   const { emotions, month, year } = useContext(DashboardContext);
   const [showCreateExpenseForm, setShowCreateExpenseForm] = useState(false);
   const [showCreateIncomeForm, setShowCreateIncomeForm] = useState(false);
