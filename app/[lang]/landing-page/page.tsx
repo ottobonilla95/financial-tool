@@ -26,6 +26,7 @@ export default async function MainPage({
   const dict = await getDictionary(lang);
 
   const campaign = (searchParams as any)?.utm_campaign;
+  const fbclid = (searchParams as any)?.fbclid;
 
   return (
     <>
@@ -85,7 +86,7 @@ export default async function MainPage({
 
         <div className="bg-neutral-900 pt-14 pb-8" id="offer">
           <Container variant="standard">
-            <PricingOfferSection campaign={campaign} lang={lang} />
+            <PricingOfferSection campaign={campaign} fbclid={fbclid} lang={lang} />
           </Container>
         </div>
 

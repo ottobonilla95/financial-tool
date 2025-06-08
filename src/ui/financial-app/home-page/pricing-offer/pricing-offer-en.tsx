@@ -5,15 +5,21 @@ import { GiftIcon } from "@heroicons/react/24/outline";
 
 export type PricingOfferSectionProps = {
   campaign?: string;
+  fbclid?: string;
 };
 
 export const PricingOfferSectionEn = ({
   campaign,
+  fbclid,
 }: PricingOfferSectionProps) => {
   let hotmartCheckoutUrl = process.env.HOTMART_CHECKOUT_URL_EN;
 
   if (campaign) {
     hotmartCheckoutUrl = `${hotmartCheckoutUrl}&sck=${campaign}`;
+  }
+
+  if (fbclid) {
+    hotmartCheckoutUrl = `${hotmartCheckoutUrl}&fbclid=${fbclid}`;
   }
 
   return (

@@ -21,10 +21,10 @@ export type Data = {
   original_amount: number | null;
   exchange_rate: number | null;
   currency: {
-    id: string;
+    id: number;
     name: string;
     symbol: string;
-    currencyCode: string;
+    currencyCode: string | null;
   } | null;
 };
 
@@ -112,10 +112,10 @@ export const mapEarning = (earning: Data): Earning => {
     originalAmount: earning.original_amount || undefined,
     exchangeRate: earning.exchange_rate || undefined,
     currency: earning.currency ? {
-      id: Number(earning.currency.id),
+      id: earning.currency.id,
       name: earning.currency.name,
       symbol: earning.currency.symbol,
-      currencyCode: earning.currency.currencyCode,
+      currencyCode: earning.currency.currencyCode || undefined,
     } : undefined,
   };
 };
