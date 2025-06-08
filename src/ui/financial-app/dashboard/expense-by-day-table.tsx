@@ -180,8 +180,9 @@ export const ExpenseByDayTable = ({
                     data-tooltip-id="my-tooltip"
                     data-tooltip-content={`${record.originalAmount} ${record.currency.symbol} • Rate: ${record.exchangeRate}`}
                   >
-                    ({record.currency.symbol}
-                    {record.originalAmount})
+                    (
+                    {`${record.currency.symbol} ${record.originalAmount} ${record.currency.currencyCode}`}
+                    )
                   </div>
                 )}
               </div>

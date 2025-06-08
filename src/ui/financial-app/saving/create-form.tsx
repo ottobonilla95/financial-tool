@@ -144,7 +144,6 @@ export const CreateSavingForm = ({
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder={dict.forms?.shared.enterDescription}
                   className="peer block w-full rounded-md border border-gray-200 py-2 text-base outline-2 placeholder:text-gray-500"
-                  required
                   aria-describedby="description-error"
                 />
               </div>

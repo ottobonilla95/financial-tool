@@ -43,6 +43,19 @@ export type UpdateExpenseFormProps = {
   expense: Expense;
 };
 
+export const LoadingPlaceholder = () => {
+  const { pending } = useFormStatus();
+
+  if (pending) {
+    return (
+      <div className="absolute inset-0 bg-black z-50 opacity-70 flex items-center justify-center">
+        <Spinner className="h-10 w-10" />
+      </div>
+    );
+  }
+  return null;
+};
+
 export const UpdateExpenseForm = ({
   closeModal,
   emotions,
@@ -54,7 +67,7 @@ export const UpdateExpenseForm = ({
 
   const updateExpenseAction = updateExpense.bind(null, expense.id, lang);
 
-  const { subscriptionDetails } = useContext(AppContext);
+  const { subscriptionDetails, currency, allCurrencies } = useContext(AppContext);
   const isPremium = subscriptionDetails?.isPremium;
 
   const initialState: UpdateExpenseFormState = { message: {}, errors: {} };
@@ -71,7 +84,13 @@ export const UpdateExpenseForm = ({
   const lastDayOfSelectedMonth = new Date(currentYear, month, 0); // Last day of the month
   const maxDate = isCurrentMonth ? new Date() : lastDayOfSelectedMonth;
 
-  const [startDate, setStartDate] = useState<Date>(expense.date);
+  // Fix timezone issue: create a local date that represents the same day
+  const expenseLocalDate = new Date(
+    expense.date.getUTCFullYear(),
+    expense.date.getUTCMonth(),
+    expense.date.getUTCDate()
+  );
+  const [startDate, setStartDate] = useState<Date>(expenseLocalDate);
 
   const [subCategories, setSubCategories] = useState<
     { name: string; id: string }[]
@@ -103,6 +122,19 @@ export const UpdateExpenseForm = ({
   const [amount, setAmount] = useState<string>(expense.amount.toString());
   const [description, setDescription] = useState<string>(expense.description);
   const [renderForm, setRenderForm] = useState<boolean>(false);
+
+  // Currency related state
+  const [selectedCurrency, setSelectedCurrency] = useState<string>(
+    expense.currency?.id?.toString() || currency?.id?.toString() || ""
+  );
+  const [exchangeRate, setExchangeRate] = useState<number | undefined>(expense.exchangeRate || undefined);
+  const [convertedAmount, setConvertedAmount] = useState<string>(
+    expense.amount.toString()
+  );
+  const [originalForeignAmount, setOriginalForeignAmount] = useState<string>(
+    expense.originalAmount ? expense.originalAmount.toString() : ""
+  );
+  const [showAnimation, setShowAnimation] = useState(false);
 
   const {
     data,
@@ -157,18 +189,93 @@ export const UpdateExpenseForm = ({
     }
   }, [expense, categories]);
 
-  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(",", "."); // Normalize commas to dots
-    if (!isNaN(Number(value)) || value === "") {
-      setAmount(value);
+  // Add useEffect for currency animation
+  useEffect(() => {
+    if (convertedAmount) {
+      setShowAnimation(true);
+      const timer = setTimeout(() => {
+        setShowAnimation(false);
+      }, 600);
+      return () => clearTimeout(timer);
+    }
+  }, [convertedAmount]);
+
+  // Add exchange rate fetching function
+  const fetchExchangeRate = async (
+    fromCurrency: string,
+    toCurrency: string
+  ) => {
+    try {
+      const response = await fetch(
+        `/api/exchange-rate?from=${fromCurrency}&to=${toCurrency}`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch exchange rate");
+      }
+      const data = await response.json();
+      return data.rate;
+    } catch (error) {
+      console.error("Error fetching exchange rate:", error);
+      return 0.85;
     }
   };
 
-  const utdDate = new Date(
-    startDate.getUTCFullYear(),
-    startDate.getUTCMonth(),
-    startDate.getUTCDate()
-  );
+  // Add currency change handler
+  const handleCurrencyChange = async (currencyId: string | undefined) => {
+    if (!currencyId) {
+      setSelectedCurrency("");
+      setExchangeRate(undefined);
+      setConvertedAmount("");
+      setOriginalForeignAmount("");
+      return;
+    }
+
+    setSelectedCurrency(currencyId);
+
+    const fromCurrencyCode = (allCurrencies || []).find(
+      (c) => c.id.toString() === currencyId
+    )?.currencyCode;
+
+    if (currency && fromCurrencyCode && currency.currencyCode) {
+      const rate = await fetchExchangeRate(
+        fromCurrencyCode,
+        currency.currencyCode
+      );
+      setExchangeRate(rate);
+
+      if (amount) {
+        setOriginalForeignAmount(amount);
+        const converted = (parseFloat(amount) * rate).toFixed(2);
+        setConvertedAmount(converted);
+      }
+    }
+  };
+
+  // Update amount change handler
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(",", ".");
+
+    if (!isNaN(Number(value)) || value === "") {
+      setAmount(value);
+
+      if (
+        selectedCurrency &&
+        currency &&
+        selectedCurrency !== currency.id.toString() &&
+        exchangeRate
+      ) {
+        setOriginalForeignAmount(value);
+
+        if (value) {
+          const converted = (parseFloat(value) * exchangeRate).toFixed(2);
+          setConvertedAmount(converted);
+        } else {
+          setConvertedAmount("");
+        }
+      }
+    }
+  };
+
   if (!renderForm) {
     return null;
   }
@@ -225,8 +332,164 @@ export const UpdateExpenseForm = ({
             )}
 
             <form action={formAction}>
+              <LoadingPlaceholder />
               <input type="hidden" name="id" value={expense.id} />
               <div className="rounded-md p-4 md:p-6 ">
+                {/* date */}
+                <div className="mb-4">
+                  <label
+                    htmlFor="amount"
+                    className="mb-2 block text-sm font-medium"
+                  >
+                    {dict.forms?.shared.date} *
+                  </label>
+                  <div className="relative mt-2 rounded-md">
+                    <div className="relative">
+                      <DatePicker
+                        selected={startDate}
+                        onChange={(date) => setStartDate(date as Date)}
+                        maxDate={maxDate}
+                        minDate={firstDayOfSelectedMonth}
+                        aria-describedby="date-error"
+                        dateFormat={"dd MMM yyyy"}
+                        popperClassName="z-[1000000]"
+                        calendarClassName="z-[1000000]"
+                        className="peer block w-full rounded-md border border-gray-200 py-2 text-base outline-2 placeholder:text-gray-500 z-[100001]"
+                      />
+
+                      <input
+                        type="hidden"
+                        name="date"
+                        value={formatDateToLocal(startDate)}
+                        disabled={loading}
+                      />
+                    </div>
+                    <div id="date-error" aria-live="polite" aria-atomic="true">
+                      {state?.errors?.date &&
+                        state.errors.date.map((error: string) => (
+                          <p className="mt-2 text-sm text-red-500" key={error}>
+                            {error}
+                          </p>
+                        ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Amount */}
+                <div className="mb-4">
+                  <label
+                    htmlFor="amount"
+                    className="mb-2 block text-sm font-medium"
+                  >
+                    {dict.forms?.shared.amount} *
+                  </label>
+                  <div className="relative mt-2 rounded-md flex">
+                    <div className="relative flex-grow">
+                      <input
+                        id="amount"
+                        name="amount"
+                        type="text"
+                        step="0.01"
+                        value={amount}
+                        onChange={handleAmountChange}
+                        placeholder={dict.forms?.shared.enterAmount}
+                        className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 pr-16 text-base outline-2 placeholder:text-gray-500"
+                        required
+                        aria-describedby="amount-error"
+                        disabled={loading}
+                      />
+                      <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+
+                      {/* Show converted amount inside the field if a different currency is selected */}
+                      {selectedCurrency &&
+                        currency &&
+                        selectedCurrency !== currency.id.toString() &&
+                        convertedAmount && (
+                          <span
+                            className={`absolute right-3 top-1/2 -translate-y-1/2 text-sm text-gray-500 font-light transition-all ${
+                              showAnimation ? "text-black font-normal" : ""
+                            }`}
+                          >
+                            ≈ {currency.symbol} {convertedAmount}
+                          </span>
+                        )}
+                    </div>
+                    <div className="relative ml-2 w-[120px]">
+                      <Dropdown
+                        key={`currency-dropdown-${
+                          selectedCurrency || "default"
+                        }-${
+                          state.message?.type === "success" ? Date.now() : "0"
+                        }`}
+                        options={(allCurrencies || []).map((c) => ({
+                          value: c.id.toString(),
+                          label: `${c.symbol} ${c.currencyCode}`,
+                        }))}
+                        onChange={(option) =>
+                          handleCurrencyChange(option?.value)
+                        }
+                        defaultValue={
+                          currency && selectedCurrency
+                            ? {
+                                value: selectedCurrency,
+                                label: `${
+                                  (allCurrencies || []).find(
+                                    (c) => c.id.toString() === selectedCurrency
+                                  )?.symbol || ""
+                                } ${
+                                  (allCurrencies || []).find(
+                                    (c) => c.id.toString() === selectedCurrency
+                                  )?.currencyCode || ""
+                                }`,
+                              }
+                            : undefined
+                        }
+                        showAddButon={false}
+                        disabled={loading}
+                        isClearable={false}
+                      />
+                      <input
+                        type="hidden"
+                        name="currencyId"
+                        value={
+                          selectedCurrency ||
+                          (currency ? currency.id.toString() : "")
+                        }
+                      />
+                    </div>
+                  </div>
+                  {/* Show exchange rate below the field */}
+                  {selectedCurrency &&
+                    currency &&
+                    selectedCurrency !== currency.id.toString() &&
+                    exchangeRate && (
+                      <div className="mt-1 text-xs text-gray-500 flex flex-col">
+                        <span>Exchange rate: {exchangeRate.toFixed(4)}</span>
+                      </div>
+                    )}
+                  <div
+                    id="amount-error"
+                    aria-live="polite"
+                    aria-atomic="true"
+                  >
+                    {state?.errors?.amount &&
+                      state.errors.amount.map((error: string) => (
+                        <p className="mt-2 text-sm text-red-500" key={error}>
+                          {error}
+                        </p>
+                      ))}
+                  </div>
+                </div>
+
+                {/* Add hidden fields for currency conversion */}
+                <input
+                  type="hidden"
+                  name="convertedAmount"
+                  value={convertedAmount}
+                />
+                <input type="hidden" name="originalAmount" value={amount} />
+                <input type="hidden" name="exchangeRate" value={exchangeRate} />
+
                 {/* Category */}
                 {showCategories && (
                   <div className="mb-4">
@@ -341,13 +604,20 @@ export const UpdateExpenseForm = ({
                   </div>
                 )}
 
+                {!isPremium && (
+                  <div className="flex justify-end gap-4 mb-4">
+                    <CancelButton onClick={closeModal} />
+                    <SubmitButton>{dict.forms?.shared.save}</SubmitButton>
+                  </div>
+                )}
+
                 {/* Description */}
                 <div className="mb-4">
                   <label
                     htmlFor="description"
                     className="mb-2 block text-sm font-medium"
                   >
-                    {dict.forms?.shared.description} *
+                    {dict.forms?.shared.description}
                   </label>
                   <div className="relative mt-2 rounded-md">
                     <div className="relative">
@@ -360,7 +630,6 @@ export const UpdateExpenseForm = ({
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder={dict.forms?.shared.enterDescription}
                         className="peer block w-full rounded-md border border-gray-200 py-2 text-base outline-2 placeholder:text-gray-500"
-                        required
                         aria-describedby="description-error"
                         disabled={loading}
                       />
@@ -379,93 +648,6 @@ export const UpdateExpenseForm = ({
                     </div>
                   </div>
                 </div>
-
-                {/* Amount */}
-
-                <div className="mb-4">
-                  <label
-                    htmlFor="amount"
-                    className="mb-2 block text-sm font-medium"
-                  >
-                    {dict.forms?.shared.amount} *
-                  </label>
-                  <div className="relative mt-2 rounded-md">
-                    <div className="relative">
-                      <input
-                        id="amount"
-                        name="amount"
-                        type="text"
-                        step="0.01"
-                        value={amount}
-                        onChange={handleAmountChange}
-                        placeholder={dict.forms?.shared.enterAmount}
-                        className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-base outline-2 placeholder:text-gray-500"
-                        required
-                        aria-describedby="amount-error"
-                        disabled={loading}
-                      />
-                      <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
-                    </div>
-                    <div
-                      id="amount-error"
-                      aria-live="polite"
-                      aria-atomic="true"
-                    >
-                      {state?.errors?.amount &&
-                        state.errors.amount.map((error: string) => (
-                          <p className="mt-2 text-sm text-red-500" key={error}>
-                            {error}
-                          </p>
-                        ))}
-                    </div>
-                  </div>
-                </div>
-                {/* date */}
-                <div className="mb-4">
-                  <label
-                    htmlFor="amount"
-                    className="mb-2 block text-sm font-medium"
-                  >
-                    {dict.forms?.shared.date} *
-                  </label>
-                  <div className="relative mt-2 rounded-md">
-                    <div className="relative">
-                      <DatePicker
-                        selected={utdDate}
-                        onChange={(date) => setStartDate(date as Date)}
-                        maxDate={maxDate}
-                        minDate={firstDayOfSelectedMonth}
-                        aria-describedby="date-error"
-                        dateFormat={"dd MMM yyyy"}
-                        popperClassName="z-[1000000]"
-                        calendarClassName="z-[1000000]"
-                        className="peer block w-full rounded-md border border-gray-200 py-2 text-base outline-2 placeholder:text-gray-500 z-[100001]"
-                      />
-
-                      <input
-                        type="hidden"
-                        name="date"
-                        value={formatDateToLocal(utdDate)}
-                        disabled={loading}
-                      />
-                    </div>
-                    <div id="date-error" aria-live="polite" aria-atomic="true">
-                      {state?.errors?.date &&
-                        state.errors.date.map((error: string) => (
-                          <p className="mt-2 text-sm text-red-500" key={error}>
-                            {error}
-                          </p>
-                        ))}
-                    </div>
-                  </div>
-                </div>
-
-                {!isPremium && (
-                  <div className="flex justify-end gap-4 mb-4">
-                    <CancelButton onClick={closeModal} />
-                    <SubmitButton>{dict.forms?.shared.save}</SubmitButton>
-                  </div>
-                )}
 
                 {/* plenitud */}
                 <div className="relative py-3 ">
@@ -519,8 +701,8 @@ export const UpdateExpenseForm = ({
                       <legend className="mb-2 block text-sm font-medium">
                         {dict.forms?.expense.create.levelOfSatisfaction}
                       </legend>
-                      <div className="py-3">
-                        <div className="flex gap-4 flex-wrap">
+                      <div className="pb-4 ">
+                        <div className="flex gap-1 flex-wrap">
                           <div className="flex items-center rounded-md border-solid border-gray-200 border px-2">
                             <input
                               id="1"
@@ -536,7 +718,6 @@ export const UpdateExpenseForm = ({
                               htmlFor="1"
                               className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full py-1.5 text-xs font-medium"
                             >
-                              --
                               <span className="px-2 py-1 rounded-md bg-red-200">
                                 <FaceFrownIcon className="h-4 w-4" />
                               </span>
@@ -557,7 +738,6 @@ export const UpdateExpenseForm = ({
                               htmlFor="2"
                               className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full py-1.5 text-xs font-medium"
                             >
-                              -
                               <span className="px-2 py-1 rounded-md bg-red-100">
                                 <FaceFrownIcon className="h-4 w-4" />
                               </span>
@@ -577,7 +757,6 @@ export const UpdateExpenseForm = ({
                               htmlFor="3"
                               className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full py-1.5 text-xs font-medium"
                             >
-                              Ok
                               <span className="px-2 py-1 rounded-md bg-blue-100">
                                 <FaceSmileIcon className="h-4 w-4" />
                               </span>
@@ -598,7 +777,6 @@ export const UpdateExpenseForm = ({
                               htmlFor="4"
                               className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full py-1.5 text-xs font-medium"
                             >
-                              +
                               <span className="px-2 py-1 rounded-md bg-lime-100">
                                 <FaceSmileIcon className="h-4 w-4" />
                               </span>
@@ -619,7 +797,6 @@ export const UpdateExpenseForm = ({
                               htmlFor="5"
                               className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full py-1.5 text-xs font-medium"
                             >
-                              ++
                               <span className="px-2 py-1 rounded-md bg-lime-200">
                                 <FaceSmileIcon className="h-4 w-4" />
                               </span>
@@ -635,12 +812,12 @@ export const UpdateExpenseForm = ({
                       value={selectedSatisfaction}
                     />
                     {/* Emotion */}
-                    <fieldset className="mt-5">
+                    <fieldset className="mt-2">
                       <legend className="mb-2 block text-sm font-medium">
                         {dict.forms?.expense.create.whatEmotionDidIFeel}
                       </legend>
-                      <div className="py-3 sm:max-w-[400px]">
-                        <div className="flex gap-4 flex-wrap">
+                      <div className="pb-2 sm:max-w-[400px]">
+                        <div className="flex gap-2 flex-wrap">
                           {emotions?.map((emotion) => (
                             <div className="flex items-center rounded-md border-solid border-gray-200 border px-2">
                               <input

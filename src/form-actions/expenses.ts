@@ -37,6 +37,8 @@ export type UpdateExpenseFormState = {
     currencyId?: string[];
     originalAmount?: string[];
     exchangeRate?: string[];
+    satisfaction?: string[];
+    emotionId?: string[];
   };
 } & FormMessage;
 
@@ -208,11 +210,17 @@ export async function updateExpense(
     exchangeRate,
   } = validatedFields.data;
 
+  // Get the converted amount if it exists (happens when user selects a different currency)
+  const convertedAmount = formData.get("convertedAmount");
+
+  // Use the converted amount if it exists, otherwise use the original amount
+  const finalAmount = convertedAmount ? Number(convertedAmount) : amount;
+
   try {
     await updateDbExpense({
       id: expenseId,
       userId,
-      amount,
+      amount: finalAmount,
       categoryId,
       subCategoryId,
       description: description || "",
