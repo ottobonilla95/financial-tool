@@ -9,6 +9,9 @@ export type EarningToCreate = {
   categoryId: string;
   subCategoryId?: string;
   date: Date;
+  currencyId?: number;
+  originalAmount?: number;
+  exchangeRate?: number;
 };
 
 export async function createDbEarning({
@@ -18,6 +21,9 @@ export async function createDbEarning({
   categoryId,
   subCategoryId,
   date,
+  currencyId,
+  originalAmount,
+  exchangeRate,
 }: EarningToCreate) {
   try {
     await prisma.earning.create({
@@ -29,6 +35,9 @@ export async function createDbEarning({
         subcategory_id: subCategoryId || null,
         date,
         created_at: new Date(),
+        currencyId,
+        exchange_rate: exchangeRate,
+        original_amount: originalAmount,
       },
     });
   } catch (error) {

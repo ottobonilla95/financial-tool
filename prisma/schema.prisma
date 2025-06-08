@@ -84,9 +84,13 @@ model earning {
   description         String?
   date                DateTime             @db.Date
   created_at          DateTime?            @default(now()) @db.Timestamp(6)
+  currencyId          Int?
+  original_amount     Decimal?             @db.Decimal(10, 2)
+  exchange_rate       Decimal?             @db.Decimal(10, 6)
   earning_category    earning_category?    @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   earning_subcategory earning_subcategory? @relation(fields: [subcategory_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   users               users?               @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  currency            currency?            @relation(fields: [currencyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model earning_category {
@@ -128,6 +132,7 @@ model currency {
   currencyCode String?    @db.VarChar(3)
   users        users[]
   expenses     expenses[]
+  earnings     earning[]
 }
 
 model saving {

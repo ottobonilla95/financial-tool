@@ -18,6 +18,14 @@ export type Data = {
     name: string;
   } | null;
   created_at: Date | null;
+  original_amount: number | null;
+  exchange_rate: number | null;
+  currency: {
+    id: string;
+    name: string;
+    symbol: string;
+    currencyCode: string;
+  } | null;
 };
 
 type FetchEarningProps = {
@@ -46,6 +54,16 @@ export async function fetchEarnings({ filters }: FetchEarningProps) {
           },
         },
         created_at: true,
+        original_amount: true,
+        exchange_rate: true,
+        currency: {
+          select: {
+            id: true,
+            name: true,
+            symbol: true,
+            currencyCode: true,
+          },
+        },
       },
       where: filters,
       orderBy: {
@@ -54,7 +72,7 @@ export async function fetchEarnings({ filters }: FetchEarningProps) {
     });
 
     const earnings = data.map((earning) =>
-      mapEarning({ ...earning, amount: Number(earning.amount) })
+      mapEarning({ ...earning, amount: Number(earning.amount), original_amount: earning.original_amount ? Number(earning.original_amount) : null, exchange_rate: earning.exchange_rate ? Number(earning.exchange_rate) : null })
     );
     return earnings;
   } catch (error) {
@@ -91,5 +109,13 @@ export const mapEarning = (earning: Data): Earning => {
       earning.date?.getUTCDate()
     ).padStart(2, "0")}`,
     createdAt: earning.created_at || new Date(),
+    originalAmount: earning.original_amount || undefined,
+    exchangeRate: earning.exchange_rate || undefined,
+    currency: earning.currency ? {
+      id: Number(earning.currency.id),
+      name: earning.currency.name,
+      symbol: earning.currency.symbol,
+      currencyCode: earning.currency.currencyCode,
+    } : undefined,
   };
 };

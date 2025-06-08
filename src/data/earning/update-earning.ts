@@ -10,6 +10,9 @@ export type UpdateToCreate = {
   categoryId: string;
   subCategoryId?: string;
   date: Date;
+  currencyId?: number;
+  originalAmount?: number;
+  exchangeRate?: number;
 };
 
 export async function updateDbEarning({
@@ -20,6 +23,9 @@ export async function updateDbEarning({
   categoryId,
   subCategoryId,
   date,
+  currencyId,
+  originalAmount,
+  exchangeRate,
 }: UpdateToCreate) {
   try {
     await prisma.earning.update({
@@ -30,6 +36,9 @@ export async function updateDbEarning({
         subcategory_id: subCategoryId || null,
         date,
         created_at: new Date(),
+        currencyId,
+        exchange_rate: exchangeRate,
+        original_amount: originalAmount,
       },
       where: { id, user_id: userId },
     });

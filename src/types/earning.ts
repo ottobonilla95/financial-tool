@@ -1,4 +1,5 @@
 import { EarningCategory } from "./category";
+import { Currency } from "./currency";
 
 export type Earning = {
   amount: number;
@@ -12,4 +13,7 @@ export type Earning = {
   };
   formattedDate?: string;
   createdAt: Date;
+  originalAmount?: number;
+  exchangeRate?: number;
+  currency?: Currency;
 };

@@ -187,7 +187,8 @@ export const ExpenseByDayTable = ({
                 )}
               </div>
               <div className="truncate">
-                {record.category.name} / {record.subcategory.name}
+                {record.category.name}
+                {record.subcategory.name && ` / ${record.subcategory.name}`}
               </div>
 
               <div className="truncate hidden sm:block">

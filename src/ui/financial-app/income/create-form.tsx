@@ -2,7 +2,7 @@
 
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { createIncome, IncomeFormState } from "@/src/form-actions/income";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { EarningCategory } from "@/src/types";
 import { toast, TypeOptions } from "react-toastify";
@@ -17,6 +17,7 @@ import { CancelButton, SubmitButton } from "../../forms";
 import { formatDateToLocal } from "@/src/helpers/format-date-to-local";
 import { useTranslations } from "@/src/translations/use-translations";
 import { useFormState } from "react-dom";
+import { AppContext } from "@/src/app-wrappper/provider";
 
 export type CreateIncomeFormProps = {
   closeModal: () => void;
@@ -34,6 +35,8 @@ export const CreateIncomeForm = ({
   const createIncomeAction = createIncome.bind(null, lang);
 
   const [state, formAction] = useFormState(createIncomeAction, initialState);
+
+  const { currency, allCurrencies } = useContext(AppContext);
 
   const [categories, setCategories] = useState<EarningCategory[]>([]);
 
@@ -60,6 +63,13 @@ export const CreateIncomeForm = ({
   const [amount, setAmount] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
+  // Currency related state
+  const [selectedCurrency, setSelectedCurrency] = useState<string>();
+  const [exchangeRate, setExchangeRate] = useState<number | undefined>();
+  const [convertedAmount, setConvertedAmount] = useState<string>("");
+  const [originalForeignAmount, setOriginalForeignAmount] = useState<string>("");
+  const [showAnimation, setShowAnimation] = useState(false);
+
   const {
     data,
     mutate: getAllCategories,
@@ -67,6 +77,13 @@ export const CreateIncomeForm = ({
   } = useSWR("/api/income/category/get-all", fetcher, {
     revalidateOnFocus: false,
   });
+
+  useEffect(() => {
+    // Set default currency when component loads
+    if (currency && !selectedCurrency) {
+      setSelectedCurrency(currency.id.toString());
+    }
+  }, [currency, selectedCurrency]);
 
   useEffect(() => {
     const loadedCategories = (data?.categories || []) as EarningCategory[];
@@ -84,13 +101,100 @@ export const CreateIncomeForm = ({
     if (state.message?.type === "success") {
       setAmount("");
       setDescription("");
+      // Reset currency to default user currency
+      if (currency) {
+        setSelectedCurrency(currency.id.toString());
+      }
+      setExchangeRate(undefined);
+      setConvertedAmount("");
+      setOriginalForeignAmount("");
     }
-  }, [state]);
+  }, [state, currency]);
+
+  useEffect(() => {
+    if (convertedAmount) {
+      setShowAnimation(true);
+      const timer = setTimeout(() => {
+        setShowAnimation(false);
+      }, 600);
+      return () => clearTimeout(timer);
+    }
+  }, [convertedAmount]);
+
+  // Fetch exchange rate function
+  const fetchExchangeRate = async (
+    fromCurrency: string,
+    toCurrency: string
+  ) => {
+    try {
+      const response = await fetch(
+        `/api/exchange-rate?from=${fromCurrency}&to=${toCurrency}`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch exchange rate");
+      }
+      const data = await response.json();
+      return data.rate;
+    } catch (error) {
+      console.error("Error fetching exchange rate:", error);
+      // Default fallback rate
+      return 0.85;
+    }
+  };
+
+  // Handle currency change
+  const handleCurrencyChange = async (currencyId: string | undefined) => {
+    setSelectedCurrency(currencyId);
+
+    // Find the currency code for the selected currency
+    const fromCurrencyCode = (allCurrencies || []).find(
+      (c) => c.id.toString() === currencyId
+    )?.currencyCode;
+
+    // If currency is changed to user's default or is cleared, reset exchange rate and converted amount
+    if (!currencyId || (currency && currencyId === currency.id.toString())) {
+      setExchangeRate(undefined);
+      setConvertedAmount("");
+      setOriginalForeignAmount("");
+    } else if (currency && fromCurrencyCode && currency.currencyCode) {
+      // Fetch exchange rate
+      const rate = await fetchExchangeRate(
+        fromCurrencyCode,
+        currency.currencyCode
+      );
+      setExchangeRate(rate);
+
+      // If amount is already entered, calculate the converted value
+      if (amount) {
+        setOriginalForeignAmount(amount);
+        const converted = (parseFloat(amount) * rate).toFixed(2);
+        setConvertedAmount(converted);
+      }
+    }
+  };
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(",", "."); // Normalize commas to dots
     if (!isNaN(Number(value)) || value === "") {
-      setAmount(value);
+      setAmount(value); // Always update the displayed amount with what user types
+      
+      // If we're using a foreign currency, calculate the converted amount
+      if (
+        selectedCurrency &&
+        currency &&
+        selectedCurrency !== currency.id.toString() &&
+        exchangeRate
+      ) {
+        setOriginalForeignAmount(value);
+
+        // Calculate and update the converted amount for display only
+        if (value) {
+          const converted = (parseFloat(value) * exchangeRate).toFixed(2);
+          setConvertedAmount(converted);
+        } else {
+          setConvertedAmount("");
+        }
+      }
     }
   };
 
@@ -161,7 +265,8 @@ export const CreateIncomeForm = ({
                     </div>
                   </div>
                 </div>
-                {/* Amount */}
+
+                {/* Amount with Currency */}
                 <div className="mb-4">
                   <label
                     htmlFor="amount"
@@ -169,8 +274,8 @@ export const CreateIncomeForm = ({
                   >
                     {dict.forms?.shared.amount} *
                   </label>
-                  <div className="relative mt-2 rounded-md">
-                    <div className="relative">
+                  <div className="relative mt-2 rounded-md flex">
+                    <div className="relative flex-grow">
                       <input
                         id="amount"
                         name="amount"
@@ -179,26 +284,97 @@ export const CreateIncomeForm = ({
                         value={amount}
                         onChange={handleAmountChange}
                         placeholder={dict.forms?.shared.enterAmount}
-                        className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-base outline-2 placeholder:text-gray-500"
+                        className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 pr-16 text-base outline-2 placeholder:text-gray-500"
                         required
                         aria-describedby="amount-error"
                       />
                       <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+
+                      {/* Show converted amount inside the field if a different currency is selected */}
+                      {selectedCurrency &&
+                        currency &&
+                        selectedCurrency !== currency.id.toString() &&
+                        convertedAmount && (
+                          <span
+                            className={`absolute right-3 top-1/2 -translate-y-1/2 text-sm text-gray-500 font-light transition-all ${
+                              showAnimation ? "text-black font-normal" : ""
+                            }`}
+                          >
+                            ≈ {currency.symbol} {convertedAmount}
+                          </span>
+                        )}
                     </div>
-                    <div
-                      id="amount-error"
-                      aria-live="polite"
-                      aria-atomic="true"
-                    >
-                      {state?.errors?.amount &&
-                        state.errors.amount.map((error: string) => (
-                          <p className="mt-2 text-sm text-red-500" key={error}>
-                            {error}
-                          </p>
-                        ))}
+                    <div className="relative ml-2 w-[120px]">
+                      <Dropdown
+                        key={`currency-dropdown-${
+                          selectedCurrency || "default"
+                        }-${
+                          state.message?.type === "success" ? Date.now() : "0"
+                        }`}
+                        options={(allCurrencies || []).map((c) => ({
+                          value: c.id.toString(),
+                          label: `${c.symbol} ${c.currencyCode}`,
+                        }))}
+                        onChange={(option) =>
+                          handleCurrencyChange(option?.value)
+                        }
+                        defaultValue={
+                          currency && selectedCurrency
+                            ? {
+                                value: selectedCurrency,
+                                label: `${
+                                  (allCurrencies || []).find(
+                                    (c) => c.id.toString() === selectedCurrency
+                                  )?.symbol || ""
+                                } ${
+                                  (allCurrencies || []).find(
+                                    (c) => c.id.toString() === selectedCurrency
+                                  )?.currencyCode || ""
+                                }`,
+                              }
+                            : undefined
+                        }
+                        showAddButon={false}
+                        isClearable={false}
+                      />
+                      <input
+                        type="hidden"
+                        name="currencyId"
+                        value={
+                          selectedCurrency ||
+                          (currency ? currency.id.toString() : "")
+                        }
+                      />
                     </div>
                   </div>
+                  {/* Show exchange rate below the field */}
+                  {selectedCurrency &&
+                    currency &&
+                    selectedCurrency !== currency.id.toString() &&
+                    exchangeRate && (
+                      <div className="mt-1 text-xs text-gray-500 flex flex-col">
+                        <span>Exchange rate: {exchangeRate.toFixed(4)}</span>
+                      </div>
+                    )}
+                  <div id="amount-error" aria-live="polite" aria-atomic="true">
+                    {state?.errors?.amount &&
+                      state.errors.amount.map((error: string) => (
+                        <p className="mt-2 text-sm text-red-500" key={error}>
+                          {error}
+                        </p>
+                      ))}
+                  </div>
                 </div>
+
+                {/* Add hidden fields for currency conversion */}
+                <input
+                  type="hidden"
+                  name="convertedAmount"
+                  value={convertedAmount}
+                />
+                <input type="hidden" name="originalAmount" value={amount} />
+                <input type="hidden" name="exchangeRate" value={exchangeRate} />
+
                 {/* Category */}
                 <div className="mb-4">
                   <label

@@ -20,6 +20,20 @@ export type IncomeFormState = {
     categoryId?: string[];
     subCategoryId?: string[];
     date?: string[];
+    currencyId?: string[];
+  };
+} & FormMessage;
+
+export type UpdateIncomeFormState = {
+  errors?: {
+    description?: string[];
+    amount?: string[];
+    categoryId?: string[];
+    subCategoryId?: string[];
+    date?: string[];
+    currencyId?: string[];
+    originalAmount?: string[];
+    exchangeRate?: string[];
   };
 } & FormMessage;
 
@@ -27,7 +41,7 @@ export type DeleteFormState = {
   errors?: {};
 } & FormMessage;
 
-const createSchema = (dict: AppDictionary) =>
+const incomeFormSchema = (dict: AppDictionary) =>
   z.object({
     id: z.string(),
     description: z
@@ -47,6 +61,9 @@ const createSchema = (dict: AppDictionary) =>
         invalid_type_error: dict.api.shared.requiredField,
       })
       .optional(),
+    currencyId: z.string().optional(),
+    originalAmount: z.string().optional(),
+    exchangeRate: z.string().optional(),
   });
 
 export async function createIncome(
@@ -59,7 +76,7 @@ export async function createIncome(
   const session = await auth();
   const userId = session?.user?.id as string;
 
-  const CreateIncome = createSchema(dict).omit({ id: true });
+  const CreateIncome = incomeFormSchema(dict).omit({ id: true });
 
   // Validate form using Zod
   const validatedFields = CreateIncome.safeParse({
@@ -68,6 +85,9 @@ export async function createIncome(
     amount: formData.get("amount"),
     categoryId: formData.get("categoryId"),
     subCategoryId: formData.get("subCategoryId"),
+    currencyId: formData.get("currencyId"),
+    originalAmount: formData.get("originalAmount"),
+    exchangeRate: formData.get("exchangeRate"),
   });
 
   // If form validation fails, return errors early. Otherwise, continue.
@@ -78,17 +98,34 @@ export async function createIncome(
   }
 
   // Prepare data for insertion into the database
-  const { description, amount, date, categoryId, subCategoryId } =
-    validatedFields.data;
+  const {
+    description,
+    amount,
+    date,
+    categoryId,
+    subCategoryId,
+    currencyId,
+    originalAmount,
+    exchangeRate,
+  } = validatedFields.data;
+
+  // Get the converted amount if it exists (happens when user selects a different currency)
+  const convertedAmount = formData.get("convertedAmount");
+
+  // Use the converted amount if it exists, otherwise use the original amount
+  const finalAmount = convertedAmount ? Number(convertedAmount) : amount;
 
   try {
     await createDbEarning({
       userId,
-      amount,
+      amount: finalAmount,
       categoryId,
       subCategoryId,
       description: description || "",
       date: new Date(date),
+      currencyId: currencyId ? Number(currencyId) : undefined,
+      originalAmount: originalAmount ? Number(originalAmount) : undefined,
+      exchangeRate: exchangeRate ? Number(exchangeRate) : undefined,
     });
     await updateLastUpdated({
       userId,
@@ -110,10 +147,11 @@ export async function createIncome(
     },
   };
 }
+
 export async function updateIncome(
   earningId: string,
   lang: AvailableLanguages,
-  prevState: IncomeFormState,
+  prevState: UpdateIncomeFormState,
   formData: FormData
 ) {
   const dict = await getDictionary(lang);
@@ -121,7 +159,7 @@ export async function updateIncome(
   const session = await auth();
   const userId = session?.user?.id as string;
 
-  const UpdateIncome = createSchema(dict).omit({ id: true });
+  const UpdateIncome = incomeFormSchema(dict).omit({ id: true });
 
   // Validate form using Zod
   const validatedFields = UpdateIncome.safeParse({
@@ -130,6 +168,9 @@ export async function updateIncome(
     amount: formData.get("amount"),
     categoryId: formData.get("categoryId"),
     subCategoryId: formData.get("subCategoryId"),
+    currencyId: formData.get("currencyId"),
+    originalAmount: formData.get("originalAmount"),
+    exchangeRate: formData.get("exchangeRate"),
   });
 
   // If form validation fails, return errors early. Otherwise, continue.
@@ -140,18 +181,35 @@ export async function updateIncome(
   }
 
   // Prepare data for insertion into the database
-  const { description, amount, date, categoryId, subCategoryId } =
-    validatedFields.data;
+  const {
+    description,
+    amount,
+    date,
+    categoryId,
+    subCategoryId,
+    currencyId,
+    originalAmount,
+    exchangeRate,
+  } = validatedFields.data;
+
+  // Get the converted amount if it exists (happens when user selects a different currency)
+  const convertedAmount = formData.get("convertedAmount");
+
+  // Use the converted amount if it exists, otherwise use the original amount
+  const finalAmount = convertedAmount ? Number(convertedAmount) : amount;
 
   try {
     await updateDbEarning({
       id: earningId,
       userId,
-      amount,
+      amount: finalAmount,
       categoryId,
       subCategoryId,
       description: description || "",
       date: new Date(date),
+      currencyId: currencyId ? Number(currencyId) : undefined,
+      originalAmount: originalAmount ? Number(originalAmount) : undefined,
+      exchangeRate: exchangeRate ? Number(exchangeRate) : undefined,
     });
     await updateLastUpdated({
       userId,
