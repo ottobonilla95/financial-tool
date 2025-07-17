@@ -67,7 +67,8 @@ export const UpdateExpenseForm = ({
 
   const updateExpenseAction = updateExpense.bind(null, expense.id, lang);
 
-  const { subscriptionDetails, currency, allCurrencies } = useContext(AppContext);
+  const { subscriptionDetails, currency, allCurrencies } =
+    useContext(AppContext);
   const isPremium = subscriptionDetails?.isPremium;
 
   const initialState: UpdateExpenseFormState = { message: {}, errors: {} };
@@ -127,10 +128,10 @@ export const UpdateExpenseForm = ({
   const [selectedCurrency, setSelectedCurrency] = useState<string>(
     expense.currency?.id?.toString() || currency?.id?.toString() || ""
   );
-  const [exchangeRate, setExchangeRate] = useState<number | undefined>(expense.exchangeRate || undefined);
-  const [convertedAmount, setConvertedAmount] = useState<string>(
-    expense.amount.toString()
+  const [exchangeRate, setExchangeRate] = useState<number | undefined>(
+    expense.exchangeRate || undefined
   );
+  const [convertedAmount, setConvertedAmount] = useState<string>();
   const [originalForeignAmount, setOriginalForeignAmount] = useState<string>(
     expense.originalAmount ? expense.originalAmount.toString() : ""
   );
@@ -467,11 +468,7 @@ export const UpdateExpenseForm = ({
                         <span>Exchange rate: {exchangeRate.toFixed(4)}</span>
                       </div>
                     )}
-                  <div
-                    id="amount-error"
-                    aria-live="polite"
-                    aria-atomic="true"
-                  >
+                  <div id="amount-error" aria-live="polite" aria-atomic="true">
                     {state?.errors?.amount &&
                       state.errors.amount.map((error: string) => (
                         <p className="mt-2 text-sm text-red-500" key={error}>
