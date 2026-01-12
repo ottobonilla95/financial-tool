@@ -1,7 +1,8 @@
 "use client";
 
 import { AppDictionary } from "@/src/translations";
-import React, { useEffect } from "react";
+import Image from "next/image";
+import React from "react";
 import { Button } from "../../../components";
 import { FireIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
@@ -13,14 +14,6 @@ export type IntroEnProps = {
 };
 
 export const IntroEN = ({ dict, variant = "dark" }: IntroEnProps) => {
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src =
-      "https://scripts.converteai.net/769d0a20-d707-4621-8a28-39232bb67a07/players/67d78f622d23925346d56b81/player.js";
-    script.async = true;
-    document.head.appendChild(script);
-  }, []);
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -82,9 +75,26 @@ export const IntroEN = ({ dict, variant = "dark" }: IntroEnProps) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
             >
-              Discover how your emotions influence your finances and save more
-              with the help of artificial intelligence.
+              Track expenses, spot patterns, and get AI recommendations to cut
+              waste — without spreadsheets.
             </motion.p>
+
+            <motion.div
+              className="mt-5 flex flex-wrap justify-center gap-2"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35, duration: 0.8 }}
+            >
+              <span className="rounded-full bg-white/5 px-3 py-1 text-sm font-medium text-neutral-200 ring-1 ring-white/10">
+                AI insights
+              </span>
+              <span className="rounded-full bg-white/5 px-3 py-1 text-sm font-medium text-neutral-200 ring-1 ring-white/10">
+                Simple spending tracking
+              </span>
+              <span className="rounded-full bg-white/5 px-3 py-1 text-sm font-medium text-neutral-200 ring-1 ring-white/10">
+                Build better habits
+              </span>
+            </motion.div>
           </motion.div>
         </div>
 
@@ -94,39 +104,27 @@ export const IntroEN = ({ dict, variant = "dark" }: IntroEnProps) => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4, duration: 0.8 }}
         >
-          <div
-            id="vid_67d78f622d23925346d56b81"
-            style={{
-              position: "relative",
-              width: "100%",
-              paddingTop: "64.98%",
-            }}
-          >
-            <img
-              id="thumb_67d78f622d23925346d56b81"
-              src="https://images.converteai.net/769d0a20-d707-4621-8a28-39232bb67a07/players/67d78f622d23925346d56b81/thumbnail.jpg"
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                display: "block",
-              }}
-              alt="thumbnail"
-            />
-            <div
-              id="backdrop_67d78f622d23925346d56b81"
-              style={{
-                WebkitBackdropFilter: "blur(5px)",
-                backdropFilter: "blur(5px)",
-                position: "absolute",
-                top: 0,
-                height: "100%",
-                width: "100%",
-              }}
-            ></div>
+          <div className="w-full max-w-[980px]">
+            <div>
+              <Image
+                src="/images/home-page/en/hero-mobile.png"
+                alt="TrackMySpend app preview"
+                width={900}
+                height={1600}
+                sizes="100vw"
+                className="block sm:hidden w-full h-auto"
+                priority
+              />
+              <Image
+                src="/images/home-page/en/hero-desktop.png"
+                alt="TrackMySpend dashboard preview"
+                width={1600}
+                height={1000}
+                sizes="(min-width: 640px) 980px, 100vw"
+                className="hidden sm:block w-full h-auto"
+                priority
+              />
+            </div>
           </div>
         </motion.div>
       </motion.div>
