@@ -341,8 +341,9 @@ export function AiImportExpenses({
                                   label:
                                     categories
                                       .find((c) => c.id === r.categoryId)
-                                      ?.subcategories.find((s) => s.id === r.subCategoryId)
-                                      ?.name || "",
+                                      ?.subcategories?.find(
+                                        (s) => s.id === r.subCategoryId
+                                      )?.name || "",
                                 }
                               : undefined
                           }
