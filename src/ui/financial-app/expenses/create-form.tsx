@@ -26,6 +26,7 @@ import { MAX_CATEGORIES_FREE_PLAN } from "@/src/constants/categories";
 import { AppContext } from "@/src/app-wrappper/provider";
 import { useFormState, useFormStatus } from "react-dom";
 import { UpdateSubCategoryForm } from "../expense-categories/update-sub-category-form-modal";
+import { AiImportExpenses } from "./ai-import-expenses";
 
 export type CreateExpenseFormProps = {
   closeModal: () => void;
@@ -115,6 +116,7 @@ export const CreateExpenseForm = ({
 
   // Add useEffect to trigger animation on converted amount change
   const [showAnimation, setShowAnimation] = useState(false);
+  const [activeTab, setActiveTab] = useState<"manual" | "ai">("manual");
 
   const {
     data,
@@ -366,9 +368,39 @@ export const CreateExpenseForm = ({
                 <Spinner className="h-10 w-10" />
               </div>
             )}
-            <form action={formAction}>
-              <LoadingPlaceholder />
-              <div className="rounded-md p-4 md:p-6 ">
+            <div className="px-4 pt-4 md:px-6 md:pt-6">
+              <div className="flex gap-2 mb-4">
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("manual")}
+                  className={clsx(
+                    "px-3 py-2 rounded-md text-sm font-medium border",
+                    activeTab === "manual"
+                      ? "bg-black text-white border-black"
+                      : "bg-white text-black border-gray-200"
+                  )}
+                >
+                  Manual
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("ai")}
+                  className={clsx(
+                    "px-3 py-2 rounded-md text-sm font-medium border",
+                    activeTab === "ai"
+                      ? "bg-black text-white border-black"
+                      : "bg-white text-black border-gray-200"
+                  )}
+                >
+                  Import with AI
+                </button>
+              </div>
+            </div>
+
+            {activeTab === "manual" ? (
+              <form action={formAction}>
+                <LoadingPlaceholder />
+                <div className="rounded-md p-4 md:p-6 ">
                 {/* date */}
                 <div className="mb-4">
                   <label
@@ -892,6 +924,15 @@ export const CreateExpenseForm = ({
                 </div>
               )}
             </form>
+            ) : (
+              <AiImportExpenses
+                categories={categories}
+                month={month}
+                year={currentYear}
+                currencyId={currency?.id}
+                closeModal={closeModal}
+              />
+            )}
           </div>
         </Modal>
       </>
