@@ -82,6 +82,7 @@ Rules:
 - Return ONLY valid JSON.
 - Extract as many expenses as you can.
 - If an item has NO numeric amount, do NOT include it in expenses; add it to "skipped".
+- Amounts may be negative (like "-EUR 5.72" or "-5.72"). Treat them as positive values (use the absolute value).
 - Dates can appear as "headers" that apply to multiple items. If a line (or phrase) specifies a date and the following items don't include a date, they should inherit the most recently mentioned date until another date appears.
 - If an item has no date AND there is no prior date context, set date = "${toYmdLocal(defaultDate)}" (first day of the current month in context).
 - If the text includes a day+month but no year, use year ${defaultDate.getFullYear()}.
@@ -139,7 +140,7 @@ ${text}
     const response = await openai.chat.completions.create({
       model: "gpt-4o",
       messages: [{ role: "user", content: prompt }],
-      max_tokens: 900,
+      max_tokens: 4000,
       response_format: { type: "json_object" },
     });
 
@@ -167,7 +168,8 @@ ${text}
       : [];
 
     for (const e of Array.isArray(parsed.expenses) ? parsed.expenses : []) {
-      const amount = Number(e.amount);
+      const rawAmount = Number(e.amount);
+      const amount = Math.abs(rawAmount); // handle negative amounts
       if (!Number.isFinite(amount) || amount <= 0) {
         safeSkipped.push({
           raw: JSON.stringify(e),

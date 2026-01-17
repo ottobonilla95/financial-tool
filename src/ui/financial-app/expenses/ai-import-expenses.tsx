@@ -235,9 +235,22 @@ export function AiImportExpenses({
               Review ({rows.length}) — edit inline, then save all
             </div>
             <div className="flex gap-3">
-              <Button onClick={closeModal}>{dict.shared?.close || "Close"}</Button>
-              <Button onClick={onSaveAll} className="bg-black text-white">
-                Save all
+              <Button onClick={closeModal} disabled={saving}>
+                {dict.shared?.close || "Close"}
+              </Button>
+              <Button
+                onClick={onSaveAll}
+                className="bg-black text-white whitespace-nowrap min-w-[100px] flex items-center justify-center gap-2"
+                disabled={saving}
+              >
+                {saving ? (
+                  <>
+                    <Spinner className="h-4 w-4" />
+                    <span>Saving...</span>
+                  </>
+                ) : (
+                  "Save all"
+                )}
               </Button>
             </div>
           </div>
