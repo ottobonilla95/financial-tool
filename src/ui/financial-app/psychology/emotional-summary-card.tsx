@@ -135,7 +135,7 @@ export const EmotionalSummaryCard = ({
     return {
       topEmotion,
       avgSatisfaction,
-      biggestTrigger,
+      biggestTrigger: biggestTrigger as CategoryEmotionTrigger | null,
       topEmotionChange,
       totalExpenses,
     };

@@ -38,7 +38,7 @@ export async function getDBUser({ filters, select }: GetUserDataProps) {
     });
 
     if (user) {
-      return mapUser(user as Data);
+      return mapUser(user as unknown as Data);
     }
     return undefined;
   } catch (error) {

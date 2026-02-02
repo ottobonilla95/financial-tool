@@ -101,7 +101,21 @@
     "emotionalSpendingPatterns": "Emotional spending patterns",
     "satisfactionSpendingPatterns": "Satisfaction spending patterns",
     "premiumNavLinkMessage": "Unlock Premium for advanced insights into your spending patterns, emotions, and satisfaction levels.",
-    "whereYouSpendTheMostByEmotion": "Where You Spend the Most by Emotion"
+    "whereYouSpendTheMostByEmotion": "Where You Spend the Most by Emotion",
+    "emotionalSummary": "Emotional Spending Summary",
+    "topEmotionDriver": "Top Emotion Driver",
+    "avgSatisfaction": "Average Satisfaction",
+    "satisfactionGood": "Great buying decisions!",
+    "satisfactionNeutral": "Room for improvement",
+    "satisfactionPoor": "Many regretful purchases",
+    "biggestTrigger": "Biggest Emotional Trigger",
+    "satisfactionByCategory": "Satisfaction by Category",
+    "bestBuys": "Best Buys",
+    "regrets": "Regrets",
+    "avgRating": "Avg Rating",
+    "noBestBuys": "No high-satisfaction categories yet",
+    "noRegrets": "No low-satisfaction categories - great job!",
+    "allCategories": "All Categories"
   },
   "shared": {
     "total": "Total",

@@ -102,6 +102,20 @@ export type AppDictionary = {
     satisfactionSpendingPatterns: string;
     premiumNavLinkMessage: string;
     whereYouSpendTheMostByEmotion: string;
+    emotionalSummary: string;
+    topEmotionDriver: string;
+    avgSatisfaction: string;
+    satisfactionGood: string;
+    satisfactionNeutral: string;
+    satisfactionPoor: string;
+    biggestTrigger: string;
+    satisfactionByCategory: string;
+    bestBuys: string;
+    regrets: string;
+    avgRating: string;
+    noBestBuys: string;
+    noRegrets: string;
+    allCategories: string;
   };
 
   shared: {

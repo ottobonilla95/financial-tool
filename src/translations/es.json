@@ -102,7 +102,21 @@
     "emotionalSpendingPatterns": "Patrones de gasto emocional",
     "satisfactionSpendingPatterns": "Patrones de gasto de satisfacción",
     "premiumNavLinkMessage": "Actualiza a Premium para ver análisis más detallados de tus gastos basados en emociones y nivel de satisfacción.",
-    "whereYouSpendTheMostByEmotion": "Dónde Gastas Más Según tus Emociones"
+    "whereYouSpendTheMostByEmotion": "Dónde Gastas Más Según tus Emociones",
+    "emotionalSummary": "Resumen de Gastos Emocionales",
+    "topEmotionDriver": "Emoción Principal",
+    "avgSatisfaction": "Satisfacción Promedio",
+    "satisfactionGood": "¡Excelentes decisiones de compra!",
+    "satisfactionNeutral": "Hay espacio para mejorar",
+    "satisfactionPoor": "Muchas compras de las que te arrepientes",
+    "biggestTrigger": "Mayor Detonante Emocional",
+    "satisfactionByCategory": "Satisfacción por Categoría",
+    "bestBuys": "Mejores Compras",
+    "regrets": "Arrepentimientos",
+    "avgRating": "Calificación Promedio",
+    "noBestBuys": "Aún no hay categorías con alta satisfacción",
+    "noRegrets": "No hay categorías con baja satisfacción - ¡excelente!",
+    "allCategories": "Todas las Categorías"
   },
   "shared": {
     "total": "Total",
