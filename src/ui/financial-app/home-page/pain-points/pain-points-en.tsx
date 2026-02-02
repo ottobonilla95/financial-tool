@@ -20,7 +20,7 @@ export const PainPointsEn = ({ dict }: PainPointsEnProps) => {
             <span className="text-neutral-300 font-bold">
               Your money keeps disappearing,
             </span>{" "}
-            and you have no idea where it’s going.
+            and you have no idea where it's going.
           </div>
         </li>
         <li>
@@ -29,19 +29,9 @@ export const PainPointsEn = ({ dict }: PainPointsEnProps) => {
             <span className="text-neutral-300 font-bold">
               you should be saving more,
             </span>{" "}
-            but you’re not sure where to start.
+            but you're not sure where to start.
           </div>
         </li>
-
-        <li>
-          <div>
-            <span className="mr-1">❌ </span> You read financial tips,{" "}
-            <span className="text-neutral-300 font-bold">
-              but they never seem to fit your real life.
-            </span>
-          </div>
-        </li>
-
         <li>
           <div>
             <span className="mr-1">❌ </span>{" "}
@@ -49,14 +39,6 @@ export const PainPointsEn = ({ dict }: PainPointsEnProps) => {
               Money feels like a constant source of stress,
             </span>{" "}
             and you never feel in control.
-          </div>
-        </li>
-        <li>
-          <div>
-            <span className="mr-1">❌ </span> You’ve tried budgeting,{" "}
-            <span className="text-neutral-300 font-bold">
-              but it always feels like too much work.
-            </span>
           </div>
         </li>
       </ul>

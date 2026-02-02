@@ -2,14 +2,22 @@
 
 import { Expense } from "@/src/types";
 import { AppDictionary } from "@/src/translations";
-import { AgChartProps, AgCharts } from "ag-charts-react";
-import { abbreviateCurrency } from "@/src/helpers/abbreviate-currency";
 import { useContext, useMemo } from "react";
 import { AppContext } from "@/src/app-wrappper/provider";
 import { DashboardContext } from "./provider";
 import { Button } from "../../components";
 import clsx from "clsx";
 import { format } from "date-fns";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid } from "recharts";
+import { abbreviateCurrency } from "@/src/helpers/abbreviate-currency";
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+} from "@/components/ui/chart";
 
 export type ExpensesByDayGraphProps = {
   expenses: Expense[];
@@ -21,18 +29,17 @@ export const getDailyTotalsByCategory = (expenses: Expense[]) => {
     {};
   const totalsByDay: { [key: string]: number } = {};
 
-  // Find the earliest and latest date in expenses
   const dates = expenses.map((expense) => new Date(expense.date));
+  if (dates.length === 0) return [];
+
   const startDate = new Date(Math.min(...dates.map((d) => d.getTime())));
   const endDate = new Date(Math.max(...dates.map((d) => d.getTime())));
 
-  // Generate all dates within the range
   const allDays: string[] = [];
-  for (let d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
-    allDays.push(d.toISOString().split("T")[0]); // Format YYYY-MM-DD
+  for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+    allDays.push(d.toISOString().split("T")[0]);
   }
 
-  // Populate totals for existing expenses
   expenses.forEach((expense) => {
     const day = expense.date?.toISOString().split("T")[0] || "";
     const category = expense.category.name;
@@ -40,11 +47,9 @@ export const getDailyTotalsByCategory = (expenses: Expense[]) => {
     if (!totalsByDayAndCategory[day]) {
       totalsByDayAndCategory[day] = {};
     }
-
     if (!totalsByDayAndCategory[day][category]) {
       totalsByDayAndCategory[day][category] = 0;
     }
-
     totalsByDayAndCategory[day][category] += expense.amount;
 
     if (!totalsByDay[day]) {
@@ -53,7 +58,6 @@ export const getDailyTotalsByCategory = (expenses: Expense[]) => {
     totalsByDay[day] += expense.amount;
   });
 
-  // Fill missing days with zeroes
   const uniqueCategories = [
     ...new Set(expenses.map((expense) => expense.category.name)),
   ];
@@ -62,22 +66,18 @@ export const getDailyTotalsByCategory = (expenses: Expense[]) => {
     if (!totalsByDayAndCategory[day]) {
       totalsByDayAndCategory[day] = {};
     }
-
     uniqueCategories.forEach((category) => {
       if (!totalsByDayAndCategory[day][category]) {
         totalsByDayAndCategory[day][category] = 0;
       }
     });
-
     if (!totalsByDay[day]) {
       totalsByDay[day] = 0;
     }
   });
 
-  // Format the result into an array of objects
   return allDays.map((day) => ({
-    // day,
-    day: format(new Date(day + "T00:00:00"), "EEE dd"), //
+    day: format(new Date(day + "T00:00:00"), "EEE dd"),
     ...totalsByDayAndCategory[day],
     total: totalsByDay[day],
   }));
@@ -92,7 +92,6 @@ export const ExpensesByDayGraph = ({
 
   const isPremium = subscriptionDetails?.isPremium;
 
-  // Filter expenses based on selected categories
   const filteredExpenses = useMemo(
     () =>
       expenses.filter((expense) =>
@@ -103,78 +102,38 @@ export const ExpensesByDayGraph = ({
 
   const data = getDailyTotalsByCategory(filteredExpenses);
 
-  // Use filtered expenses for category details
-  const categoryDetails = Array.from(
-    new Set(filteredExpenses.map((expense) => expense.category.name))
-  ).map((categoryName) => {
-    const categoryExpense = filteredExpenses.find(
-      (e) => e.category.name === categoryName
-    );
-    return {
-      name: categoryName,
-      color: categoryExpense?.category.color || "#000000",
-    };
-  });
-  const series: AgChartProps["options"]["series"] = categoryDetails.map(
-    (categoryDetail) => ({
-      type: "line",
-      xKey: "day",
-      xName: "Day",
-      yKey: categoryDetail.name,
-      yName: categoryDetail.name,
-      interpolation: { type: "linear" },
-      stroke: categoryDetail.color,
-      marker: {
-        fill: categoryDetail.color,
-        stroke: categoryDetail.color,
-      },
-    })
+  const categoryDetails = useMemo(
+    () =>
+      Array.from(
+        new Set(filteredExpenses.map((expense) => expense.category.name))
+      ).map((categoryName) => {
+        const categoryExpense = filteredExpenses.find(
+          (e) => e.category.name === categoryName
+        );
+        return {
+          name: categoryName,
+          color: categoryExpense?.category.color || "#000000",
+        };
+      }),
+    [filteredExpenses]
   );
 
-  series.push({
-    type: "line",
-    xKey: "day",
-    xName: "Day",
-    yKey: "total",
-    yName: dict.dashboard.totalExpenses,
-    interpolation: { type: "linear" },
-    stroke: "red",
-    marker: {
-      fill: "red",
-      stroke: "red",
-    },
-  });
-
-  const props = useMemo<AgChartProps>(() => {
-    return {
-      options: {
-        data,
-        series,
-        axes: [
-          {
-            type: "number",
-            position: "left",
-            label: {
-              formatter: ({ value }) =>
-                abbreviateCurrency(value, currency.symbol),
-            },
-            min: 0,
-          },
-          {
-            type: "category",
-            position: "bottom",
-          },
-        ],
-        height: 450,
-        padding: {
-          right: 0,
-          left: 0,
-        },
+  const chartConfig = useMemo(() => {
+    const config: ChartConfig = {
+      total: {
+        label: dict.dashboard.totalExpenses,
+        color: "#ef4444",
       },
     };
-  }, [data, series, currency, selectedCategories]);
+    categoryDetails.forEach((cat) => {
+      config[cat.name] = {
+        label: cat.name,
+        color: cat.color,
+      };
+    });
+    return config;
+  }, [categoryDetails, dict.dashboard.totalExpenses]);
 
-  // Add empty state for when no categories are selected
   if (selectedCategories.length === 0) {
     return (
       <div className="text-center py-8 bg-white rounded-sm shadow-sm">
@@ -188,7 +147,6 @@ export const ExpensesByDayGraph = ({
     );
   }
 
-  // Add empty state for when there are no records for selected categories
   if (filteredExpenses.length === 0) {
     return (
       <div className="text-center py-8 bg-white rounded-sm shadow-sm">
@@ -216,17 +174,11 @@ export const ExpensesByDayGraph = ({
             />
             <div className="inset-0 absolute flex items-center justify-center p-5 z-[10001]">
               <div className="w-full p-5 rounded-md border border-gray-200 border-solid bg-white max-w-[350px]">
-                <div className="text-lg font-bold  mb-3">
-                  {
-                    dict.shared?.subscriptionMessages
-                      .seeTotalExpensesPerDayTitle
-                  }
+                <div className="text-lg font-bold mb-3">
+                  {dict.shared?.subscriptionMessages?.seeTotalExpensesPerDayTitle}
                 </div>
-                <div className=" mb-3">
-                  {
-                    dict.shared?.subscriptionMessages
-                      .seeTotalExpensesPerDayMessage
-                  }
+                <div className="mb-3">
+                  {dict.shared?.subscriptionMessages?.seeTotalExpensesPerDayMessage}
                 </div>
                 {subscriptionDetails?.isUserOnStripe ? (
                   <Button
@@ -234,25 +186,60 @@ export const ExpensesByDayGraph = ({
                     target="_blank"
                     className="text-white bg-black"
                   >
-                    {`${dict.shared?.manageSubscription}`}
+                    {dict.shared?.manageSubscription}
                   </Button>
                 ) : (
-                  <Button
-                    href="/dashboard/pricing"
-                    className="text-white bg-black"
-                  >{`${dict.shared?.goPremium}`}</Button>
+                  <Button href="/dashboard/pricing" className="text-white bg-black">
+                    {dict.shared?.goPremium}
+                  </Button>
                 )}
               </div>
             </div>
           </>
         )}
 
-        <div
-          className={clsx({
-            "blur-sm p-5": !isPremium,
-          })}
-        >
-          <AgCharts options={props.options} />
+        <div className={clsx({ "blur-sm p-5": !isPremium })}>
+          <ChartContainer config={chartConfig} className="h-[450px] w-full">
+            <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+              <XAxis dataKey="day" className="text-xs" />
+              <YAxis
+                tickFormatter={(value) => abbreviateCurrency(value, currency.symbol)}
+                className="text-xs"
+              />
+              <ChartTooltip
+                content={
+                  <ChartTooltipContent
+                    formatter={(value, name) => (
+                      <span>
+                        {chartConfig[name as string]?.label || name}: {currency.symbol}
+                        {Number(value).toFixed(2)}
+                      </span>
+                    )}
+                  />
+                }
+              />
+              <ChartLegend content={<ChartLegendContent />} />
+              {categoryDetails.map((cat) => (
+                <Line
+                  key={cat.name}
+                  type="monotone"
+                  dataKey={cat.name}
+                  stroke={`var(--color-${cat.name})`}
+                  strokeWidth={2}
+                  dot={{ fill: cat.color, r: 3 }}
+                />
+              ))}
+              <Line
+                type="monotone"
+                dataKey="total"
+                name={dict.dashboard.totalExpenses}
+                stroke="var(--color-total)"
+                strokeWidth={2}
+                dot={{ fill: "#ef4444", r: 3 }}
+              />
+            </LineChart>
+          </ChartContainer>
         </div>
       </div>
     </>

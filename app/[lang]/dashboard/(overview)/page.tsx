@@ -41,6 +41,33 @@ export type DashboardPageProps = {
   params: { lang: AvailableLanguages };
 };
 
+// Helper to get month range dates
+function getMonthRange(year: number, month: number, dayOfMonth: number, isCurrentMonth: boolean) {
+  const startDate = new Date(Date.UTC(year, month - 1, 1, 0, 0, 0));
+  const endDate = isCurrentMonth
+    ? new Date(
+        Date.UTC(
+          year,
+          month - 1,
+          Math.min(dayOfMonth, endOfMonth(startDate).getDate()),
+          23,
+          59,
+          59
+        )
+      )
+    : new Date(Date.UTC(year, month, 0, 23, 59, 59));
+
+  return { startDate, endDate };
+}
+
+// Helper to get previous month/year
+function getPreviousMonth(year: number, month: number) {
+  if (month === 1) {
+    return { year: year - 1, month: 12 };
+  }
+  return { year, month: month - 1 };
+}
+
 export default async function Page({
   searchParams,
   params: { lang },
@@ -77,6 +104,10 @@ export default async function Page({
         },
       },
       tour_finished: true,
+      goal_amount: true,
+      goal_timeframe: true,
+      goal_description: true,
+      last_advice_date: true,
     },
   });
 
@@ -99,132 +130,105 @@ export default async function Page({
     selectedMonth === currentDate.getMonth() + 1 &&
     selectedYear === currentDate.getFullYear();
 
-  // Current month start and end dates
-  const startDateCurrent = new Date(
-    Date.UTC(selectedYear, selectedMonth - 1, 1, 0, 0, 0)
-  ); // Start of the month at 00:00 UTC
-  const endDateCurrent = isCurrentMonth
-    ? new Date(
-        Date.UTC(
-          selectedYear,
-          selectedMonth - 1,
-          Math.min(dayOfMonth, endOfMonth(startDateCurrent).getDate()),
-          23,
-          59,
-          59
-        )
-      ) // Up to today at 23:59:59 UTC if current month
-    : new Date(Date.UTC(selectedYear, selectedMonth, 0, 23, 59, 59)); // Full month if not current
+  // Get date ranges for current month and 3 previous months (4 total)
+  const month1 = { year: selectedYear, month: selectedMonth };
+  const month2 = getPreviousMonth(month1.year, month1.month);
+  const month3 = getPreviousMonth(month2.year, month2.month);
+  const month4 = getPreviousMonth(month3.year, month3.month);
 
-  // Previous month start and end dates
-  const startDatePrevious = new Date(
-    Date.UTC(
-      startDateCurrent.getUTCFullYear(),
-      startDateCurrent.getUTCMonth() - 1,
-      1,
-      0,
-      0,
-      0
-    )
-  ); // Start of previous month at 00:00 UTC
-  const endDatePrevious = isCurrentMonth
-    ? dayOfMonth <= endOfMonth(startDatePrevious).getDate()
-      ? new Date(
-          Date.UTC(
-            startDatePrevious.getUTCFullYear(),
-            startDatePrevious.getUTCMonth(),
-            dayOfMonth,
-            23,
-            59,
-            59
-          )
-        ) // Up to the same day as today in the previous month at 23:59:59 UTC
-      : new Date(
-          Date.UTC(
-            startDatePrevious.getUTCFullYear(),
-            startDatePrevious.getUTCMonth() + 1,
-            0,
-            23,
-            59,
-            59
-          )
-        ) // Last day of the previous month if today's day doesn't exist in that month
-    : new Date(
-        Date.UTC(
-          startDatePrevious.getUTCFullYear(),
-          startDatePrevious.getUTCMonth() + 1,
-          0,
-          23,
-          59,
-          59
-        )
-      ); // Full month if not current
+  const range1 = getMonthRange(month1.year, month1.month, dayOfMonth, isCurrentMonth);
+  const range2 = getMonthRange(month2.year, month2.month, dayOfMonth, false);
+  const range3 = getMonthRange(month3.year, month3.month, dayOfMonth, false);
+  const range4 = getMonthRange(month4.year, month4.month, dayOfMonth, false);
 
-  // Fetch expenses for the current month up to today's date
-  const expensesCurrent = await fetchExpenses({
-    filters: {
-      user_id: userId,
-      date: {
-        gte: startDateCurrent,
-        lte: endDateCurrent,
+  // Fetch expenses for all 4 months in parallel
+  const [expensesCurrent, expensesMonth2, expensesMonth3, expensesMonth4] = await Promise.all([
+    fetchExpenses({
+      filters: {
+        user_id: userId,
+        date: { gte: range1.startDate, lte: range1.endDate },
       },
-    },
-  });
-
-  // Fetch expenses for the previous month up to the same day as today
-  const expensesPrevious = await fetchExpenses({
-    filters: {
-      user_id: userId,
-      date: {
-        gte: startDatePrevious,
-        lte: endDatePrevious,
+    }),
+    fetchExpenses({
+      filters: {
+        user_id: userId,
+        date: { gte: range2.startDate, lte: range2.endDate },
       },
-    },
-  });
-
-  // Fetch earnings for the current month up to today's date
-  const earningsCurrent = await fetchEarnings({
-    filters: {
-      user_id: userId,
-      date: {
-        gte: startDateCurrent,
-        lte: endDateCurrent,
+    }),
+    fetchExpenses({
+      filters: {
+        user_id: userId,
+        date: { gte: range3.startDate, lte: range3.endDate },
       },
-    },
-  });
-
-  // Fetch earnings for the previous month up to the same day as today
-  const earningsPrevious = await fetchEarnings({
-    filters: {
-      user_id: userId,
-      date: {
-        gte: startDatePrevious,
-        lte: endDatePrevious,
+    }),
+    fetchExpenses({
+      filters: {
+        user_id: userId,
+        date: { gte: range4.startDate, lte: range4.endDate },
       },
-    },
-  });
+    }),
+  ]);
 
-  // Fetch savings for the current month up to today's date
-  const savingsCurrent = await fetchSavings({
-    filters: {
-      user_id: userId,
-      date: {
-        gte: startDateCurrent,
-        lte: endDateCurrent,
+  // Fetch earnings for all 4 months in parallel
+  const [earningsCurrent, earningsMonth2, earningsMonth3, earningsMonth4] = await Promise.all([
+    fetchEarnings({
+      filters: {
+        user_id: userId,
+        date: { gte: range1.startDate, lte: range1.endDate },
       },
-    },
-  });
+    }),
+    fetchEarnings({
+      filters: {
+        user_id: userId,
+        date: { gte: range2.startDate, lte: range2.endDate },
+      },
+    }),
+    fetchEarnings({
+      filters: {
+        user_id: userId,
+        date: { gte: range3.startDate, lte: range3.endDate },
+      },
+    }),
+    fetchEarnings({
+      filters: {
+        user_id: userId,
+        date: { gte: range4.startDate, lte: range4.endDate },
+      },
+    }),
+  ]);
 
-  // Fetch savings for the previous month up to the same day as today
-  const savingsPrevious = await fetchSavings({
-    filters: {
-      user_id: userId,
-      date: {
-        gte: startDatePrevious,
-        lte: endDatePrevious,
+  // Fetch savings for all 4 months in parallel
+  const [savingsCurrent, savingsMonth2, savingsMonth3, savingsMonth4] = await Promise.all([
+    fetchSavings({
+      filters: {
+        user_id: userId,
+        date: { gte: range1.startDate, lte: range1.endDate },
       },
-    },
-  });
+    }),
+    fetchSavings({
+      filters: {
+        user_id: userId,
+        date: { gte: range2.startDate, lte: range2.endDate },
+      },
+    }),
+    fetchSavings({
+      filters: {
+        user_id: userId,
+        date: { gte: range3.startDate, lte: range3.endDate },
+      },
+    }),
+    fetchSavings({
+      filters: {
+        user_id: userId,
+        date: { gte: range4.startDate, lte: range4.endDate },
+      },
+    }),
+  ]);
+
+  // Keep expensesPrevious as alias for backwards compatibility in other components
+  const expensesPrevious = expensesMonth2;
+  const earningsPrevious = earningsMonth2;
+  const savingsPrevious = savingsMonth2;
 
   const emotions = (await getAllEmotions()).sort((a, b) =>
     a.emotionType.localeCompare(b.emotionType)
@@ -243,6 +247,51 @@ export default async function Page({
       ].map((category) => [category.id, category])
     ).values()
   );
+
+  // Prepare 4 months of data for AI advisor
+  const monthsData = [
+    {
+      label: `Month 1 (Current)`,
+      month: month1.month,
+      year: month1.year,
+      expenses: expensesCurrent,
+      earnings: earningsCurrent,
+      savings: savingsCurrent,
+    },
+    {
+      label: `Month 2`,
+      month: month2.month,
+      year: month2.year,
+      expenses: expensesMonth2,
+      earnings: earningsMonth2,
+      savings: savingsMonth2,
+    },
+    {
+      label: `Month 3`,
+      month: month3.month,
+      year: month3.year,
+      expenses: expensesMonth3,
+      earnings: earningsMonth3,
+      savings: savingsMonth3,
+    },
+    {
+      label: `Month 4`,
+      month: month4.month,
+      year: month4.year,
+      expenses: expensesMonth4,
+      earnings: earningsMonth4,
+      savings: savingsMonth4,
+    },
+  ];
+
+  // User goal data
+  const userGoal = user?.goalAmount
+    ? {
+        amount: Number(user.goalAmount),
+        timeframe: user.goalTimeframe || "monthly",
+        description: user.goalDescription || "",
+      }
+    : null;
 
   return (
     <AppProvider
@@ -283,12 +332,8 @@ export default async function Page({
                 </div>
                 <FinancialAdvisor
                   userName={user?.name || ""}
-                  expenses={expensesCurrent}
-                  earnings={earningsCurrent}
-                  savings={savingsCurrent}
-                  expensesPrevious={expensesPrevious}
-                  earningsPrevious={earningsPrevious}
-                  savingsPrevious={savingsPrevious}
+                  monthsData={monthsData}
+                  userGoal={userGoal}
                 />
                 <DashboardTotals
                   expenses={expensesCurrent}

@@ -1,4 +1,5 @@
 import { createDbUser, getDBUser, updateDBUser } from "@/src/data/user";
+import { sendWelcomeEmail } from "@/src/email";
 import axios from "axios";
 import bcrypt from "bcrypt";
 
@@ -31,6 +32,8 @@ export async function POST(req: Request) {
       },
     });
 
+    let isNewUser = false;
+
     if (existingUser) {
       // Update existing user
       await updateDBUser({
@@ -43,6 +46,7 @@ export async function POST(req: Request) {
       });
     } else {
       // Create new user
+      isNewUser = true;
       const defaultPassword = "Trackmyspend.24!";
       const hashedPassword = await bcrypt.hash(defaultPassword, 10);
 
@@ -55,6 +59,15 @@ export async function POST(req: Request) {
         fullySignedUp: true,
         subscriptionPlan: "lifetime",
       });
+    }
+
+    // Send welcome email for new users (non-blocking)
+    if (isNewUser) {
+      try {
+        await sendWelcomeEmail({ to: email, name, lang: "es" });
+      } catch (emailError) {
+        console.error("Failed to send welcome email:", emailError);
+      }
     }
 
     // Handle Systeme.io operations (best-effort; don't fail Hotmart webhook)

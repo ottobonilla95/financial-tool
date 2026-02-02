@@ -39,7 +39,7 @@ export const DashboardProvider = ({
 
   useEffect(() => {
     setSelectedCategories(categories.map((cat) => cat.id));
-  }, []);
+  }, [categories]);
 
   return (
     <DashboardContext.Provider

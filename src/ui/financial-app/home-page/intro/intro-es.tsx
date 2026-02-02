@@ -26,16 +26,18 @@ export const IntroEs = ({ dict, variant = "dark" }: IntroEsProps) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <div className="w-full flex justify-center">
+        {/* Mobile: stacked layout, Desktop: two-column layout */}
+        <div className="w-full flex flex-col md:grid md:grid-cols-2 md:gap-8 md:items-center">
+          {/* Left column: Title, subtitle, CTA */}
           <motion.div
-            className="text-center lg:max-w-[900px] flex flex-col mb-6"
+            className="text-center md:text-left flex flex-col mb-6 md:mb-0"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
           >
             <h1
               className={clsx(
-                "mb-3 font-extrabold text-center text-[26px] lg:text-5xl tracking-tight flex flex-col gap-3 items-center sm:items-start",
+                "mb-3 font-extrabold text-center md:text-left text-[26px] lg:text-5xl tracking-tight flex flex-col gap-3 items-center md:items-start",
                 {
                   "text-neutral-300": variant === "dark",
                 }
@@ -57,7 +59,6 @@ export const IntroEs = ({ dict, variant = "dark" }: IntroEsProps) => {
                       "!text-neutral-900": variant === "dark",
                     })}
                   >
-                    {/* Construye */}
                     Ahorra
                   </span>
                 </span>{" "}
@@ -67,7 +68,7 @@ export const IntroEs = ({ dict, variant = "dark" }: IntroEsProps) => {
 
             <motion.p
               className={clsx(
-                "text-lg opacity-80 leading-relaxed sm:text-xl text-center font-medium",
+                "text-lg opacity-80 leading-relaxed sm:text-xl text-center md:text-left font-medium",
                 {
                   "text-neutral-300": variant === "dark",
                 }
@@ -81,7 +82,7 @@ export const IntroEs = ({ dict, variant = "dark" }: IntroEsProps) => {
             </motion.p>
 
             <motion.div
-              className="mt-5 flex flex-wrap justify-center gap-2"
+              className="mt-5 flex flex-wrap justify-center md:justify-start gap-2"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35, duration: 0.8 }}
@@ -96,42 +97,63 @@ export const IntroEs = ({ dict, variant = "dark" }: IntroEsProps) => {
                 Mejores hábitos
               </span>
             </motion.div>
+
+            {/* CTA Button - visible on desktop in left column */}
+            <motion.div
+              className="hidden md:flex mt-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+            >
+              <Button
+                className="!font-bold !text-xl group rounded-lg bg-[#1cde98] font-medium text-black hover:opacity-70 focus-visible:outline-black active:opacity-80 border-0 min-w-[300px] !py-8"
+                icon={
+                  <FireIcon className="w-6 h-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-200 ease-in-out" />
+                }
+                iconPosition="left"
+                href="#offer"
+              >
+                {dict.mainPage.takeControlToday}
+              </Button>
+            </motion.div>
+          </motion.div>
+
+          {/* Right column: Screenshot */}
+          <motion.div
+            className="flex items-center justify-center"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
+          >
+            <div className="w-full max-w-[980px]">
+              <div>
+                <Image
+                  src="/images/home-page/es/hero-mobile.png"
+                  alt="Vista previa de TrackMySpend"
+                  width={900}
+                  height={1600}
+                  sizes="100vw"
+                  className="block sm:hidden w-full h-auto"
+                  priority
+                />
+                <Image
+                  src="/images/home-page/es/hero-desktop.png"
+                  alt="Vista del panel de TrackMySpend"
+                  width={1600}
+                  height={1000}
+                  sizes="(min-width: 640px) 980px, 100vw"
+                  className="hidden sm:block w-full h-auto"
+                  priority
+                />
+              </div>
+            </div>
           </motion.div>
         </div>
-
-        <motion.div
-          className="flex items-center justify-center"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-        >
-          <div className="w-full max-w-[980px]">
-            <div>
-              <Image
-                src="/images/home-page/es/hero-mobile.png"
-                alt="Vista previa de TrackMySpend"
-                width={900}
-                height={1600}
-                sizes="100vw"
-                className="block sm:hidden w-full h-auto"
-                priority
-              />
-              <Image
-                src="/images/home-page/es/hero-desktop.png"
-                alt="Vista del panel de TrackMySpend"
-                width={1600}
-                height={1000}
-                sizes="(min-width: 640px) 980px, 100vw"
-                className="hidden sm:block w-full h-auto"
-                priority
-              />
-            </div>
-          </div>
-        </motion.div>
       </motion.div>
 
+      {/* CTA Button - visible on mobile only, centered below */}
       <motion.div
-        className="flex justify-center"
+        className="flex justify-center md:hidden"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 0.8 }}

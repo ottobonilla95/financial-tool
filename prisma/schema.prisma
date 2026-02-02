@@ -45,6 +45,10 @@ model users {
   subscription_cancel_at Int?               @default(0)
   stripeId               String?            @unique
   pricing_group          String?
+  goal_amount            Decimal?           @db.Decimal(10, 2)
+  goal_timeframe         String?            @db.VarChar(50)
+  goal_description       String?
+  last_advice_date       DateTime?          @db.Date
   earning                earning[]
   earning_category       earning_category[]
   expense_category       expense_category[]

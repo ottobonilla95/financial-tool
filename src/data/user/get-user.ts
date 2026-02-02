@@ -19,6 +19,10 @@ export type Data = {
   pricing_group?: string;
   lang: string;
   created_at: Date;
+  goal_amount?: number;
+  goal_timeframe?: string;
+  goal_description?: string;
+  last_advice_date?: Date;
 };
 
 type GetUserDataProps = {
@@ -60,5 +64,9 @@ export const mapUser = (user: Data): User => {
     pricingGroup: user.pricing_group || "",
     lang: user.lang,
     createdAt: user.created_at?.toISOString(),
+    goalAmount: user.goal_amount ? Number(user.goal_amount) : undefined,
+    goalTimeframe: user.goal_timeframe,
+    goalDescription: user.goal_description,
+    lastAdviceDate: user.last_advice_date?.toISOString(),
   };
 };

@@ -6,8 +6,8 @@ export const GuaranteeSectionEs = () => {
     <section id="guarantee" className="tracking-tight text-center bg-gray-100">
       <div className="flex justify-center">
         <img
-          src={`/images/guarantee/30-days-guarantee-es.png`}
-          alt="Garantía de 7 días"
+          src={`/images/guarantee/15-days-guarantee-es.png`}
+          alt="Garantía de 15 días"
           className="w-full mb-6 sm:max-w-[300px]"
         />
       </div>
