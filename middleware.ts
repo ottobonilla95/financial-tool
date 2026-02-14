@@ -1,11 +1,16 @@
 import NextAuth from "next-auth";
 import { authConfig } from "./auth.config";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { authRoutes, DEFAULT_LOGIN_REDIRECT, publicRoutes } from "./routes";
 
 let locales = ["en", "es"];
 
-function getUserPreferredLocale(request: NextRequest) {
+type RequestLike = {
+  cookies: { get(name: string): { value: string } | undefined };
+  headers: { get(name: string): string | null };
+};
+
+function getUserPreferredLocale(request: RequestLike) {
   // Check for the user's saved language in the request (e.g., via cookies or tokens)
   const userPreferredLocale = request.cookies.get("preferredLocale")?.value;
 
@@ -23,7 +28,7 @@ function removeFirstPartOfUrl(url: string) {
   return parts.join("/");
 }
 
-function getLocale(request: NextRequest) {
+function getLocale(request: RequestLike) {
   const acceptLanguage = request.headers.get("accept-language");
 
   if (!acceptLanguage) {
