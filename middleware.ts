@@ -55,7 +55,7 @@ function generateLocaleUrl(pathname: string, locale: string) {
 }
 
 const { auth } = NextAuth(authConfig);
-export default auth(async function middleware(request: NextRequest) {
+export default auth(async function middleware(request) {
   const { nextUrl } = request;
 
   // 1. Check if user has a preferred locale
