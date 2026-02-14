@@ -9,7 +9,7 @@
   "dependencies": {
     "@headlessui/react": "^2.1.2",
     "@heroicons/react": "^2.1.4",
-    "@modelcontextprotocol/sdk": "^1.12.1",
+    "@modelcontextprotocol/sdk": "1.25.2",
     "@nivo/bar": "^0.88.0",
     "@nivo/core": "^0.88.0",
     "@nivo/pie": "^0.88.0",
@@ -61,7 +61,7 @@
     "tailwindcss-animate": "^1.0.7",
     "use-debounce": "^10.0.1",
     "uuid": "^11.0.5",
-    "zod": "^3.23.8"
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
@@ -74,6 +74,11 @@
     "prisma": "^5.18.0",
     "ts-node": "^10.9.2",
     "typescript": "5.5.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "zod-to-json-schema": "3.24.5"
+    }
   },
   "engines": {
     "node": ">=20.12.0"
