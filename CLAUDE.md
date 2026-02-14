@@ -88,12 +88,27 @@ Flow:
 - Interactive dashboard with charts
 - Onboarding tour (Reactour)
 
+## MCP Endpoint
+
+- **URL:** `https://trackmyspend.co/api/mcp`
+- **Transport:** Streamable HTTP (POST for JSON-RPC, SSE responses)
+- **Route:** `app/api/[transport]/route.ts`
+- **Auth:** Uses `MCP_USER_ID` env var (bypasses NextAuth since MCP calls come from OpenClaw)
+- **Tools:**
+  - `parse_expenses` — AI-powered natural language expense parsing (uses GPT-4o)
+  - `save_expenses` — Save confirmed parsed expenses to database
+  - `get_summary` — Monthly spending summary with category breakdown
+  - `get_dashboard_link` — Returns dashboard URLs
+- **Flow:** parse_expenses (AI classifies) → user confirms → save_expenses (bulk create)
+- **Key pattern:** Uses Prisma directly (not fetch to own API routes) to avoid Vercel serverless self-call deadlock
+
 ## Environment Variables
 
 Required in `.env`:
 - `DATABASE_URL` / `POSGRES_PRISMA_URL` - Neon PostgreSQL
 - `AUTH_SECRET` - NextAuth secret
-- `OPENAI_API_KEY` - AI advisor
+- `OPENAI_API_KEY` - AI advisor + MCP expense parsing
+- `MCP_USER_ID` - User ID for MCP endpoint auth (single-user)
 - `STRIPE_*` - Payment processing
 - `SYSTEME_API_KEY` - Email marketing
 - `HOTMART_CHECKOUT_URL_ES/EN` - Checkout links
@@ -105,3 +120,4 @@ Required in `.env`:
 - `middleware.ts` - Route protection and locale detection
 - `prisma/schema.prisma` - Database schema
 - `src/translations/*.json` - i18n strings
+- `app/api/[transport]/route.ts` - MCP HTTP endpoint
