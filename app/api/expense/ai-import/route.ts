@@ -34,7 +34,7 @@ function parseYmdToLocal(dateStr: string) {
   return new Date(y, m - 1, d);
 }
 
-export const maxDuration = 300;
+export const maxDuration = 60;
 
 export async function POST(req: Request) {
   try {
