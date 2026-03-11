@@ -116,7 +116,10 @@ Required in `.env`:
 
 ## Git
 
-- Always use `ottobonilla95` as the git user
+- **Before committing**, always ensure the local repo git config is set:
+  - `git config user.name "ottobonilla95"`
+  - `git config user.email "ottobonilla95@users.noreply.github.com"`
+- Never rely on the global git config — always verify/set the local repo config first
 
 ## Important Files
 
