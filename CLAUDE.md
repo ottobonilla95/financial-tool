@@ -114,6 +114,10 @@ Required in `.env`:
 - `HOTMART_CHECKOUT_URL_ES/EN` - Checkout links
 - `NEXT_PUBLIC_FACEBOOK_PIXEL_ID` - Analytics
 
+## Git
+
+- Always use `ottobonilla95` as the git user
+
 ## Important Files
 
 - `auth.ts` / `auth.config.ts` - NextAuth configuration
