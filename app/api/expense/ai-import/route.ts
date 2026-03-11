@@ -34,7 +34,7 @@ function parseYmdToLocal(dateStr: string) {
   return new Date(y, m - 1, d);
 }
 
-export const maxDuration = 60;
+export const maxDuration = 300;
 
 export async function POST(req: Request) {
   try {
@@ -140,7 +140,7 @@ ${text}
 `;
 
     const response = await openai.chat.completions.create({
-      model: "gpt-4o",
+      model: "gpt-4o-mini",
       messages: [{ role: "user", content: prompt }],
       max_tokens: 4000,
       response_format: { type: "json_object" },
