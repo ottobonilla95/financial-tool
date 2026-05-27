@@ -198,6 +198,15 @@ export type AppDictionary = {
   insights: {
     totalIncomeExpensesSavings: string;
     expensesByCategory: string;
+    timeRange: string;
+    past3Months: string;
+    past6Months: string;
+    past9Months: string;
+    past12Months: string;
+    past24Months: string;
+    allTime: string;
+    noRecordsForSelectedRange: string;
+    noExpensesForSelectedRange: string;
   };
   contactPage: {
     weWouldLoveToHearFromYou: string;

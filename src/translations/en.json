@@ -198,7 +198,16 @@
   },
   "insights": {
     "totalIncomeExpensesSavings": "Total income, expenses, and savings",
-    "expensesByCategory": "Expenses by category"
+    "expensesByCategory": "Expenses by category",
+    "timeRange": "Time range",
+    "past3Months": "Past 3 months",
+    "past6Months": "Past 6 months",
+    "past9Months": "Past 9 months",
+    "past12Months": "Past 12 months",
+    "past24Months": "Past 24 months",
+    "allTime": "All time",
+    "noRecordsForSelectedRange": "No records found for this time range.",
+    "noExpensesForSelectedRange": "No expenses found for this time range."
   },
   "contactPage": {
     "weWouldLoveToHearFromYou": "We would love to hear from you! Whether you have a question, comment, or need support, don't hesitate to contact us.",

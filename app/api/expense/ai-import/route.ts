@@ -4,6 +4,56 @@ import { auth } from "@/auth";
 import { fetchExpensesCategories } from "@/src/data/expense-category";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const EXPENSE_IMPORT_MODEL =
+  process.env.OPENAI_EXPENSE_IMPORT_MODEL || "gpt-5.5";
+const EXPENSE_IMPORT_REASONING_EFFORTS = [
+  "none",
+  "low",
+  "medium",
+  "high",
+  "xhigh",
+] as const;
+
+const expenseImportResponseSchema = {
+  type: "object",
+  properties: {
+    expenses: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          amount: { type: "number" },
+          date: { type: "string" },
+          description: { type: "string" },
+          categoryId: { type: "string" },
+          subCategoryId: { type: ["string", "null"] },
+        },
+        required: [
+          "amount",
+          "date",
+          "description",
+          "categoryId",
+          "subCategoryId",
+        ],
+        additionalProperties: false,
+      },
+    },
+    skipped: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          raw: { type: "string" },
+          reason: { type: "string" },
+        },
+        required: ["raw", "reason"],
+        additionalProperties: false,
+      },
+    },
+  },
+  required: ["expenses", "skipped"],
+  additionalProperties: false,
+} as const;
 
 type AiImportExpense = {
   amount: number;
@@ -17,6 +67,9 @@ type AiImportSkipped = {
   raw: string;
   reason: string;
 };
+
+type OpenAIResponseOutputContent = { text?: unknown };
+type OpenAIResponseOutputItem = { content?: OpenAIResponseOutputContent[] };
 
 function toYmdLocal(date: Date) {
   const y = date.getFullYear();
@@ -32,6 +85,32 @@ function isValidYmd(dateStr: string) {
 function parseYmdToLocal(dateStr: string) {
   const [y, m, d] = dateStr.split("-").map((n) => Number(n));
   return new Date(y, m - 1, d);
+}
+
+function getResponseOutputText(response: {
+  output_text?: unknown;
+  output?: OpenAIResponseOutputItem[];
+}) {
+  if (typeof response.output_text === "string") return response.output_text;
+
+  const output = Array.isArray(response.output) ? response.output : [];
+  return output
+    .flatMap((item) => (Array.isArray(item.content) ? item.content : []))
+    .map((content) => content.text)
+    .filter((text): text is string => typeof text === "string")
+    .join("");
+}
+
+function getExpenseImportReasoningEffort() {
+  const effort = (
+    process.env.OPENAI_EXPENSE_IMPORT_REASONING_EFFORT || "medium"
+  ).toLowerCase();
+
+  return EXPENSE_IMPORT_REASONING_EFFORTS.includes(
+    effort as (typeof EXPENSE_IMPORT_REASONING_EFFORTS)[number]
+  )
+    ? effort
+    : "medium";
 }
 
 export const maxDuration = 60;
@@ -77,21 +156,36 @@ export async function POST(req: Request) {
     const fallbackCategoryId = categories[0].id;
     const lang = body.lang === "es" ? "es" : "en";
 
-    const prompt = `
-You extract expense records from messy user text.
+    const categoriesForPrompt = categories.map((c) => ({
+      id: c.id,
+      name: c.name,
+      subcategories: (c.subcategories ?? []).map((s) => ({
+        id: s.id,
+        name: s.name,
+      })),
+    }));
+
+    const systemPrompt = `
+You extract expense records from messy bilingual user text for a budgeting app.
 
 Rules:
-- Return ONLY valid JSON.
-- Extract as many expenses as you can.
+- Return every distinct expense that has a numeric amount. Do not merge separate charges.
+- A single line can contain multiple expenses; split each charge into its own expense.
+- Extract up to 200 expenses.
 - If an item has NO numeric amount, do NOT include it in expenses; add it to "skipped".
 - Amounts may be negative (like "-EUR 5.72" or "-5.72"). Treat them as positive values (use the absolute value).
+- Keep the original currency amount as the numeric amount. Do not convert currencies.
 - Dates can appear as "headers" that apply to multiple items. If a line (or phrase) specifies a date and the following items don't include a date, they should inherit the most recently mentioned date until another date appears.
 - If an item has no date AND there is no prior date context, set date = "${toYmdLocal(defaultDate)}" (first day of the current month in context).
 - If the text includes a day+month but no year, use year ${defaultDate.getFullYear()}.
+- Use base date "${toYmdLocal(baseDate)}" for relative dates like today, yesterday, last Friday, hoy, ayer, or el viernes pasado.
 - If the text includes a month name (e.g., April/Abril), use that month.
 - Normalize date to "YYYY-MM-DD".
-- Choose categoryId/subCategoryId from the provided list. If unsure, set categoryId = "${fallbackCategoryId}" and subCategoryId = null.
+- Choose categoryId/subCategoryId only from the provided category list.
+- Prefer the most specific matching subcategory when the category/subcategory relationship is clear.
+- If category is uncertain, set categoryId = "${fallbackCategoryId}" and subCategoryId = null.
 - description should be short and human-readable (merchant + note).
+- skipped.reason should briefly explain why the raw text was not an expense.
 
 Example:
 Input:
@@ -104,49 +198,37 @@ Taxi 12
 Then:
 - Supermarket and Coffee use 12 December
 - Taxi uses 11 December
+`;
 
-You MUST use ONLY these categories/subcategories (IDs are required):
-${JSON.stringify(
-  categories.map((c) => ({
-    id: c.id,
-    name: c.name,
-    subcategories: (c.subcategories ?? []).map((s) => ({
-      id: s.id,
-      name: s.name,
-    })),
-  })),
-  null,
-  2
-)}
+    const userPrompt = `
+Language: ${lang}
+Allowed categories and subcategories:
+${JSON.stringify(categoriesForPrompt, null, 2)}
 
-Output schema:
-{
-  "expenses": [
-    {
-      "amount": 12.34,
-      "date": "YYYY-MM-DD",
-      "description": "string",
-      "categoryId": "uuid",
-      "subCategoryId": "uuid|null"
-    }
-  ],
-  "skipped": [
-    { "raw": "string", "reason": "string" }
-  ]
-}
-
-Text to parse (${lang}):
+Text to parse:
 ${text}
 `;
 
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [{ role: "user", content: prompt }],
-      max_tokens: 4000,
-      response_format: { type: "json_object" },
-    });
+    const response = await (openai as any).responses.create({
+      model: EXPENSE_IMPORT_MODEL,
+      input: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userPrompt },
+      ],
+      max_output_tokens: 8000,
+      reasoning: { effort: getExpenseImportReasoningEffort() },
+      text: {
+        verbosity: "low",
+        format: {
+          type: "json_schema",
+          name: "expense_import_response",
+          strict: true,
+          schema: expenseImportResponseSchema,
+        },
+      },
+    } as any);
 
-    const raw = response.choices[0].message.content?.trim() || "{}";
+    const raw = getResponseOutputText(response).trim() || "{}";
     let parsed: { expenses?: AiImportExpense[]; skipped?: AiImportSkipped[] };
     try {
       parsed = JSON.parse(raw);
@@ -219,4 +301,3 @@ ${text}
     );
   }
 }
-
