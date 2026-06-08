@@ -26,6 +26,10 @@ function makeId() {
   return Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
 }
 
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export type AiImportExpensesProps = {
   categories: ExpenseCategory[];
   month: number;
@@ -68,6 +72,28 @@ export function AiImportExpenses({
     return subs.map((s) => ({ value: s.id, label: s.name }));
   };
 
+  const pollImportResult = async (responseId: string) => {
+    for (let attempt = 0; attempt < 90; attempt += 1) {
+      await sleep(attempt < 5 ? 1000 : 2500);
+
+      const res = await fetch(
+        `/api/expense/ai-import?responseId=${encodeURIComponent(
+          responseId
+        )}&baseDate=${encodeURIComponent(defaultDate)}`
+      );
+      const data = await res.json();
+
+      if (res.status === 202) continue;
+      if (!res.ok) {
+        throw new Error(data?.error || "Failed to process text");
+      }
+
+      return data;
+    }
+
+    throw new Error("AI import is still processing. Try again in a moment.");
+  };
+
   const onProcess = async () => {
     if (!text.trim()) {
       toast("Paste some text first.", { type: "info" });
@@ -92,8 +118,10 @@ export function AiImportExpenses({
         }),
       });
 
-      const data = await res.json();
-      if (!res.ok) {
+      let data = await res.json();
+      if (res.status === 202 && data?.responseId) {
+        data = await pollImportResult(String(data.responseId));
+      } else if (!res.ok) {
         throw new Error(data?.error || "Failed to process text");
       }
 
@@ -397,4 +425,3 @@ export function AiImportExpenses({
     </div>
   );
 }
-

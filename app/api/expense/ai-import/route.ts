@@ -76,6 +76,9 @@ type AiImportSkipped = {
 
 type OpenAIResponseOutputContent = { text?: unknown };
 type OpenAIResponseOutputItem = { content?: OpenAIResponseOutputContent[] };
+type UserExpenseCategory = Awaited<
+  ReturnType<typeof fetchExpensesCategories>
+>[number];
 
 function getPositiveIntegerEnv(name: string, fallback: number) {
   const value = Number(process.env[name]);
@@ -127,7 +130,161 @@ function getExpenseImportReasoningEffort() {
     : "low";
 }
 
+function normalizeAiImportData({
+  categories,
+  defaultDate,
+  parsed,
+}: {
+  categories: UserExpenseCategory[];
+  defaultDate: Date;
+  parsed: { expenses?: AiImportExpense[]; skipped?: AiImportSkipped[] };
+}) {
+  const fallbackCategoryId = categories[0].id;
+  const categoryIdSet = new Set(categories.map((c) => c.id));
+  const subCategoryToCategory = new Map<string, string>();
+  for (const c of categories) {
+    for (const s of c.subcategories ?? [])
+      subCategoryToCategory.set(s.id, c.id);
+  }
+
+  const safeExpenses: AiImportExpense[] = [];
+  const safeSkipped: AiImportSkipped[] = Array.isArray(parsed.skipped)
+    ? parsed.skipped
+    : [];
+
+  for (const e of Array.isArray(parsed.expenses) ? parsed.expenses : []) {
+    const rawAmount = Number(e.amount);
+    const amount = Math.abs(rawAmount); // handle negative amounts
+    if (!Number.isFinite(amount) || amount <= 0) {
+      safeSkipped.push({
+        raw: JSON.stringify(e),
+        reason: "Missing or invalid amount",
+      });
+      continue;
+    }
+
+    const dateStr = typeof e.date === "string" ? e.date : "";
+    const date = isValidYmd(dateStr) ? dateStr : toYmdLocal(defaultDate);
+
+    let categoryId =
+      typeof e.categoryId === "string" ? e.categoryId : fallbackCategoryId;
+    if (!categoryIdSet.has(categoryId)) categoryId = fallbackCategoryId;
+
+    let subCategoryId =
+      typeof e.subCategoryId === "string" ? e.subCategoryId : null;
+    if (subCategoryId) {
+      const parent = subCategoryToCategory.get(subCategoryId);
+      if (!parent || parent !== categoryId) subCategoryId = null;
+    }
+
+    safeExpenses.push({
+      amount: Math.round(amount * 100) / 100,
+      date,
+      description: (e.description || "").toString().slice(0, 140),
+      categoryId,
+      subCategoryId,
+    });
+  }
+
+  return {
+    expenses: safeExpenses,
+    fallbackCategoryId,
+    skipped: safeSkipped,
+  };
+}
+
+function parseAiImportResponse(response: {
+  output_text?: unknown;
+  output?: OpenAIResponseOutputItem[];
+}) {
+  const raw = getResponseOutputText(response).trim() || "{}";
+  try {
+    return JSON.parse(raw) as {
+      expenses?: AiImportExpense[];
+      skipped?: AiImportSkipped[];
+    };
+  } catch {
+    throw new Error("Invalid AI response format");
+  }
+}
+
 export const maxDuration = 60;
+
+export async function GET(req: Request) {
+  try {
+    const session = await auth();
+    const userId = session?.user?.id as string | undefined;
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const url = new URL(req.url);
+    const responseId = url.searchParams.get("responseId");
+    if (!responseId) {
+      return NextResponse.json({ error: "Missing responseId" }, { status: 400 });
+    }
+
+    const baseDateParam = url.searchParams.get("baseDate");
+    const baseDate =
+      baseDateParam && isValidYmd(baseDateParam)
+        ? parseYmdToLocal(baseDateParam)
+        : new Date();
+    const defaultDate = new Date(
+      baseDate.getFullYear(),
+      baseDate.getMonth(),
+      1
+    );
+
+    const response = await (openai as any).responses.retrieve(responseId, {
+      timeout: 15000,
+    });
+    const status =
+      typeof response.status === "string" ? response.status : "completed";
+
+    if (status !== "completed") {
+      if (status === "failed" || status === "cancelled" || status === "incomplete") {
+        return NextResponse.json(
+          { error: `AI import ${status}`, responseId, status },
+          { status: 500 }
+        );
+      }
+
+      return NextResponse.json({ responseId, status }, { status: 202 });
+    }
+
+    const categories = await fetchExpensesCategories(userId);
+    if (!categories.length) {
+      return NextResponse.json(
+        { error: "No categories found for user" },
+        { status: 400 }
+      );
+    }
+
+    const parsed = parseAiImportResponse(response);
+    const { expenses, fallbackCategoryId, skipped } = normalizeAiImportData({
+      categories,
+      defaultDate,
+      parsed,
+    });
+
+    return NextResponse.json({
+      expenses,
+      skipped,
+      meta: {
+        fallbackCategoryId,
+        defaultDate: toYmdLocal(defaultDate),
+      },
+    });
+  } catch (error: any) {
+    const message =
+      typeof error?.message === "string" ? error.message : "Internal Server Error";
+    console.error("AI expense import polling error:", {
+      name: error?.name,
+      message,
+    });
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
+}
 
 export async function POST(req: Request) {
   try {
@@ -241,6 +398,7 @@ ${text}
     const reasoningEffort = getExpenseImportReasoningEffort();
     const aiStartedAt = Date.now();
     const responseRequest: Record<string, unknown> = {
+      background: true,
       model: EXPENSE_IMPORT_MODEL,
       input: [
         { role: "system", content: systemPrompt },
@@ -266,74 +424,64 @@ ${text}
     );
     const aiDurationMs = Date.now() - aiStartedAt;
 
-    const raw = getResponseOutputText(response).trim() || "{}";
-    let parsed: { expenses?: AiImportExpense[]; skipped?: AiImportSkipped[] };
-    try {
-      parsed = JSON.parse(raw);
-    } catch {
+    const status =
+      typeof response.status === "string" ? response.status : "completed";
+    const responseId =
+      typeof response.id === "string" ? response.id : undefined;
+
+    if (status !== "completed") {
+      if (!responseId) {
+        return NextResponse.json(
+          { error: "AI import started but did not return a response id" },
+          { status: 500 }
+        );
+      }
+
+      if (status === "failed" || status === "cancelled" || status === "incomplete") {
+        return NextResponse.json(
+          { error: `AI import ${status}`, responseId, status },
+          { status: 500 }
+        );
+      }
+
+      console.info("AI expense import queued", {
+        model: EXPENSE_IMPORT_MODEL,
+        durationMs: Date.now() - startedAt,
+        responseId,
+        status,
+      });
+
       return NextResponse.json(
-        { error: "Invalid AI response format", rawResponse: raw },
-        { status: 500 }
+        {
+          responseId,
+          status,
+          meta: {
+            fallbackCategoryId,
+            defaultDate: toYmdLocal(defaultDate),
+          },
+        },
+        { status: 202 }
       );
     }
 
-    const categoryIdSet = new Set(categories.map((c) => c.id));
-    const subCategoryToCategory = new Map<string, string>();
-    for (const c of categories) {
-      for (const s of c.subcategories ?? [])
-        subCategoryToCategory.set(s.id, c.id);
-    }
-
-    const safeExpenses: AiImportExpense[] = [];
-    const safeSkipped: AiImportSkipped[] = Array.isArray(parsed.skipped)
-      ? parsed.skipped
-      : [];
-
-    for (const e of Array.isArray(parsed.expenses) ? parsed.expenses : []) {
-      const rawAmount = Number(e.amount);
-      const amount = Math.abs(rawAmount); // handle negative amounts
-      if (!Number.isFinite(amount) || amount <= 0) {
-        safeSkipped.push({
-          raw: JSON.stringify(e),
-          reason: "Missing or invalid amount",
-        });
-        continue;
-      }
-
-      const dateStr = typeof e.date === "string" ? e.date : "";
-      const date = isValidYmd(dateStr) ? dateStr : toYmdLocal(defaultDate);
-
-      let categoryId =
-        typeof e.categoryId === "string" ? e.categoryId : fallbackCategoryId;
-      if (!categoryIdSet.has(categoryId)) categoryId = fallbackCategoryId;
-
-      let subCategoryId =
-        typeof e.subCategoryId === "string" ? e.subCategoryId : null;
-      if (subCategoryId) {
-        const parent = subCategoryToCategory.get(subCategoryId);
-        if (!parent || parent !== categoryId) subCategoryId = null;
-      }
-
-      safeExpenses.push({
-        amount: Math.round(amount * 100) / 100,
-        date,
-        description: (e.description || "").toString().slice(0, 140),
-        categoryId,
-        subCategoryId,
-      });
-    }
+    const parsed = parseAiImportResponse(response);
+    const { expenses, skipped } = normalizeAiImportData({
+      categories,
+      defaultDate,
+      parsed,
+    });
 
     console.info("AI expense import completed", {
       model: EXPENSE_IMPORT_MODEL,
       durationMs: Date.now() - startedAt,
       aiDurationMs,
-      expenseCount: safeExpenses.length,
-      skippedCount: safeSkipped.length,
+      expenseCount: expenses.length,
+      skippedCount: skipped.length,
     });
 
     return NextResponse.json({
-      expenses: safeExpenses,
-      skipped: safeSkipped,
+      expenses,
+      skipped,
       meta: {
         fallbackCategoryId,
         defaultDate: toYmdLocal(defaultDate),
