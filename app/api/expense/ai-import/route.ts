@@ -6,13 +6,19 @@ import { fetchExpensesCategories } from "@/src/data/expense-category";
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const EXPENSE_IMPORT_MODEL =
   process.env.OPENAI_EXPENSE_IMPORT_MODEL || "gpt-5.5";
-const EXPENSE_IMPORT_REASONING_EFFORTS = [
-  "none",
-  "low",
-  "medium",
-  "high",
-  "xhigh",
-] as const;
+const EXPENSE_IMPORT_MAX_OUTPUT_TOKENS = getPositiveIntegerEnv(
+  "OPENAI_EXPENSE_IMPORT_MAX_OUTPUT_TOKENS",
+  8000
+);
+const EXPENSE_IMPORT_MAX_INPUT_CHARS = getPositiveIntegerEnv(
+  "OPENAI_EXPENSE_IMPORT_MAX_INPUT_CHARS",
+  20000
+);
+const EXPENSE_IMPORT_TIMEOUT_MS = getPositiveIntegerEnv(
+  "OPENAI_EXPENSE_IMPORT_TIMEOUT_MS",
+  280000
+);
+const EXPENSE_IMPORT_REASONING_EFFORTS = ["low", "medium", "high"] as const;
 
 const expenseImportResponseSchema = {
   type: "object",
@@ -71,6 +77,11 @@ type AiImportSkipped = {
 type OpenAIResponseOutputContent = { text?: unknown };
 type OpenAIResponseOutputItem = { content?: OpenAIResponseOutputContent[] };
 
+function getPositiveIntegerEnv(name: string, fallback: number) {
+  const value = Number(process.env[name]);
+  return Number.isFinite(value) && value > 0 ? Math.floor(value) : fallback;
+}
+
 function toYmdLocal(date: Date) {
   const y = date.getFullYear();
   const m = String(date.getMonth() + 1).padStart(2, "0");
@@ -102,18 +113,21 @@ function getResponseOutputText(response: {
 }
 
 function getExpenseImportReasoningEffort() {
+  const model = EXPENSE_IMPORT_MODEL.toLowerCase();
+  if (!model.startsWith("o")) return undefined;
+
   const effort = (
-    process.env.OPENAI_EXPENSE_IMPORT_REASONING_EFFORT || "medium"
+    process.env.OPENAI_EXPENSE_IMPORT_REASONING_EFFORT || "low"
   ).toLowerCase();
 
   return EXPENSE_IMPORT_REASONING_EFFORTS.includes(
     effort as (typeof EXPENSE_IMPORT_REASONING_EFFORTS)[number]
   )
     ? effort
-    : "medium";
+    : "low";
 }
 
-export const maxDuration = 60;
+export const maxDuration = 300;
 
 export async function POST(req: Request) {
   try {
@@ -133,6 +147,21 @@ export async function POST(req: Request) {
     if (!text) {
       return NextResponse.json({ error: "Missing text" }, { status: 400 });
     }
+    if (text.length > EXPENSE_IMPORT_MAX_INPUT_CHARS) {
+      return NextResponse.json(
+        {
+          error: `Text is too long to import at once. Please paste ${EXPENSE_IMPORT_MAX_INPUT_CHARS.toLocaleString()} characters or fewer.`,
+        },
+        { status: 413 }
+      );
+    }
+
+    const startedAt = Date.now();
+    console.info("AI expense import started", {
+      model: EXPENSE_IMPORT_MODEL,
+      textLength: text.length,
+      timeoutMs: EXPENSE_IMPORT_TIMEOUT_MS,
+    });
 
     const categories = await fetchExpensesCategories(userId);
     if (!categories.length) {
@@ -209,16 +238,16 @@ Text to parse:
 ${text}
 `;
 
-    const response = await (openai as any).responses.create({
+    const reasoningEffort = getExpenseImportReasoningEffort();
+    const aiStartedAt = Date.now();
+    const responseRequest: Record<string, unknown> = {
       model: EXPENSE_IMPORT_MODEL,
       input: [
         { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt },
       ],
-      max_output_tokens: 8000,
-      reasoning: { effort: getExpenseImportReasoningEffort() },
+      max_output_tokens: EXPENSE_IMPORT_MAX_OUTPUT_TOKENS,
       text: {
-        verbosity: "low",
         format: {
           type: "json_schema",
           name: "expense_import_response",
@@ -226,7 +255,16 @@ ${text}
           schema: expenseImportResponseSchema,
         },
       },
-    } as any);
+    };
+    if (reasoningEffort) {
+      responseRequest.reasoning = { effort: reasoningEffort };
+    }
+
+    const response = await (openai as any).responses.create(
+      responseRequest as any,
+      { timeout: EXPENSE_IMPORT_TIMEOUT_MS }
+    );
+    const aiDurationMs = Date.now() - aiStartedAt;
 
     const raw = getResponseOutputText(response).trim() || "{}";
     let parsed: { expenses?: AiImportExpense[]; skipped?: AiImportSkipped[] };
@@ -285,6 +323,14 @@ ${text}
       });
     }
 
+    console.info("AI expense import completed", {
+      model: EXPENSE_IMPORT_MODEL,
+      durationMs: Date.now() - startedAt,
+      aiDurationMs,
+      expenseCount: safeExpenses.length,
+      skippedCount: safeSkipped.length,
+    });
+
     return NextResponse.json({
       expenses: safeExpenses,
       skipped: safeSkipped,
@@ -294,10 +340,26 @@ ${text}
       },
     });
   } catch (error: any) {
-    console.error("AI expense import error:", error);
+    const message =
+      typeof error?.message === "string" ? error.message : "Internal Server Error";
+    const isTimeout =
+      error?.name === "APIConnectionTimeoutError" ||
+      /timeout|timed out|aborted/i.test(message);
+
+    console.error("AI expense import error:", {
+      name: error?.name,
+      message,
+      model: EXPENSE_IMPORT_MODEL,
+      timeoutMs: EXPENSE_IMPORT_TIMEOUT_MS,
+    });
+
     return NextResponse.json(
-      { error: error.message || "Internal Server Error" },
-      { status: 500 }
+      {
+        error: isTimeout
+          ? "AI import took too long. Try a smaller paste or try again."
+          : message,
+      },
+      { status: isTimeout ? 504 : 500 }
     );
   }
 }
