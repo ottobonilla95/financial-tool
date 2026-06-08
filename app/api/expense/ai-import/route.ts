@@ -16,7 +16,7 @@ const EXPENSE_IMPORT_MAX_INPUT_CHARS = getPositiveIntegerEnv(
 );
 const EXPENSE_IMPORT_TIMEOUT_MS = getPositiveIntegerEnv(
   "OPENAI_EXPENSE_IMPORT_TIMEOUT_MS",
-  280000
+  55000
 );
 const EXPENSE_IMPORT_REASONING_EFFORTS = ["low", "medium", "high"] as const;
 
@@ -127,7 +127,7 @@ function getExpenseImportReasoningEffort() {
     : "low";
 }
 
-export const maxDuration = 300;
+export const maxDuration = 60;
 
 export async function POST(req: Request) {
   try {
