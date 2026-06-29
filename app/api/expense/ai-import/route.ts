@@ -443,6 +443,7 @@ ${text}
           ],
           max_tokens: EXPENSE_IMPORT_MAX_OUTPUT_TOKENS,
           response_format: { type: "json_object" },
+          thinking: { type: "disabled" },
           temperature: 0.1,
         } as any,
         { timeout: EXPENSE_IMPORT_TIMEOUT_MS }

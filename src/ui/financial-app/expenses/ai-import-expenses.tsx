@@ -30,6 +30,21 @@ function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+async function readJsonResponse(res: Response) {
+  const text = await res.text();
+  if (!text) return {};
+
+  try {
+    return JSON.parse(text);
+  } catch {
+    throw new Error(
+      res.ok
+        ? "Server returned an invalid response."
+        : text.slice(0, 160) || "Request failed."
+    );
+  }
+}
+
 export type AiImportExpensesProps = {
   categories: ExpenseCategory[];
   month: number;
@@ -81,7 +96,7 @@ export function AiImportExpenses({
           responseId
         )}&baseDate=${encodeURIComponent(defaultDate)}`
       );
-      const data = await res.json();
+      const data = await readJsonResponse(res);
 
       if (res.status === 202) continue;
       if (!res.ok) {
@@ -118,7 +133,7 @@ export function AiImportExpenses({
         }),
       });
 
-      let data = await res.json();
+      let data = await readJsonResponse(res);
       if (res.status === 202 && data?.responseId) {
         data = await pollImportResult(String(data.responseId));
       } else if (!res.ok) {
@@ -175,7 +190,7 @@ export function AiImportExpenses({
         body: JSON.stringify({ expenses: payload }),
       });
 
-      const data = await res.json();
+      const data = await readJsonResponse(res);
       if (!res.ok) {
         throw new Error(data?.error || "Failed to save expenses");
       }
