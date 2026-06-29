@@ -4,8 +4,18 @@ import { auth } from "@/auth";
 import { fetchExpensesCategories } from "@/src/data/expense-category";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const zai = new OpenAI({
+  apiKey: process.env.ZAI_API_KEY || "missing-zai-api-key",
+  baseURL: process.env.ZAI_BASE_URL || "https://api.z.ai/api/paas/v4/",
+});
+const EXPENSE_IMPORT_PROVIDER =
+  process.env.EXPENSE_IMPORT_PROVIDER?.toLowerCase() === "zai"
+    ? "zai"
+    : "openai";
 const EXPENSE_IMPORT_MODEL =
-  process.env.OPENAI_EXPENSE_IMPORT_MODEL || "gpt-5.5";
+  EXPENSE_IMPORT_PROVIDER === "zai"
+    ? process.env.ZAI_EXPENSE_IMPORT_MODEL || "glm-5.2"
+    : process.env.OPENAI_EXPENSE_IMPORT_MODEL || "gpt-5.5";
 const EXPENSE_IMPORT_MAX_OUTPUT_TOKENS = getPositiveIntegerEnv(
   "OPENAI_EXPENSE_IMPORT_MAX_OUTPUT_TOKENS",
   8000
@@ -208,6 +218,21 @@ function parseAiImportResponse(response: {
   }
 }
 
+function parseAiImportJson(rawContent: unknown) {
+  const raw = typeof rawContent === "string" ? rawContent.trim() : "{}";
+  const json =
+    raw.match(/```(?:json)?\s*([\s\S]*?)\s*```/i)?.[1]?.trim() || raw || "{}";
+
+  try {
+    return JSON.parse(json) as {
+      expenses?: AiImportExpense[];
+      skipped?: AiImportSkipped[];
+    };
+  } catch {
+    throw new Error("Invalid AI response format");
+  }
+}
+
 export const maxDuration = 60;
 
 export async function GET(req: Request) {
@@ -315,6 +340,7 @@ export async function POST(req: Request) {
 
     const startedAt = Date.now();
     console.info("AI expense import started", {
+      provider: EXPENSE_IMPORT_PROVIDER,
       model: EXPENSE_IMPORT_MODEL,
       textLength: text.length,
       timeoutMs: EXPENSE_IMPORT_TIMEOUT_MS,
@@ -372,6 +398,8 @@ Rules:
 - If category is uncertain, set categoryId = "${fallbackCategoryId}" and subCategoryId = null.
 - description should be short and human-readable (merchant + note).
 - skipped.reason should briefly explain why the raw text was not an expense.
+- Return only valid JSON matching this schema:
+${JSON.stringify(expenseImportResponseSchema)}
 
 Example:
 Input:
@@ -397,6 +425,57 @@ ${text}
 
     const reasoningEffort = getExpenseImportReasoningEffort();
     const aiStartedAt = Date.now();
+
+    if (EXPENSE_IMPORT_PROVIDER === "zai") {
+      if (!process.env.ZAI_API_KEY) {
+        return NextResponse.json(
+          { error: "Missing ZAI_API_KEY" },
+          { status: 500 }
+        );
+      }
+
+      const response = await zai.chat.completions.create(
+        {
+          model: EXPENSE_IMPORT_MODEL,
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userPrompt },
+          ],
+          max_tokens: EXPENSE_IMPORT_MAX_OUTPUT_TOKENS,
+          response_format: { type: "json_object" },
+          temperature: 0.1,
+        } as any,
+        { timeout: EXPENSE_IMPORT_TIMEOUT_MS }
+      );
+      const aiDurationMs = Date.now() - aiStartedAt;
+      const parsed = parseAiImportJson(
+        response.choices?.[0]?.message?.content
+      );
+      const { expenses, skipped } = normalizeAiImportData({
+        categories,
+        defaultDate,
+        parsed,
+      });
+
+      console.info("AI expense import completed", {
+        provider: EXPENSE_IMPORT_PROVIDER,
+        model: EXPENSE_IMPORT_MODEL,
+        durationMs: Date.now() - startedAt,
+        aiDurationMs,
+        expenseCount: expenses.length,
+        skippedCount: skipped.length,
+      });
+
+      return NextResponse.json({
+        expenses,
+        skipped,
+        meta: {
+          fallbackCategoryId,
+          defaultDate: toYmdLocal(defaultDate),
+        },
+      });
+    }
+
     const responseRequest: Record<string, unknown> = {
       background: true,
       model: EXPENSE_IMPORT_MODEL,
@@ -445,6 +524,7 @@ ${text}
       }
 
       console.info("AI expense import queued", {
+        provider: EXPENSE_IMPORT_PROVIDER,
         model: EXPENSE_IMPORT_MODEL,
         durationMs: Date.now() - startedAt,
         responseId,
@@ -472,6 +552,7 @@ ${text}
     });
 
     console.info("AI expense import completed", {
+      provider: EXPENSE_IMPORT_PROVIDER,
       model: EXPENSE_IMPORT_MODEL,
       durationMs: Date.now() - startedAt,
       aiDurationMs,
@@ -497,6 +578,7 @@ ${text}
     console.error("AI expense import error:", {
       name: error?.name,
       message,
+      provider: EXPENSE_IMPORT_PROVIDER,
       model: EXPENSE_IMPORT_MODEL,
       timeoutMs: EXPENSE_IMPORT_TIMEOUT_MS,
     });

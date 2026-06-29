@@ -121,6 +121,12 @@ Required in `.env`:
   - `git config user.email "ottobonilla95@users.noreply.github.com"`
 - Never rely on the global git config — always verify/set the local repo config first
 
+## Vercel CLI
+
+- The local `.env` file is git-ignored and may include `VERCEL_TOKEN`.
+- For Vercel CLI interactions, load `.env` and pass the token explicitly with `--token "$VERCEL_TOKEN"`; do not rely on global Vercel login state.
+- Keep Vercel tokens out of committed files and command output.
+
 ## Important Files
 
 - `auth.ts` / `auth.config.ts` - NextAuth configuration
