@@ -10,6 +10,7 @@ import {
   DashboardExpeneseByEmotion,
   DashboardExpeneseBySatisfaction,
   ExpensesByDayGraph,
+  DailyExpensesComparisonChart,
   ExpenseTotalsPerCategory,
   ExpensesByDayTableContainer,
   DashboardProvider,
@@ -393,6 +394,16 @@ export default async function Page({
                     <ExpensesByDayGraph
                       expenses={expensesCurrent}
                       dict={dict}
+                    />
+                    <div className="h-8" />
+                    <DailyExpensesComparisonChart
+                      currentExpenses={expensesCurrent}
+                      previousExpenses={expensesPrevious}
+                      selectedMonth={selectedMonth}
+                      selectedYear={selectedYear}
+                      comparisonDayCount={range1.endDate.getUTCDate()}
+                      dict={dict}
+                      lang={lang}
                     />
                   </div>
                 )}

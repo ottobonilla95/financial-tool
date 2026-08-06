@@ -12,6 +12,9 @@ export type AppDictionary = {
     byEmotion: string;
     bySatisfaction: string;
     totalExpensesPerDayByCategory: string;
+    dailyExpensesComparison: string;
+    comparingThroughDay: string;
+    day: string;
     totalExpensesPerCategory: string;
     samePeriodLastMonth: string;
     totalFinancialRecords: string;

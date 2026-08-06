@@ -11,6 +11,7 @@ export * from "./saving-tables-container";
 export * from "./total-by-emotion";
 export * from "./total-by-satisfaction";
 export * from "./expenses-by-day-graph";
+export * from "./daily-expenses-comparison-chart";
 export * from "./expense-totals-per-category";
 export * from "./expenses-by-day-table-container";
 export * from "./provider";
