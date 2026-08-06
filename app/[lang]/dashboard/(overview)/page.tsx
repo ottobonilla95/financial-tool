@@ -33,6 +33,7 @@ import { redirect } from "next/navigation";
 import { CurrencyPicker } from "@/src/ui/financial-app/currency/currency-picker";
 import { CategoryFilterContainer } from "@/src/ui/financial-app/dashboard/category-filter-container";
 import { URLParamHandler } from "./url-param-handler";
+import { filterRecordsThroughDay } from "@/src/helpers/filter-records-through-day";
 
 export type DashboardPageProps = {
   searchParams: {
@@ -226,10 +227,21 @@ export default async function Page({
     }),
   ]);
 
-  // Keep expensesPrevious as alias for backwards compatibility in other components
-  const expensesPrevious = expensesMonth2;
-  const earningsPrevious = earningsMonth2;
-  const savingsPrevious = savingsMonth2;
+  // Cards labeled "same period last month" must use the same day cutoff.
+  // If the previous month is shorter, all of its available days are included.
+  const comparisonDayCount = range1.endDate.getUTCDate();
+  const expensesPrevious = filterRecordsThroughDay(
+    expensesMonth2,
+    comparisonDayCount
+  );
+  const earningsPrevious = filterRecordsThroughDay(
+    earningsMonth2,
+    comparisonDayCount
+  );
+  const savingsPrevious = filterRecordsThroughDay(
+    savingsMonth2,
+    comparisonDayCount
+  );
 
   const emotions = (await getAllEmotions()).sort((a, b) =>
     a.emotionType.localeCompare(b.emotionType)
@@ -401,7 +413,7 @@ export default async function Page({
                       previousExpenses={expensesPrevious}
                       selectedMonth={selectedMonth}
                       selectedYear={selectedYear}
-                      comparisonDayCount={range1.endDate.getUTCDate()}
+                      comparisonDayCount={comparisonDayCount}
                       dict={dict}
                       lang={lang}
                     />
