@@ -8,6 +8,14 @@ export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
 function escapeHtml(value: string) { return value.replace(/[&<>"']/g, (x) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[x]!)); }
+function redirectUriMatches(registered: string, requested: string) {
+  try {
+    const expected = new URL(registered); const actual = new URL(requested);
+    if (expected.href === actual.href) return true;
+    const loopback = (hostname: string) => hostname === "127.0.0.1" || hostname === "[::1]" || hostname === "localhost";
+    return loopback(expected.hostname) && loopback(actual.hostname) && expected.protocol === "http:" && actual.protocol === "http:" && expected.pathname === actual.pathname && expected.search === actual.search && !expected.hash && !actual.hash;
+  } catch { return false; }
+}
 
 export async function GET(request: Request) {
   const url = new URL(request.url); const q = url.searchParams;
@@ -16,7 +24,7 @@ export async function GET(request: Request) {
   if (q.get("response_type") !== "code" || q.get("code_challenge_method") !== "S256" || !codeChallenge) return oauthError("invalid_request", "Authorization code flow with PKCE S256 is required.");
   let client; let scopes: string[];
   try { client = readClient(clientId); scopes = allowedScopes(q.get("scope")); } catch { return oauthError("invalid_client", "The MCP client is not registered or requested an invalid scope."); }
-  if (!client.redirectUris.includes(redirectUri) || resource !== MCP_RESOURCE) return oauthError("invalid_request", "The redirect URI or resource is invalid.");
+  if (!client.redirectUris.some((registered) => redirectUriMatches(registered, redirectUri)) || resource !== MCP_RESOURCE) return oauthError("invalid_request", "The redirect URI or resource is invalid.");
   const session = await auth();
   if (!session?.user?.id) redirect(`/en/login?callbackUrl=${encodeURIComponent(url.toString())}`);
   const consent = signEnvelope({ kind: "consent", exp: Math.floor(Date.now() / 1000) + 10 * 60, userId: session.user.id, clientId, redirectUri, codeChallenge, state: q.get("state") || undefined, scopes, resource });
