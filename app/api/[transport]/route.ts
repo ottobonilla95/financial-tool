@@ -207,7 +207,10 @@ const handler = createMcpHandler((server) => {
     inputSchema: {}, annotations: { readOnlyHint: true, openWorldHint: false },
   }, async (_args, extra) => {
     const context = await getImportContext(requireUserId(extra));
-    return jsonResult(context as unknown as Record<string, unknown>, `Context loaded: ${context.expenseCategories.length} expense categories, ${context.incomeCategories.length} income categories, and ${context.currencies.length} currencies. Classify every item, then call preview_transaction_import.`);
+    return jsonResult(
+      context as unknown as Record<string, unknown>,
+      `Context loaded: ${context.expenseCategories.length} expense categories, ${context.incomeCategories.length} income categories, and ${context.currencies.length} currencies. Classify every item, then call preview_transaction_import.\n\nMachine-readable context JSON:\n${JSON.stringify(context)}`,
+    );
   });
 
   server.registerTool("get_recent_transactions", {
@@ -284,7 +287,7 @@ const handler = createMcpHandler((server) => {
       expenses: expenses.map(({ categoryName: _a, subcategoryName: _b, currencyCode: _c, ...expense }) => expense),
     };
     const review = { status: "ready_for_confirmation", sourceCount, accountedForCount: items.length, expenses, excluded, excludedCounts, warnings, totalsByCurrency, reviewToken: encodeReviewToken(tokenPayload), expiresAt: new Date(tokenPayload.expiresAt).toISOString() };
-    return jsonResult(review, renderReviewText(review));
+    return jsonResult(review, `${renderReviewText(review)}\n\nMachine-readable preview JSON:\n${JSON.stringify(review)}`);
   });
 
   server.registerTool("commit_transaction_import", {
