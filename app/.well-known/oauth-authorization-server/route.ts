@@ -3,7 +3,7 @@ import { MCP_ORIGIN, MCP_SCOPES } from "@/src/mcp/oauth";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  return Response.json({
+  const metadata = {
     issuer: MCP_ORIGIN,
     authorization_endpoint: `${MCP_ORIGIN}/api/oauth/authorize`,
     token_endpoint: `${MCP_ORIGIN}/api/oauth/token`,
@@ -16,5 +16,8 @@ export async function GET() {
     token_endpoint_auth_methods_supported: ["none"],
     revocation_endpoint_auth_methods_supported: ["none"],
     code_challenge_methods_supported: ["S256"],
-  }, { headers: { "Access-Control-Allow-Origin": "*", "Cache-Control": "public, max-age=3600" } });
+  };
+  return new Response(JSON.stringify(metadata), { status: 200, headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*", "Cache-Control": "public, max-age=3600" } });
 }
+
+export async function OPTIONS() { return new Response(null, { status: 204, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "GET, OPTIONS", "Access-Control-Allow-Headers": "*" } }); }
