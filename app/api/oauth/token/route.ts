@@ -1,4 +1,4 @@
-import { allowedScopes, ensureOAuthTokenTable, hashToken, MCP_RESOURCE, oauthError, oauthJson, pkceS256, randomId, readClient } from "@/src/mcp/oauth";
+import { allowedScopes, ensureOAuthTokenTable, hashToken, MCP_RESOURCE, oauthError, oauthJson, pkceS256, randomId, readClient, redirectUriMatches } from "@/src/mcp/oauth";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     const code = await prisma.mcp_oauth_token.findUnique({ where: { token_hash: hashToken(rawCode) } });
     if (!code || code.token_type !== "authorization_code" || code.used_at || code.revoked_at || code.expires_at <= new Date()) return oauthError("invalid_grant", "Authorization code is invalid, used, or expired.");
     const verifier = String(form.get("code_verifier") || ""); const redirectUri = String(form.get("redirect_uri") || ""); const resource = String(form.get("resource") || MCP_RESOURCE);
-    if (code.client_id !== clientId || code.redirect_uri !== redirectUri || code.resource !== resource || pkceS256(verifier) !== code.code_challenge) return oauthError("invalid_grant", "Authorization code validation failed.");
+    if (code.client_id !== clientId || !code.redirect_uri || !redirectUriMatches(code.redirect_uri, redirectUri) || code.resource !== resource || pkceS256(verifier) !== code.code_challenge) return oauthError("invalid_grant", "Authorization code validation failed.");
     const consumed = await prisma.mcp_oauth_token.updateMany({ where: { id: code.id, used_at: null }, data: { used_at: new Date() } });
     if (consumed.count !== 1) return oauthError("invalid_grant", "Authorization code was already used.");
     return oauthJson(await tokens(code.user_id, clientId, code.scopes.split(" "), resource));

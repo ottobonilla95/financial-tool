@@ -53,6 +53,16 @@ export function readClient(clientId: string) { return verifyEnvelope<ClientToken
 export function randomId() { return randomBytes(24).toString("base64url"); }
 export function hashToken(value: string) { return createHash("sha256").update(value).digest("hex"); }
 export function pkceS256(verifier: string) { return createHash("sha256").update(verifier).digest("base64url"); }
+export function redirectUriMatches(expectedValue: string, actualValue: string, allowLoopbackPortChange = false) {
+  try {
+    const expected = new URL(expectedValue); const actual = new URL(actualValue);
+    if (expected.href === actual.href) return true;
+    const loopback = (hostname: string) => hostname === "127.0.0.1" || hostname === "[::1]" || hostname === "localhost";
+    return loopback(expected.hostname) && loopback(actual.hostname) && expected.protocol === "http:" && actual.protocol === "http:"
+      && (allowLoopbackPortChange || expected.port === actual.port) && expected.pathname === actual.pathname
+      && expected.search === actual.search && !expected.hash && !actual.hash;
+  } catch { return false; }
+}
 export function allowedScopes(value?: string | null) {
   const requested = (value || MCP_SCOPES.join(" ")).split(/\s+/).filter(Boolean);
   if (!requested.length || requested.some((scope) => !MCP_SCOPES.includes(scope as typeof MCP_SCOPES[number]))) throw new Error("Unsupported scope.");
