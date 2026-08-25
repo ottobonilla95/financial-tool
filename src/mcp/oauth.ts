@@ -67,8 +67,15 @@ export function oauthJson(value: unknown, status = 200) {
   return new Response(JSON.stringify(value), { status, headers: { "Content-Type": "application/json", "Cache-Control": "no-store", Pragma: "no-cache" } });
 }
 
-type SqlExecutor = { $executeRawUnsafe(query: string): Promise<number> };
+type SqlExecutor = {
+  $executeRawUnsafe(query: string): Promise<number>;
+  $queryRawUnsafe<T = unknown>(query: string): Promise<T>;
+};
 export async function ensureOAuthTokenTable(prisma: SqlExecutor) {
+  const existing = await prisma.$queryRawUnsafe<Array<{ table_name: string | null }>>(
+    `SELECT to_regclass('public.mcp_oauth_token')::text AS "table_name"`,
+  );
+  if (existing[0]?.table_name) return;
   await prisma.$executeRawUnsafe(`CREATE TABLE IF NOT EXISTS "mcp_oauth_token" (
     "id" UUID PRIMARY KEY DEFAULT uuid_generate_v4(), "token_hash" VARCHAR(64) NOT NULL UNIQUE,
     "token_type" VARCHAR(24) NOT NULL, "user_id" UUID NOT NULL, "client_id" TEXT NOT NULL,

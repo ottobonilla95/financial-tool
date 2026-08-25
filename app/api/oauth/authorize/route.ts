@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
-import { allowedScopes, ConsentToken, ensureOAuthTokenTable, hashToken, MCP_RESOURCE, oauthError, randomId, readClient, signEnvelope, verifyEnvelope } from "@/src/mcp/oauth";
+import { allowedScopes, ConsentToken, hashToken, MCP_RESOURCE, oauthError, randomId, readClient, signEnvelope, verifyEnvelope } from "@/src/mcp/oauth";
 import { redirect } from "next/navigation";
+import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -45,15 +46,13 @@ export async function POST(request: Request) {
     if (form.get("decision") !== "approve") destination.searchParams.set("error", "access_denied");
     else {
       const code = randomId();
-      stage = "storage_setup";
-      await ensureOAuthTokenTable(prisma);
       stage = "code_insert";
       await prisma.mcp_oauth_token.create({ data: { token_hash: hashToken(code), token_type: "authorization_code", user_id: consent.userId, client_id: consent.clientId, scopes: consent.scopes.join(" "), resource: consent.resource, redirect_uri: consent.redirectUri, code_challenge: consent.codeChallenge, expires_at: new Date(Date.now() + 5 * 60 * 1000) } });
       destination.searchParams.set("code", code);
     }
     if (consent.state) destination.searchParams.set("state", consent.state);
     stage = "callback_redirect";
-    return Response.redirect(destination.href, 303);
+    return NextResponse.redirect(destination, 303);
   } catch (error) {
     const errorCode = typeof error === "object" && error && "code" in error ? String(error.code) : undefined;
     console.error("OAuth approval failed", { stage, errorCode, error });
