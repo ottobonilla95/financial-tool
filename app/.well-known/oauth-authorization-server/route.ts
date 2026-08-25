@@ -1,5 +1,7 @@
 import { MCP_ORIGIN, MCP_SCOPES } from "@/src/mcp/oauth";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   return Response.json({
     issuer: MCP_ORIGIN,
