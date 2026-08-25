@@ -5,12 +5,12 @@ import { Container, Header } from "@/src/ui/components";
 
 export type LoginPageProps = {
   params: { lang: AvailableLanguages };
-  searchParams: { email?: string; variant: string };
+  searchParams: { email?: string; variant: string; callbackUrl?: string };
 };
 
 export default async function LoginPage({
   params: { lang },
-  searchParams: { email, variant },
+  searchParams: { email, variant, callbackUrl },
 }: LoginPageProps) {
   const dict = await getDictionary(lang);
 
@@ -21,7 +21,7 @@ export default async function LoginPage({
         <Header lang={lang} dict={dict} />
 
         <Container className="flex justify-center pt-20">
-          <LoginForm email={email} isSignupFinished={isSignupFinished} />
+          <LoginForm email={email} isSignupFinished={isSignupFinished} callbackUrl={callbackUrl} />
         </Container>
       </div>
     </IntlProvider>

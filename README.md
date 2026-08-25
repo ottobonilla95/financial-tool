@@ -10,7 +10,7 @@ For more information, see the [course curriculum](https://nextjs.org/learn) on t
 The production MCP endpoint is:
 
 ```text
-https://trackmyspend.co/api/mcp
+https://financial-tool.vercel.app/api/mcp
 ```
 
 It does not call an LLM. The connected MCP host (Codex, Claude, or another
@@ -32,7 +32,6 @@ those MCP capabilities.
 Required environment variables:
 
 ```text
-MCP_USER_ID=<Track My Spend user UUID>
 AUTH_SECRET=<existing application secret>
 ```
 
@@ -40,8 +39,16 @@ Optional environment variables:
 
 ```text
 MCP_REVIEW_SECRET=<dedicated HMAC secret; falls back to AUTH_SECRET>
+MCP_OAUTH_SECRET=<dedicated OAuth signing secret; falls back to AUTH_SECRET>
+MCP_PUBLIC_ORIGIN=https://financial-tool.vercel.app
 MCP_TIMEZONE=Europe/Warsaw
 ```
+
+The endpoint requires MCP OAuth authorization. Clients discover the OAuth 2.1
+authorization server through RFC 9728 metadata, redirect the user to the
+existing Track My Spend login and consent page, and receive scoped,
+user-specific tokens. `MCP_USER_ID` is not used: the approved user's session
+determines which account every tool reads or modifies.
 
 The workflow classifies every source record as `expense`, `income`, `refund`,
 `declined`, `reversed`, `transfer`, `duplicate`, `non_transaction`, or

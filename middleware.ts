@@ -114,6 +114,6 @@ export default auth(async function middleware(request) {
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|.*\\.png$|.*\\.gif$|.*\\.jpg$|.*\\.jpeg$|.*\\.ico$|sitemap\\.xml|robots\\.txt|scripts/).*)",
+    "/((?!api|\\.well-known|_next/static|_next/image|.*\\.png$|.*\\.gif$|.*\\.jpg$|.*\\.jpeg$|.*\\.ico$|sitemap\\.xml|robots\\.txt|scripts/).*)",
   ],
 };

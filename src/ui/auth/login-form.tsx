@@ -19,9 +19,10 @@ import { motion } from "framer-motion";
 export type LoginFormProps = {
   email?: string;
   isSignupFinished?: boolean;
+  callbackUrl?: string;
 };
 
-export const LoginForm = ({ email, isSignupFinished }: LoginFormProps) => {
+export const LoginForm = ({ email, isSignupFinished, callbackUrl }: LoginFormProps) => {
   const { dict } = useContext(IntlContext);
   const { lang } = useTranslations();
   const authenticateAction = authenticate.bind(null, lang);
@@ -51,6 +52,7 @@ export const LoginForm = ({ email, isSignupFinished }: LoginFormProps) => {
         </div>
       )}
       <form action={formAction}>
+        {callbackUrl && <input type="hidden" name="redirectTo" value={callbackUrl} />}
         <div className="flex-1 text-neutral-100 min-w-[350px]">
           <h1 className={`${lusitana.className} mb-3 text-5xl font-extrabold`}>
             {dict.authPages?.login}

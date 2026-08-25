@@ -1,10 +1,10 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
-import { createMcpHandler } from "mcp-handler";
+import { createMcpHandler, withMcpAuth } from "mcp-handler";
 import { Prisma, PrismaClient } from "@prisma/client";
 import { z } from "zod";
+import { ensureOAuthTokenTable, hashToken, MCP_RESOURCE } from "@/src/mcp/oauth";
 
 const prisma = new PrismaClient();
-const MCP_USER_ID = process.env.MCP_USER_ID;
 const MCP_TIMEZONE = process.env.MCP_TIMEZONE || "Europe/Warsaw";
 const REVIEW_TOKEN_TTL_MS = 15 * 60 * 1000;
 const REVIEW_UI_URI = "ui://track-my-spend/transaction-import-review.html";
@@ -54,9 +54,14 @@ const classifiedItemSchema = z.object({
   expense: expenseInputSchema.optional(),
 });
 
-function requireUserId() {
-  if (!MCP_USER_ID) throw new Error("MCP_USER_ID is not configured.");
-  return MCP_USER_ID;
+type HandlerExtra = { authInfo?: { scopes?: string[]; extra?: Record<string, unknown> } };
+function requireUserId(extra?: HandlerExtra) {
+  const userId = extra?.authInfo?.extra?.userId;
+  if (typeof userId !== "string") throw new Error("Authenticated user identity is missing.");
+  return userId;
+}
+function requireScope(extra: HandlerExtra | undefined, scope: string) {
+  if (!extra?.authInfo?.scopes?.includes(scope)) throw new Error(`Missing required OAuth scope: ${scope}.`);
 }
 
 function getReviewSecret() {
@@ -83,14 +88,14 @@ function encodeReviewToken(payload: ReviewTokenPayload) {
   const signature = createHmac("sha256", getReviewSecret()).update(encoded).digest("base64url");
   return `${encoded}.${signature}`;
 }
-function decodeReviewToken(token: string): ReviewTokenPayload {
+function decodeReviewToken(token: string, authenticatedUserId: string): ReviewTokenPayload {
   const [encoded, signature, extra] = token.split(".");
   if (!encoded || !signature || extra) throw new Error("Invalid review token.");
   const expected = createHmac("sha256", getReviewSecret()).update(encoded).digest();
   const received = Buffer.from(signature, "base64url");
   if (received.length !== expected.length || !timingSafeEqual(received, expected)) throw new Error("Invalid review token signature.");
   const payload = JSON.parse(Buffer.from(encoded, "base64url").toString("utf8")) as ReviewTokenPayload;
-  if (payload.version !== 1 || payload.userId !== requireUserId()) throw new Error("Review token is not valid for this user.");
+  if (payload.version !== 1 || payload.userId !== authenticatedUserId) throw new Error("Review token is not valid for this user.");
   if (!Number.isFinite(payload.expiresAt) || payload.expiresAt < Date.now()) throw new Error("Review token expired. Preview the import again.");
   return payload;
 }
@@ -182,8 +187,8 @@ const initId='track-my-spend-'+Date.now();window.addEventListener('message',e=>{
 const handler = createMcpHandler((server) => {
   server.registerResource("transaction-import-policy", "trackmyspend://transaction-import-policy", {
     title: "Track My Spend transaction import policy", description: "Portable rules for classifying and importing transactions.", mimeType: "application/json",
-  }, async () => {
-    const context = await getImportContext(requireUserId());
+  }, async (_uri, extra) => {
+    const context = await getImportContext(requireUserId(extra));
     return { contents: [{ uri: "trackmyspend://transaction-import-policy", mimeType: "application/json", text: JSON.stringify({ classifications: context.classifications, policy: context.policy }) }] };
   });
 
@@ -200,8 +205,8 @@ const handler = createMcpHandler((server) => {
     title: "Get transaction import context",
     description: "Start every new transaction import with this read-only tool. Returns real categories, currencies, timezone, current date, classifications, and mandatory rules. The connected model performs classification; this server does not call an LLM.",
     inputSchema: {}, annotations: { readOnlyHint: true, openWorldHint: false },
-  }, async () => {
-    const context = await getImportContext(requireUserId());
+  }, async (_args, extra) => {
+    const context = await getImportContext(requireUserId(extra));
     return jsonResult(context as unknown as Record<string, unknown>, `Context loaded: ${context.expenseCategories.length} expense categories, ${context.incomeCategories.length} income categories, and ${context.currencies.length} currencies. Classify every item, then call preview_transaction_import.`);
   });
 
@@ -209,10 +214,10 @@ const handler = createMcpHandler((server) => {
     title: "Get recent transactions", description: "Read recent expenses and income to check for duplicates before previewing an import.",
     inputSchema: { dateFrom: z.string().describe("Start date in YYYY-MM-DD."), dateTo: z.string().describe("End date in YYYY-MM-DD."), limit: z.number().int().min(1).max(200).optional().default(100) },
     annotations: { readOnlyHint: true, openWorldHint: false },
-  }, async ({ dateFrom, dateTo, limit }) => {
+  }, async ({ dateFrom, dateTo, limit }, extra) => {
     if (!isValidYmd(dateFrom) || !isValidYmd(dateTo) || dateFrom > dateTo) throw new Error("Provide a valid inclusive YYYY-MM-DD date range.");
     const range = { gte: parseDateForDb(dateFrom), lte: parseDateForDb(dateTo) };
-    const userId = requireUserId();
+    const userId = requireUserId(extra);
     const [expenses, income] = await Promise.all([
       prisma.expenses.findMany({ where: { user_id: userId, date: range }, select: { id: true, date: true, description: true, amount: true, category_id: true, subcategory_id: true, currencyId: true }, orderBy: { date: "desc" }, take: limit }),
       prisma.earning.findMany({ where: { user_id: userId, date: range }, select: { id: true, date: true, description: true, amount: true, category_id: true, subcategory_id: true, currencyId: true }, orderBy: { date: "desc" }, take: limit }),
@@ -230,8 +235,8 @@ const handler = createMcpHandler((server) => {
     inputSchema: { sourceCount: z.number().int().min(1).max(200), items: z.array(classifiedItemSchema).min(1).max(200) },
     annotations: { readOnlyHint: true, openWorldHint: false },
     _meta: { ui: { resourceUri: REVIEW_UI_URI }, "openai/outputTemplate": REVIEW_UI_URI },
-  }, async ({ sourceCount, items }) => {
-    const userId = requireUserId();
+  }, async ({ sourceCount, items }, extra) => {
+    const userId = requireUserId(extra);
     const uniqueIndexes = new Set(items.map((x) => x.sourceIndex));
     if (items.length !== sourceCount || uniqueIndexes.size !== sourceCount) throw new Error("Every source transaction must appear exactly once; sourceCount, item count, and unique source indexes must match.");
     for (const item of items) {
@@ -287,8 +292,9 @@ const handler = createMcpHandler((server) => {
     description: "Insert exactly the expenses in a signed preview token. Call only after explicit user confirmation. The token expires after 15 minutes; preview again after any requested change.",
     inputSchema: { reviewToken: z.string().min(20) },
     annotations: { destructiveHint: false, idempotentHint: false, openWorldHint: false },
-  }, async ({ reviewToken }) => {
-    const payload = decodeReviewToken(reviewToken);
+  }, async ({ reviewToken }, extra) => {
+    requireScope(extra, "transactions:write");
+    const payload = decodeReviewToken(reviewToken, requireUserId(extra));
     if (!payload.expenses.length) throw new Error("The reviewed batch contains no expenses to save.");
     const categories = await prisma.expense_category.findMany({ where: { user_id: payload.userId }, select: { id: true, expense_subcategory: { select: { id: true } } } });
     const categoryIds = new Set(categories.map((x) => x.id));
@@ -311,15 +317,27 @@ const handler = createMcpHandler((server) => {
   server.registerTool("get_summary", {
     title: "Get spending summary", description: "Get expense totals and category breakdown for a month.",
     inputSchema: { month: z.number().int().min(1).max(12).optional(), year: z.number().int().min(2000).max(2200).optional() }, annotations: { readOnlyHint: true, openWorldHint: false },
-  }, async ({ month, year }) => {
+  }, async ({ month, year }, extra) => {
     const now = new Date(); const selectedMonth = month || now.getMonth() + 1; const selectedYear = year || now.getFullYear();
-    const expenses = await prisma.expenses.findMany({ where: { user_id: requireUserId(), date: { gte: new Date(Date.UTC(selectedYear, selectedMonth - 1, 1)), lt: new Date(Date.UTC(selectedYear, selectedMonth, 1)) } }, select: { amount: true, expensecategory: { select: { name: true } } } });
+    const expenses = await prisma.expenses.findMany({ where: { user_id: requireUserId(extra), date: { gte: new Date(Date.UTC(selectedYear, selectedMonth - 1, 1)), lt: new Date(Date.UTC(selectedYear, selectedMonth, 1)) } }, select: { amount: true, expensecategory: { select: { name: true } } } });
     const byCategory = expenses.reduce<Record<string, { total: number; count: number }>>((summary, x) => { const name = x.expensecategory?.name || "Uncategorized"; summary[name] ||= { total: 0, count: 0 }; summary[name].total += Number(x.amount); summary[name].count += 1; return summary; }, {});
     const total = expenses.reduce((sum, x) => sum + Number(x.amount), 0);
     return jsonResult({ month: selectedMonth, year: selectedYear, count: expenses.length, total, byCategory }, `Spending for ${selectedYear}-${String(selectedMonth).padStart(2, "0")}: ${expenses.length} expense(s), total ${total.toFixed(2)}.`);
   });
 
   server.registerTool("get_dashboard_link", { title: "Get Track My Spend links", description: "Return dashboard URLs.", inputSchema: {}, annotations: { readOnlyHint: true, openWorldHint: false } }, async () => jsonResult({ dashboard: "https://trackmyspend.co/en/dashboard", expenses: "https://trackmyspend.co/en/dashboard/expenses", income: "https://trackmyspend.co/en/dashboard/income", savings: "https://trackmyspend.co/en/dashboard/savings" }, "Track My Spend dashboard: https://trackmyspend.co/en/dashboard"));
-}, { serverInfo: { name: "track-my-spend", version: "2.0.0" } }, { basePath: "/api", maxDuration: 60, disableSse: true });
+}, { serverInfo: { name: "track-my-spend", version: "3.0.0" } }, { basePath: "/api", maxDuration: 60, disableSse: true });
 
-export { handler as GET, handler as POST };
+const authenticatedHandler = withMcpAuth(handler, async (_request, bearerToken) => {
+  if (!bearerToken) return undefined;
+  try {
+    await ensureOAuthTokenTable(prisma);
+    const token = await prisma.mcp_oauth_token.findUnique({ where: { token_hash: hashToken(bearerToken) } });
+    if (!token || token.token_type !== "access_token" || token.resource !== MCP_RESOURCE || token.revoked_at || token.expires_at <= new Date()) return undefined;
+    const user = await prisma.users.findUnique({ where: { id: token.user_id }, select: { id: true, fully_signed_up: true } });
+    if (!user?.fully_signed_up) return undefined;
+    return { token: bearerToken, clientId: token.client_id, scopes: token.scopes.split(" "), expiresAt: Math.floor(token.expires_at.getTime() / 1000), resource: new URL(token.resource), extra: { userId: token.user_id } };
+  } catch { return undefined; }
+}, { required: true, requiredScopes: ["transactions:read"], resourceMetadataPath: "/.well-known/oauth-protected-resource/api/mcp", resourceUrl: MCP_RESOURCE });
+
+export { authenticatedHandler as GET, authenticatedHandler as POST };
