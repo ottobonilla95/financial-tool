@@ -2,7 +2,7 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 import { createMcpHandler, withMcpAuth } from "mcp-handler";
 import { Prisma, PrismaClient } from "@prisma/client";
 import { z } from "zod";
-import { ensureOAuthTokenTable, hashToken, MCP_RESOURCE } from "@/src/mcp/oauth";
+import { ensureOAuthTokenTable, hashToken, MCP_ORIGIN, MCP_RESOURCE } from "@/src/mcp/oauth";
 
 const prisma = new PrismaClient();
 const MCP_TIMEZONE = process.env.MCP_TIMEZONE || "Europe/Warsaw";
@@ -338,6 +338,6 @@ const authenticatedHandler = withMcpAuth(handler, async (_request, bearerToken) 
     if (!user?.fully_signed_up) return undefined;
     return { token: bearerToken, clientId: token.client_id, scopes: token.scopes.split(" "), expiresAt: Math.floor(token.expires_at.getTime() / 1000), resource: new URL(token.resource), extra: { userId: token.user_id } };
   } catch { return undefined; }
-}, { required: true, requiredScopes: ["transactions:read"], resourceMetadataPath: "/.well-known/oauth-protected-resource/api/mcp", resourceUrl: MCP_RESOURCE });
+}, { required: true, requiredScopes: ["transactions:read"], resourceMetadataPath: "/.well-known/oauth-protected-resource/api/mcp", resourceUrl: MCP_ORIGIN });
 
 export { authenticatedHandler as GET, authenticatedHandler as POST };
