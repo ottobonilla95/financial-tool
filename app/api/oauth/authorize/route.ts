@@ -33,18 +33,23 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const session = await auth(); if (!session?.user?.id) return oauthError("access_denied", "Your login session expired.", 401);
-  const form = await request.formData(); const token = String(form.get("consent") || "");
-  let consent: ConsentToken; try { consent = verifyEnvelope<ConsentToken>(token, "consent"); } catch { return oauthError("invalid_request", "The authorization request expired."); }
-  if (consent.userId !== session.user.id) return oauthError("access_denied", "This authorization belongs to another user.", 403);
-  const destination = new URL(consent.redirectUri);
-  if (form.get("decision") !== "approve") destination.searchParams.set("error", "access_denied");
-  else {
-    const code = randomId();
-    await ensureOAuthTokenTable(prisma);
-    await prisma.mcp_oauth_token.create({ data: { token_hash: hashToken(code), token_type: "authorization_code", user_id: consent.userId, client_id: consent.clientId, scopes: consent.scopes.join(" "), resource: consent.resource, redirect_uri: consent.redirectUri, code_challenge: consent.codeChallenge, expires_at: new Date(Date.now() + 5 * 60 * 1000) } });
-    destination.searchParams.set("code", code);
+  try {
+    const session = await auth(); if (!session?.user?.id) return oauthError("access_denied", "Your login session expired.", 401);
+    const form = await request.formData(); const token = String(form.get("consent") || "");
+    let consent: ConsentToken; try { consent = verifyEnvelope<ConsentToken>(token, "consent"); } catch { return oauthError("invalid_request", "The authorization request expired."); }
+    if (consent.userId !== session.user.id) return oauthError("access_denied", "This authorization belongs to another user.", 403);
+    const destination = new URL(consent.redirectUri);
+    if (form.get("decision") !== "approve") destination.searchParams.set("error", "access_denied");
+    else {
+      const code = randomId();
+      await ensureOAuthTokenTable(prisma);
+      await prisma.mcp_oauth_token.create({ data: { token_hash: hashToken(code), token_type: "authorization_code", user_id: consent.userId, client_id: consent.clientId, scopes: consent.scopes.join(" "), resource: consent.resource, redirect_uri: consent.redirectUri, code_challenge: consent.codeChallenge, expires_at: new Date(Date.now() + 5 * 60 * 1000) } });
+      destination.searchParams.set("code", code);
+    }
+    if (consent.state) destination.searchParams.set("state", consent.state);
+    return Response.redirect(destination, 303);
+  } catch (error) {
+    console.error("OAuth approval failed:", error);
+    return oauthError("server_error", "Could not issue the authorization code.", 500);
   }
-  if (consent.state) destination.searchParams.set("state", consent.state);
-  return Response.redirect(destination, 303);
 }
