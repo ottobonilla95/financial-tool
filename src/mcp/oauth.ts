@@ -60,7 +60,11 @@ export function allowedScopes(value?: string | null) {
 }
 
 export function oauthError(error: string, description: string, status = 400) {
-  return Response.json({ error, error_description: description }, { status, headers: { "Cache-Control": "no-store" } });
+  return oauthJson({ error, error_description: description }, status);
+}
+
+export function oauthJson(value: unknown, status = 200) {
+  return new Response(JSON.stringify(value), { status, headers: { "Content-Type": "application/json", "Cache-Control": "no-store", Pragma: "no-cache" } });
 }
 
 type SqlExecutor = { $executeRawUnsafe(query: string): Promise<number> };

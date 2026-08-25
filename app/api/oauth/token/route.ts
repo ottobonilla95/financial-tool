@@ -1,7 +1,9 @@
-import { allowedScopes, ensureOAuthTokenTable, hashToken, MCP_RESOURCE, oauthError, pkceS256, randomId, readClient } from "@/src/mcp/oauth";
+import { allowedScopes, ensureOAuthTokenTable, hashToken, MCP_RESOURCE, oauthError, oauthJson, pkceS256, randomId, readClient } from "@/src/mcp/oauth";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 async function tokens(userId: string, clientId: string, scopes: string[], resource: string, includeRefresh = true) {
   const access_token = randomId(); const refresh_token = includeRefresh ? randomId() : undefined;
@@ -24,7 +26,7 @@ export async function POST(request: Request) {
     if (code.client_id !== clientId || code.redirect_uri !== redirectUri || code.resource !== resource || pkceS256(verifier) !== code.code_challenge) return oauthError("invalid_grant", "Authorization code validation failed.");
     const consumed = await prisma.mcp_oauth_token.updateMany({ where: { id: code.id, used_at: null }, data: { used_at: new Date() } });
     if (consumed.count !== 1) return oauthError("invalid_grant", "Authorization code was already used.");
-    return Response.json(await tokens(code.user_id, clientId, code.scopes.split(" "), resource), { headers: { "Cache-Control": "no-store", Pragma: "no-cache" } });
+    return oauthJson(await tokens(code.user_id, clientId, code.scopes.split(" "), resource));
   }
   if (grant === "refresh_token") {
     const rawRefresh = String(form.get("refresh_token") || "");
@@ -33,7 +35,7 @@ export async function POST(request: Request) {
     const resource = String(form.get("resource") || refresh.resource); const originalScopes = refresh.scopes.split(" "); let scopes: string[];
     try { scopes = form.get("scope") ? allowedScopes(String(form.get("scope"))) : originalScopes; } catch { return oauthError("invalid_scope", "Unsupported scope."); }
     if (refresh.client_id !== clientId || resource !== refresh.resource || scopes.some((x) => !originalScopes.includes(x))) return oauthError("invalid_grant", "Refresh token validation failed.");
-    return Response.json(await tokens(refresh.user_id, clientId, scopes, resource, false), { headers: { "Cache-Control": "no-store", Pragma: "no-cache" } });
+    return oauthJson(await tokens(refresh.user_id, clientId, scopes, resource, false));
   }
   return oauthError("unsupported_grant_type", "Use authorization_code or refresh_token.");
 }
