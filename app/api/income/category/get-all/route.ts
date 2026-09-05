@@ -1,6 +1,8 @@
 import { auth } from "@/auth";
 import { fetchIncomeCategories } from "@/src/data/income-category";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     const session = await auth();
