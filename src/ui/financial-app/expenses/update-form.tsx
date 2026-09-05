@@ -174,7 +174,7 @@ export const UpdateExpenseForm = ({
   }, [showSubcategories]);
 
   useEffect(() => {
-    if (categories.length > 0) {
+    if (data) {
       setSelectedCategory(expense.category.id);
       const subCategories =
         categories.find((category) => category.id === expense.category.id)
@@ -188,7 +188,7 @@ export const UpdateExpenseForm = ({
       setShowSubcategories(true);
       setRenderForm(true);
     }
-  }, [expense, categories]);
+  }, [expense, categories, data]);
 
   // Add useEffect for currency animation
   useEffect(() => {

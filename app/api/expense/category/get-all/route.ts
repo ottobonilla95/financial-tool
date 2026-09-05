@@ -2,9 +2,22 @@ import { auth } from "@/auth";
 import { fetchExpensesCategories } from "@/src/data/expense-category";
 
 export async function GET() {
-  const session = await auth();
+  try {
+    const session = await auth();
+    const userId = session?.user?.id;
 
-  const categories = await fetchExpensesCategories(session?.user?.id as string);
+    if (!userId) {
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
-  return Response.json({ categories });
+    const categories = await fetchExpensesCategories(userId);
+
+    return Response.json({ categories });
+  } catch (error) {
+    console.error("Failed to fetch expense categories:", error);
+    return Response.json(
+      { error: "Failed to fetch expense categories" },
+      { status: 500 }
+    );
+  }
 }

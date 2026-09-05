@@ -2,9 +2,22 @@ import { auth } from "@/auth";
 import { fetchIncomeCategories } from "@/src/data/income-category";
 
 export async function GET() {
-  const session = await auth();
+  try {
+    const session = await auth();
+    const userId = session?.user?.id;
 
-  const categories = await fetchIncomeCategories(session?.user?.id as string);
+    if (!userId) {
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
-  return Response.json({ categories });
+    const categories = await fetchIncomeCategories(userId);
+
+    return Response.json({ categories });
+  } catch (error) {
+    console.error("Failed to fetch income categories:", error);
+    return Response.json(
+      { error: "Failed to fetch income categories" },
+      { status: 500 }
+    );
+  }
 }
