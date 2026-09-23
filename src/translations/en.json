@@ -18,6 +18,7 @@
     "showThroughToday": "Show through today",
     "futureDaysShownAsZero": "Future days in the current month are shown as zero.",
     "totalSpendingThroughDay": "Total spending from day 1 through day {day}",
+    "selectedCategoriesComparison": "Selected categories only. Overall totals include all categories.",
     "percentageChange": "Percentage change",
     "noPreviousPeriodSpending": "No spending in the previous period to compare.",
     "day": "Day",

@@ -78,6 +78,13 @@ export const DailyExpensesComparisonChart = ({
     () => new Set(selectedCategories),
     [selectedCategories]
   );
+  const hasCategoryFilter =
+    currentExpenses.some(
+      (expense) => !selectedCategoryIds.has(expense.category.id)
+    ) ||
+    previousExpenses.some(
+      (expense) => !selectedCategoryIds.has(expense.category.id)
+    );
 
   const filteredCurrentExpenses = useMemo(
     () =>
@@ -132,7 +139,8 @@ export const DailyExpensesComparisonChart = ({
       ? "—"
       : new Intl.NumberFormat(lang, {
           style: "percent",
-          maximumFractionDigits: 1,
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
           signDisplay: "exceptZero",
         }).format(changeRatio);
 
@@ -250,12 +258,19 @@ export const DailyExpensesComparisonChart = ({
         </ChartContainer>
 
         <div className="mt-6 border-t border-gray-100 pt-5">
-          <h3 className="mb-4 text-sm font-medium text-gray-600">
-            {dict.dashboard.totalSpendingThroughDay.replace(
-              "{day}",
-              String(comparisonDayCount)
+          <div className="mb-4">
+            <h3 className="text-sm font-medium text-gray-600">
+              {dict.dashboard.totalSpendingThroughDay.replace(
+                "{day}",
+                String(comparisonDayCount)
+              )}
+            </h3>
+            {hasCategoryFilter && (
+              <p className="mt-1 text-xs text-gray-500">
+                {dict.dashboard.selectedCategoriesComparison}
+              </p>
             )}
-          </h3>
+          </div>
           <dl className="grid gap-6 sm:grid-cols-3">
             {(["current", "previous"] as const).map((period) => (
               <div key={period} className="min-w-0">

@@ -18,6 +18,7 @@ export type AppDictionary = {
     showThroughToday: string;
     futureDaysShownAsZero: string;
     totalSpendingThroughDay: string;
+    selectedCategoriesComparison: string;
     percentageChange: string;
     noPreviousPeriodSpending: string;
     day: string;

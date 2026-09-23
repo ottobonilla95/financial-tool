@@ -18,6 +18,7 @@
     "showThroughToday": "Ver hasta hoy",
     "futureDaysShownAsZero": "Los días futuros del mes actual se muestran en cero.",
     "totalSpendingThroughDay": "Gastos totales del día 1 al {day}",
+    "selectedCategoriesComparison": "Solo categorías seleccionadas. Los totales generales incluyen todas las categorías.",
     "percentageChange": "Cambio porcentual",
     "noPreviousPeriodSpending": "No hay gastos en el período anterior para comparar.",
     "day": "Día",

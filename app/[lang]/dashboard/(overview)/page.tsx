@@ -205,11 +205,12 @@ export default async function Page({
     redirect("/dashboard/pricing");
   }
 
-  // Get unique categories from expenses and earnings
+  // Include previous-month categories so "select all" compares all spending.
   const allCategories = Array.from(
     new Map(
       [
         ...expensesCurrent.map((e) => e.category),
+        ...expensesMonth2.map((e) => e.category),
         ...earningsCurrent.map((e) => e.category),
       ].map((category) => [category.id, category])
     ).values()
