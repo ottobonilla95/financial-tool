@@ -27,14 +27,6 @@ export const YourRelationWithMoneyWillChangeEn = () => {
         <li>
           ✅{" "}
           <span>
-            <strong>Receive AI-powered personalized tips</strong> based on your
-            habits and emotions.
-          </span>
-        </li>
-
-        <li>
-          ✅{" "}
-          <span>
             <strong>Identify hidden patterns</strong> in your finances and make
             better decisions.
           </span>

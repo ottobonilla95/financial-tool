@@ -4,7 +4,6 @@ import {
   Testimonials,
   PainPoints,
   YourRelationWithMoneyWillChange,
-  AIAssistant,
   HowToUse,
   GuaranteeSection,
   PricingOfferSection,
@@ -64,12 +63,6 @@ export default async function MainPage({
 
               <YourRelationWithMoneyWillChange lang={lang} />
             </div>
-          </Container>
-        </div>
-
-        <div className="bg-neutral-100">
-          <Container variant="narrow">
-            <AIAssistant lang={lang} />
           </Container>
         </div>
 

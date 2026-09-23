@@ -7,7 +7,6 @@ import {
   PricingOfferSection,
   GuaranteeSection,
   YourRelationWithMoneyWillChange,
-  AIAssistant,
   PainPoints,
 } from "@/src/ui/financial-app/home-page";
 import FAQs from "@/src/ui/faqs/faqs";
@@ -57,12 +56,6 @@ export default async function MainPage({
               <div className="text-[80px] text-center ">🔥</div>
               <YourRelationWithMoneyWillChange lang={lang} />
             </div>
-          </Container>
-        </div>
-
-        <div className="bg-neutral-100">
-          <Container variant="narrow">
-            <AIAssistant lang={lang} />
           </Container>
         </div>
 

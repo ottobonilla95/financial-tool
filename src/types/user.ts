@@ -16,8 +16,4 @@ export type User = {
   pricingGroup: string;
   lang: string;
   createdAt: string;
-  goalAmount?: number;
-  goalTimeframe?: string;
-  goalDescription?: string;
-  lastAdviceDate?: string;
 };

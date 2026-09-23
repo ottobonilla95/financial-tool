@@ -14,6 +14,12 @@
     "totalExpensesPerDayByCategory": "Gastos totales por día por categoría",
     "dailyExpensesComparison": "Gastos diarios: mes actual vs mes anterior",
     "comparingThroughDay": "Comparando ambos meses desde el día 1 hasta el día {day}.",
+    "showFullMonth": "Ver mes completo",
+    "showThroughToday": "Ver hasta hoy",
+    "futureDaysShownAsZero": "Los días futuros del mes actual se muestran en cero.",
+    "totalSpendingThroughDay": "Gastos totales del día 1 al {day}",
+    "percentageChange": "Cambio porcentual",
+    "noPreviousPeriodSpending": "No hay gastos en el período anterior para comparar.",
     "day": "Día",
     "totalExpensesPerCategory": "Gastos totales por categoría",
     "samePeriodLastMonth": "Mismo período del mes pasado",
@@ -27,14 +33,6 @@
     "filterByCategory": "Filtrar por categoría",
     "selectAll": "Seleccionar todo",
     "deselectAll": "Deseleccionar todo"
-  },
-  "ai": {
-    "aiFinancialAdvisor": "Asesor financiero con IA",
-    "getFinancialAdvise": "Obtén asesoría financiera",
-    "analyzing": "Analizando",
-    "hi": "Hola,",
-    "imYourFinancialAdvisor": "Soy tu asesor financiero con IA",
-    "comeBackTomorrow": "Ya has recibido un consejo hoy. ¡Vuelve mañana para más asesoría!"
   },
   "forms": {
     "expense": {

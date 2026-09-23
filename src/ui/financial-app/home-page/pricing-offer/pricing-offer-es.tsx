@@ -89,12 +89,6 @@ export const PricingOfferSectionEs = ({
               <li className="flex">
                 <CheckCircleIcon className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" />
                 <div className="flex-1">
-                  Asistente de IA con consejos financieros personalizados
-                </div>
-              </li>
-              <li className="flex">
-                <CheckCircleIcon className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" />
-                <div className="flex-1">
                   Soporte prioritario por email y solicitud de funciones
                 </div>
               </li>

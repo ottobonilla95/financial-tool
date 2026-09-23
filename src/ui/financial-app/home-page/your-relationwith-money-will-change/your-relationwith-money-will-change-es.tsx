@@ -27,14 +27,6 @@ export const YourRelationWithMoneyWillChangeEs = () => {
         <li>
           ✅{" "}
           <span>
-            <strong>Recibe consejos personalizados de IA</strong> basados en tus
-            hábitos y emociones.
-          </span>
-        </li>
-
-        <li>
-          ✅{" "}
-          <span>
             <strong>Identifica patrones ocultos</strong> en tus finanzas y toma
             mejores decisiones.
           </span>

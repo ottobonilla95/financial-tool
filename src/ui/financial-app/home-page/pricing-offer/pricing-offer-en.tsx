@@ -92,12 +92,6 @@ export const PricingOfferSectionEn = ({
               <li className="flex">
                 <CheckCircleIcon className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" />
                 <div className="flex-1">
-                  AI assistant with personalized financial tips
-                </div>
-              </li>
-              <li className="flex">
-                <CheckCircleIcon className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" />
-                <div className="flex-1">
                   Priority email support and feature requests
                 </div>
               </li>

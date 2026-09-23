@@ -14,6 +14,12 @@ export type AppDictionary = {
     totalExpensesPerDayByCategory: string;
     dailyExpensesComparison: string;
     comparingThroughDay: string;
+    showFullMonth: string;
+    showThroughToday: string;
+    futureDaysShownAsZero: string;
+    totalSpendingThroughDay: string;
+    percentageChange: string;
+    noPreviousPeriodSpending: string;
     day: string;
     totalExpensesPerCategory: string;
     samePeriodLastMonth: string;
@@ -27,14 +33,6 @@ export type AppDictionary = {
     filterByCategory: string;
     selectAll: string;
     deselectAll: string;
-  };
-  ai: {
-    aiFinancialAdvisor: string;
-    getFinancialAdvise: string;
-    analyzing: string;
-    hi: string;
-    imYourFinancialAdvisor: string;
-    comeBackTomorrow: string;
   };
   forms: {
     expense: {

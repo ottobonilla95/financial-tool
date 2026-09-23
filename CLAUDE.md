@@ -1,6 +1,6 @@
 # Track My Spend
 
-A bilingual (EN/ES) budgeting and expense tracking web application with AI-powered financial insights.
+A bilingual (EN/ES) budgeting and expense tracking web application.
 
 ## Tech Stack
 
@@ -9,7 +9,7 @@ A bilingual (EN/ES) budgeting and expense tracking web application with AI-power
 - **Database**: PostgreSQL (Neon serverless)
 - **Auth**: NextAuth 5 (Credentials provider, bcrypt hashing)
 - **Payments**: Hotmart (one-time purchases), Stripe (subscriptions)
-- **AI**: OpenAI GPT-4o for financial advisor
+- **AI**: OpenAI for expense import
 - **Charts**: Nivo, Chart.js, AG Charts, Visx
 - **Marketing**: Systeme.io (email automation), Facebook Pixel
 
@@ -25,7 +25,7 @@ npm start        # Production server on port 3005
 
 ```
 app/
-├── api/                    # API routes (expense, income, hotmart, stripe, advisor)
+├── api/                    # API routes (expense, income, hotmart, stripe, MCP)
 └── [lang]/                 # i18n routes (en, es)
     ├── dashboard/          # Protected app pages
     ├── login/, signup/     # Auth pages
@@ -83,8 +83,7 @@ Flow:
 - Expense/income tracking with categories and subcategories
 - Multi-currency support with exchange rates
 - Emotional spending analysis (emotion + satisfaction 1-5)
-- AI financial advisor (premium)
-- Savings goals tracking
+- Savings tracking
 - Interactive dashboard with charts
 - Onboarding tour (Reactour)
 
@@ -107,7 +106,7 @@ Flow:
 Required in `.env`:
 - `DATABASE_URL` / `POSGRES_PRISMA_URL` - Neon PostgreSQL
 - `AUTH_SECRET` - NextAuth secret
-- `OPENAI_API_KEY` - AI advisor + MCP expense parsing
+- `OPENAI_API_KEY` - AI expense import
 - `MCP_USER_ID` - User ID for MCP endpoint auth (single-user)
 - `STRIPE_*` - Payment processing
 - `SYSTEME_API_KEY` - Email marketing
