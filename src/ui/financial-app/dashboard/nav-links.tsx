@@ -2,6 +2,7 @@
 
 import {
   HomeIcon,
+  Cog6ToothIcon,
   PresentationChartLineIcon,
   UserGroupIcon,
   UserIcon,
@@ -58,6 +59,11 @@ export default function NavLinks({ dict }: NavLinksProps) {
       className: "tour-step-7",
     },
     {
+      name: dict.settings.title,
+      href: "/dashboard/settings",
+      icon: Cog6ToothIcon,
+    },
+    {
       name: dict.sideMenu.account,
       href: "/dashboard/account",
       icon: UserIcon,
@@ -75,7 +81,8 @@ export default function NavLinks({ dict }: NavLinksProps) {
         return (
           <Link
             key={link.name}
-            href={link.href}
+            href={`/${lang}${link.href}`}
+            aria-label={link.name}
             className={clsx(
               "flex h-[48px] grow items-center justify-center gap-2 hover:bg-gray-500 hover:text-white rounded-md bg-gray-50 p-3 text-sm font-medium md:flex-none md:justify-start md:p-2 md:px-3",
               link.className,

@@ -1,4 +1,32 @@
 export type AppDictionary = {
+  settings: {
+    title: string;
+    description: string;
+    categories: string;
+    categoryType: string;
+    expense: string;
+    income: string;
+    name: string;
+    color: string;
+    add: string;
+    save: string;
+    saving: string;
+    cancel: string;
+    edit: string;
+    delete: string;
+    confirmDelete: string;
+    transactions: string;
+    subcategories: string;
+    deleteHint: string;
+    empty: string;
+    saved: string;
+    error: string;
+    invalid: string;
+    signIn: string;
+    missing: string;
+    inUse: string;
+    limit: string;
+  };
   dashboard: {
     lastUpdated: string;
     addSaving: string;
