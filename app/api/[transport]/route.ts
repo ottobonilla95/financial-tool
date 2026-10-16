@@ -317,6 +317,33 @@ const handler = createMcpHandler((server) => {
     return jsonResult(receipt, `Saved ${result.count} confirmed expense(s). Excluded source items were not inserted.`);
   });
 
+  server.registerTool("update_expense_date", {
+    title: "Update an expense date",
+    description: "Correct the calendar date of an existing expense after the user requests the change. Read get_recent_transactions first and pass the saved date as expectedDate. Updates only the date; never creates a replacement expense. On a conflict, read the expense again before retrying.",
+    inputSchema: {
+      expenseId: z.string().uuid(),
+      expectedDate: z.string().refine(isValidYmd, "Expected date must be a valid YYYY-MM-DD calendar date."),
+      date: z.string().refine(isValidYmd, "New date must be a valid YYYY-MM-DD calendar date."),
+    },
+    annotations: { destructiveHint: true, idempotentHint: true, openWorldHint: false },
+  }, async ({ expenseId, expectedDate, date }, extra) => {
+    requireScope(extra, "transactions:write");
+    const userId = requireUserId(extra);
+    const expense = await prisma.$transaction(async (tx) => {
+      const result = await tx.expenses.updateMany({
+        where: { id: expenseId, user_id: userId, date: parseDateForDb(expectedDate) },
+        data: { date: parseDateForDb(date) },
+      });
+      if (result.count !== 1) throw new Error("Expense not found or its date changed. Read recent transactions again before retrying.");
+      await tx.users.update({ where: { id: userId }, data: { last_updated: new Date() } });
+      return tx.expenses.findFirstOrThrow({
+        where: { id: expenseId, user_id: userId },
+        select: { id: true, date: true, description: true, amount: true, category_id: true, subcategory_id: true, currencyId: true },
+      });
+    });
+    return jsonResult({ status: "updated", previousDate: expectedDate, expense: { ...expense, date: toYmd(expense.date), amount: Number(expense.amount) } }, `Updated ${expense.description || "expense"} from ${expectedDate} to ${date}. Amount and category unchanged.`);
+  });
+
   server.registerTool("get_summary", {
     title: "Get spending summary", description: "Get expense totals and category breakdown for a month.",
     inputSchema: { month: z.number().int().min(1).max(12).optional(), year: z.number().int().min(2000).max(2200).optional() }, annotations: { readOnlyHint: true, openWorldHint: false },
