@@ -1,5 +1,5 @@
-import { auth } from "@/auth";
-import { fetchExpensesCategories } from "@/src/data/expense-category";
+import { sessionAuth as auth } from "@/src/auth/session";
+import { fetchExpensesCategories } from "@/src/data/expense-category/fetch-categories";
 
 export const dynamic = "force-dynamic";
 

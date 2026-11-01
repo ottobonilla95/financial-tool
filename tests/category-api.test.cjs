@@ -33,8 +33,8 @@ for (const kind of ['income', 'expense']) {
     const calls = [];
     const categories = [{ id: 'category', name: 'Salary', subcategories: [] }];
     const route = load(`app/api/${kind}/category/get-all/route.ts`, {
-      '@/auth': { auth: async () => session },
-      [`@/src/data/${kind === 'income' ? 'income' : 'expense'}-category`]: {
+      '@/src/auth/session': { sessionAuth: async () => session },
+      [`@/src/data/${kind === 'income' ? 'income' : 'expense'}-category/fetch-categories`]: {
         [kind === 'income' ? 'fetchIncomeCategories' : 'fetchExpensesCategories']: async owner => { calls.push(owner); return categories; },
       },
     });
