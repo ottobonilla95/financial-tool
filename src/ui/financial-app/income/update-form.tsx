@@ -12,6 +12,7 @@ import {
   CreateIncomeSubCategoryForm,
 } from "../income-categories";
 import useSWR from "swr";
+import { CategoryLoadError } from "../category-load-error";
 import { fetcher } from "@/src/utils/fetcher";
 import { CancelButton, SubmitButton } from "../../forms";
 import { formatDateToLocal } from "@/src/helpers/format-date-to-local";
@@ -89,6 +90,7 @@ export const UpdateIncomeForm = ({
     data,
     mutate: getAllCategories,
     isLoading,
+    error: categoryLoadError,
   } = useSWR("/api/income/category/get-all", fetcher, {
     revalidateOnFocus: false,
   });
@@ -217,6 +219,12 @@ export const UpdateIncomeForm = ({
     startDate.getUTCDate()
   );
   if (!renderForm) {
+    if (categoryLoadError) return (
+      <Modal isOpen onCloseModal={closeModal}>
+        <CategoryLoadError error={categoryLoadError} retry={() => getAllCategories()} />
+        <CancelButton onClick={closeModal} />
+      </Modal>
+    );
     return null;
   }
 
@@ -402,6 +410,8 @@ export const UpdateIncomeForm = ({
                 />
                 <input type="hidden" name="originalAmount" value={amount} />
                 <input type="hidden" name="exchangeRate" value={exchangeRate} />
+
+                <CategoryLoadError error={categoryLoadError} retry={() => getAllCategories()} />
 
                 {/* Category */}
                 <div className="mb-4">

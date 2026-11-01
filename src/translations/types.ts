@@ -112,6 +112,8 @@ export type AppDictionary = {
     };
     shared: {
       category: string;
+      categoryLoadError: string;
+      retry: string;
       subcategory: string;
       description: string;
       amount: string;

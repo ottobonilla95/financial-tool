@@ -22,6 +22,7 @@ function harness(count = 1) {
     zod: z,
     '@prisma/client': { PrismaClient: class { async $transaction(fn) { return fn(tx); } } },
     '@/src/mcp/oauth': {},
+    '@/src/mcp/income': { registerIncomeTools() {} },
     'mcp-handler': {
       createMcpHandler: register => {
         register({ registerResource() {}, registerPrompt() {}, registerTool: (name, config, run) => { tools[name] = { config, run }; } });

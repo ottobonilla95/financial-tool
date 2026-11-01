@@ -12,6 +12,7 @@ import {
   CreateIncomeSubCategoryForm,
 } from "../income-categories";
 import useSWR from "swr";
+import { CategoryLoadError } from "../category-load-error";
 import { fetcher } from "@/src/utils/fetcher";
 import { CancelButton, SubmitButton } from "../../forms";
 import { formatDateToLocal } from "@/src/helpers/format-date-to-local";
@@ -74,6 +75,7 @@ export const CreateIncomeForm = ({
     data,
     mutate: getAllCategories,
     isLoading,
+    error: categoryLoadError,
   } = useSWR("/api/income/category/get-all", fetcher, {
     revalidateOnFocus: false,
   });
@@ -374,6 +376,8 @@ export const CreateIncomeForm = ({
                 />
                 <input type="hidden" name="originalAmount" value={amount} />
                 <input type="hidden" name="exchangeRate" value={exchangeRate} />
+
+                <CategoryLoadError error={categoryLoadError} retry={() => getAllCategories()} />
 
                 {/* Category */}
                 <div className="mb-4">

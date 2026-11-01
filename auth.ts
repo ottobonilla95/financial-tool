@@ -2,7 +2,6 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { authConfig } from "./auth.config";
 import { z } from "zod";
-import bcrypt from "bcrypt";
 import { getDBUser } from "./src/data/user";
 import { User } from "./src/types";
 
@@ -57,6 +56,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
           if (!user.fullySignedUp) return null;
 
+          // Session reads do not need the native password-hashing module.
+          const { default: bcrypt } = await import("bcrypt");
           const passwordsMatch = await bcrypt.compare(
             password,
             user.password as string

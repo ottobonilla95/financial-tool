@@ -113,6 +113,8 @@
     },
     "shared": {
       "category": "Categoría",
+      "categoryLoadError": "No se pudieron cargar tus categorías. Inténtalo de nuevo.",
+      "retry": "Reintentar",
       "subcategory": "Subcategoría",
       "description": "Descripción",
       "amount": "Monto",

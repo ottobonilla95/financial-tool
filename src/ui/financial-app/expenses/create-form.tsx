@@ -17,6 +17,7 @@ import {
   UpdateCategoryForm,
 } from "../expense-categories";
 import useSWR from "swr";
+import { CategoryLoadError } from "../category-load-error";
 import { fetcher } from "@/src/utils/fetcher";
 import { CancelButton, SubmitButton } from "../../forms";
 import clsx from "clsx";
@@ -122,6 +123,7 @@ export const CreateExpenseForm = ({
     data,
     mutate: getAllCategories,
     isLoading,
+    error: categoryLoadError,
   } = useSWR("/api/expense/category/get-all", fetcher, {
     revalidateOnFocus: false,
   });
@@ -551,6 +553,8 @@ export const CreateExpenseForm = ({
                 {/* Add hidden field for original amount in foreign currency if applicable */}
 
                 <input type="hidden" name="originalAmount" value={amount} />
+
+                <CategoryLoadError error={categoryLoadError} retry={() => getAllCategories()} />
 
                 {/* Category */}
                 {showCategories && (

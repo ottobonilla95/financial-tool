@@ -3,6 +3,7 @@ import { createMcpHandler, withMcpAuth } from "mcp-handler";
 import { Prisma, PrismaClient } from "@prisma/client";
 import { z } from "zod";
 import { ensureOAuthTokenTable, hashToken, MCP_ORIGIN, MCP_RESOURCE } from "@/src/mcp/oauth";
+import { registerIncomeTools } from "@/src/mcp/income";
 
 const prisma = new PrismaClient();
 const MCP_TIMEZONE = process.env.MCP_TIMEZONE || "Europe/Warsaw";
@@ -185,6 +186,7 @@ const initId='track-my-spend-'+Date.now();window.addEventListener('message',e=>{
 </script></body></html>`;
 
 const handler = createMcpHandler((server) => {
+  registerIncomeTools(server, prisma);
   server.registerResource("transaction-import-policy", "trackmyspend://transaction-import-policy", {
     title: "Track My Spend transaction import policy", description: "Portable rules for classifying and importing transactions.", mimeType: "application/json",
   }, async (_uri, extra) => {

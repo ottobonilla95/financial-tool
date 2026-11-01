@@ -25,6 +25,7 @@ import {
   UpdateCategoryForm,
 } from "../expense-categories";
 import useSWR from "swr";
+import { CategoryLoadError } from "../category-load-error";
 import { fetcher } from "@/src/utils/fetcher";
 import { CancelButton, SubmitButton } from "../../forms";
 import clsx from "clsx";
@@ -141,6 +142,7 @@ export const UpdateExpenseForm = ({
     data,
     mutate: getAllCategories,
     isLoading,
+    error: categoryLoadError,
   } = useSWR("/api/expense/category/get-all", fetcher, {
     revalidateOnFocus: false,
   });
@@ -278,6 +280,12 @@ export const UpdateExpenseForm = ({
   };
 
   if (!renderForm) {
+    if (categoryLoadError) return (
+      <Modal isOpen onCloseModal={closeModal}>
+        <CategoryLoadError error={categoryLoadError} retry={() => getAllCategories()} />
+        <CancelButton onClick={closeModal} />
+      </Modal>
+    );
     return null;
   }
 
@@ -486,6 +494,8 @@ export const UpdateExpenseForm = ({
                 />
                 <input type="hidden" name="originalAmount" value={amount} />
                 <input type="hidden" name="exchangeRate" value={exchangeRate} />
+
+                <CategoryLoadError error={categoryLoadError} retry={() => getAllCategories()} />
 
                 {/* Category */}
                 {showCategories && (

@@ -88,11 +88,15 @@ The MCP server does not call an LLM; the connected assistant classifies source t
 | `get_recent_transactions` | Check recent records for possible duplicates |
 | `preview_transaction_import` | Validate a reconciled batch and return a signed review token valid for 15 minutes |
 | `commit_transaction_import` | Save reviewed expenses after explicit user confirmation |
+| `preview_income` | Validate one income entry, check for duplicates, and issue a signed review token |
+| `commit_income` | Save confirmed income; retrying the same token returns the existing entry |
 | `update_expense_date` | Correct an expense date using its expected saved date to detect conflicts |
 | `get_summary` | Get a monthly expense summary by category |
 | `get_dashboard_link` | Return links; currently hardcoded to the hosted service |
 
 Import flow: get context → classify all source records → check duplicates → preview → user confirms → commit. Source classifications are `expense`, `income`, `refund`, `declined`, `reversed`, `transfer`, `duplicate`, `non_transaction`, and `uncertain`. Only expenses can be committed through this import workflow. Review tokens are reusable within their validity period, so repeating a commit can insert duplicates.
+
+To record income, use `preview_income` with a real income category from the context, show the preview, then call `commit_income` after confirmation. Income review tokens expire after 15 minutes and contain a stable entry ID, so retries cannot create duplicate entries. Existing expenses continue to use the separate batch import flow above.
 
 The server also provides the `import_transactions` prompt, the `trackmyspend://transaction-import-policy` resource, and an optional MCP Apps review interface with text and structured-data fallbacks. Client support varies.
 

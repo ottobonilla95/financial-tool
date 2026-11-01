@@ -112,6 +112,8 @@
     },
     "shared": {
       "category": "Category",
+      "categoryLoadError": "Could not load your categories. Please try again.",
+      "retry": "Retry",
       "subcategory": "Subcategory",
       "description": "Description",
       "amount": "Amount",
