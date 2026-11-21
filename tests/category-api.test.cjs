@@ -47,3 +47,34 @@ for (const kind of ['income', 'expense']) {
     assert.deepEqual(calls, ['owner']);
   });
 }
+
+test('starting MCP preserves Next.js and category API responses', async () => {
+  const { NextResponse } = require('next/server');
+  const { StreamableHTTPServerTransport } = require('@modelcontextprotocol/sdk/server/streamableHttp.js');
+  const originalResponse = globalThis.Response;
+  const originalRequest = globalThis.Request;
+  const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
+  try {
+    assert.ok(NextResponse.json({ ok: true }) instanceof Response,
+      'Next.js responses must remain valid after the MCP transport starts');
+    for (const kind of ['income', 'expense']) {
+      const categories = [{ id: 'category', name: 'Example', subcategories: [] }];
+      const route = load(`app/api/${kind}/category/get-all/route.ts`, {
+        '@/src/auth/session': { sessionAuth: async () => ({ user: { id: 'owner' } }) },
+        [`@/src/data/${kind === 'income' ? 'income' : 'expense'}-category/fetch-categories`]: {
+          [kind === 'income' ? 'fetchIncomeCategories' : 'fetchExpensesCategories']: async () => categories,
+        },
+      });
+      const response = await route.GET();
+      assert.ok(response instanceof Response, `${kind} category response must pass Next.js validation`);
+      assert.equal(response.status, 200);
+      assert.deepEqual(await response.json(), { categories });
+    }
+    assert.equal(globalThis.Response, originalResponse);
+    assert.equal(globalThis.Request, originalRequest);
+  } finally {
+    await transport.close();
+    globalThis.Response = originalResponse;
+    globalThis.Request = originalRequest;
+  }
+});
