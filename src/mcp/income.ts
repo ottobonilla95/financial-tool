@@ -4,6 +4,10 @@ import type { Prisma, PrismaClient } from "@prisma/client";
 import { z } from "zod";
 
 const TTL_MS = 15 * 60 * 1000;
+const categoryInputSchema = z.object({
+  name: z.string().trim().min(1).max(100),
+  color: z.string().regex(/^#[0-9a-fA-F]{6}$/, "Use a six-digit hex color.").optional().default("#10d61e"),
+});
 const validDate = (value: string) => {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
   const date = new Date(`${value}T12:00:00Z`);
@@ -68,9 +72,44 @@ function result(data: Record<string, unknown>, text: string) {
 }
 
 export function registerIncomeTools(server: Pick<McpServer, "registerTool">, prisma: PrismaClient) {
+  server.registerTool("create_income_category", {
+    title: "Create an income category",
+    description: "Create an income category requested by the user, such as Tax refund, when no existing income category fits. Requires transactions:write. Reuses an existing category with the same trimmed, case-insensitive name without changing its color or subcategories. Returns the category ID for preview_income; does not save income.",
+    inputSchema: categoryInputSchema.shape,
+    annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: false },
+  }, async (args, extra) => {
+    const owner = userId(extra, "transactions:write");
+    const input = categoryInputSchema.parse(args);
+    const receipt = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+      // Serialize category creation for this account so concurrent MCP retries
+      // cannot both pass the duplicate check. The lock ends with the transaction.
+      const users = await tx.$queryRaw<Array<{ id: string }>>`
+        SELECT id FROM users WHERE id = ${owner}::uuid FOR UPDATE
+      `;
+      if (!users.length) throw new Error("Authenticated user no longer exists.");
+      const select = { id: true, name: true, color: true, earning_subcategory: { select: { id: true, name: true } } } as const;
+      const existing = await tx.earning_category.findFirst({
+        where: { user_id: owner, name: { equals: input.name, mode: "insensitive" } },
+        select,
+        orderBy: { id: "asc" },
+      });
+      const category = existing || await tx.earning_category.create({
+        data: { user_id: owner, name: input.name, color: input.color },
+        select,
+      });
+      if (!existing) await tx.users.update({ where: { id: owner }, data: { last_updated: new Date() } });
+      return {
+        status: existing ? "already_exists" : "created",
+        createdCount: existing ? 0 : 1,
+        category: { id: category.id, name: category.name, color: category.color || "", subcategories: category.earning_subcategory },
+      };
+    });
+    return result(receipt, `${receipt.createdCount ? "Created" : "Reused existing"} income category: ${receipt.category.name}. Category ID: ${receipt.category.id}. Use this ID with preview_income, then confirm the income preview before saving.`);
+  });
+
   server.registerTool("preview_income", {
     title: "Preview income entry",
-    description: "Prepare one completed income entry for review without saving it. First get real income category IDs from get_transaction_import_context, check duplicates, and resolve missing dates or currency. Show this exact preview before commit_income. Internal transfers are not income.",
+    description: "Prepare one completed income entry for review without saving it. First get real income category IDs from get_transaction_import_context; if none fits, use create_income_category for a user-requested category. Check duplicates and resolve missing dates or currency. Show this exact preview before commit_income. Internal transfers are not income.",
     inputSchema: inputSchema.shape,
     annotations: { readOnlyHint: true, openWorldHint: false },
   }, async (args, extra) => {

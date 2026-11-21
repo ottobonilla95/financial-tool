@@ -151,7 +151,8 @@ async function getImportContext(userId: string) {
         "Normalize a negative debit to a positive amount only after confirming it is a completed expense.",
         "When two currencies appear, amount is the booked amount and originalAmount is the merchant amount when clear.",
         "Never turn a second same-currency amount into another expense unless it is clearly a separate charge.",
-        "Use only IDs returned by this tool; never silently fall back to the first category.",
+        "Use only IDs returned by get_transaction_import_context or create_income_category; never silently fall back to the first category.",
+        "If no income category fits, use create_income_category for the category requested by the user, then preview and confirm the income before saving.",
       ],
     },
   };
@@ -358,7 +359,7 @@ const handler = createMcpHandler((server) => {
   });
 
   server.registerTool("get_dashboard_link", { title: "Get Track My Spend links", description: "Return dashboard URLs.", inputSchema: {}, annotations: { readOnlyHint: true, openWorldHint: false } }, async () => jsonResult({ dashboard: "https://trackmyspend.co/en/dashboard", expenses: "https://trackmyspend.co/en/dashboard/expenses", income: "https://trackmyspend.co/en/dashboard/income", savings: "https://trackmyspend.co/en/dashboard/savings" }, "Track My Spend dashboard: https://trackmyspend.co/en/dashboard"));
-}, { serverInfo: { name: "track-my-spend", version: "3.0.0" } }, { basePath: "/api", maxDuration: 60, disableSse: true });
+}, { serverInfo: { name: "track-my-spend", version: "3.1.0" } }, { basePath: "/api", maxDuration: 60, disableSse: true });
 
 const authenticatedHandler = withMcpAuth(handler, async (_request, bearerToken) => {
   if (!bearerToken) return undefined;
