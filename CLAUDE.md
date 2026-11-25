@@ -89,17 +89,13 @@ Flow:
 
 ## MCP Endpoint
 
-- **URL:** `https://trackmyspend.co/api/mcp`
-- **Transport:** Streamable HTTP (POST for JSON-RPC, SSE responses)
+- **Production URL:** `https://financial-tool.vercel.app/api/mcp`
+- **Transport:** Streamable HTTP, with a fresh stateless handler for each request
 - **Route:** `app/api/[transport]/route.ts`
-- **Auth:** Uses `MCP_USER_ID` env var (bypasses NextAuth since MCP calls come from OpenClaw)
-- **Tools:**
-  - `parse_expenses` — AI-powered natural language expense parsing (uses GPT-4o)
-  - `save_expenses` — Save confirmed parsed expenses to database
-  - `get_summary` — Monthly spending summary with category breakdown
-  - `get_dashboard_link` — Returns dashboard URLs
-- **Flow:** parse_expenses (AI classifies) → user confirms → save_expenses (bulk create)
-- **Key pattern:** Uses Prisma directly (not fetch to own API routes) to avoid Vercel serverless self-call deadlock
+- **Auth:** OAuth authorization code with PKCE. Bearer tokens are bound to the authenticated user and the MCP resource; `MCP_USER_ID` is not used.
+- **Read-only starting tool:** `get_transaction_import_context` returns categories, currencies, timezone, and classification rules.
+- **Import flow:** get context → classify all source items → check duplicates → preview → user confirms → commit. Never commit without explicit confirmation.
+- **Other tools:** recent transactions, income category creation and preview/commit, expense date correction, monthly summary, and dashboard link.
 
 ## Environment Variables
 
@@ -107,7 +103,8 @@ Required in `.env`:
 - `DATABASE_URL` / `POSGRES_PRISMA_URL` - Neon PostgreSQL
 - `AUTH_SECRET` - NextAuth secret
 - `OPENAI_API_KEY` - AI expense import
-- `MCP_USER_ID` - User ID for MCP endpoint auth (single-user)
+- `MCP_PUBLIC_ORIGIN` - Public deployment origin for OAuth metadata and resource URLs (defaults to `https://financial-tool.vercel.app`)
+- `MCP_OAUTH_SECRET` / `MCP_REVIEW_SECRET` - OAuth and review-token signing secrets (each falls back to `AUTH_SECRET`)
 - `STRIPE_*` - Payment processing
 - `SYSTEME_API_KEY` - Email marketing
 - `HOTMART_CHECKOUT_URL_ES/EN` - Checkout links

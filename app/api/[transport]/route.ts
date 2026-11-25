@@ -186,7 +186,7 @@ function render(result){const d=result?.structuredContent||result;if(!d||d.statu
 const initId='track-my-spend-'+Date.now();window.addEventListener('message',e=>{const m=e.data;if(m?.id===initId&&m?.result){window.parent.postMessage({jsonrpc:'2.0',method:'ui/notifications/initialized'},'*')}if(m?.method==='ui/notifications/tool-result')render(m.params);if(m?.result?.structuredContent)render(m.result)});window.parent.postMessage({jsonrpc:'2.0',id:initId,method:'ui/initialize',params:{protocolVersion:'2026-01-26',appInfo:{name:'track-my-spend-review',title:'Track My Spend Review',version:'1.0.0'},appCapabilities:{}}},'*');if(window.openai?.toolOutput)render(window.openai.toolOutput);let checks=0;const timer=setInterval(()=>{if(window.openai?.toolOutput)render(window.openai.toolOutput);if(++checks>30)clearInterval(timer)},250);
 </script></body></html>`;
 
-const handler = createMcpHandler((server) => {
+const createHandler = () => createMcpHandler((server) => {
   registerIncomeTools(server, prisma);
   server.registerResource("transaction-import-policy", "trackmyspend://transaction-import-policy", {
     title: "Track My Spend transaction import policy", description: "Portable rules for classifying and importing transactions.", mimeType: "application/json",
@@ -358,10 +358,14 @@ const handler = createMcpHandler((server) => {
     return jsonResult({ month: selectedMonth, year: selectedYear, count: expenses.length, total, byCategory }, `Spending for ${selectedYear}-${String(selectedMonth).padStart(2, "0")}: ${expenses.length} expense(s), total ${total.toFixed(2)}.`);
   });
 
-  server.registerTool("get_dashboard_link", { title: "Get Track My Spend links", description: "Return dashboard URLs.", inputSchema: {}, annotations: { readOnlyHint: true, openWorldHint: false } }, async () => jsonResult({ dashboard: "https://trackmyspend.co/en/dashboard", expenses: "https://trackmyspend.co/en/dashboard/expenses", income: "https://trackmyspend.co/en/dashboard/income", savings: "https://trackmyspend.co/en/dashboard/savings" }, "Track My Spend dashboard: https://trackmyspend.co/en/dashboard"));
+  server.registerTool("get_dashboard_link", { title: "Get Track My Spend links", description: "Return the dashboard URL for the authenticated user's language. Expenses, income, and savings are managed on the dashboard.", inputSchema: {}, annotations: { readOnlyHint: true, openWorldHint: false } }, async (_args, extra) => {
+    const user = await prisma.users.findUnique({ where: { id: requireUserId(extra) }, select: { lang: true } });
+    const dashboard = `${MCP_ORIGIN}/${user?.lang === "es" ? "es" : "en"}/dashboard`;
+    return jsonResult({ dashboard, expenses: dashboard, income: dashboard, savings: dashboard }, `Track My Spend dashboard: ${dashboard}`);
+  });
 }, { serverInfo: { name: "track-my-spend", version: "3.1.0" } }, { basePath: "/api", maxDuration: 60, disableSse: true });
 
-const authenticatedHandler = withMcpAuth(handler, async (_request, bearerToken) => {
+const verifyToken = async (_request: Request, bearerToken?: string) => {
   if (!bearerToken) return undefined;
   try {
     await ensureOAuthTokenTable(prisma);
@@ -371,6 +375,16 @@ const authenticatedHandler = withMcpAuth(handler, async (_request, bearerToken) 
     if (!user?.fully_signed_up) return undefined;
     return { token: bearerToken, clientId: token.client_id, scopes: token.scopes.split(" "), expiresAt: Math.floor(token.expires_at.getTime() / 1000), resource: new URL(token.resource), extra: { userId: token.user_id } };
   } catch { return undefined; }
-}, { required: true, requiredScopes: ["transactions:read"], resourceMetadataPath: "/.well-known/oauth-protected-resource/api/mcp", resourceUrl: MCP_ORIGIN });
+};
+
+// mcp-handler's stateless transport is single-use: reusing the handler after
+// initialize makes the next POST (including notifications/initialized) return 500.
+// Build a fresh transport for each HTTP request, including warm Vercel invocations.
+const authenticatedHandler = (request: Request) => withMcpAuth(createHandler(), verifyToken, {
+  required: true,
+  requiredScopes: ["transactions:read"],
+  resourceMetadataPath: "/.well-known/oauth-protected-resource/api/mcp",
+  resourceUrl: MCP_ORIGIN,
+})(request);
 
 export { authenticatedHandler as GET, authenticatedHandler as POST };

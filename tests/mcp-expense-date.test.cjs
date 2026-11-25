@@ -39,6 +39,7 @@ function harness(count = 1) {
     if (!(name in dependencies)) throw new Error(`Unexpected dependency ${name}`);
     return dependencies[name];
   }, module, module.exports);
+  module.exports.POST({});
   return { ...tools.update_expense_date, calls };
 }
 const input = { expenseId: 'a9b7d5c7-6df7-4d70-81c8-5c2f0e936da7', expectedDate: '2026-10-11', date: '2026-10-10' };
